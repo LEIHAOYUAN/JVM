@@ -11,9 +11,7 @@ import lombok.Data;
 import org.hibernate.validator.HibernateValidator;
 
 /**
- * @Description 工作站-提货单BO
- * @Author leihaoyuan
- * @Date 2020/3/12 10:03
+ * validation util工具类
  */
 public class ValidationUtil {
     /**
