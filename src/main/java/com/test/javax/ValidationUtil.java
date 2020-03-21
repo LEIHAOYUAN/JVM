@@ -9,6 +9,10 @@ import javax.validation.Validator;
 
 import lombok.Data;
 import org.hibernate.validator.HibernateValidator;
+
+/**
+ * validation util工具类
+ */
 public class ValidationUtil {
     /**
      * 开启快速结束模式 failFast (true)
