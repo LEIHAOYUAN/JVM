@@ -11,7 +11,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * 测试类
+ * @Description
+ * @Author leihaoyuan
+ * @Date 2020/3/13 16:32
  */
 @Getter
 @Setter
