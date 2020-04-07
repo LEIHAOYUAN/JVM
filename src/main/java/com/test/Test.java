@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -16,16 +17,16 @@ import java.util.Map;
 public class Test {
 
     public static void main(String[] args) {
-        ParentPerson parentPerson = new ParentPerson();
-        parentPerson.setAge(100);
-        Person person = new Person();
-        System.out.println(person.getAge());
+//        testList();
+
+        String test = "3,4";
+        System.out.println(test.contains("4"));
 
     }
 
     private static void testList() {
         List<Person> personList = Lists.newArrayList();
-        Person pp = new Person();
+        Person pp;
         for (int i = 0; i < 5; i++) {
             pp = new Person();
             pp.setName("A" + i);
