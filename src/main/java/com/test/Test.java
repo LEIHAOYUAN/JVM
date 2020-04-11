@@ -21,7 +21,8 @@ public class Test {
 
         String test = "3,4";
         System.out.println(test.contains("4"));
-
+        BigDecimal buyNum = BigDecimal.valueOf(10000).divide(BigDecimal.valueOf(100),10, BigDecimal.ROUND_HALF_UP).divide(BigDecimal.valueOf(3),10, BigDecimal.ROUND_HALF_UP).setScale(3, BigDecimal.ROUND_HALF_UP);
+        System.out.println(buyNum);
     }
 
     private static void testList() {
