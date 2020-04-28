@@ -5,10 +5,11 @@ import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.springframework.util.CollectionUtils;
+import org.springframework.cglib.core.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,7 +20,22 @@ import java.util.List;
 public class ListTest {
 
     public static void main(String[] args) {
+//        filterList();
+        splitList();
+        List<String> listParam = Lists.newArrayList();
+    }
 
+    /**
+     * 切分集合
+     */
+    private static void splitList(){
+
+    }
+
+    /**
+     * 集合过滤
+     */
+    private static void filterList() {
         Person p1 = new Person();
         p1.setAge(null);
         p1.setName("张三");
@@ -50,7 +66,5 @@ public class ListTest {
         ArrayList<Person> people = Lists.newArrayList(filterRes);
         System.out.println(JSON.toJSONString(people));
         System.out.println(people);
-
-
     }
 }
