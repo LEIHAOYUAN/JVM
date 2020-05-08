@@ -37,5 +37,6 @@ public class InterruptThread extends Thread {
         t.start();
         Thread.sleep(2);
         t.interrupt();
+        t.join();
     }
 }
