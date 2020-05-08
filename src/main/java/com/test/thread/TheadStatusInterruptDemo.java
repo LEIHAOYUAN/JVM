@@ -7,8 +7,9 @@ package com.test.thread;
  */
 public class TheadStatusInterruptDemo {
     public static void main(String[] args) throws InterruptedException {
-        testRunningInterrupt();
-        testBlockedInterrupt();
+//        testRunningInterrupt();
+//        testBlockedInterrupt();
+        testRunningAfterBlockedInterrupt();
     }
 
     /**
@@ -54,6 +55,35 @@ public class TheadStatusInterruptDemo {
         });
         t1.start();
         Thread.currentThread().sleep(2000);
+        t1.interrupt();
+        t1.join();
+    }
+
+    /**
+     * 测试运行中状态的线程被interrupt
+     * @throws InterruptedException
+     */
+    private static void testRunningAfterBlockedInterrupt() throws InterruptedException {
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int i = 0;
+                while (true) {
+                    System.out.println("running...:"+i++);
+                    if(i>5000){
+                        try {
+                            System.out.println("sleep：" + Thread.currentThread().isInterrupted());
+                            //阻塞之前，interrupt被设置为true，此次会抛出异常
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            System.out.println("interrupted!!!" + Thread.currentThread().isInterrupted());
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+        t1.start();
         t1.interrupt();
         t1.join();
     }
