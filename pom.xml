@@ -72,14 +72,6 @@
             <artifactId>java-jwt</artifactId>
             <version>3.8.0</version>
         </dependency>
-        <!--二维码-->
-       <!-- <dependency>
-            <groupId>com.guosu.platform</groupId>
-            <artifactId>zxing-core</artifactId>
-            <version>3.3.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/ext-libs/zxing-3.3.0.jar</systemPath>
-        </dependency>-->
 
         <!-- 二维码-start -->
         <dependency>
