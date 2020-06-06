@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @Description
@@ -19,10 +20,18 @@ public class Test {
     public static void main(String[] args) {
 //        testList();
 
-        String test = "3,4";
-        System.out.println(test.contains("4"));
-        BigDecimal buyNum = BigDecimal.valueOf(10000).divide(BigDecimal.valueOf(100),10, BigDecimal.ROUND_HALF_UP).divide(BigDecimal.valueOf(3),10, BigDecimal.ROUND_HALF_UP).setScale(3, BigDecimal.ROUND_HALF_UP);
-        System.out.println(buyNum);
+//        String test = "3,4";
+//        System.out.println(test.contains("4"));
+//        BigDecimal buyNum = BigDecimal.valueOf(10000).divide(BigDecimal.valueOf(100),10, BigDecimal.ROUND_HALF_UP).divide(BigDecimal.valueOf(3),10, BigDecimal.ROUND_HALF_UP).setScale(3, BigDecimal.ROUND_HALF_UP);
+//        System.out.println(buyNum);
+        System.out.println(String.format("%04d", new Random().nextInt(10000)));
+//        System.out.println(System.currentTimeMillis());
+//        System.out.println(new Random().nextInt(9999));
+//        System.out.println(""+1+3);
+        for (int i = 0; i < 200; i++) {
+            System.out.println(""+System.nanoTime()+String.format("%04d", new Random().nextInt(10000)));
+        }
+
     }
 
     private static void testList() {

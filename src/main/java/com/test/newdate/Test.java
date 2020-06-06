@@ -15,7 +15,8 @@ public class Test {
     public static void main(String[] args) {
 //        testTodayLocalDate();
 //        testLocalTime();
-        testClock();
+//        testClock();
+        testLocalDateTime();
     }
 
     private static void testTodayLocalDate() {
@@ -103,6 +104,19 @@ public class Test {
         //字符串转日期
         LocalDate date2 = LocalDate.parse(str,format2);
         System.out.println("日期类型:"+date2);
+    }
+
+    public static void testLocalDateTime(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+
+        System.out.println(localDateTime);
+        System.out.println(localDateTime.plusHours(2));
+        System.out.println(localDateTime.plusDays(2));
+
+        Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+        System.out.println(date.toString());
+
+
     }
 
 }
