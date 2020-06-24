@@ -15,6 +15,18 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
+        test01();
+    }
+
+    private static void test01(){
+        List<Student> list = Lists.newArrayList();
+        list.add(new Student("张三", null, BigDecimal.TEN));
+        list.stream().filter(item->item.getAge().equals("56")).collect(Collectors.toList());
+
+    }
+
+    private static void test02(){
+
         List<Student> list = Lists.newArrayList();
         list.add(new Student("张三", "16", BigDecimal.TEN));
         list.add(new Student("张三", "16", BigDecimal.TEN));
@@ -37,8 +49,6 @@ public class ListTest {
         System.out.println("原始："+list);
         System.out.println("新："+sumStudentList1);
         System.out.println("===============================================================================");
-
-
         List<Student> sumStudentList2 = Lists.newArrayList();
         list.parallelStream().collect(Collectors.groupingBy(Student::getName, Collectors.toList()))
                 .forEach((s, students) ->
