@@ -49,6 +49,9 @@ public class AccesDirectBuffer {
         AccesDirectBuffer buffer = new AccesDirectBuffer();
         buffer.bufferAccess();
         buffer.directAccess();
+        System.out.println("热身代码");
+        buffer.bufferAccess();
+        buffer.directAccess();
     }
 
 
