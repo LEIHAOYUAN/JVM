@@ -6,6 +6,10 @@ import java.nio.ByteBuffer;
  * @Description java直接内存和对内存操作耗时比较
  * @Author leihaoyuan
  * @Date 2020/6/28 13:49
+ * 结论:
+ * 1、在申请内存空间时，堆空间的速度远远快于直接内存。
+ * 2、直接内存的访问速度比堆内存的访问速度快一个数量级
+ * 由此可以得出结论：直接内存适合申请次数较少、访问较频繁的场合。如果需要频繁申请内存空间，则并不适合使用直接内存。
  */
 public class AccesDirectBuffer {
 
