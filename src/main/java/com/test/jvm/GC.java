@@ -167,4 +167,10 @@ package com.test.jvm;
  *
  */
 public class GC {
+
+    public static void main(String[] args) {
+        String aa = "feafejiafoehiaofheioafheuiahfwuieahfueiwahfuiewahfuewiahfewuiafe";
+        String bb  = aa.substring(0,2);
+        System.out.println(bb);
+    }
 }
