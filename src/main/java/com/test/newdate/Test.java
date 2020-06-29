@@ -16,7 +16,21 @@ public class Test {
 //        testTodayLocalDate();
 //        testLocalTime();
 //        testClock();
-        testLocalDateTime();
+//        testLocalDateTime();
+
+
+        LocalDate yestorday = LocalDate.now().plusDays(-1);
+
+        System.out.println(getStartOfDay(yestorday));
+        System.out.println(getEndOfDay(yestorday));
+
+
+    }
+
+    private static void LocalDateTime2Date(){
+        LocalDateTime localDateTime = LocalDateTime.now();
+        Date from = Date.from(localDateTime.plusDays(2).atZone(ZoneId.systemDefault()).toInstant());
+        System.out.println(from);
     }
 
     private static void testTodayLocalDate() {
@@ -29,6 +43,23 @@ public class Test {
         System.out.println("month:" + month);
         System.out.println("day:" + day);
     }
+
+    /**
+     * 一天的开始
+     */
+    public static LocalDateTime getStartOfDay(LocalDate date) {
+        LocalDateTime time = LocalDateTime.of(date, LocalTime.MIN);
+        return time;
+    }
+
+    /**
+     * 一天的结束
+     */
+    public static LocalDateTime getEndOfDay(LocalDate date) {
+        LocalDateTime time = LocalDateTime.of(date, LocalTime.MAX);
+        return time;
+    }
+
 
     private static void testDefinitionLocalDate() {
         LocalDate date = LocalDate.of(2018, 2, 6);
@@ -109,6 +140,7 @@ public class Test {
     public static void testLocalDateTime(){
         LocalDateTime localDateTime = LocalDateTime.now();
 
+        System.out.println(localDateTime);
         System.out.println(localDateTime);
         System.out.println(localDateTime.plusHours(2));
         System.out.println(localDateTime.plusDays(2));
