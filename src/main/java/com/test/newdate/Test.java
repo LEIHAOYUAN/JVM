@@ -2,6 +2,7 @@ package com.test.newdate;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
@@ -19,15 +20,23 @@ public class Test {
 //        testLocalDateTime();
 
 
-        LocalDate yestorday = LocalDate.now().plusDays(-1);
-
-        System.out.println(getStartOfDay(yestorday));
-        System.out.println(getEndOfDay(yestorday));
+//        LocalDate yestorday = LocalDate.now().plusDays(-1);
+//
+//        System.out.println(getStartOfDay(yestorday));
+//        System.out.println(getEndOfDay(yestorday));
 
 
     }
 
-    private static void LocalDateTime2Date(){
+    private static void expires() {
+        DateTimeFormatter batchFmt = DateTimeFormatter.ofPattern("yyyyMMdd");
+        LocalDate nowDate = LocalDate.now();
+        LocalDate expiryDate = LocalDate.parse("20200630", batchFmt).plusDays(5);
+        Long expiresDays = ChronoUnit.DAYS.between(nowDate, expiryDate);
+        System.out.println(expiresDays);
+    }
+
+    private static void LocalDateTime2Date() {
         LocalDateTime localDateTime = LocalDateTime.now();
         Date from = Date.from(localDateTime.plusDays(2).atZone(ZoneId.systemDefault()).toInstant());
         System.out.println(from);
@@ -109,7 +118,7 @@ public class Test {
                 + periodToNextJavaRelease.getMonths());
     }
 
-    private static void testInstant(){
+    private static void testInstant() {
         Instant timestamp = Instant.now();
         System.out.println("What is value of this instant " + timestamp.toEpochMilli());
         // Date和Instant之间互相转换
@@ -118,11 +127,11 @@ public class Test {
         Instant instant = date.toInstant();
     }
 
-    private static void testFormatter(){
+    private static void testFormatter() {
         String dayAfterTommorrow = "20180205";
         LocalDate formatted = LocalDate.parse(dayAfterTommorrow,
                 DateTimeFormatter.BASIC_ISO_DATE);
-        System.out.println(dayAfterTommorrow+"  格式化后的日期为:  "+formatted);
+        System.out.println(dayAfterTommorrow + "  格式化后的日期为:  " + formatted);
 
 
         // 字符串和日期类型转换
@@ -130,14 +139,14 @@ public class Test {
         DateTimeFormatter format1 = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         //日期转字符串
         String str = date.format(format1);
-        System.out.println("日期转换为字符串:"+str);
+        System.out.println("日期转换为字符串:" + str);
         DateTimeFormatter format2 = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         //字符串转日期
-        LocalDate date2 = LocalDate.parse(str,format2);
-        System.out.println("日期类型:"+date2);
+        LocalDate date2 = LocalDate.parse(str, format2);
+        System.out.println("日期类型:" + date2);
     }
 
-    public static void testLocalDateTime(){
+    public static void testLocalDateTime() {
         LocalDateTime localDateTime = LocalDateTime.now();
 
         System.out.println(localDateTime);
