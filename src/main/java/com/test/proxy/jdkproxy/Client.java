@@ -2,9 +2,8 @@ package com.test.proxy.jdkproxy;
 
 /**
  * Client
- * client测试代码
  *
- * @author
+ * @author lhy
  * @create 2018-03-29 14:26
  **/
 public class Client {

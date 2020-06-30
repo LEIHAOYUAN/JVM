@@ -7,6 +7,7 @@ package com.test.exception;
  */
 public class Exception_Test {
 
+
     public static void main(String[] args) {
         new Exception_Test().test();
     }
