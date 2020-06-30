@@ -25,6 +25,7 @@ public class Test {
 //        System.out.println(getStartOfDay(yestorday));
 //        System.out.println(getEndOfDay(yestorday));
 
+        LocalDateTime2Date(getEndOfDay(LocalDate.now()));
 
     }
 
@@ -36,22 +37,18 @@ public class Test {
         System.out.println(expiresDays);
     }
 
-    private static void LocalDateTime2Date() {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        Date from = Date.from(localDateTime.plusDays(2).atZone(ZoneId.systemDefault()).toInstant());
+    private static void LocalDate2Date() {
+        LocalDate localDate = LocalDate.now();
+        ZonedDateTime zonedDateTime = localDate.atStartOfDay(ZoneId.systemDefault());
+        Date from = Date.from(zonedDateTime.toInstant());
+
+    }
+
+    private static void LocalDateTime2Date(LocalDateTime localDateTime) {
+        Date from = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
         System.out.println(from);
     }
 
-    private static void testTodayLocalDate() {
-        LocalDate today = LocalDate.now();
-        int year = today.getYear();
-        int month = today.getMonthValue();
-        int day = today.getDayOfMonth();
-        System.out.println(today);
-        System.out.println("year:" + year);
-        System.out.println("month:" + month);
-        System.out.println("day:" + day);
-    }
 
     /**
      * 一天的开始
