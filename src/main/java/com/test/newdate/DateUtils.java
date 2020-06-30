@@ -37,6 +37,45 @@ public class DateUtils {
     }
 
     /**
+     * String转换为Date
+     *
+     * @param date
+     * @param formatter
+     * @return
+     */
+    public static String convertDate2String(Date date, String formatter) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(formatter);
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(instant, zoneId);
+        return dateTimeFormatter.format(localDateTime);
+    }
+
+    /**
+     * String转换为Date
+     *
+     * @param localDate
+     * @param formatter
+     * @return
+     */
+    public static String convertLocalDate2String(LocalDate localDate, String formatter) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(formatter);
+        return dateTimeFormatter.format(localDate);
+    }
+
+    /**
+     * String转换为Date
+     *
+     * @param localDateTime
+     * @param formatter
+     * @return
+     */
+    public static String convertLocalDateTime2String(LocalDateTime localDateTime, String formatter) {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(formatter);
+        return dateTimeFormatter.format(localDateTime);
+    }
+
+    /**
      * String转换为LocalDate
      *
      * @param dateStr
