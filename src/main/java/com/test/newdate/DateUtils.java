@@ -52,6 +52,29 @@ public class DateUtils {
     }
 
     /**
+     * Date转换为LocalDate
+     *
+     * @param date
+     * @return
+     */
+    public static LocalDate convertDate2LocalDate(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
+
+    /**
+     * Date转换为LocalDateTime
+     *
+     * @param date
+     * @return
+     */
+    public static LocalDateTime convertDate2LocalDateTime(Date date) {
+        Instant instant = date.toInstant();
+        ZoneId zoneId = ZoneId.systemDefault();
+        return LocalDateTime.ofInstant(instant, zoneId);
+    }
+
+    /**
      * String转换为Date
      *
      * @param localDate
@@ -145,6 +168,7 @@ public class DateUtils {
 
     /**
      * 计算相差天数
+     *
      * @param startDate
      * @param endDate
      * @return
@@ -155,6 +179,7 @@ public class DateUtils {
 
     /**
      * 计算相差月数
+     *
      * @param startDate
      * @param endDate
      * @return
