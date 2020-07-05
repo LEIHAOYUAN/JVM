@@ -15,17 +15,33 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        test01();
+//        test01();
+
+        test01_01();
+
     }
 
-    private static void test01(){
+    private static void test01() {
         List<Student> list = Lists.newArrayList();
         list.add(new Student("张三", null, BigDecimal.TEN));
-        list.stream().filter(item->item.getAge().equals("56")).collect(Collectors.toList());
+        List<Student> collect = list.stream().filter(item -> item.getName().equals("56")).collect(Collectors.toList());
+        collect.forEach(item -> item.setAge("0"));
+        collect.stream().filter(item -> item.getName().equals("XXX")).forEach(System.out::println);
+        System.out.println(collect.size());
 
     }
 
-    private static void test02(){
+    private static void test01_01() {
+        List<Student> list = Lists.newArrayList();
+        list.add(new Student("张三", null, BigDecimal.TEN));
+
+        Student student = list.stream().filter(item -> "XXX".equals(item.getName())).findFirst().orElse(list.get(0));
+
+        System.out.println(student.getName());
+
+    }
+
+    private static void test02() {
 
         List<Student> list = Lists.newArrayList();
         list.add(new Student("张三", "16", BigDecimal.TEN));
@@ -46,8 +62,8 @@ public class ListTest {
             }).ifPresent(sumStudentList1::add);
         }
 
-        System.out.println("原始："+list);
-        System.out.println("新："+sumStudentList1);
+        System.out.println("原始：" + list);
+        System.out.println("新：" + sumStudentList1);
         System.out.println("===============================================================================");
         List<Student> sumStudentList2 = Lists.newArrayList();
         list.parallelStream().collect(Collectors.groupingBy(Student::getName, Collectors.toList()))

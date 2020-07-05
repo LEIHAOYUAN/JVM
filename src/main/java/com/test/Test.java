@@ -2,6 +2,7 @@ package com.test;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -9,6 +10,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 
 /**
  * @Description
@@ -18,6 +20,11 @@ import java.util.Random;
 public class Test {
 
     public static void main(String[] args) {
+
+        Set<String> aa = Sets. newHashSet();
+        aa.add("aa");
+        aa.add("aa");
+        System.out.println(aa);
 //        testList();
 
 //        String test = "3,4";
