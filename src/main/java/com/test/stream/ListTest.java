@@ -45,10 +45,13 @@ public class ListTest {
         List<Student> list = Lists.newArrayList();
         list.add(new Student("张三", null, BigDecimal.TEN));
         list.add(new Student("张三", null, BigDecimal.TEN));
+        list.add(new Student("张三", "fefe", BigDecimal.ZERO));
 
        int  count = list.stream().filter(item -> "张三1".equals(item.getName())).map(Student::getName).collect(Collectors.toSet()).size();
 
-        System.out.println(count);
+       long  countL = list.stream().filter(item -> "张三".equals(item.getName())).map(Student::getName).distinct().count();
+
+        System.out.println(countL);
 
     }
 
