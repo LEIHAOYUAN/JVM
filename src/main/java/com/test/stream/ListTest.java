@@ -17,7 +17,7 @@ public class ListTest {
     public static void main(String[] args) {
 //        test01();
 
-        test01_01();
+        test01_02();
 
     }
 
@@ -35,9 +35,20 @@ public class ListTest {
         List<Student> list = Lists.newArrayList();
         list.add(new Student("张三", null, BigDecimal.TEN));
 
-        Student student = list.stream().filter(item -> "XXX".equals(item.getName())).findFirst().orElse(list.get(0));
+        Student student = list.stream().filter(item -> "XXXX".equals(item.getName())).findFirst().orElse(list.get(0));
 
         System.out.println(student.getName());
+
+    }
+
+    private static void test01_02() {
+        List<Student> list = Lists.newArrayList();
+        list.add(new Student("张三", null, BigDecimal.TEN));
+        list.add(new Student("张三", null, BigDecimal.TEN));
+
+       int  count = list.stream().filter(item -> "张三1".equals(item.getName())).map(Student::getName).collect(Collectors.toSet()).size();
+
+        System.out.println(count);
 
     }
 
