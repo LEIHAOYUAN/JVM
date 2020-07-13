@@ -16,8 +16,19 @@ public class ListTest {
 
     public static void main(String[] args) {
 //        test01();
+//        test01_02();
 
-        test01_02();
+        List<String> aa = Lists.newArrayList();
+        aa.add("AAA");
+        aa.add("AAA");
+        aa.add("AAA");
+        aa.add("AAA");
+        aa.add("AAA");
+        aa.add("AAA");
+
+        aa = aa.stream().filter(item -> item.equals("$$$")).collect(Collectors.toList());
+        aa.forEach(item->item+="BBB");
+        System.out.println(aa.size());
 
     }
 
