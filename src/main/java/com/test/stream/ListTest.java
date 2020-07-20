@@ -3,6 +3,7 @@ package com.test.stream;
 import com.google.common.collect.Lists;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,10 +15,32 @@ import java.util.stream.Collectors;
  */
 public class ListTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 //        test01();
 //        test01_02();
+        long time1 = new Date().getTime();
 
+        System.out.println(time1);
+        Thread.sleep(5000);
+        long time2 = new Date().getTime();
+        System.out.println(time2);
+        System.out.println(time1 < time2);
+
+//        test0002();
+    }
+
+    private static void test0001() {
+        throw new RuntimeException("test");
+
+    }
+
+    private static void test0002() {
+        test0001();
+        System.out.println("test00002");
+    }
+
+
+    private static void test001() {
         List<String> aa = Lists.newArrayList();
         aa.add("AAA");
         aa.add("AAA");
@@ -27,9 +50,8 @@ public class ListTest {
         aa.add("AAA");
 
         aa = aa.stream().filter(item -> item.equals("$$$")).collect(Collectors.toList());
-        aa.forEach(item->item+="BBB");
+        aa.forEach(item -> item += "BBB");
         System.out.println(aa.size());
-
     }
 
     private static void test01() {
@@ -58,9 +80,9 @@ public class ListTest {
         list.add(new Student("张三", null, BigDecimal.TEN));
         list.add(new Student("张三", "fefe", BigDecimal.ZERO));
 
-       int  count = list.stream().filter(item -> "张三1".equals(item.getName())).map(Student::getName).collect(Collectors.toSet()).size();
+        int count = list.stream().filter(item -> "张三1".equals(item.getName())).map(Student::getName).collect(Collectors.toSet()).size();
 
-       long  countL = list.stream().filter(item -> "张三".equals(item.getName())).map(Student::getName).distinct().count();
+        long countL = list.stream().filter(item -> "张三".equals(item.getName())).map(Student::getName).distinct().count();
 
         System.out.println(countL);
 
