@@ -3,7 +3,6 @@ package com.test.stream;
 import com.google.common.collect.Lists;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,15 +17,37 @@ public class ListTest {
     public static void main(String[] args) throws InterruptedException {
 //        test01();
 //        test01_02();
-        long time1 = new Date().getTime();
+//        long time1 = new Date().getTime();
 
-        System.out.println(time1);
-        Thread.sleep(5000);
-        long time2 = new Date().getTime();
-        System.out.println(time2);
-        System.out.println(time1 < time2);
+//        System.out.println(time1);
+//        Thread.sleep(5000);
+//        long time2 = new Date().getTime();
+//        System.out.println(time2);
+//        System.out.println(time1 < time2);
 
 //        test0002();
+        Float aaa = 40.0000F;
+        Double bbb= 40D;
+        System.out.println(aaa.equals(bbb));
+        System.out.println("------------------------");
+        List<Student> list = Lists.newArrayList();
+
+
+        Student s1 = new Student();
+        s1.setName("AAA");
+        Student s2 = new Student();
+        s2.setName("AAA");
+        Student s3 = new Student();
+        s3.setName("BBB");
+
+        list.add(s1);
+        list.add(s2);
+        list.add(s3);
+
+        List<String> collect = list.stream().map(Student::getName).distinct().collect(Collectors.toList());
+        System.out.println(collect);
+
+
     }
 
     private static void test0001() {
