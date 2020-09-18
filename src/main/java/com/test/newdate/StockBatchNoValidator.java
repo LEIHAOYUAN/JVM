@@ -26,7 +26,8 @@ public class StockBatchNoValidator {
 
 
     public static void main(String[] args) {
-        System.out.println(isValidDate(null));
+//        System.out.println(isValidDate(null));
+        System.out.println(test("12345680"));
     }
 
     private static boolean isValidDate(String str) {
@@ -43,18 +44,14 @@ public class StockBatchNoValidator {
     /**
      * java8 严格校验日期格式
      */
-    private static void test(){
+    private static boolean test(String dateStr){
         String format = "yyyyMMdd";
-        DateTimeFormatter ldt = DateTimeFormatter.ofPattern(format.replace("y", "u"))
-                .withResolverStyle(ResolverStyle.STRICT);
-
-        boolean dateFlag = true;
+        DateTimeFormatter ldt = DateTimeFormatter.ofPattern(format.replace("y", "u")).withResolverStyle(ResolverStyle.STRICT);
         try {
-            LocalDate.parse("20200228", ldt);
+            return LocalDate.parse(dateStr, ldt)==null?false:true;
         } catch (Exception e) {
-            dateFlag = false;
+           return false;
         }
-        System.out.println("日期是否满足要求" + dateFlag);
     }
 
 }
