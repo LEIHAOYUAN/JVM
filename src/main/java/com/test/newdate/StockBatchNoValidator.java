@@ -28,7 +28,7 @@ public class StockBatchNoValidator {
     public static void main(String[] args) {
         System.out.println(isValidDate("202001011"));
         System.out.println("----------------------------------------");
-        System.out.println(test("202001011"));
+        System.out.println(isValid("202001011"));
     }
 
     private static boolean isValidDate(String str) {
@@ -44,7 +44,7 @@ public class StockBatchNoValidator {
     /**
      * java8 严格校验日期格式
      */
-    private static boolean test(String dateStr){
+    private static boolean isValid(String dateStr){
         String format = "yyyyMMdd";
         DateTimeFormatter ldt = DateTimeFormatter.ofPattern(format.replace("y", "u")).withResolverStyle(ResolverStyle.STRICT);
         try {
