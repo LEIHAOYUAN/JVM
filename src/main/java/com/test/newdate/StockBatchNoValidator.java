@@ -26,19 +26,19 @@ public class StockBatchNoValidator {
 
 
     public static void main(String[] args) {
-//        System.out.println(isValidDate(null));
-        System.out.println(test("12345680"));
+        System.out.println(isValidDate("202001011"));
+        System.out.println("----------------------------------------");
+        System.out.println(test("202001011"));
     }
 
     private static boolean isValidDate(String str) {
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         try {
             format.setLenient(false);
-            format.parse(str);
+            return format.parse(str)==null?false:true;
         } catch (Exception e) {
             return false;
         }
-        return true;
     }
 
     /**
