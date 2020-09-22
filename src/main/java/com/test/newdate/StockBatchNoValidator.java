@@ -26,6 +26,9 @@ public class StockBatchNoValidator {
 
 
     public static void main(String[] args) {
+        Object object = null;
+        System.out.println(object instanceof String);
+
         System.out.println(isValidDate("202001011"));
         System.out.println("----------------------------------------");
         System.out.println(isValid("202001011"));
