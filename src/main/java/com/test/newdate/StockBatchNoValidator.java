@@ -32,6 +32,11 @@ public class StockBatchNoValidator {
         System.out.println(isValidDate("202001011"));
         System.out.println("----------------------------------------");
         System.out.println(isValid("202001011"));
+
+        System.out.println("--------------------------------------------");
+        Double dd = 90.0000D;
+        Double aa = 90D;
+        System.out.println(dd.equals(aa));
     }
 
     private static boolean isValidDate(String str) {
