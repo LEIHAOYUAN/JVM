@@ -15,6 +15,7 @@ public class Test {
         Student student = new Student();
         student.setAge(200);
         student.setName("TESTXXXX");
+        student.setSex("000000");
 
         System.out.println(JSON.toJSONString(student));
 

@@ -1,6 +1,7 @@
 package com.test.fastjson;
 
 import com.alibaba.fastjson.annotation.JSONField;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import lombok.Setter;
  * @Author leihaoyuan
  * @Date 2020/10/12 12:06
  */
+
 @Getter
 @Setter
 public class Student {
@@ -18,5 +20,9 @@ public class Student {
 
     @JSONField(name = "fullName")
     private String name;
+
+    @Ignore
+    private String address;
+
 
 }
