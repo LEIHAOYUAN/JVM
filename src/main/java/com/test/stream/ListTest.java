@@ -47,7 +47,20 @@ public class ListTest {
         List<String> collect = list.stream().map(Student::getName).distinct().collect(Collectors.toList());
         System.out.println(collect);
 
+        System.out.println("------------------------");
+        System.out.println("------------------------");
+        System.out.println("---------testcontains---------------");
+        testContins();
 
+    }
+
+
+    private static void testContins(){
+        List<String> list = Lists.newArrayList();
+        list.add("AAAA");
+        list.add("BBB");
+        boolean ccc = list.contains("AAA");
+        System.out.println(ccc);
     }
 
     private static void test0001() {
