@@ -1,8 +1,10 @@
 package com.test.stream;
 
 import com.google.common.collect.Lists;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -27,7 +29,7 @@ public class ListTest {
 
 //        test0002();
         Float aaa = 40.0000F;
-        Double bbb= 40D;
+        Double bbb = 40D;
         System.out.println(aaa.equals(bbb));
         System.out.println("------------------------");
         List<Student> list = Lists.newArrayList();
@@ -51,11 +53,23 @@ public class ListTest {
         System.out.println("------------------------");
         System.out.println("---------testcontains---------------");
         testContins();
+        System.out.println("------------------------");
+        System.out.println("------------------------");
+        System.out.println("---------**************---------------");
+        testSplit();
 
     }
 
+    private static void testSplit() {
+        String notes = "1,2   ,3,  ,5,6  ";
+        if(StringUtils.isNotBlank(notes)){
+            List<String> listNos = Arrays.stream(notes.split(",")).filter(StringUtils::isNotBlank).map(String::trim).collect(Collectors.toList());
+            System.out.println(Arrays.toString(listNos.toArray()));
+        }
 
-    private static void testContins(){
+    }
+
+    private static void testContins() {
         List<String> list = Lists.newArrayList();
         list.add("AAAA");
         list.add("BBB");
