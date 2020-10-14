@@ -28,6 +28,8 @@ public class Test {
         String aa = " 99 ";
         System.out.println(aa.trim());
 
+        System.out.println(JSON.toJSONString(null));
+
     }
 
     @Ignore
