@@ -3,6 +3,8 @@ package com.test.fastjson;
 import com.alibaba.fastjson.JSON;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 
+import java.math.BigDecimal;
+
 /**
  * @Description
  * @Author leihaoyuan
@@ -19,6 +21,12 @@ public class Test {
 
         System.out.println(JSON.toJSONString(student));
         System.out.println(test(student));
+
+
+        System.out.println(BigDecimal.ONE.negate());
+
+        String aa = " 99 ";
+        System.out.println(aa.trim());
 
     }
 
