@@ -1,9 +1,13 @@
 package com.test.fastjson;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import jdk.nashorn.internal.ir.annotations.Ignore;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @Description
@@ -19,16 +23,9 @@ public class Test {
         student.setName("TESTXXXX");
         student.setAddress("000000");
 
-        System.out.println(JSON.toJSONString(student));
-        System.out.println(test(student));
-
-
-        System.out.println(BigDecimal.ONE.negate());
-
-        String aa = " 99 ";
-        System.out.println(aa.trim());
-
-        System.out.println(JSON.toJSONString(null));
+        List<Student> listStudent = null;
+        Map<String, String> collect = listStudent.stream().collect(Collectors.toMap(Student::getAddress, Student::getName));
+        System.out.println(collect.toString());
 
     }
 
