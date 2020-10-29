@@ -16,6 +16,14 @@ public class BigDecimalTest {
         System.out.println(decimal1.add(decimal1));
         System.out.println(decimal1.add(decimal2));
 
+        System.out.println("校验BigDecimal是否为整数");
+        System.out.println(testIsInteger(BigDecimal.valueOf(1.0004)));
 
     }
+
+
+    public static boolean testIsInteger(BigDecimal param){
+        return param.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0;
+    }
+
 }
