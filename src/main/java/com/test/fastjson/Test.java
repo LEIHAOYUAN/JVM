@@ -22,7 +22,7 @@ public class Test {
 
         Student student2 = new Student();
         student2.setAge(200);
-        student2.setName("TESTXXXX");
+        student2.setName("TESTXXX8X");
         student2.setAddress("000000");
 
         List<Student> listStudent = Lists.newArrayList();
@@ -34,6 +34,8 @@ public class Test {
          int distictSize = (int) listStudent.stream().map(Student::getName).distinct().count();
          if(distictSize != listStudent.size()){
              System.out.println("有重复数据");
+         }else{
+             System.out.println("不存在重复数据");
          }
     }
 
