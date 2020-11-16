@@ -19,13 +19,13 @@ public class CollectingAndThenTest {
 
     public static void main(String[] args) {
         List<Student> list = Lists.newArrayList();
-        list.add(new Student("AAA","20", BigDecimal.TEN));
-        list.add(new Student("AAA","20", BigDecimal.TEN));
-        list.add(new Student("AAA","20", BigDecimal.TEN));
-        list.add(new Student("AAA","20", BigDecimal.TEN));
-        list.add(new Student("AAA","20", BigDecimal.TEN));
-        list.add(new Student("AAAA","20", BigDecimal.TEN));
-        list.add(new Student("BB","10", BigDecimal.TEN));
+        list.add(new Student("AAA", "20", BigDecimal.TEN));
+        list.add(new Student("AAA", "20", BigDecimal.TEN));
+        list.add(new Student("AAA", "20", BigDecimal.TEN));
+        list.add(new Student("AAA", "20", BigDecimal.TEN));
+        list.add(new Student("AAA", "20", BigDecimal.TEN));
+        list.add(new Student("AAAA", "20", BigDecimal.TEN));
+        list.add(new Student("BB", "10", BigDecimal.TEN));
         ArrayList<Student> distinctList = list.stream().collect(Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(item -> item.getName() + ";" + item.getAge()))), ArrayList::new));
         System.out.println(JSON.toJSONString(distinctList));
     }
