@@ -2,6 +2,7 @@ package com.test.newdate.calendar;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.TimeZone;
 
 /**
@@ -12,6 +13,18 @@ import java.util.TimeZone;
 public class CalendarTest {
 
     public static void main(String[] args) {
+        testCalendarToString();
+    }
+
+    private static void testCalendarToString() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, -1);
+        String dateFix = DateUtil.dateToString(new Date(calendar.getTimeInMillis()), "yyMM");
+        System.out.println(dateFix);
+    }
+
+
+    private static void testCalendar() {
         Calendar c = Calendar.getInstance(TimeZone.getTimeZone("GMT+08:00"));
         //获取年
         int year = c.get(Calendar.YEAR);
@@ -33,8 +46,8 @@ public class CalendarTest {
         SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String curDate = s.format(c.getTime());                                      //当前日期
-        System.out.println("当前时间：" + year + "年 " + month + "月 " + day + "天 " + time + "时 " + min + "分 " + sec +"秒");
-        System.out.println("第一天和最后天：" + first +"," + last);
+        System.out.println("当前时间：" + year + "年 " + month + "月 " + day + "天 " + time + "时 " + min + "分 " + sec + "秒");
+        System.out.println("第一天和最后天：" + first + "," + last);
         System.out.println("当前日期：" + curDate);
     }
 }
