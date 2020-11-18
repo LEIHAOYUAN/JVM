@@ -9,6 +9,11 @@ package com.test.string;
 public class Test {
 
     public static void main(String[] args) {
+        System.out.println(1+2+"hello");
+        System.out.println(""+1+2+"hello");
+    }
+
+    private static void test01(){
         String str1 = new StringBuilder("深入理解").append("虚拟机").toString();
         System.out.println(str1.intern() == str1);
         //
