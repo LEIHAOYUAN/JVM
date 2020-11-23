@@ -1,8 +1,11 @@
 package com.test.collection;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
+import com.test.clone.Student;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Description
@@ -12,11 +15,27 @@ import java.util.List;
 public class ListTest {
 
     public static void main(String[] args) {
-        List<Long> ids = Lists.newArrayList();
-        ids.add(null);
-        ids.add(null);
-        ids.add(null);
-        ids.add(null);
-        System.out.println(ids.size());
+        List<Integer> conditionList = Lists.newArrayList();
+        conditionList.add(10);
+        conditionList.add(null);
+
+
+        List<Student> listStu = Lists.newArrayList();
+        listStu.add(new Student(10));
+        listStu.add(new Student(10));
+        listStu.add(new Student(11));
+        listStu.add(new Student(12));
+
+        System.out.println("过滤前："+ JSON.toJSONString(listStu));
+
+        listStu = listStu.stream().filter(item -> {return !conditionList.contains(item.getId());}).collect(Collectors.toList());
+
+        System.out.println("过滤后："+ JSON.toJSONString(listStu));
+
+
+
+
+
+
     }
 }
