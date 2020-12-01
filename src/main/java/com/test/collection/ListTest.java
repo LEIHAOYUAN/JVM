@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.test.clone.Student;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -15,10 +16,30 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-
-
-
+        testDealMapDuplicateKey();
     }
+
+    private static void testDealMapDuplicateKey(){
+        List<Student> listStu = Lists.newArrayList();
+        listStu.add(new Student(10));
+        listStu.add(new Student(10));
+        listStu.add(new Student(11));
+        listStu.add(new Student(12));
+        Map<Integer, Student> idMap = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s,(oldValue, newValue) -> newValue));
+        System.out.println(JSON.toJSONString(idMap));
+    }
+
+    private static void testMapDuplicateKey(){
+        List<Student> listStu = Lists.newArrayList();
+        listStu.add(new Student(10));
+        listStu.add(new Student(10));
+        listStu.add(new Student(11));
+        listStu.add(new Student(12));
+        Map<Integer, Student> idMap = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s));
+        System.out.println(JSON.toJSONString(idMap));
+    }
+
+
 
     /**
      * 根据一个集合过滤另一个集合
