@@ -15,6 +15,15 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
+
+
+
+    }
+
+    /**
+     * 根据一个集合过滤另一个集合
+     */
+    private static void testCollectionInster(){
         List<Integer> conditionList = Lists.newArrayList();
         conditionList.add(10);
         conditionList.add(null);
@@ -31,11 +40,5 @@ public class ListTest {
         listStu = listStu.stream().filter(item -> {return !conditionList.contains(item.getId());}).collect(Collectors.toList());
 
         System.out.println("过滤后："+ JSON.toJSONString(listStu));
-
-
-
-
-
-
     }
 }
