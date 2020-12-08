@@ -16,8 +16,10 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        testDealMapDuplicateKey();
+//        testDealMapDuplicateKey();
+        testCollectionInster();
     }
+
 
     private static void testDealMapDuplicateKey(){
         List<Student> listStu = Lists.newArrayList();
