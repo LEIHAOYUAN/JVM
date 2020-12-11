@@ -24,6 +24,10 @@ public class DateUtils {
 
     public static final String TIME_FORMAT_2 = "HH:mm";
 
+
+    public static void main(String[] args) {
+        System.out.println(validDateStr("2020-10-04"));
+    }
     /**
      * String转换为Date
      *
@@ -34,6 +38,12 @@ public class DateUtils {
     public static Date convertString2Date(String dateStr, String formatter) {
         DateTimeFormatter batchFmt = DateTimeFormatter.ofPattern(formatter);
         return Date.from(LocalDate.parse(dateStr, batchFmt).atStartOfDay(ZoneId.systemDefault()).toInstant());
+    }
+
+    public static boolean validDateStr(String datestr){
+        LocalDate paramDate = LocalDate.parse(datestr, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        LocalDate today = LocalDate.now();
+        return today.isAfter(paramDate);
     }
 
     /**

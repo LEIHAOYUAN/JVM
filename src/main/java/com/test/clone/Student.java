@@ -1,7 +1,12 @@
 package com.test.clone;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.lang.reflect.Constructor;
 
+@Getter
+@Setter
 public class Student implements Cloneable {
 
     private int id;
