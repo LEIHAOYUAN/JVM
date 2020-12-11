@@ -10,7 +10,8 @@ public class FinalFieldTest {
     private final int age = getAge();
 
     public static void main(String[] args) {
-//        new FinalFieldTest();
+        new FinalFieldTest();
+        new FinalFieldTest();
     }
 
     private int getAge(){
