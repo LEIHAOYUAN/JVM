@@ -108,3 +108,4 @@ hs_err_pid*
 /.idea/vcs.xml
 /.idea/codeStyles/
 /target/
+/.idea/deployment.xml
