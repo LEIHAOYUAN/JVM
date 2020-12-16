@@ -10,9 +10,12 @@ import java.math.BigDecimal;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
+        System.out.println(BigDecimal.ZERO.negate().compareTo(BigDecimal.ZERO));
+    }
+
+    private void testNullPoint(){
         BigDecimal b = null;
         System.out.println(BigDecimal.ZERO.compareTo(b) == 0);
-
     }
 
     private void test(){
