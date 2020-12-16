@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
+        System.out.println(BigDecimal.ZERO.compareTo(BigDecimal.TEN.negate()));
         System.out.println(BigDecimal.ZERO.negate().compareTo(BigDecimal.ZERO));
     }
 
