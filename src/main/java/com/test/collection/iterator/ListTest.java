@@ -21,17 +21,25 @@ public class ListTest {
         Student s2 = new Student();
         s2.setName("AAA");
 
-        Student s3 = new Student();
-        s3.setName("A");
+        List<Student> list = Lists.newArrayList();
+        list.add(s1);
+        list.add(s2);
+        list.removeIf(item -> item.getName().equals("AAA"));
 
-        Student s4 = new Student();
-        s4.setName("AB");
+        System.out.println(JSON.toJSONString(list));
+
+    }
+
+    private void test01(){
+        Student s1 = new Student();
+        s1.setName("AAA");
+
+        Student s2 = new Student();
+        s2.setName("AAA");
 
         List<Student> list = Lists.newArrayList();
         list.add(s1);
         list.add(s2);
-        list.add(s3);
-        list.add(s4);
         Iterator<Student> iterator = list.iterator();
         while (iterator.hasNext()){
             Student item = iterator.next();
@@ -41,6 +49,5 @@ public class ListTest {
         }
 
         System.out.println(JSON.toJSONString(list));
-
     }
 }
