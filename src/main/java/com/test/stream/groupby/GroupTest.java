@@ -22,11 +22,16 @@ public class GroupTest {
 
         Student s2 = new Student();
         s2.setName("AAA");
-        s2.setScore(BigDecimal.TEN);
+        s2.setScore(BigDecimal.ONE);
+
+        Student s3 = new Student();
+        s3.setName("BBB");
+        s3.setScore(BigDecimal.ONE);
 
         List<Student> list = Lists.newArrayList();
         list.add(s1);
         list.add(s2);
+        list.add(s3);
 
         List<Student> newList = Lists.newArrayList();
         list.stream().collect(Collectors.groupingBy(Student::getName, Collectors.toList())).forEach(
