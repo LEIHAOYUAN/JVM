@@ -57,6 +57,7 @@ public class ListTest {
             if(item.getName().equals("AAA")){
                 iterator.remove();
                 System.out.println("已经移除的："+item.toString());
+                System.out.println("集合大小："+list.size());
                 continue;
             }
             System.out.println("循环结束");
