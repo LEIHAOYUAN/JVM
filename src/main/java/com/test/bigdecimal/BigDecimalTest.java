@@ -11,6 +11,7 @@ public class BigDecimalTest {
 
     public static void main(String[] args) {
 
+        System.out.println(BigDecimal.ZERO.compareTo(null));
     }
 
     private void testCondition() {
