@@ -2,8 +2,10 @@ package com.test.collection.iterator;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.test.stream.Student;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,7 +17,14 @@ import java.util.List;
 public class ListTest {
 
     public static void main(String[] args) {
-        test01();
+        test();
+    }
+
+
+    private void test03(){
+        HashMap<Object, Object> map1 = Maps.newHashMap();
+        HashMap<Object, Object> map2 = null;
+        map1.putAll(map2);
     }
 
     private static void test(){
