@@ -2,6 +2,9 @@ package com.util.image;
 
 import java.io.FileInputStream;
 
+/**
+ *
+ */
 public class FileType {
     public static String bytesToHexString(byte[] src) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -32,6 +35,15 @@ public class FileType {
         String ooo = TypeDict.checkType(xxx);
         System.out.println("后缀名是：" + ooo);
 
+    }
+
+    /**
+     *
+     * @param factory
+     * @return
+     */
+    private int test(int factory){
+        return 0;
     }
 
 
