@@ -2,10 +2,14 @@ package com.util.image;
 
 import java.io.FileInputStream;
 
-/**
- *
- */
+
 public class FileType {
+
+    /**
+     * 字节转换为字符串
+     * @param src
+     * @return
+     */
     public static String bytesToHexString(byte[] src) {
         StringBuilder stringBuilder = new StringBuilder();
         if (src == null || src.length <= 0) {
