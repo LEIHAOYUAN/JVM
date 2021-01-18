@@ -41,14 +41,5 @@ public class FileType {
 
     }
 
-    /**
-     *
-     * @param factory
-     * @return
-     */
-    private int test(int factory){
-        return 0;
-    }
-
 
 }
