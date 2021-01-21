@@ -9,6 +9,10 @@ package com.test.string;
 public class Test {
 
     public static void main(String[] args) {
+        System.out.println("TEST".concat(null));
+    }
+
+    private void test(){
         System.out.println(1+2+"hello");
         System.out.println(""+1+2+"hello");
     }
