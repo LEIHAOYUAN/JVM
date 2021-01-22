@@ -25,7 +25,11 @@ public class Test {
 //        System.out.println(getStartOfDay(yestorday));
 //        System.out.println(getEndOfDay(yestorday));
 
-        LocalDateTime2Date(getEndOfDay(LocalDate.now()));
+//        LocalDateTime2Date(getEndOfDay(LocalDate.now()));
+
+        System.out.println(new Date().getTime());
+        System.out.println(Instant.now().getNano());
+        System.out.println(System.currentTimeMillis());
 
     }
 
