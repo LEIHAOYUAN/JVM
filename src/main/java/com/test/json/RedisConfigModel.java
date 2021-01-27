@@ -27,6 +27,8 @@ public class RedisConfigModel implements Serializable {
     private Integer jedisPoolMinIdel;
     private Integer jedisPoolMaxWait;
 
+    private String name;
+
 
     public static void main(String[] args) {
         RedisConfigModel redisConfigModel = new RedisConfigModel();
