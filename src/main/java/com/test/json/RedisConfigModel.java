@@ -28,6 +28,7 @@ public class RedisConfigModel implements Serializable {
     private Integer jedisPoolMaxWait;
 
     private String name;
+    private Integer age;
 
 
     public static void main(String[] args) {
