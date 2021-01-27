@@ -29,10 +29,8 @@ public class RedisConfigModel implements Serializable {
 
 
     public static void main(String[] args) {
-
         RedisConfigModel redisConfigModel = new RedisConfigModel();
         redisConfigModel.setRedisHost("10.XXX.128.XXX");
-
         redisConfigModel.setRedisPort(6379);
         redisConfigModel.setRedisTimeout(3000L);
         redisConfigModel.setJedisPoolMaxActive(8);
@@ -40,9 +38,6 @@ public class RedisConfigModel implements Serializable {
         redisConfigModel.setJedisPoolMinIdel(0);
         redisConfigModel.setJedisPoolMaxWait(-1);
         System.out.println(JSON.toJSONString(redisConfigModel));
-        System.out.println("revert commit000000000");
-        System.out.println("revert commit");
-
     }
 
 
