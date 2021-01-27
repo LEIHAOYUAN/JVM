@@ -19,19 +19,6 @@ public class RedisConfigModel implements Serializable {
 
     private static final long serialVersionUID = 233254677075980897L;
 
-
-
-//    redis:
-//    host: ${maven.spring.redis.host}
-//    port: ${maven.spring.redis.port}
-//    timeout: ${maven.spring.redis.timeout}
-//    jedis:
-//    pool:
-//    max-active: ${maven.spring.redis.jedis.pool.max-active}
-//    max-idle: ${maven.spring.redis.jedis.pool.max-idle}
-//    min-idle: ${maven.spring.redis.jedis.pool.min-idle}
-//    max-wait: ${maven.spring.redis.jedis.pool.max-wait}
-
     private String redisHost;
     private Integer redisPort;
     private Long redisTimeout;
@@ -43,13 +30,6 @@ public class RedisConfigModel implements Serializable {
 
     public static void main(String[] args) {
         RedisConfigModel redisConfigModel = new RedisConfigModel();
-        //    maven.spring.redis.host=10.88.128.109
-//    maven.spring.redis.port=6379
-//    maven.spring.redis.timeout=3000
-//    maven.spring.redis.jedis.pool.max-active=8
-//    maven.spring.redis.jedis.pool.max-idle=8
-//    maven.spring.redis.jedis.pool.min-idle= 0
-//    maven.spring.redis.jedis.pool.max-wait=-1
         redisConfigModel.setRedisHost("10.88.128.109");
         redisConfigModel.setRedisPort(6379);
         redisConfigModel.setRedisTimeout(3000L);
@@ -58,6 +38,10 @@ public class RedisConfigModel implements Serializable {
         redisConfigModel.setJedisPoolMinIdel(0);
         redisConfigModel.setJedisPoolMaxWait(-1);
         System.out.println(JSON.toJSONString(redisConfigModel));
+        System.out.println("undo commit");
+        System.out.println("revert commit");
+        System.out.println("revert commit");
+        System.out.println("revert commit");
     }
 
 
