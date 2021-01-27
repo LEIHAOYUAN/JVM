@@ -31,9 +31,6 @@ public class RedisConfigModel implements Serializable {
     private Integer age;
     private Integer sex;
 
-    private String name;
-    private Integer age;
-
 
     public static void main(String[] args) {
         RedisConfigModel redisConfigModel = new RedisConfigModel();
