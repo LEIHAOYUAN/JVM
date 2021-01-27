@@ -61,5 +61,4 @@ public class RedisConfigModel implements Serializable {
     }
 
 
-
 }
