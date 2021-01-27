@@ -41,7 +41,6 @@ public class RedisConfigModel implements Serializable {
         System.out.println("revert commit000000000");
         System.out.println("revert commit");
 
-        System.out.println("reset current head");
     }
 
 
