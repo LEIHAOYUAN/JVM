@@ -38,8 +38,8 @@ public class RedisConfigModel implements Serializable {
         redisConfigModel.setJedisPoolMinIdel(0);
         redisConfigModel.setJedisPoolMaxWait(-1);
         System.out.println(JSON.toJSONString(redisConfigModel));
-        System.out.println("revert commit111111");
-        System.out.println("revert commit1111111");
+        System.out.println("revert commit");
+        System.out.println("revert commit");
     }
 
 
