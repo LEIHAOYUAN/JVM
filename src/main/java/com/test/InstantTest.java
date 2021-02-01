@@ -17,6 +17,8 @@ public class InstantTest {
 
         Instant instant = Instant.ofEpochMilli(1611987018877L);
         System.out.println(Date.from(instant).toString());
+
+        System.out.println("test".equals(null));
     }
 
 
