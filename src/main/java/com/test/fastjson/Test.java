@@ -23,6 +23,11 @@ public class Test {
 
 
     public static void main(String[] args) {
+        TestFastJson test = new TestFastJson();
+        System.out.println(JSON.toJSONString(test));
+    }
+
+    private static void test01(){
         Student student = new Student();
         student.setAddress("XXXXX");
         student.setName("PPPPPPP");
