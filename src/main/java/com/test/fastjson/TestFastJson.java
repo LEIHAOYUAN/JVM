@@ -11,7 +11,7 @@ import lombok.Getter;
 @Getter
 public class TestFastJson {
 
-    private String name = "TEST";
-    private Integer age = 90;
+    private String name;
+    private int age = 90;
 
 }
