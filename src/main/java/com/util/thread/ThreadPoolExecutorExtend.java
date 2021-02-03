@@ -1,6 +1,5 @@
 package com.util.thread;
 
-import com.util.thread.zeus.ZeusStatusExtension;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,9 +9,9 @@ import java.util.Map;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class ThreadPoolExecutorExtend extends ThreadPoolExecutor implements ZeusStatusExtension {
+public class ThreadPoolExecutorExtend extends ThreadPoolExecutor {
     private static final Logger logger = LoggerFactory.getLogger(ThreadPoolExecutorExtend.class);
-    private static final String THREAD_POOL_NAME = "base-framework-threadPool-";
+    private static final String THREAD_POOL_NAME = "base-common-threadPool-";
     private String threadPoolName;
     private static AtomicInteger newNumber = new AtomicInteger();
     final AtomicInteger submittedTasksCount = new AtomicInteger();
