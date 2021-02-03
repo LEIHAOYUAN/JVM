@@ -18,6 +18,7 @@ public final class CommonThreadPool {
     public static final String LONG_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private static ExecutorService execute = init();
     private static final long EXECUTETIME = 10000L;
+    private static final String DEFAULT_THREAD_NAME = "base-threadPool-";
 
     private CommonThreadPool() {
     }
@@ -51,24 +52,27 @@ public final class CommonThreadPool {
 
     private static ExecutorService init() {
         Properties ps = getThreadPoolConfig();
-        if (ps == null) {
-            throw new NullPointerException("找不到 threadpool 配置文件!");
-        } else {
-            int corePoolSize = Integer.parseInt(ps.getProperty("corePoolSize", "5"));
-            int maximumPoolSize = Integer.parseInt(ps.getProperty("maximumPoolSize", "120"));
-            int initialCapacity = Integer.parseInt(ps.getProperty("initialCapacity", "20000"));
-            long keepAliveTime = Long.parseLong(ps.getProperty("keepAliveTime", "120"));
-            String threadName = ps.getProperty("threadName", "base-framework-threadPool-");
-            ThreadPoolParameterVO vo = new ThreadPoolParameterVO();
-            vo.setCorePoolSize(corePoolSize);
-            vo.setMaximumPoolSize(maximumPoolSize);
-            vo.setInitialCapacity(initialCapacity);
-            vo.setKeepAliveTime(keepAliveTime);
-            vo.setMaximumPoolSize(maximumPoolSize);
-            vo.setThreadName(threadName);
-            vo.setDiscard(false);
-            return getThreadPool(vo);
+        int corePoolSize = 5;
+        int maximumPoolSize = 120;
+        int initialCapacity = 20000;
+        long keepAliveTime = 120L;
+        String threadName = DEFAULT_THREAD_NAME;
+        if (null != ps) {
+            corePoolSize = Integer.parseInt(ps.getProperty("corePoolSize", "5"));
+            maximumPoolSize = Integer.parseInt(ps.getProperty("maximumPoolSize", "120"));
+            initialCapacity = Integer.parseInt(ps.getProperty("initialCapacity", "20000"));
+            keepAliveTime = Long.parseLong(ps.getProperty("keepAliveTime", "120"));
+            threadName = ps.getProperty("threadName", DEFAULT_THREAD_NAME);
         }
+        ThreadPoolParameterVO vo = new ThreadPoolParameterVO();
+        vo.setCorePoolSize(corePoolSize);
+        vo.setMaximumPoolSize(maximumPoolSize);
+        vo.setInitialCapacity(initialCapacity);
+        vo.setKeepAliveTime(keepAliveTime);
+        vo.setMaximumPoolSize(maximumPoolSize);
+        vo.setThreadName(threadName);
+        vo.setDiscard(false);
+        return getThreadPool(vo);
     }
 
     private static Properties getThreadPoolConfig() {

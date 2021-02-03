@@ -14,11 +14,12 @@ import lombok.extern.slf4j.Slf4j;
 public class Demo {
 
     public static void main(String[] args) {
+        log.info("测试异步执行任务......");
         CommonThreadPool.execute(new AbstractAsynchronousHandler() {
             @Override
             public Object call() throws Exception {
                 try {
-                    // TODO 异步执行
+                    log.info("异步执行任务......");
                 } catch (Exception e) {
                     log.error("异步任务执行失败：{}", e.getMessage(), e);
                 }

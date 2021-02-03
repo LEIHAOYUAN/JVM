@@ -1,7 +1,6 @@
 package com.test.json;
 
 import com.alibaba.fastjson.JSON;
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import lombok.Getter;
 import lombok.Setter;
 
