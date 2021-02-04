@@ -11,10 +11,11 @@ import lombok.extern.slf4j.Slf4j;
  * @Description
  */
 @Slf4j
-public class Test01 {
+public class Test {
 
     public static void main(String[] args) {
-        test01();
+//        test01();
+        test02();
     }
 
     private static void test01() {
@@ -29,6 +30,21 @@ public class Test01 {
             ExpressRunner runner = new ExpressRunner();
             Object r = runner.execute(express, context, null, true, false);
             System.out.println(r);
+        } catch (Exception ex) {
+            log.error("异常信息：{}", ex.getMessage(), ex);
+        }
+    }
+
+    private static void test02() {
+        try {
+            ExpressRunner runner = new ExpressRunner();
+            runner.addOperatorWithAlias("如果", "if", null);
+            runner.addOperatorWithAlias("则", "then", null);
+            runner.addOperatorWithAlias("否则", "else", null);
+            String exp = "如果  (语文+数学+英语>270) 则 {return 1;} 否则 {return 0;}";
+            DefaultContext<String, Object> context = new DefaultContext<String, Object>();
+            Object res = runner.execute(exp, context, null, false, false, null);
+            System.out.println(res);
         } catch (Exception ex) {
             log.error("异常信息：{}", ex.getMessage(), ex);
         }
