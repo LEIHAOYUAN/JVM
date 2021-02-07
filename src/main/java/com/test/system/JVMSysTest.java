@@ -13,6 +13,7 @@ import java.util.Properties;
 public class JVMSysTest {
 
     public static void main(String[] args) {
+
         Properties properties = System.getProperties();
         System.out.println(JSON.toJSONString(properties,true));
     }
