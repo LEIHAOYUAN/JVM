@@ -9,7 +9,7 @@ package com.test.cast;
 public class Test {
 
     public static void main(String[] args) {
-
+        // 空对象转换测试
         Object oo = null;
         String ss = (String) oo;
         System.out.println(ss);
