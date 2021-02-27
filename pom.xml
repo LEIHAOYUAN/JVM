@@ -131,7 +131,7 @@
                     <encoding>UTF-8</encoding>
                     <!-- <annotationProcessors>
                          <annotationProcessor>
-                             com.test.jsr.BuilderProcessor
+                             com.stu.jsr.BuilderProcessor
                          </annotationProcessor>
                      </annotationProcessors>-->
                 </configuration>
