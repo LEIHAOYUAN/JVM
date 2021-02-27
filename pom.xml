@@ -15,6 +15,7 @@
         <zxing.core.version>3.1.0</zxing.core.version>
         <zxing.javase.version>3.1.0</zxing.javase.version>
         <barcode4j-light.version>2.0</barcode4j-light.version>
+        <mapstruct.version>1.2.0.Final</mapstruct.version>
     </properties>
 
     <dependencies>
@@ -116,6 +117,18 @@
             <artifactId>QLExpress</artifactId>
             <version>3.2.0</version>
         </dependency>
+        <!-- mapstruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-jdk8</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${mapstruct.version}</version>
+        </dependency>
+        <!-- mapstruct -->
 
     </dependencies>
 
