@@ -10,7 +10,38 @@ import java.math.BigDecimal;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
+        testDouble();
+    }
 
+    /**
+     * 测试 double类型转换为Bigdecimal
+     * 结论：Double类型的数据转换为Bigdecimal，只有使用String类型才不会丢失数据
+     */
+    private static void testDouble(){
+        // 字符串参数不会丢失精度
+        BigDecimal param1 = new BigDecimal("1.000005268800000006366950002");
+        System.out.println("param1:");
+        System.out.println(param1.toPlainString());
+
+        // 该情况下，Double已经丢失了精度
+        Double paramD = 1.000005268800000006366950002D;
+        BigDecimal param_1 = new BigDecimal(String.valueOf(paramD));
+        System.out.println("param_1:");
+        System.out.println(param_1.toPlainString());
+
+        // Double参数会丢失精度
+        BigDecimal param2 = BigDecimal.valueOf(1.000005268800000006366950002);
+        System.out.println("param2:");
+        System.out.println(param2.toPlainString());
+
+        // Double参数会丢失精度
+        BigDecimal param3 = new BigDecimal(1.000005268800000006366950002);
+        System.out.println("param3:");
+        System.out.println(param3.toPlainString());
+
+    }
+
+    private void testNull(){
         System.out.println(BigDecimal.ZERO.compareTo(null));
     }
 
