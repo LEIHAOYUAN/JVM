@@ -130,6 +130,22 @@
         </dependency>
         <!-- mapstruct -->
 
+        <!-- https://mvnrepository.com/artifact/at.favre.lib/bcrypt -->
+        <dependency>
+            <groupId>at.favre.lib</groupId>
+            <artifactId>bcrypt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mindrot.bcrypt/bcrypt -->
+<!--        <dependency>
+            <groupId>org.mindrot.bcrypt</groupId>
+            <artifactId>bcrypt</artifactId>
+            <version>0.3</version>
+        </dependency>-->
+
+
+
     </dependencies>
 
     <build>
