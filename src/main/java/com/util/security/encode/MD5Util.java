@@ -16,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
 public class MD5Util {
 
     public static void main(String[] args) {
-        System.out.println(encodeByMD5("leihaoyuan"));
+        System.out.println(encodeByMD5("芥末"));
     }
 
     public static String encodeByMD5(String param) {
@@ -37,7 +37,7 @@ public class MD5Util {
             }
             return hexString.toString();
         } catch (NoSuchAlgorithmException ex) {
-            log.error("SHA-MD5-加密失败：{}", ex.getMessage(), ex);
+            log.error("MD5-加密失败：{}", ex.getMessage(), ex);
         }
 
         return null;
