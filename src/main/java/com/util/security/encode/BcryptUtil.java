@@ -21,6 +21,10 @@ public class BcryptUtil {
         log.info("加密2：{}", hashed2);
         boolean res = BCrypt.checkpw(hashed2, hashed);
         log.info("校验结果：{}", res);
+
+        log.info("随机盐1：{}",BCrypt.gensalt());
+        log.info("随机盐2：{}",BCrypt.gensalt(12));
+        log.info("随机盐3：{}",BCrypt.gensalt(30));
     }
 
     private static class BCrypt {
