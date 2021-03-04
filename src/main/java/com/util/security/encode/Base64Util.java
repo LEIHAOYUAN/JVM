@@ -1,5 +1,6 @@
 package com.util.security.encode;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 
 import java.io.UnsupportedEncodingException;
@@ -10,6 +11,7 @@ import java.io.UnsupportedEncodingException;
  * @Version 1.0
  * @Description Base64加密方案
  */
+@Slf4j
 public class Base64Util {
 
     // 字符串编码
@@ -35,6 +37,7 @@ public class Base64Util {
             }
             return new String(Base64.decodeBase64(inputData.getBytes(UTF_8)), UTF_8);
         } catch (UnsupportedEncodingException e) {
+            log.error("Base64加密异常：{}",e.getMessage(),e);
         }
         return null;
     }
@@ -52,6 +55,7 @@ public class Base64Util {
             }
             return new String(Base64.encodeBase64(inputData.getBytes(UTF_8)), UTF_8);
         } catch (UnsupportedEncodingException e) {
+            log.error("Base64解密异常：{}",e.getMessage(),e);
         }
         return null;
     }
