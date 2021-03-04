@@ -16,11 +16,11 @@ public class BcryptUtil {
 
     public static void main(String[] args) {
         String hashed = BCrypt.hashpw("password1", BCrypt.gensalt());
-        log.info("加密1：{}",hashed);
+        log.info("加密1：{}", hashed);
         String hashed2 = BCrypt.hashpw("password12", BCrypt.gensalt(12));
-        log.info("加密2：{}",hashed2);
+        log.info("加密2：{}", hashed2);
         boolean res = BCrypt.checkpw(hashed2, hashed);
-        log.info("校验结果：{}",res);
+        log.info("校验结果：{}", res);
     }
 
     private static class BCrypt {
