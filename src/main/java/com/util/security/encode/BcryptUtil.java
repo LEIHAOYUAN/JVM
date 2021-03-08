@@ -15,15 +15,16 @@ import java.security.SecureRandom;
 public class BcryptUtil {
 
     public static void main(String[] args) {
-        String hashed = BCrypt.hashpw("password1", BCrypt.gensalt());
+        String hashed = BCrypt.hashpw("389007beda60c7449909cff3c51d991194a7fa029d6c6b66f6a76f4fccb57bcdb6b0023e0b8679e821b4be0675295a00e60f31115e9c12fa6e16c66de25d708d",
+                BCrypt.gensalt());
         log.info("加密1：{}", hashed);
-        String hashed2 = BCrypt.hashpw("password12", BCrypt.gensalt(12));
+        String hashed2 = BCrypt.hashpw("password1", BCrypt.gensalt(12));
         log.info("加密2：{}", hashed2);
         boolean res = BCrypt.checkpw(hashed2, hashed);
         log.info("校验结果：{}", res);
 
         log.info("随机盐1：{}",BCrypt.gensalt());
-        log.info("随机盐2：{}",BCrypt.gensalt(12));
+        log.info("随机盐2：{}",BCrypt.gensalt(10));
         log.info("随机盐3：{}",BCrypt.gensalt(30));
     }
 
