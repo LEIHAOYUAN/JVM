@@ -1,5 +1,6 @@
 package com.util.security;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 
@@ -13,9 +14,11 @@ public class HutoolAESUtil {
 
     public static void main(String[] args) {
         byte[] key = SecureUtil.generateKey(SymmetricAlgorithm.AES.getValue(), 128).getEncoded();
-        String tests = SecureUtil.aes(key).encryptBase64("564564564564444444444444456456456456456456456");
+        String str = Base64.encode(key);
+        System.out.println("生成秘钥：" + str);
+        String tests = SecureUtil.aes(Base64.decode(str)).encryptBase64("564564564564444444444444456456456456456456456");
         System.out.println("加密：" + tests);
-        String decrypt = SecureUtil.aes(key).decryptStr(tests);
+        String decrypt = SecureUtil.aes(Base64.decode(str)).decryptStr(tests);
         System.out.println("解密：" + decrypt);
 
     }
