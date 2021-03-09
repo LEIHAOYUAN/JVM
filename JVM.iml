@@ -73,5 +73,6 @@
     <orderEntry type="library" name="Maven: org.mapstruct:mapstruct-jdk8:1.2.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.mapstruct:mapstruct-processor:1.2.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.mindrot:jbcrypt:0.4" level="project" />
+    <orderEntry type="library" name="Maven: cn.hutool:hutool-all:4.6.3" level="project" />
   </component>
 </module>
