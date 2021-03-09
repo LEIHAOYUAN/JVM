@@ -21,14 +21,14 @@ public class AESUtil {
     private static final String DEFAULT_CIPHER_ALGORITHM = "AES/ECB/PKCS5Padding";//默认的加密算法
 
     public static void main(String[] args) {
-        String s = "hello,您好";
+        String s = "M20210128000019";
 
         System.out.println("原始数据：" + s);
 
-        String s1 = AESUtil.encrypt(s, "1234");
+        String s1 = AESUtil.encrypt(s, "Joymo112h4&ewghrW332))_-");
         System.out.println("加密后：" + s1);
 
-        System.out.println("解密后："+AESUtil.decrypt(s1, "1234"));
+        System.out.println("解密后："+AESUtil.decrypt(s1, "Joymo112h4&ewghrW332))_-"));
 
 
     }
