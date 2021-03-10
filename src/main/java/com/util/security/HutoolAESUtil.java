@@ -3,6 +3,7 @@ package com.util.security;
 import cn.hutool.core.codec.Base64;
 import cn.hutool.crypto.SecureUtil;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
+import com.alibaba.fastjson.JSON;
 
 /**
  * @Author leihaoyuan
@@ -13,6 +14,8 @@ import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 public class HutoolAESUtil {
 
     public static void main(String[] args) {
+        System.out.println(JSON.toJSONString(null));
+
         byte[] key = SecureUtil.generateKey(SymmetricAlgorithm.AES.getValue(), 128).getEncoded();
         String str = Base64.encode(key);
         System.out.println("生成秘钥：" + str);
