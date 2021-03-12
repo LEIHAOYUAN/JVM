@@ -10,6 +10,8 @@ import cn.hutool.core.util.ReUtil;
  */
 public class RegexUtil {
 
+    private static final String SIMPLE_NUMBER = "^[0-9]*$";
+
 
     /**
      * 正则表达式：验证手机号
@@ -30,9 +32,19 @@ public class RegexUtil {
 
 
     public static void main(String[] args) {
+        System.out.println(validSimpleNumer("442222222222222222222456"));
         System.out.println(validPhone("188555555055"));
         System.out.println(validEmail("1885555555@5"));
 
+    }
+
+    /**
+     * 校验数字
+     * @param number 数字
+     * @return
+     */
+    public static boolean validSimpleNumer(String number){
+        return ReUtil.isMatch(SIMPLE_NUMBER,number);
     }
 
 
