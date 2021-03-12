@@ -1,6 +1,7 @@
 package com.util.regex;
 
 import cn.hutool.core.util.ReUtil;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @Author leihaoyuan
@@ -35,6 +36,10 @@ public class RegexUtil {
         System.out.println(validSimpleNumer("442222222222222222222456"));
         System.out.println(validPhone("188555555055"));
         System.out.println(validEmail("1885555555@5"));
+
+        System.out.println("=========================================");
+
+        System.out.println(StringUtils.isBlank("   0   "));
 
     }
 
