@@ -47,6 +47,7 @@ public class SnowflakeIdUtil {
         long timestamp = timeGen();
         //时间回拨，抛出异常
         if (timestamp < lastTimestamp) {
+            // 时钟回拨异常
             System.err.printf("clock is moving backwards.  Rejecting requests until %d.", lastTimestamp);
             throw new RuntimeException(String.format("Clock moved backwards.  Refusing to generate id for %d milliseconds",
                     lastTimestamp - timestamp));
