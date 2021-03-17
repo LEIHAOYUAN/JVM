@@ -11,8 +11,7 @@ import org.mockito.Mockito;
  */
 public class MockitoTest extends BaseMockTest {
 
-    @Test
-    public void test() {
+    @Test public void test() {
         Mockito.mockStatic(java.lang.System.class);
     }
 
