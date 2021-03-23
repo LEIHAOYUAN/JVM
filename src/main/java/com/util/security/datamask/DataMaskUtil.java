@@ -13,7 +13,7 @@ public class DataMaskUtil {
 
     public static void main(String[] args) {
         System.out.println(hideMobile("15555522222"));
-        System.out.println("Git commit revert测试");
+        System.out.println("REVERT PUSH TEST");
     }
 
     public static String hideMobile(String mobile) {
