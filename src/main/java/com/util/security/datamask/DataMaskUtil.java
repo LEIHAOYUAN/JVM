@@ -13,7 +13,6 @@ public class DataMaskUtil {
 
     public static void main(String[] args) {
         System.out.println(hideMobile("15555522222"));
-        System.out.println("");
     }
 
     public static String hideMobile(String mobile) {
