@@ -21,11 +21,7 @@ public class ListTest {
     }
 
 
-    private void test03(){
-        HashMap<Object, Object> map1 = Maps.newHashMap();
-        HashMap<Object, Object> map2 = null;
-        map1.putAll(map2);
-    }
+
 
     private static void test(){
         Student s1 = new Student();
