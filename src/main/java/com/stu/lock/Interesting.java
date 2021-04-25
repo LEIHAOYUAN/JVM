@@ -26,6 +26,7 @@ public class Interesting {
 
     public synchronized void add() {
         log.info("add start");
+        // 注意：a++、b++操作并不是原子操作
         for (int i = 0; i < 10000; i++) {
             a++;
             b++;
@@ -36,7 +37,7 @@ public class Interesting {
     public synchronized void compare() {
         log.info("compare start");
         for (int i = 0; i < 10000; i++) {
-            //a始终等于b吗？
+            //注意：a < b 这种操作在字节码层面是加载a 、加载b、比较，并不是原子操作
             if (a < b) {
                 log.info("a小于b=============a:{},b:{},{}", a, b, a > b);
             }
