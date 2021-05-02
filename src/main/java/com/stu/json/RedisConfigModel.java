@@ -1,10 +1,15 @@
 package com.stu.json;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Maps;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Map;
 
 /**
  * @Author leihaoyuan
@@ -12,8 +17,8 @@ import java.io.Serializable;
  * @Version 1.0
  * @Description
  */
-@Getter
-@Setter
+@Slf4j
+@Data
 public class RedisConfigModel implements Serializable {
 
     private static final long serialVersionUID = 233254677075980897L;
@@ -30,17 +35,17 @@ public class RedisConfigModel implements Serializable {
     private Integer age;
     private Integer sex;
 
+    private Map<String, BigDecimal> map;
+
 
     public static void main(String[] args) {
         RedisConfigModel redisConfigModel = new RedisConfigModel();
-        redisConfigModel.setRedisHost("10.XXX.128.XXX");
-        redisConfigModel.setRedisPort(6379);
-        redisConfigModel.setRedisTimeout(3000L);
-        redisConfigModel.setJedisPoolMaxActive(8);
-        redisConfigModel.setJedisPoolMaxIdel(8);
-        redisConfigModel.setJedisPoolMinIdel(0);
-        redisConfigModel.setJedisPoolMaxWait(-1);
-        System.out.println(JSON.toJSONString(redisConfigModel));
+        Map<String, BigDecimal> map = Maps.newHashMap();
+        map.put("909009",BigDecimal.ONE);
+        map.put("09090",null);
+        redisConfigModel.setMap(map);
+        log.info(redisConfigModel.toString());
+
     }
 
 
