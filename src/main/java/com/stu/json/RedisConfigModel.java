@@ -44,6 +44,7 @@ public class RedisConfigModel implements Serializable {
         map.put("909009",BigDecimal.ONE);
         map.put("09090",null);
         redisConfigModel.setMap(map);
+        log.info(map.toString());
         log.info(redisConfigModel.toString());
 
     }
