@@ -27,22 +27,22 @@ public class DefaultException extends RuntimeException{
     }
 
 
-    private String msgFormat; // 错误信息
+    private String message; // 错误信息
     private Object[] msgParams; // 错误参数
-    public DefaultException(String msg) { // 如果不传参数，直接调用父类构造方法
-        super(msg);
-        this.msgFormat = msg;
+    public DefaultException(String message) { // 如果不传参数，直接调用父类构造方法
+        super(message);
+        this.message = message;
     }
-    public DefaultException(String msg, Object... msgParams) {
-        this.msgFormat = msg;
+    public DefaultException(String message, Object... msgParams) {
+        this.message = message;
         this.msgParams = msgParams;
     }
 
     @Override
     public String getMessage() {
-        if(StringUtils.isNotBlank(msgFormat)){
+        if(StringUtils.isNotBlank(message)){
             if(msgParams!=null && msgParams.length>0){
-                return MessageFormat.format(msgFormat, msgParams);
+                return MessageFormat.format(message, msgParams);
             }
         }
         return super.getMessage();
