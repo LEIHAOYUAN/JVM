@@ -9,7 +9,7 @@ import java.lang.reflect.Constructor;
 @Setter
 public class Student implements Cloneable {
 
-    private int id;
+    private Integer id;
 
     public Student(Integer id) {
         this.id = id;
