@@ -43,11 +43,12 @@ public class RedisConfigModel implements Serializable {
         Map<String, BigDecimal> map = Maps.newHashMap();
         map.put("909009",BigDecimal.ONE);
         map.put("09090",null);
+        map.put("20210504",null);
         redisConfigModel.setMap(map);
         log.info(map.toString());
         log.info(redisConfigModel.toString());
-        BigDecimal decimal = null;
-        log.error(String.valueOf(BigDecimal.ONE.compareTo(decimal)));
+        log.info("fastJson格式：{}",JSON.toJSONString(map));
+        log.info("fastJson NULL ：{}",JSON.toJSONString(null));
 
     }
 
