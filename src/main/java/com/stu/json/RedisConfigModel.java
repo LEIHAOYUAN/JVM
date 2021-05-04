@@ -46,6 +46,8 @@ public class RedisConfigModel implements Serializable {
         redisConfigModel.setMap(map);
         log.info(map.toString());
         log.info(redisConfigModel.toString());
+        BigDecimal decimal = null;
+        log.error(String.valueOf(BigDecimal.ONE.compareTo(decimal)));
 
     }
 

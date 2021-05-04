@@ -23,14 +23,10 @@ public class ListTest {
     private static void testDistinct(){
         List<Student> listStu = Lists.newArrayList();
         listStu.add(new Student(null));
-        listStu.add(new Student(10));
-        listStu.add(new Student(10));
-        listStu.add(new Student(11));
-        listStu.add(new Student(12));
+        listStu.add(new Student(1));
 
         List<Integer> ids = listStu.stream().map(Student::getId).distinct().collect(Collectors.toList());
         System.out.println(JSON.toJSONString(ids));
-        System.out.println(ids.toString());
         System.out.println(ids.size() == listStu.size());
     }
 
