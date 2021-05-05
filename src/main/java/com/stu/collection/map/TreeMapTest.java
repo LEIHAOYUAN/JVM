@@ -25,6 +25,9 @@ public class TreeMapTest {
 
         TreeMap<String,BigDecimal> treeMap = new TreeMap<>(maps);
         log.info("treeMap结果：{}",treeMap.toString());
+
+        treeMap.put(null,BigDecimal.ZERO);
+        log.info("treeMap结果：{}",treeMap.toString());
     }
 
 }
