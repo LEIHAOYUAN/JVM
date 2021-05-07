@@ -1,40 +1,31 @@
 package com.stu.stream;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
- * @Description 合并指定属性
+ * @Description 集合测试
  * @Author leihaoyuan
  * @Date 2020/6/9 16:44
  */
+@Slf4j
 public class ListTest {
 
     public static void main(String[] args) throws InterruptedException {
-//        test01();
-//        test01_02();
-//        long time1 = new Date().getTime();
+        testSort();
+    }
 
-//        System.out.println(time1);
-//        Thread.sleep(5000);
-//        long time2 = new Date().getTime();
-//        System.out.println(time2);
-//        System.out.println(time1 < time2);
-
-//        test0002();
-        Float aaa = 40.0000F;
-        Double bbb = 40D;
-        System.out.println(aaa.equals(bbb));
-        System.out.println("------------------------");
+    private static void testDistinct() {
         List<Student> list = Lists.newArrayList();
-
-
         Student s1 = new Student();
         s1.setName("AAA");
         Student s2 = new Student();
@@ -48,21 +39,37 @@ public class ListTest {
 
         List<String> collect = list.stream().map(Student::getName).distinct().collect(Collectors.toList());
         System.out.println(collect);
-
-        System.out.println("------------------------");
-        System.out.println("------------------------");
-        System.out.println("---------testcontains---------------");
-        testContins();
-        System.out.println("------------------------");
-        System.out.println("------------------------");
-        System.out.println("---------**************---------------");
-        testSplit();
-
     }
+
+    private static void testFilter() {
+        List<String> regionList = Lists.newArrayList();
+        List<String> collect = regionList.stream().filter(item -> "99".equals(item)).collect(Collectors.toList());
+        System.out.println(collect.size());
+
+        List<String> collect1 = collect.stream().filter(item -> "111".equals(item)).collect(Collectors.toList());
+        System.out.println(collect1.size());
+
+        System.out.println("MAIN------start");
+        System.out.println(1 / 0);
+        System.out.println("MAIN------end");
+    }
+
+    private static void testSort() {
+        List<Student> list = Lists.newArrayList();
+        list.add(new Student("张三", "16", BigDecimal.TEN));
+        list.add(new Student("张三", "16", BigDecimal.ZERO));
+        list.add(new Student("张三", "16", BigDecimal.TEN));
+        list.add(new Student("李四", "16", BigDecimal.ONE));
+        log.info("排序前：{}", JSON.toJSONString(list));
+        List<Student> collect = list.stream().sorted(Comparator.comparing(Student::getScore)).collect(Collectors.toList());
+        log.info("排序后：{}", JSON.toJSONString(collect));
+    }
+
+
 
     private static void testSplit() {
         String notes = "1,2   ,3,  ,5,6  ";
-        if(StringUtils.isNotBlank(notes)){
+        if (StringUtils.isNotBlank(notes)) {
             List<String> listNos = Arrays.stream(notes.split(",")).filter(StringUtils::isNotBlank).map(String::trim).collect(Collectors.toList());
             System.out.println(Arrays.toString(listNos.toArray()));
         }
@@ -77,15 +84,6 @@ public class ListTest {
         System.out.println(ccc);
     }
 
-    private static void test0001() {
-        throw new RuntimeException("test");
-
-    }
-
-    private static void test0002() {
-        test0001();
-        System.out.println("test00002");
-    }
 
 
     private static void test001() {
@@ -112,29 +110,6 @@ public class ListTest {
 
     }
 
-    private static void test01_01() {
-        List<Student> list = Lists.newArrayList();
-        list.add(new Student("张三", null, BigDecimal.TEN));
-
-        Student student = list.stream().filter(item -> "XXXX".equals(item.getName())).findFirst().orElse(list.get(0));
-
-        System.out.println(student.getName());
-
-    }
-
-    private static void test01_02() {
-        List<Student> list = Lists.newArrayList();
-        list.add(new Student("张三", null, BigDecimal.TEN));
-        list.add(new Student("张三", null, BigDecimal.TEN));
-        list.add(new Student("张三", "fefe", BigDecimal.ZERO));
-
-        int count = list.stream().filter(item -> "张三1".equals(item.getName())).map(Student::getName).collect(Collectors.toSet()).size();
-
-        long countL = list.stream().filter(item -> "张三".equals(item.getName())).map(Student::getName).distinct().count();
-
-        System.out.println(countL);
-
-    }
 
     private static void test02() {
 
