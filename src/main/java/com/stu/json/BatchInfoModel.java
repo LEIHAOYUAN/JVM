@@ -30,6 +30,11 @@ public class BatchInfoModel implements Serializable {
 
 
     public static void main(String[] args) {
+        BatchInfoModel aNull = JSON.parseObject("", BatchInfoModel.class);
+        log.info("测试null反序列化：{}",aNull);
+    }
+
+    private static void testJSON(){
         BatchInfoModel model = new BatchInfoModel();
         model.setBatchNo("20210506");
         model.setBatchAdjustNum(BigDecimal.TEN);
