@@ -27,9 +27,9 @@ public class DateTimeUtil {
     public static final String DEFAULT_SPLICE_PARTTERN = "yyyyMMddHHmmss";
 
     /**
-     * 默认拼接格式
+     * 时间戳-带毫秒
      */
-    public static final String DEFAULT_SPLICE_PARTTERN_Mili = "yyyyMMddHHmmssSSS";
+    public static final String DEFAULT_TIMESTAMP_PARTTERN = "yyyyMMddHHmmssSSS";
 
     /**
      * 默认日期
@@ -44,14 +44,14 @@ public class DateTimeUtil {
 
     private static String formatCurrentDateTime1(){
         Long start = System.currentTimeMillis();
-        String result = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DEFAULT_SPLICE_PARTTERN_Mili));
+        String result = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DEFAULT_TIMESTAMP_PARTTERN));
         log.info("耗时：{}",System.currentTimeMillis()-start);
         return result;
     }
 
     public static String formatCurrentDateTime2(){
         Long start = System.currentTimeMillis();
-        String result = DateTimeFormatter.ofPattern(DEFAULT_SPLICE_PARTTERN_Mili).format(LocalDateTime.ofInstant(Instant.ofEpochMilli(Clock.systemDefaultZone().millis()), ZoneId.systemDefault()));
+        String result = DateTimeFormatter.ofPattern(DEFAULT_TIMESTAMP_PARTTERN).format(LocalDateTime.ofInstant(Instant.ofEpochMilli(Clock.systemDefaultZone().millis()), ZoneId.systemDefault()));
         log.info("耗时：{}",System.currentTimeMillis()-start);
         return result;
 
@@ -59,7 +59,7 @@ public class DateTimeUtil {
 
     public static String formatCurrentDateTime3(){
         Long start = System.currentTimeMillis();
-        String result = DateTimeFormatter.ofPattern(DEFAULT_SPLICE_PARTTERN_Mili).format(LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault()));
+        String result = DateTimeFormatter.ofPattern(DEFAULT_TIMESTAMP_PARTTERN).format(LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault()));
         log.info("耗时：{}",System.currentTimeMillis()-start);
         return result;
     }
