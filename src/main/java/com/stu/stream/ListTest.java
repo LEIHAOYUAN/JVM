@@ -6,11 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @Description 集合测试
@@ -20,8 +18,20 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ListTest {
 
+    private static List<List<Integer>> subListData = new ArrayList<>();
+
     public static void main(String[] args) throws InterruptedException {
-        testSort();
+        subListOOM();
+    }
+
+    /**
+     * List.subList 进行切片操作居然会导致 OOM
+     */
+    private static void subListOOM(){
+        for (int i = 0; i < 1000; i++) {
+            List<Integer> collect = IntStream.rangeClosed(1, 100000).boxed().collect(Collectors.toList());
+            subListData.add(collect.subList(0,1));
+        }
     }
 
     private static void testDistinct() {
