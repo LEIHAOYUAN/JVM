@@ -25,7 +25,9 @@ public class ListTest {
     }
 
     /**
-     * List.subList 进行切片操作居然会导致 OOM
+     * List.subList 进行切片操作导致OOM
+     * 原因：
+     * 循环中的 1000 个具有 10 万个元素的 List 始终得不到回收，因为它始终被 subList 方法返回的 子list 强引用
      */
     private static void subListOOM(){
         for (int i = 0; i < 1000; i++) {
