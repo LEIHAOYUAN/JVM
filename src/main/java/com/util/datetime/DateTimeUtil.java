@@ -37,9 +37,11 @@ public class DateTimeUtil {
     public static final String DEFAULT_DATE_PARTTERN = "yyyyMMdd";
 
     public static void main(String[] args) {
-        log.info(formatCurrentDateTime1());
-        log.info(formatCurrentDateTime2());
-        log.info(formatCurrentDateTime3());
+//        log.info(formatCurrentDateTime1());
+//        log.info(formatCurrentDateTime2());
+//        log.info(formatCurrentDateTime3());
+
+        System.out.println(valid("2021021558","yyyyMMddHH"));
     }
 
     private static String formatCurrentDateTime1(){
@@ -90,7 +92,8 @@ public class DateTimeUtil {
             DateTimeFormatter format = DateTimeFormatter.ofPattern(parttern.replace("y", "u")).withResolverStyle(ResolverStyle.STRICT);
             return LocalDate.parse(dateStrParam, format) != null;
         } catch (Exception e) {
-            log.error("校验日期字符串，参数：{}，异常：{}", dateStrParam, e.getMessage(), e);
+//            log.error("校验日期字符串，参数：{}，异常：{}", dateStrParam, e.getMessage(), e);
+            log.error("校验日期字符串，参数：{}", dateStrParam);
             return false;
         }
     }
