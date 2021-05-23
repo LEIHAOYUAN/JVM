@@ -41,7 +41,7 @@ public class DateTimeUtil {
 //        log.info(formatCurrentDateTime2());
 //        log.info(formatCurrentDateTime3());
 
-        System.out.println(valid("2021021558","yyyyMMddHH"));
+        System.out.println(valid("2021022800","yyyyMMddHH"));
     }
 
     private static String formatCurrentDateTime1(){
