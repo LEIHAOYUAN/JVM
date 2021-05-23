@@ -1,12 +1,16 @@
 package com.util.datetime;
 
+import com.util.exception.StockCommonException;
 import com.util.valid.ValidUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 
+import java.text.ParseException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
+import java.util.Date;
 
 /**
  * @Author leihaoyuan
@@ -42,6 +46,28 @@ public class DateTimeUtil {
 //        log.info(formatCurrentDateTime3());
 
         System.out.println(valid("2021022800","yyyyMMddHH"));
+
+        System.out.println(convertToDate("202102007700","yyyyMMddHH"));
+    }
+
+
+    private static Long duration(){
+        return Duration.between(LocalDateTime.of(LocalDate.now(), LocalTime.MAX), LocalDateTime.now()).toMillis();
+    }
+
+
+    /**
+     * 日期字符串转换为Date类型
+     * @param dateStrParam 指定日期字符串
+     * @param parttern 日期格式
+     * @return
+     */
+    public static Date convertToDate(String dateStrParam,String parttern){
+        try {
+            return FastDateFormat.getInstance(parttern).parse(dateStrParam);
+        } catch (ParseException e) {
+            throw new StockCommonException("日期转换异常，参数：{0}，格式：{1}",dateStrParam,parttern);
+        }
     }
 
     private static String formatCurrentDateTime1(){
