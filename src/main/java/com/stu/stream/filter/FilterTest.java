@@ -2,10 +2,14 @@ package com.stu.stream.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.stu.stream.Student;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -13,9 +17,22 @@ import java.util.stream.Collectors;
  * @Author leihaoyuan
  * @Date 2021/1/8 14:44
  */
+@Slf4j
 public class FilterTest {
 
     public static void main(String[] args) {
+        mapFilter();
+    }
+
+
+    private static void mapFilter(){
+        Map<String,String> maps = Maps.newHashMap();
+        maps.put("AAA","5555");
+        maps.remove("tets");
+        log.info("map过滤后：{}",JSON.toJSONString(maps.values()));
+    }
+
+    private static void listFilter() {
         Student s1 = new Student("aaa", "11", BigDecimal.TEN);
         Student s2 = new Student("bbb", "11", BigDecimal.TEN);
         Student s3 = new Student("ccc", "11", BigDecimal.TEN);
