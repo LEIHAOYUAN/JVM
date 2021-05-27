@@ -3,6 +3,7 @@ package com.stu.collection;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.stu.clone.Student;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
@@ -13,11 +14,11 @@ import java.util.stream.Collectors;
  * @Author leihaoyuan
  * @Date 2020/11/23 15:27
  */
+@Slf4j
 public class ListTest {
 
     public static void main(String[] args) {
-//        testDealMapDuplicateKey();
-        testDistinct();
+        testModifyStream();
     }
 
     private static void testDistinct(){
@@ -49,6 +50,15 @@ public class ListTest {
         listStu.add(new Student(12));
         Map<Integer, Student> idMap = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s));
         System.out.println(JSON.toJSONString(idMap));
+    }
+
+    private static void testModifyStream(){
+        List<Student> listStu = Lists.newArrayList();
+        listStu.add(new Student(10));
+        Map<Integer, Student> idMap = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s));
+
+        idMap.get(10).setId(500);
+        log.info("修改后集合：{}",JSON.toJSONString(listStu));
     }
 
 
