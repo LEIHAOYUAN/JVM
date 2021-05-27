@@ -21,6 +21,8 @@ public class BigDecimalTest {
 
         log.info("向上取整：{}", BigDecimal.valueOf(0.18).setScale(0, BigDecimal.ROUND_UP));
         log.info("向下取整：{}", BigDecimal.valueOf(0.58).setScale(0, BigDecimal.ROUND_DOWN));
+
+        log.info("null比较：{}",BigDecimal.ZERO.compareTo(null));
     }
 
     /**
