@@ -1,5 +1,7 @@
 package com.stu.bigdecimal;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.math.BigDecimal;
 
 /**
@@ -7,17 +9,25 @@ import java.math.BigDecimal;
  * @Author leihaoyuan
  * @Date 2020/5/21 15:51
  */
+@Slf4j
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        testDouble();
+        BigDecimal aa = BigDecimal.TEN;
+        BigDecimal bb = BigDecimal.valueOf(3);
+
+        log.info("向上取整：{}", aa.divide(bb, 0, BigDecimal.ROUND_UP));
+        log.info("向下取整：{}", aa.divide(bb, 0, BigDecimal.ROUND_DOWN));
+
+        log.info("向上取整：{}", BigDecimal.valueOf(0.18).setScale(0, BigDecimal.ROUND_UP));
+        log.info("向下取整：{}", BigDecimal.valueOf(0.58).setScale(0, BigDecimal.ROUND_DOWN));
     }
 
     /**
      * 测试 double类型转换为Bigdecimal
      * 结论：Double类型的数据转换为Bigdecimal，只有使用String类型才不会丢失数据
      */
-    private static void testDouble(){
+    private static void testDouble() {
         // 字符串参数不会丢失精度
         BigDecimal param1 = new BigDecimal("1.000005268800000006366950002");
         System.out.println("param1:");
@@ -41,7 +51,7 @@ public class BigDecimalTest {
 
     }
 
-    private void testNull(){
+    private void testNull() {
         System.out.println(BigDecimal.ZERO.compareTo(null));
     }
 
