@@ -18,7 +18,7 @@ import java.util.Set;
 public class SetTest {
 
     public static void main(String[] args) {
-        arrayToSet();
+        convertTypeArrayToSet();
     }
 
     private static void test(){
@@ -31,7 +31,14 @@ public class SetTest {
     }
 
     private static void arrayToSet(){
-        String[] strArray= new String[]{"Tom", "Bob", "Jane","Tom0", "Bob", "Jane"};
+        String[] strArray= new String[]{"1", "111", "2","21", "22", "222"};
+        HashSet<String> strings = Sets.newHashSet(Arrays.asList(strArray));
+        strings.add("AAA");
+        log.info("结果：{}",JSON.toJSONString(strings));
+    }
+
+    private static void convertTypeArrayToSet(){
+        String[] strArray= new String[]{"1", "111", "2","21", "22", "222"};
         HashSet<String> strings = Sets.newHashSet(Arrays.asList(strArray));
         strings.add("AAA");
         log.info("结果：{}",JSON.toJSONString(strings));
