@@ -13,7 +13,18 @@ import lombok.extern.slf4j.Slf4j;
 public class Test {
 
     public static void main(String[] args) {
-        log.info(buildCompareDiffOrderNo("2021052101",20400000010L,1));
+//        log.info(buildCompareDiffOrderNo("2021052101",20400000010L,1));
+
+        convertCodePath();
+    }
+
+
+    public static void convertCodePath(){
+//        String codePath = "20500000019,20500000020,20500000021";
+//        String codePath = "    20500000019,20500000020,20500000021 ";
+        String codePath = "";
+        String[] split = codePath.split(",");
+        log.info("切割后长度：{}",split.length);
     }
 
     public static String buildCompareDiffOrderNo(String compareDate,Long cellCode,Integer stockStatus){
