@@ -21,7 +21,7 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        subListOOM();
+        tesSum();
     }
 
     /**
@@ -51,6 +51,23 @@ public class ListTest {
 
         List<String> collect = list.stream().map(Student::getName).distinct().collect(Collectors.toList());
         System.out.println(collect);
+    }
+
+    private static void tesSum() {
+        List<Student> list = Lists.newArrayList();
+        Student s1 = new Student();
+        s1.setScore(BigDecimal.TEN.negate());
+        Student s2 = new Student();
+        s2.setScore(BigDecimal.TEN);
+        Student s3 = new Student();
+        s3.setScore(BigDecimal.ONE);
+
+        list.add(s1);
+        list.add(s2);
+        list.add(s3);
+
+        double sum = list.stream().mapToDouble(i -> i.getScore().doubleValue()).sum();
+        System.out.println(sum);
     }
 
     private static void testFilter() {

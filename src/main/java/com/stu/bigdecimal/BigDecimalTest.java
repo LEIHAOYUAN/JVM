@@ -13,6 +13,10 @@ import java.math.BigDecimal;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
+       log.info("是否为整数：{}",isIntegerValue(BigDecimal.valueOf(1.00000002500)));
+    }
+
+    private static void upAndDownTest() {
         BigDecimal aa = BigDecimal.TEN;
         BigDecimal bb = BigDecimal.valueOf(3);
 
@@ -23,6 +27,10 @@ public class BigDecimalTest {
         log.info("向下取整：{}", BigDecimal.valueOf(0.58).setScale(0, BigDecimal.ROUND_DOWN));
 
         log.info("null比较：{}",BigDecimal.ZERO.compareTo(null));
+    }
+
+    private static boolean isIntegerValue(BigDecimal bd) {
+        return bd.stripTrailingZeros().scale() <= 0;
     }
 
     /**
