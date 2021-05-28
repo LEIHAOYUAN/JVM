@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class FilterTest {
 
     public static void main(String[] args) {
-        mapFilter();
+        listFilter1();
     }
 
 
@@ -30,6 +30,23 @@ public class FilterTest {
         maps.put("AAA","5555");
         maps.remove("tets");
         log.info("map过滤后：{}",JSON.toJSONString(maps.values()));
+    }
+
+    private static void listFilter1() {
+        Student s1 = new Student("aaa", "11", BigDecimal.TEN);
+        Student s2 = new Student("bbb", "11", BigDecimal.TEN);
+        Student s3 = new Student("ccc", "11", BigDecimal.TEN);
+        Student s4 = new Student("aaa", "11", BigDecimal.TEN);
+        List<Student> list = Lists.newArrayList();
+        list.add(s1);
+        list.add(s2);
+        list.add(s3);
+        list.add(s4);
+
+        Map<String, Student> collect = list.stream().filter(item -> item.getAge().equals("2000"))
+                .collect(Collectors.toMap(Student::getAge, i -> i));
+        System.out.println(collect == null);
+        System.out.println(JSON.toJSONString(collect));
     }
 
     private static void listFilter() {

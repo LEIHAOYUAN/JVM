@@ -3,6 +3,7 @@ package com.stu.stream.groupby;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.stu.stream.Student;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,9 +14,17 @@ import java.util.stream.Collectors;
  * @Author leihaoyuan
  * @Date 2020/12/27 14:39
  */
+@Slf4j
 public class GroupTest {
 
     public static void main(String[] args) {
+
+    }
+
+    /**
+     * 相同名称的分数累加
+     */
+    private static void test(){
         Student s1 = new Student();
         s1.setName("AAA");
         s1.setScore(BigDecimal.TEN);
