@@ -14,6 +14,8 @@ public class BigDecimalTest {
 
     public static void main(String[] args) {
        log.info("是否为整数：{}",isIntegerValue(BigDecimal.valueOf(1.00000002500)));
+
+       log.info("零值比较结果：{}",BigDecimal.ZERO.compareTo(null));
     }
 
     private static void upAndDownTest() {
