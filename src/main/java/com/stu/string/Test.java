@@ -14,6 +14,8 @@ public class Test {
 
     public static void main(String[] args) {
 //        log.info(buildCompareDiffOrderNo("2021052101",20400000010L,1));
+        String param = "2021050600";
+        log.info(param.substring(0,param.length()-2));
 
         convertCodePath();
     }
