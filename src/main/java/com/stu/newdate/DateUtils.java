@@ -1,5 +1,7 @@
 package com.stu.newdate;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -10,6 +12,7 @@ import java.util.Date;
  * @Author leihaoyuan
  * @Date 2020/6/30 14:02
  */
+@Slf4j
 public class DateUtils {
 
     public static final String DATE_FORMAT_STR_1 = "yyyyMMdd";
@@ -29,7 +32,13 @@ public class DateUtils {
 
 
     public static void main(String[] args) {
-        System.out.println(validDateStr("2020-10-04"));
+//        System.out.println(validDateStr("2020-10-04"));
+
+        LocalDate yyyyMMdd = convertString2LocalDate("20200531", "yyyyMMdd");
+        LocalDate localDate = yyyyMMdd.plusDays(5);
+        log.info(yyyyMMdd.toString());
+        log.info(localDate.toString());
+
     }
 
     /**
