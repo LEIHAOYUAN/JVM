@@ -18,7 +18,18 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        testModifyStream();
+//        testModifyStream();
+        testToMap();
+    }
+
+    private static void testToMap(){
+        List<Student> listStu = Lists.newArrayList();
+//        listStu.add(new Student(null));
+//        listStu.add(new Student(1));
+
+        Map<Integer, Student> collect = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s));
+        System.out.println(collect == null);
+        System.out.println(JSON.toJSONString(collect));
     }
 
     private static void testDistinct(){
