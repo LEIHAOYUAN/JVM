@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
+        log.info("去除多余零：{}",BigDecimal.valueOf(0.562330000000D).toPlainString());
+
        log.info("是否为整数：{}",isIntegerValue(BigDecimal.valueOf(1.00000002500)));
 
        log.info("零值比较结果：{}",BigDecimal.ZERO.compareTo(null));
