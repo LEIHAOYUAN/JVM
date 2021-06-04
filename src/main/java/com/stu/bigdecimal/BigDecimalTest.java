@@ -13,11 +13,13 @@ import java.math.BigDecimal;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        log.info("去除多余零：{}",BigDecimal.valueOf(0.562330000000D).toPlainString());
+        log.info("向下取整：{}", BigDecimal.valueOf(0.25685).divide(BigDecimal.ONE, 0, BigDecimal.ROUND_DOWN));
 
-       log.info("是否为整数：{}",isIntegerValue(BigDecimal.valueOf(1.00000002500)));
+        log.info("去除多余零：{}", BigDecimal.valueOf(0.562330000000D).toPlainString());
 
-       log.info("零值比较结果：{}",BigDecimal.ZERO.compareTo(null));
+        log.info("是否为整数：{}", isIntegerValue(BigDecimal.valueOf(1.00000002500)));
+
+        log.info("零值比较结果：{}", BigDecimal.ZERO.compareTo(null));
     }
 
     private static void upAndDownTest() {
@@ -30,7 +32,7 @@ public class BigDecimalTest {
         log.info("向上取整：{}", BigDecimal.valueOf(0.18).setScale(0, BigDecimal.ROUND_UP));
         log.info("向下取整：{}", BigDecimal.valueOf(0.58).setScale(0, BigDecimal.ROUND_DOWN));
 
-        log.info("null比较：{}",BigDecimal.ZERO.compareTo(null));
+        log.info("null比较：{}", BigDecimal.ZERO.compareTo(null));
     }
 
     private static boolean isIntegerValue(BigDecimal bd) {
