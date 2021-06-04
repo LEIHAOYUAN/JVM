@@ -13,7 +13,11 @@ import java.math.BigDecimal;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        log.info("向下取整：{}", BigDecimal.valueOf(1.999990).divide(BigDecimal.ONE, 0, BigDecimal.ROUND_DOWN));
+        BigDecimal roundDown = BigDecimal.valueOf(0.999990).divide(BigDecimal.ONE, 0, BigDecimal.ROUND_DOWN);
+        BigDecimal result = roundDown.multiply(BigDecimal.valueOf(1.258));
+        log.info("零乘法：结果：{}，与零比较结果：{}",result,BigDecimal.ZERO.compareTo(result) == 0);
+
+        log.info("向下取整：{}", roundDown);
 
         log.info("去除多余零：{}", BigDecimal.valueOf(0.562330000000D).toPlainString());
 
