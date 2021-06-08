@@ -39,6 +39,10 @@ public class RedisConfigModel implements Serializable {
 
 
     public static void main(String[] args) {
+        log.info("fastjson测试null值：{}",JSON.toJSONString(null));
+    }
+
+    private static void extracted() {
         RedisConfigModel redisConfigModel = new RedisConfigModel();
         Map<String, BigDecimal> map = Maps.newHashMap();
         map.put("909009",BigDecimal.ONE);
@@ -49,7 +53,6 @@ public class RedisConfigModel implements Serializable {
         log.info(redisConfigModel.toString());
         log.info("fastJson格式：{}",JSON.toJSONString(map));
         log.info("fastJson NULL ：{}",JSON.toJSONString(null));
-
     }
 
 
