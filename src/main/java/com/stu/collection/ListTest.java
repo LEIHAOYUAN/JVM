@@ -2,6 +2,7 @@ package com.stu.collection;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.stu.clone.Student;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,8 +19,11 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-//        testModifyStream();
-        testToMap();
+
+        Map<String,String> map = Maps.newHashMap();
+        map.put(null,null);
+        map.put(null,null);
+        map.put(null,null);
     }
 
     private static void testToMap(){
