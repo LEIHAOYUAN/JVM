@@ -43,6 +43,9 @@ public class ListTest {
     }
 
 
+    /**
+     * list转换map，key重复问题
+     */
     private static void testDealMapDuplicateKey(){
         List<Student> listStu = Lists.newArrayList();
         listStu.add(new Student(10));
