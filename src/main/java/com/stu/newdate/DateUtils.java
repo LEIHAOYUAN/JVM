@@ -39,6 +39,14 @@ public class DateUtils {
         log.info(yyyyMMdd.toString());
         log.info(localDate.toString());
 
+        testPlusDays();
+
+    }
+
+
+    public static void testPlusDays(){
+        LocalDate localDate = LocalDate.now().plusDays(1);
+        log.info("plusdays 测试：{}",localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
     /**
