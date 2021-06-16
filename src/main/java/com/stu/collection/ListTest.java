@@ -20,10 +20,6 @@ public class ListTest {
 
     public static void main(String[] args) {
 
-        Integer ii = null;
-        int aa = ii;
-        log.info("转换结果：{}",aa);
-
         Map<String,String> map = Maps.newHashMap();
         map.put(null,null);
         map.put(null,null);
