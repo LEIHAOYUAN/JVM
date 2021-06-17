@@ -21,7 +21,7 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        tesSum();
+        testAddObject();
     }
 
     /**
@@ -127,6 +127,19 @@ public class ListTest {
         aa = aa.stream().filter(item -> item.equals("$$$")).collect(Collectors.toList());
         aa.forEach(item -> item += "BBB");
         System.out.println(aa.size());
+    }
+
+    private static void testAddObject() {
+        List<Student> sumList = Lists.newArrayList();
+        List<Student> list = Lists.newArrayList();
+        Student stu = new Student("张三", null, BigDecimal.TEN);
+
+        sumList.add(stu);
+        stu.setName("李四");
+        list.add(stu);
+        sumList.addAll(list);
+        log.info("list添加重复对象：{}",JSON.toJSONString(list));
+        log.info("sumList添加重复对象：{}",JSON.toJSONString(sumList));
     }
 
     private static void test01() {
