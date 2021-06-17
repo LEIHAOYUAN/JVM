@@ -133,10 +133,11 @@ public class ListTest {
         List<Student> sumList = Lists.newArrayList();
         List<Student> list = Lists.newArrayList();
         Student stu = new Student("张三", null, BigDecimal.TEN);
-
+        Student newStu = new Student();
+        newStu = stu;
         sumList.add(stu);
-        stu.setName("李四");
-        list.add(stu);
+        newStu.setName("李四");
+        list.add(newStu);
         sumList.addAll(list);
         log.info("list添加重复对象：{}",JSON.toJSONString(list));
         log.info("sumList添加重复对象：{}",JSON.toJSONString(sumList));
