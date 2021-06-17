@@ -20,5 +20,4 @@ public class Student {
     private String age;
     private BigDecimal score;
 
-
 }

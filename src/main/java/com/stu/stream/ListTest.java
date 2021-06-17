@@ -21,7 +21,7 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testAddObject();
+        testDefaultProperties();
     }
 
     /**
@@ -150,6 +150,13 @@ public class ListTest {
         collect.forEach(item -> item.setAge("0"));
         collect.stream().filter(item -> item.getName().equals("XXX")).forEach(System.out::println);
         System.out.println(collect.size());
+
+    }
+
+    private static void testDefaultProperties() {
+        Man man = new Man();
+        man.setIsMan(false);
+        log.info("校验对象默认值：{}",JSON.toJSONString(man));
 
     }
 
