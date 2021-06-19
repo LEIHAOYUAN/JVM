@@ -18,7 +18,9 @@ public class Test {
 
     private static void testTrim() {
         String param = "  2  ";
+        String param1 = "             ";
         log.info("trim转换结果：{}", Long.valueOf(param.trim()));
+        log.info("trim转换结果：{}", param1.trim().length());
     }
 
     private static void testSubString() {
