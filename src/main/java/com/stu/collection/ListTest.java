@@ -20,10 +20,7 @@ public class ListTest {
 
     public static void main(String[] args) {
 
-        Map<String,String> map = Maps.newHashMap();
-        map.put(null,null);
-        map.put(null,null);
-        map.put(null,null);
+        testDealMapDuplicateKey();
     }
 
     private static void testToMap(){
@@ -52,17 +49,20 @@ public class ListTest {
      */
     private static void testDealMapDuplicateKey(){
         List<Student> listStu = Lists.newArrayList();
-        listStu.add(new Student(10));
+        listStu.add(new Student(null));
+        listStu.add(new Student(6));
+        listStu.add(new Student(8));
         listStu.add(new Student(10));
         listStu.add(new Student(11));
         listStu.add(new Student(12));
-        Map<Integer, Student> idMap = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s,(oldValue, newValue) -> newValue));
+//        Map<Integer, Student> idMap = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s,(oldValue, newValue) -> newValue));
+        Map<Integer, Student> idMap = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s));
         System.out.println(JSON.toJSONString(idMap));
     }
 
     private static void testMapDuplicateKey(){
         List<Student> listStu = Lists.newArrayList();
-        listStu.add(new Student(10));
+        listStu.add(new Student(8));
         listStu.add(new Student(10));
         listStu.add(new Student(11));
         listStu.add(new Student(12));
