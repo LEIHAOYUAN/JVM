@@ -21,7 +21,21 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testDefaultProperties();
+        testSimpleSort();
+    }
+
+
+    private static void testSimpleSort(){
+        List<Long> list = Lists.newArrayList();
+        list.add(null);
+        list.add(100L);
+        list.add(19L);
+        list.add(0L);
+        log.info("排序前：{}",JSON.toJSONString(list));
+
+        List<Long> collect = list.stream().filter(Objects::nonNull).sorted().collect(Collectors.toList());
+        log.info("排序后：{}",JSON.toJSONString(collect));
+
     }
 
     /**
