@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -48,12 +49,14 @@ public class ListTest {
      */
     private static void testDealMapDuplicateKey(){
         List<Student> listStu = Lists.newArrayList();
+        listStu.add(null);
 //        listStu.add(new Student(null));
         listStu.add(new Student(6));
 //        listStu.add(new Student(8));
 //        listStu.add(new Student(10));
 //        listStu.add(new Student(11));
 //        listStu.add(new Student(12));
+        listStu = listStu.stream().filter(Objects::nonNull).collect(Collectors.toList());
         Map<Integer, Student> idMap = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s,(oldValue, newValue) -> newValue));
         System.out.println(JSON.toJSONString(idMap));
     }
