@@ -6,10 +6,12 @@ import com.google.common.collect.Maps;
 import com.stu.clone.Student;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @Description
@@ -20,7 +22,7 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        testDealMapDuplicateKey();
+        testSort();
     }
 
     private static void testToMap(){
@@ -31,6 +33,24 @@ public class ListTest {
         Map<Integer, Student> collect = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s));
         System.out.println(collect == null);
         System.out.println(JSON.toJSONString(collect));
+    }
+
+    private static void testSort(){
+        List<Long> list = Lists.newArrayList();
+        list.add(null);
+        list.add(null);
+        list.add(20L);
+        list.add(8L);
+        list.add(1L);
+        list.add(56L);
+        list.add(-3L);
+        log.info("排序前：{}",JSON.toJSONString(list));
+        if(list.contains(null)){
+            log.info("包含空值，无法排序");
+        }
+        list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+        Collections.sort(list);
+        log.info("排序后：{}",JSON.toJSONString(list));
     }
 
     private static void testDistinct(){
