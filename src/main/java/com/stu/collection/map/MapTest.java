@@ -21,7 +21,13 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-        test01();
+        testCurrentMap();
+    }
+
+
+    private static void testCurrentMap(){
+        Map<Long,String> map = Maps.newConcurrentMap();
+        log.info("map结果：{}",map.get(null));
     }
 
     private static void test01(){
