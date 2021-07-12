@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-       log.info("校验是否为整数：{}",isIntegerValue(BigDecimal.ZERO));
+       log.info("校验是否为整数：{}",isIntegerValue(BigDecimal.valueOf(2.000000)));
     }
 
 
