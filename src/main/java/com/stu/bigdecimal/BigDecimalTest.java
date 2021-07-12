@@ -13,8 +13,11 @@ import java.math.BigDecimal;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        testOutOfScale();
+       log.info("校验是否为整数：{}",isIntegerValue(BigDecimal.ZERO));
     }
+
+
+
 
     public static void testOutOfScale() {
         BigDecimal aa = new BigDecimal("4.2558855678678978697464564564564564561561561561561564864156456456456487897897897945642346478978978948648646848674864948645645645645645645645645645645645645645645645645645645645645");
