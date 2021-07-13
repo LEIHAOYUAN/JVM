@@ -3,6 +3,7 @@ package com.stu.bigdecimal;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * @Description
@@ -14,6 +15,9 @@ public class BigDecimalTest {
 
     public static void main(String[] args) {
        log.info("校验是否为整数：{}",isIntegerValue(BigDecimal.valueOf(2.000000)));
+
+       BigDecimal decimal = BigDecimal.valueOf(1.000958);
+       log.info("测试向下取整：{}",decimal.setScale(0, RoundingMode.DOWN));
     }
 
 
