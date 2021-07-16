@@ -1,6 +1,7 @@
 package com.stu.string;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.builder.ToStringExclude;
 
 /**
  * @Author leihaoyuan
@@ -12,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StringTest {
 
     public static void main(String[] args) {
-        testReplace();
+        testSubstring();
     }
 
     private static void testSplit() {
@@ -30,6 +31,11 @@ public class StringTest {
         log.info("替换前：{}",param);
         log.info("替换后：{}",replace);
 
+    }
+
+    private static void testSubstring(){
+        String param = "TEC20210506";
+        log.info(param.substring("TEC".length()));
     }
 
 
