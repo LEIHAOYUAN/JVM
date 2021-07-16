@@ -35,7 +35,8 @@ public class StringTest {
 
     private static void testSubstring(){
         String param = "TEC20210506";
-        log.info(param.substring("TEC".length()));
+        log.info("字符串截取结果一：{}",param.substring("TEC".length()));
+        log.info("字符串截取结果二：{}",param.substring("TEC".length(),4));
     }
 
 
