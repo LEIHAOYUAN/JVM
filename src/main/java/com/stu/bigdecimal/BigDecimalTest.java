@@ -25,7 +25,7 @@ public class BigDecimalTest {
      * 校验小数位数
      */
     private static void testScale(){
-        BigDecimal decimal = BigDecimal.valueOf(1.00095800);
+        BigDecimal decimal = BigDecimal.valueOf(188.095800);
         String s = decimal.stripTrailingZeros().toPlainString();
         int index = s.indexOf(".");
         log.info("有效小数位数：{}",index < 0 ? 0 : s.length() - index - 1);
