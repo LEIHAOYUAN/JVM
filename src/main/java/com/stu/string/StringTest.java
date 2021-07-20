@@ -13,7 +13,7 @@ import org.apache.commons.lang3.builder.ToStringExclude;
 public class StringTest {
 
     public static void main(String[] args) {
-        testSubstring();
+        testSplitLastIndex();
     }
 
     private static void testSplit() {
@@ -23,6 +23,17 @@ public class StringTest {
         for (String s : split) {
             log.info("切割后结果：{}", s.length());
         }
+    }
+
+    private static void testSplitLastIndex(){
+        StringBuilder builder = new StringBuilder("1,3,6,9,");
+
+        int index = builder.lastIndexOf(",");
+        if(index == builder.length()-1){
+            builder.deleteCharAt(index);
+        }
+        log.info("处理结果：{}",builder.toString());
+
     }
 
     private static void testReplace(){
