@@ -13,7 +13,13 @@ import org.apache.commons.lang3.builder.ToStringExclude;
 public class StringTest {
 
     public static void main(String[] args) {
-        testSplitLastIndex();
+        testContians();
+    }
+
+
+    private static void testContians(){
+        String param = "2,3,4,6,7,8,10,11,12,13";
+        log.info("测试包含：{}",param.contains("1"));
     }
 
     private static void testSplit() {
