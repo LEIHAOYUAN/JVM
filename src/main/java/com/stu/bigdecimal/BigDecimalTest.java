@@ -14,14 +14,12 @@ import java.math.RoundingMode;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        log.info("校验是否为整数：{}", isIntegerValue(BigDecimal.valueOf(2.000000)));
+        testScaleDown();
+    }
 
-        BigDecimal decimal = BigDecimal.valueOf(1.000958);
-        log.info("测试向下取整：{}", decimal.setScale(0, RoundingMode.DOWN));
-        testScale();
-
-        BigDecimal aa = BigDecimal.TEN.setScale(0, BigDecimal.ROUND_UP);
-        log.info("测试向上取整：{}", aa.toPlainString());
+    private static void testScaleDown(){
+        BigDecimal param = BigDecimal.valueOf(895.9368D);
+        log.info("向下取整结果：{}",param.setScale(0,RoundingMode.DOWN).toPlainString());
     }
 
 
