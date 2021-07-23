@@ -20,6 +20,7 @@ public class BigDecimalTest {
     private static void testScaleDown(){
         BigDecimal param = BigDecimal.valueOf(895.9368D);
         log.info("向下取整结果：{}",param.setScale(0,RoundingMode.DOWN).toPlainString());
+        log.info("向下取整结果：{}",param.setScale(0,BigDecimal.ROUND_DOWN).toPlainString());
     }
 
 
