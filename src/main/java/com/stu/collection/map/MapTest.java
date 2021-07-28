@@ -5,11 +5,10 @@ import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @Author leihaoyuan
@@ -21,7 +20,21 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-        testCurrentMap();
+        testSort();
+    }
+
+    private static void testSort(){
+        Map<String, BigDecimal> batchMap = Maps.newHashMap();
+        batchMap.put("20210501",BigDecimal.TEN);
+        batchMap.put("20200501",BigDecimal.TEN);
+        batchMap.put("20190501",BigDecimal.TEN);
+        batchMap.put("20210801",BigDecimal.TEN);
+        batchMap.put("20210830",BigDecimal.TEN);
+        log.info("排序前：{}",JSON.toJSONString(batchMap));
+        batchMap = batchMap.entrySet().stream().sorted(Map.Entry.comparingByKey()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,(oldValue, newValue) -> oldValue, LinkedHashMap::new));
+        log.info("排序后：{}",JSON.toJSONString(batchMap));
+
+
     }
 
 
