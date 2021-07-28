@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 public class MapTest {
 
     public static void main(String[] args) {
-        testSort();
+        testSum();
     }
 
     private static void testSort(){
@@ -33,8 +33,14 @@ public class MapTest {
         log.info("排序前：{}",JSON.toJSONString(batchMap));
         batchMap = batchMap.entrySet().stream().sorted(Map.Entry.comparingByKey()).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,(oldValue, newValue) -> oldValue, LinkedHashMap::new));
         log.info("排序后：{}",JSON.toJSONString(batchMap));
+    }
 
-
+    private static void testSum(){
+        Map<String, BigDecimal> batchMap = Maps.newHashMap();
+        batchMap.put("20210501",BigDecimal.TEN);
+        batchMap.put("20200501",BigDecimal.TEN);
+        BigDecimal sumNumber = BigDecimal.valueOf(batchMap.values().stream().mapToDouble(BigDecimal::doubleValue).sum());
+        log.info("map-value求和结果：{}",sumNumber.toPlainString());
     }
 
 
