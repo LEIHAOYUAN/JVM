@@ -6,10 +6,7 @@ import com.google.common.collect.Maps;
 import com.stu.clone.Student;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -22,7 +19,7 @@ import java.util.stream.Stream;
 public class ListTest {
 
     public static void main(String[] args) {
-        testSort();
+        testRemove1();
     }
 
     private static void testToMap(){
@@ -33,6 +30,26 @@ public class ListTest {
         Map<Integer, Student> collect = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s));
         System.out.println(collect == null);
         System.out.println(JSON.toJSONString(collect));
+    }
+
+
+    private static void testRemove1(){
+        List<String> param = Lists.newArrayList(Arrays.asList("AAA","AA","ABEC"));
+        log.info("移除前：{}",JSON.toJSONString(param));
+        Iterator<String> iterator = param.iterator();
+        while (iterator.hasNext()){
+            if("AAA".equals(iterator.next())){
+                iterator.remove();
+            }
+        }
+        log.info("移除后：{}",JSON.toJSONString(param));
+    }
+
+    private static void testRemove2(){
+        List<String> param = Lists.newArrayList(Arrays.asList("A","AAA","GDFES"));
+        log.info("移除前：{}",JSON.toJSONString(param));
+        param.removeIf("AAA"::equals);
+        log.info("移除后：{}",JSON.toJSONString(param));
     }
 
     private static void testSort(){
