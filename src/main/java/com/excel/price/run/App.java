@@ -1,20 +1,18 @@
 package com.excel.price.run;
 
-import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSON;
-import com.excel.price.ao.StockCellModel;
-import com.excel.price.ao.StockDetailModel;
-import com.excel.price.service.StockCellService;
-import com.excel.price.service.StockDetailService;
+import com.excel.price.ao.base.SpecInfoModel;
+import com.excel.price.ao.base.StockCellModel;
+import com.excel.price.ao.base.StockDetailModel;
+import com.excel.price.service.base.SpecInfoService;
+import com.excel.price.service.base.StockCellService;
+import com.excel.price.service.base.StockDetailService;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @Author leihaoyuan
@@ -24,8 +22,6 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class App {
-
-    private static final String BASE_PATH = "D:\\工作文档\\预置单价\\";
 
     public static void main(String[] args) {
         Map<String, StockCellModel> cellMap = readStockCellExcel();
@@ -38,7 +34,19 @@ public class App {
     private static void paddingDataHandler() {
 
 
+    }
 
+
+    private static Map<String, StockDetailModel> readStockDetailExcel() {
+        return new StockDetailService().getMap();
+    }
+
+    private static Map<String, StockCellModel> readStockCellExcel() {
+        return new StockCellService().getMap();
+    }
+
+    private static Map<String, SpecInfoModel> readSpecInfoExcel() {
+        return new SpecInfoService().getMap();
     }
 
     private static Map<String, String> buildSpecPriceMap(Map<String, StockDetailModel> stockDetailMap) {
@@ -64,40 +72,5 @@ public class App {
         return specPriceMap;
     }
 
-
-    /*
-     * 规格结存单价信息（相同规格保留最高单价）
-     * @return
-     */
-    private static Map<String, StockDetailModel> readStockDetailExcel() {
-        StockDetailService stockDetailService = new StockDetailService();
-        EasyExcel.read(BASE_PATH + "单价信息.xlsx", StockDetailModel.class, stockDetailService).sheet().doRead();
-        List<StockDetailModel> data = stockDetailService.getData();
-        log.info(JSON.toJSONString(data));
-        if (CollectionUtils.isEmpty(data)) {
-            log.warn("库存单位信息为空");
-            return Maps.newHashMap();
-        }
-        return data.stream().collect(Collectors.toMap(StockDetailModel::getCellName, i -> i, (t, t2) -> t2));
-    }
-
-    /**
-     * 库存单位信息
-     * 第一列：库存单位名称
-     * 第二列：库存单位主数据编号
-     *
-     * @return
-     */
-    private static Map<String, StockCellModel> readStockCellExcel() {
-        StockCellService stockCellService = new StockCellService();
-        EasyExcel.read(BASE_PATH + "仓库信息.xlsx", StockCellModel.class, stockCellService).sheet().doRead();
-        List<StockCellModel> data = stockCellService.getData();
-        log.info(JSON.toJSONString(data));
-        if (CollectionUtils.isEmpty(data)) {
-            log.warn("库存单位信息为空");
-            return Maps.newHashMap();
-        }
-        return data.stream().collect(Collectors.toMap(StockCellModel::getName, i -> i, (t, t2) -> t2));
-    }
 
 }

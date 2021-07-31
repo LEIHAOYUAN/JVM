@@ -1,4 +1,4 @@
-package com.excel.price.ao;
+package com.excel.price.ao.base;
 
 import lombok.Data;
 
