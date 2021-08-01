@@ -19,4 +19,14 @@ public class FileConstant implements Serializable {
      * 预置单价基础路径
      */
     public static final String BASE_PATH_PRICE = "D:\\工作文档\\预置单价\\";
+
+    /**
+     * 待处理业务表格
+     */
+    public static final String BASE_PATH_REQUEST_DATA = BASE_PATH_PRICE + "业务数据\\";
+
+    /**
+     * 单价处理结果
+     */
+    public static final String BASE_PATH_PRICE_RESULT = BASE_PATH_PRICE + "处理结果\\";
 }
