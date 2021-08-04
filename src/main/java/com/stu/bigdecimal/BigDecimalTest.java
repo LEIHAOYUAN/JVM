@@ -14,28 +14,30 @@ import java.math.RoundingMode;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        testScaleDown();
+        testNegate();
     }
 
-    private static void testScaleDown(){
+    private static void testNegate() {
+        BigDecimal param = BigDecimal.valueOf(0.00);
+        log.info("测试0的相反数：{}", param.negate().toPlainString());
+    }
+
+    private static void testScaleDown() {
         BigDecimal param = BigDecimal.valueOf(895.9368D);
-        log.info("向下取整结果：{}",param.setScale(0,RoundingMode.DOWN).toPlainString());
-        log.info("向下取整结果：{}",param.setScale(0,BigDecimal.ROUND_DOWN).toPlainString());
+        log.info("向下取整结果：{}", param.setScale(0, RoundingMode.DOWN).toPlainString());
+        log.info("向下取整结果：{}", param.setScale(0, BigDecimal.ROUND_DOWN).toPlainString());
     }
-
 
 
     /**
      * 校验小数位数
      */
-    private static void testScale(){
+    private static void testScale() {
         BigDecimal decimal = BigDecimal.valueOf(188.095800);
         String s = decimal.stripTrailingZeros().toPlainString();
         int index = s.indexOf(".");
-        log.info("有效小数位数：{}",index < 0 ? 0 : s.length() - index - 1);
+        log.info("有效小数位数：{}", index < 0 ? 0 : s.length() - index - 1);
     }
-
-
 
 
     public static void testOutOfScale() {
