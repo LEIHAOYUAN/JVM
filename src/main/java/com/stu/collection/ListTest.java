@@ -2,13 +2,12 @@ package com.stu.collection;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.stu.clone.Student;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.ListUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @Description
@@ -19,10 +18,21 @@ import java.util.stream.Stream;
 public class ListTest {
 
     public static void main(String[] args) {
-        testRemove1();
+        testSplit();
     }
 
-    private static void testToMap(){
+
+    private static void testSplit() {
+        List<Long> param = Lists.newArrayList();
+        for (int i = 0; i < 800; i++) {
+            param.add(i * 1L);
+        }
+        int size = param.size() / 3 + 1;
+        List<List<Long>> partition = ListUtils.partition(param, size);
+        log.info("分组大小：{}，分组结果：{}", size, JSON.toJSONString(partition));
+    }
+
+    private static void testToMap() {
         List<Student> listStu = Lists.newArrayList();
 //        listStu.add(new Student(null));
 //        listStu.add(new Student(1));
@@ -33,26 +43,26 @@ public class ListTest {
     }
 
 
-    private static void testRemove1(){
-        List<String> param = Lists.newArrayList(Arrays.asList("AAA","AA","ABEC"));
-        log.info("移除前：{}",JSON.toJSONString(param));
+    private static void testRemove1() {
+        List<String> param = Lists.newArrayList(Arrays.asList("AAA", "AA", "ABEC"));
+        log.info("移除前：{}", JSON.toJSONString(param));
         Iterator<String> iterator = param.iterator();
-        while (iterator.hasNext()){
-            if("AAA".equals(iterator.next())){
+        while (iterator.hasNext()) {
+            if ("AAA".equals(iterator.next())) {
                 iterator.remove();
             }
         }
-        log.info("移除后：{}",JSON.toJSONString(param));
+        log.info("移除后：{}", JSON.toJSONString(param));
     }
 
-    private static void testRemove2(){
-        List<String> param = Lists.newArrayList(Arrays.asList("A","AAA","GDFES"));
-        log.info("移除前：{}",JSON.toJSONString(param));
+    private static void testRemove2() {
+        List<String> param = Lists.newArrayList(Arrays.asList("A", "AAA", "GDFES"));
+        log.info("移除前：{}", JSON.toJSONString(param));
         param.removeIf("AAA"::equals);
-        log.info("移除后：{}",JSON.toJSONString(param));
+        log.info("移除后：{}", JSON.toJSONString(param));
     }
 
-    private static void testSort(){
+    private static void testSort() {
         List<Long> list = Lists.newArrayList();
         list.add(null);
         list.add(null);
@@ -61,16 +71,16 @@ public class ListTest {
         list.add(1L);
         list.add(56L);
         list.add(-3L);
-        log.info("排序前：{}",JSON.toJSONString(list));
-        if(list.contains(null)){
+        log.info("排序前：{}", JSON.toJSONString(list));
+        if (list.contains(null)) {
             log.info("包含空值，无法排序");
         }
         list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
         Collections.sort(list);
-        log.info("排序后：{}",JSON.toJSONString(list));
+        log.info("排序后：{}", JSON.toJSONString(list));
     }
 
-    private static void testDistinct(){
+    private static void testDistinct() {
         List<Student> listStu = Lists.newArrayList();
         listStu.add(new Student(null));
         listStu.add(new Student(1));
@@ -84,7 +94,7 @@ public class ListTest {
     /**
      * list转换map，key重复问题
      */
-    private static void testDealMapDuplicateKey(){
+    private static void testDealMapDuplicateKey() {
         List<Student> listStu = Lists.newArrayList();
         listStu.add(null);
 //        listStu.add(new Student(null));
@@ -94,11 +104,11 @@ public class ListTest {
 //        listStu.add(new Student(11));
 //        listStu.add(new Student(12));
         listStu = listStu.stream().filter(Objects::nonNull).collect(Collectors.toList());
-        Map<Integer, Student> idMap = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s,(oldValue, newValue) -> newValue));
+        Map<Integer, Student> idMap = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s, (oldValue, newValue) -> newValue));
         System.out.println(JSON.toJSONString(idMap));
     }
 
-    private static void testMapDuplicateKey(){
+    private static void testMapDuplicateKey() {
         List<Student> listStu = Lists.newArrayList();
         listStu.add(new Student(8));
         listStu.add(new Student(10));
@@ -108,21 +118,20 @@ public class ListTest {
         System.out.println(JSON.toJSONString(idMap));
     }
 
-    private static void testModifyStream(){
+    private static void testModifyStream() {
         List<Student> listStu = Lists.newArrayList();
         listStu.add(new Student(10));
         Map<Integer, Student> idMap = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s));
 
         idMap.get(10).setId(500);
-        log.info("修改后集合：{}",JSON.toJSONString(listStu));
+        log.info("修改后集合：{}", JSON.toJSONString(listStu));
     }
-
 
 
     /**
      * 根据一个集合过滤另一个集合
      */
-    private static void testCollectionInster(){
+    private static void testCollectionInster() {
         List<Integer> conditionList = Lists.newArrayList();
         conditionList.add(10);
         conditionList.add(null);
@@ -134,10 +143,12 @@ public class ListTest {
         listStu.add(new Student(11));
         listStu.add(new Student(12));
 
-        System.out.println("过滤前："+ JSON.toJSONString(listStu));
+        System.out.println("过滤前：" + JSON.toJSONString(listStu));
 
-        listStu = listStu.stream().filter(item -> {return !conditionList.contains(item.getId());}).collect(Collectors.toList());
+        listStu = listStu.stream().filter(item -> {
+            return !conditionList.contains(item.getId());
+        }).collect(Collectors.toList());
 
-        System.out.println("过滤后："+ JSON.toJSONString(listStu));
+        System.out.println("过滤后：" + JSON.toJSONString(listStu));
     }
 }
