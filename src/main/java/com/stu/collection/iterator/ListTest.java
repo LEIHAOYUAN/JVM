@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.stu.stream.Student;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,10 +15,16 @@ import java.util.List;
  * @Author leihaoyuan
  * @Date 2020/12/27 14:15
  */
+@Slf4j
 public class ListTest {
 
     public static void main(String[] args) {
-        test();
+        testGetEmptyList();
+    }
+
+    private static void testGetEmptyList(){
+        List<Long> param = Lists.newArrayList();
+        log.info("获取第一条数据：{}",param.get(0));
     }
 
 
