@@ -27,6 +27,11 @@ public class RequestDataService extends AnalysisEventListener<RequestDataAO> {
 
     private List<RequestDataAO> listModel = Lists.newArrayList();
 
+    /**
+     * 每次解析一行数据调用
+     * @param model
+     * @param analysisContext
+     */
     @Override
     public void invoke(RequestDataAO model, AnalysisContext analysisContext) {
         listModel.add(model);
@@ -37,6 +42,10 @@ public class RequestDataService extends AnalysisEventListener<RequestDataAO> {
         log.info("【业务待处理数据】表头信息：{}", headMap);
     }
 
+    /**
+     * 所有数据解析完调用
+     * @param analysisContext
+     */
     @Override
     public void doAfterAllAnalysed(AnalysisContext analysisContext) {
 

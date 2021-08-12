@@ -10,7 +10,9 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -61,5 +63,29 @@ public class StockDetailService extends AnalysisEventListener<StockDetailModel> 
     private void parseExcel() {
         EasyExcel.read(FileConstant.BASE_PATH_PRICE + "单价信息.xlsx", StockDetailModel.class, this).sheet().doRead();
     }
+
+    public static Map<String, String> buildSpecPriceMap(Map<String, StockDetailModel> stockDetailMap) {
+        Map<String, String> specPriceMap = Maps.newHashMap();
+        if (MapUtils.isNotEmpty(stockDetailMap)) {
+            StockDetailModel detailModel;
+            for (Map.Entry<String, StockDetailModel> entry : stockDetailMap.entrySet()) {
+                detailModel = entry.getValue();
+                if (null == detailModel) {
+                    continue;
+                }
+                if (specPriceMap.containsKey(detailModel.getSpecCode())) {
+                    BigDecimal oldPrice = new BigDecimal(specPriceMap.get(detailModel.getSpecCode()));
+                    BigDecimal newPrice = new BigDecimal(detailModel.getStockPrice());
+                    if (oldPrice.compareTo(newPrice) > 0) {
+                        continue;
+                    }
+                }
+                specPriceMap.put(detailModel.getSpecCode(), detailModel.getStockPrice());
+            }
+            log.info("获取已存在结存单价....{}", JSON.toJSONString(specPriceMap));
+        }
+        return specPriceMap;
+    }
+
 
 }

@@ -2,6 +2,8 @@ package com.excel.price.run;
 
 import cn.hutool.poi.excel.ExcelUtil;
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelReader;
+import com.alibaba.excel.read.metadata.ReadSheet;
 import com.alibaba.fastjson.JSON;
 import com.excel.price.ao.RequestDataAO;
 import com.excel.price.ao.base.SpecInfoModel;
@@ -13,12 +15,12 @@ import com.excel.price.service.RequestDataService;
 import com.excel.price.service.base.SpecInfoService;
 import com.excel.price.service.base.StockCellService;
 import com.excel.price.service.base.StockDetailService;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.MapUtils;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -28,18 +30,20 @@ import java.util.Map;
  * @Author leihaoyuan
  * @Date 2021/7/30 21:17
  * @Version 1.0
- * @Description
+ * @Description 解析excel
  */
 @Slf4j
 public class App {
 
     public static void main(String[] args) {
         Map<String, StockCellModel> cellMap = readStockCellExcel();
+        log.info("库存单位：{}", JSON.toJSONString(cellMap));
         Map<String, StockDetailModel> stockDetailMap = readStockDetailExcel();
-        Map<String, String> specPriceMap = buildSpecPriceMap(stockDetailMap);
-
-        // TODO 解析业务excel，按照仓库维度解析
-
+        Map<String, String> specPriceMap = StockDetailService.buildSpecPriceMap(stockDetailMap);
+        log.info("存在单价：{}",JSON.toJSONString(specPriceMap));
+        // 解析业务excel，按照仓库维度解析
+        Map<String, List<RequestDataAO>> requestMap = paddingDataHandler();
+        log.info("请求数据：{}",JSON.toJSONString(requestMap));
         // TODO 根据StockDetail数据过滤已经存在单价的明细
 
         // TODO 对不存在的数据生成Excel，SQL文件
@@ -47,10 +51,33 @@ public class App {
 
     }
 
-
-    private void paddingDataHandler() {
-        RequestDataService requestDataService = new RequestDataService();
-        EasyExcel.read(FileConstant.BASE_PATH_REQUEST_DATA + "网购规格单价处理模板.xlsx", RequestDataAO.class, requestDataService).sheet().doRead();
+    private static Map<String, List<RequestDataAO>> paddingDataHandler() {
+        String filePath = FileConstant.BASE_PATH_REQUEST_DATA + "网购规格单价处理模板.xlsx";
+        RequestDataService listener = new RequestDataService();
+        ExcelReader excelReader = EasyExcel.read(filePath, listener).build();
+        List<ReadSheet> sheets = excelReader.excelExecutor().sheetList();
+        if (CollectionUtils.isEmpty(sheets)) {
+            log.error("获取sheet为空");
+            return Maps.newHashMap();
+        }
+        Map<String, List<RequestDataAO>> sheetMap = Maps.newHashMap();
+        List<RequestDataAO> sheetData = Lists.newArrayList();
+        for (ReadSheet sheet : sheets) {
+            // 先清空
+            sheetData.clear();
+            String sheetName = sheet.getSheetName();
+            excelReader.read(sheet);
+            sheetData = listener.getData();
+            List<RequestDataAO> exisData = sheetMap.get(sheetName);
+            if (CollectionUtils.isEmpty(exisData)) {
+                sheetMap.put(sheetName, sheetData);
+            } else {
+                exisData.addAll(sheetData);
+            }
+        }
+        // 关闭，清空临时文件
+        excelReader.finish();
+        return sheetMap;
     }
 
 
@@ -65,30 +92,6 @@ public class App {
     private static Map<String, SpecInfoModel> readSpecInfoExcel() {
         return new SpecInfoService().getMap();
     }
-
-    private static Map<String, String> buildSpecPriceMap(Map<String, StockDetailModel> stockDetailMap) {
-        Map<String, String> specPriceMap = Maps.newHashMap();
-        if (MapUtils.isNotEmpty(stockDetailMap)) {
-            StockDetailModel detailModel;
-            for (Map.Entry<String, StockDetailModel> entry : stockDetailMap.entrySet()) {
-                detailModel = entry.getValue();
-                if (null == detailModel) {
-                    continue;
-                }
-                if (specPriceMap.containsKey(detailModel.getSpecCode())) {
-                    BigDecimal oldPrice = new BigDecimal(specPriceMap.get(detailModel.getSpecCode()));
-                    BigDecimal newPrice = new BigDecimal(detailModel.getStockPrice());
-                    if (oldPrice.compareTo(newPrice) > 0) {
-                        continue;
-                    }
-                }
-                specPriceMap.put(detailModel.getSpecCode(), detailModel.getStockPrice());
-            }
-            log.info("获取已存在结存单价....{}", JSON.toJSONString(specPriceMap));
-        }
-        return specPriceMap;
-    }
-
 
     private void resultHandler(List<PriceResultBO> data) {
         ExcelUtil.getWriter(FileConstant.BASE_PATH_PRICE_RESULT + "待预置单价.xlsx").write(data);
