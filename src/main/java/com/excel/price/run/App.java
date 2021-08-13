@@ -51,10 +51,14 @@ public class App {
 
     }
 
+    /**
+     * 解析用户excel
+     * @return
+     */
     private static Map<String, List<RequestDataAO>> paddingDataHandler() {
         String filePath = FileConstant.BASE_PATH_REQUEST_DATA + "网购规格单价处理模板.xlsx";
         RequestDataService listener = new RequestDataService();
-        ExcelReader excelReader = EasyExcel.read(filePath, listener).build();
+        ExcelReader excelReader = EasyExcel.read(filePath,RequestDataAO.class, listener).build();
         List<ReadSheet> sheets = excelReader.excelExecutor().sheetList();
         if (CollectionUtils.isEmpty(sheets)) {
             log.error("获取sheet为空");

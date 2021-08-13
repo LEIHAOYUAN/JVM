@@ -16,7 +16,7 @@ public class RequestDataAO implements Serializable {
 
     private static final long serialVersionUID = -3970056631372307125L;
 
-
+    @ExcelProperty(index = 0)
     private String id;
 
 
@@ -27,15 +27,20 @@ public class RequestDataAO implements Serializable {
     @ExcelProperty(index = 2)
     private String specName;
 
-
+    @ExcelProperty(index = 3)
     private String remark;
+
+    @ExcelProperty(index = 4)
     private String photo;
 
 
     @ExcelProperty(index = 5)
     private String number;
 
+    @ExcelProperty(index = 6)
+    private String city;
 
+    @ExcelProperty(index = 7)
     private String channel;
 
 }
