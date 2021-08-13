@@ -41,15 +41,7 @@ public class DateTimeUtil {
     public static final String DEFAULT_DATE_PARTTERN = "yyyyMMdd";
 
     public static void main(String[] args) {
-//        log.info(formatCurrentDateTime1());
-//        log.info(formatCurrentDateTime2());
-//        log.info(formatCurrentDateTime3());
-
-        System.out.println(7*24*60*60*1000);
-
-        System.out.println(valid("2021022800","yyyyMMddHH"));
-
-        System.out.println(convertToDate("202102007700","yyyyMMddHH"));
+        System.out.println(valid("2021122898","yyyyMMddHH"));
     }
 
 
