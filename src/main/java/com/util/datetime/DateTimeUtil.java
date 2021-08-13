@@ -126,4 +126,13 @@ public class DateTimeUtil {
         }
     }
 
+    /**
+     * 校验年月是否合法
+     * @return
+     */
+    public static boolean validYearMonth(){
+        DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyyMM");
+        return YearMonth.parse("202107", fmt) != null;
+    }
+
 }
