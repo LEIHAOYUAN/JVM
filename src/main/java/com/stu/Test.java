@@ -3,8 +3,10 @@ package com.stu;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -14,27 +16,15 @@ import java.util.Set;
  * @Author leihaoyuan
  * @Date 2019/11/25 14:56
  */
+@Slf4j
 public class Test {
 
     public static void main(String[] args) {
+        BigDecimal bigDecimal = null;
 
-        Set<String> aa = Sets. newHashSet();
-        aa.add("aa");
-        aa.add("aa");
-        System.out.println(aa);
-//        testList();
+        BigDecimal param = BigDecimal.ZERO;
 
-//        String test = "3,4";
-//        System.out.println(test.contains("4"));
-//        BigDecimal buyNum = BigDecimal.valueOf(10000).divide(BigDecimal.valueOf(100),10, BigDecimal.ROUND_HALF_UP).divide(BigDecimal.valueOf(3),10, BigDecimal.ROUND_HALF_UP).setScale(3, BigDecimal.ROUND_HALF_UP);
-//        System.out.println(buyNum);
-        System.out.println(String.format("%04d", new Random().nextInt(10000)));
-//        System.out.println(System.currentTimeMillis());
-//        System.out.println(new Random().nextInt(9999));
-//        System.out.println(""+1+3);
-        for (int i = 0; i < 200; i++) {
-            System.out.println(""+System.nanoTime()+String.format("%04d", new Random().nextInt(10000)));
-        }
+        log.info("校对结果：{}",param.equals(bigDecimal));
 
     }
 
