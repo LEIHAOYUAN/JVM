@@ -13,7 +13,12 @@ import org.apache.commons.lang3.builder.ToStringExclude;
 public class StringTest {
 
     public static void main(String[] args) {
-        testContians();
+        testConcat();
+    }
+
+    private static void testConcat(){
+        String param = null;
+        log.info("-".concat(param));
     }
 
 
