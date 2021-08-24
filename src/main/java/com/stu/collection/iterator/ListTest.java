@@ -19,16 +19,29 @@ import java.util.List;
 public class ListTest {
 
     public static void main(String[] args) {
-        testGetEmptyList();
+        testOrElse();
+        testGet();
+    }
+
+
+    private static void testOrElse(){
+        List<String> param = Lists.newArrayList();
+        param.add("AAA");
+        param.add("BBB");
+        log.info("获取第一个元素：{}",JSON.toJSONString(param.stream().findFirst().orElse(null)));
+    }
+
+    private static void testGet(){
+        List<String> param = Lists.newArrayList();
+        param.add("AAA");
+        param.add("BBB");
+        log.info("获取第一个元素：{}",JSON.toJSONString(param.stream().findFirst().get()));
     }
 
     private static void testGetEmptyList(){
         List<Long> param = Lists.newArrayList();
         log.info("获取第一条数据：{}",param.get(0));
     }
-
-
-
 
     private static void test(){
         Student s1 = new Student();
