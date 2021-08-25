@@ -14,6 +14,8 @@ import java.math.RoundingMode;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
+
+        log.info("{}",BigDecimal.ZERO.compareTo(BigDecimal.valueOf(-10)));
         testNegate();
     }
 
