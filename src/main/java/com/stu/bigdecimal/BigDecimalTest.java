@@ -14,9 +14,13 @@ import java.math.RoundingMode;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
+        testConvertScientificNnotation();
+    }
 
-        log.info("{}",BigDecimal.ZERO.compareTo(BigDecimal.valueOf(-10)));
-        testNegate();
+
+    private static void testConvertScientificNnotation(){
+        String param = "-1.23400E-03";
+        log.info("科学计数法：{}，转换结果：{}",param,new BigDecimal(param).stripTrailingZeros().toPlainString());
     }
 
     private static void testNegate() {
