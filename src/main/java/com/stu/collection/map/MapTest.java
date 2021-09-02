@@ -20,7 +20,12 @@ import java.util.stream.Stream;
 public class MapTest {
 
     public static void main(String[] args) {
-        testSum();
+        testMaps();
+    }
+
+    private static void testMaps(){
+        HashMap<Object, Object> objectObjectHashMap = Maps.newHashMap(null);
+        log.info("构造空值map：{}",JSON.toJSONString(objectObjectHashMap));
     }
 
     private static void testSort(){
