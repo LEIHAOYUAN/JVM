@@ -12,7 +12,12 @@ import lombok.extern.slf4j.Slf4j;
 public class IntegerTest {
 
     public static void main(String[] args) {
-        unBoxTest();
+        testEquals();
+    }
+
+    private static void testEquals(){
+        Integer param = 9;
+        log.info("equals比较结果：{}",param.equals(null));
     }
 
     private static void unBoxTest() {
