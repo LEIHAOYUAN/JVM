@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 public class StringTest {
 
     public static void main(String[] args) {
-
+        log.info("字符串测试类");
     }
 
 }
