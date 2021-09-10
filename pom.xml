@@ -16,7 +16,7 @@
     </modules>
 
     <properties>
-        <!--<start-class>com.stu.Application</start-class>-->
+        <!--<start-class>com.lei.stu.Application</start-class>-->
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -243,7 +243,7 @@
                     <encoding>UTF-8</encoding>
                     <!-- <annotationProcessors>
                          <annotationProcessor>
-                             com.stu.jsr.BuilderProcessor
+                             com.lei.stu.jsr.BuilderProcessor
                          </annotationProcessor>
                      </annotationProcessors>-->
                 </configuration>
