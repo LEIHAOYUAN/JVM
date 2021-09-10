@@ -6,7 +6,14 @@
 
     <groupId>com.lei.jvm</groupId>
     <artifactId>JVM</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>utils</module>
+        <module>service</module>
+        <module>stu</module>
+    </modules>
 
     <properties>
         <!--<start-class>com.stu.Application</start-class>-->

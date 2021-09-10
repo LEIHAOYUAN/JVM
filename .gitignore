@@ -109,3 +109,6 @@ hs_err_pid*
 /.idea/codeStyles/
 /target/
 /.idea/deployment.xml
+/service/service.iml
+/stu/stu.iml
+/utils/utils.iml
