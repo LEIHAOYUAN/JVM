@@ -43,10 +43,17 @@
         <easyexcel.version>2.2.10</easyexcel.version>
         <mockito.version>3.8.0</mockito.version>
         <jmh.version>1.28</jmh.version>
+        <!-- module -->
+        <utils-module>1.0-SNAPSHOT</utils-module>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>com.lei.jvm</groupId>
+                <artifactId>utils</artifactId>
+                <version>${utils-module}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-core</artifactId>
