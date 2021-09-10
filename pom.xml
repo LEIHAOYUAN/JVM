@@ -13,71 +13,98 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot-core.version>5.1.9.RELEASE</spring-boot-core.version>
+        <spring-boot-starter-log4j2.version>2.4.2</spring-boot-starter-log4j2.version>
+        <spring-kafka.version>2.6.5</spring-kafka.version>
+        <lombok.version>1.18.12</lombok.version>
+        <mapstruct.version>1.2.0.Final</mapstruct.version>
+        <hutool.version>4.6.3</hutool.version>
+        <javax.validation.version>2.0.1.Final</javax.validation.version>
+        <hibernate.validation.version>6.1.2.Final</hibernate.validation.version>
+        <javax.el.version>3.0.1-b09</javax.el.version>
+        <guava.version>28.2-jre</guava.version>
+        <apache.httpclient.version>4.5.12</apache.httpclient.version>
+        <apache.common.version>3.11</apache.common.version>
+        <junit.version>4.13.2</junit.version>
+        <jwt.version>3.8.0</jwt.version>
         <zxing.core.version>3.1.0</zxing.core.version>
         <zxing.javase.version>3.1.0</zxing.javase.version>
         <barcode4j-light.version>2.0</barcode4j-light.version>
-        <mapstruct.version>1.2.0.Final</mapstruct.version>
+        <jbcrypt.version>0.4</jbcrypt.version>
+        <fastjson.version>1.2.66</fastjson.version>
+        <QLExpress.version>3.2.0</QLExpress.version>
+        <easyexcel.version>2.2.10</easyexcel.version>
+        <mockito.version>3.8.0</mockito.version>
+        <jmh.version>1.28</jmh.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>5.1.9.RELEASE</version>
+            <version>${spring-boot-core.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
-            <version>2.4.2</version>
+            <version>${spring-boot-starter-log4j2.version}</version>
         </dependency>
+        <!-- kafka -->
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.66</version>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>${spring-kafka.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.12</version>
+            <version>${lombok.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
-            <version>2.0.1.Final</version>
+            <version>${javax.validation.version}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>6.1.2.Final</version>
+            <version>${hibernate.validation.version}</version>
         </dependency>
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
-            <version>3.0.1-b09</version>
+            <version>${javax.el.version}</version>
         </dependency>
 
         <!-- guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>28.2-jre</version>
+            <version>${guava.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.common.version}</version>
         </dependency>
 
         <!-- httpclient -->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.12</version>
+            <version>${apache.httpclient.version}</version>
         </dependency>
 
         <!-- JWT -->
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-            <version>3.8.0</version>
+            <version>${jwt.version}</version>
         </dependency>
 
         <!-- 二维码-start -->
@@ -99,25 +126,24 @@
             <artifactId>barcode4j-light</artifactId>
             <version>${barcode4j-light.version}</version>
         </dependency>
-        <!-- 条形码-end -->
 
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.11</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
-        <!-- kafka -->
         <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-            <version>2.6.5</version>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>${easyexcel.version}</version>
         </dependency>
         <!--阿里规则引擎-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>QLExpress</artifactId>
-            <version>3.2.0</version>
+            <version>${QLExpress.version}</version>
         </dependency>
+
         <!-- mapstruct -->
         <dependency>
             <groupId>org.mapstruct</groupId>
@@ -129,38 +155,18 @@
             <artifactId>mapstruct-processor</artifactId>
             <version>${mapstruct.version}</version>
         </dependency>
-        <!-- mapstruct -->
 
-        <!-- https://mvnrepository.com/artifact/at.favre.lib/bcrypt -->
-        <!--        <dependency>
-                    <groupId>at.favre.lib</groupId>
-                    <artifactId>bcrypt</artifactId>
-                    <version>0.9.0</version>
-                </dependency>-->
-
-        <!-- https://mvnrepository.com/artifact/org.mindrot.bcrypt/bcrypt -->
-        <!--        <dependency>
-                    <groupId>org.mindrot.bcrypt</groupId>
-                    <artifactId>bcrypt</artifactId>
-                    <version>0.3</version>
-                </dependency>-->
-
-        <!--        <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-security</artifactId>
-                    <version>2.4.3</version>
-                </dependency>-->
         <dependency>
             <groupId>org.mindrot</groupId>
             <artifactId>jbcrypt</artifactId>
-            <version>0.4</version>
+            <version>${jbcrypt.version}</version>
         </dependency>
 
         <!--hutool-->
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>4.6.3</version>
+            <version>${hutool.version}</version>
         </dependency>
 
         <!--百度雪花算法依赖-->
@@ -174,7 +180,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -182,13 +188,13 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>3.8.0</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-inline</artifactId>
-            <version>3.8.0</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -196,20 +202,14 @@
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-core</artifactId>
-            <version>1.28</version>
+            <version>${jmh.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.openjdk.jmh</groupId>
             <artifactId>jmh-generator-annprocess</artifactId>
-            <version>1.28</version>
+            <version>${jmh.version}</version>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>easyexcel</artifactId>
-            <version>2.2.10</version>
         </dependency>
 
     </dependencies>
@@ -222,8 +222,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5</version>
                 <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                     <encoding>UTF-8</encoding>
                     <!-- <annotationProcessors>
                          <annotationProcessor>
