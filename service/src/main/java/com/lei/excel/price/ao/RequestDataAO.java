@@ -1,4 +1,4 @@
-package com.excel.price.ao;
+package com.lei.excel.price.ao;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;

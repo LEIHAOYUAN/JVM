@@ -1,4 +1,4 @@
-package com.excel.price.bo;
+package com.lei.excel.price.bo;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
