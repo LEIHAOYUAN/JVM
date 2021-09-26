@@ -12,7 +12,16 @@ import lombok.extern.slf4j.Slf4j;
 public class StringTest {
 
     public static void main(String[] args) {
-        log.info("字符串测试类");
+        testSplit();
+    }
+
+
+    public static void testSplit(){
+        String param = "http://www.baidu.comhttp://www.alibaba.com888,558";
+        String[] urls = param.split(",");
+        for (String url : urls) {
+            log.info("拆分URL：{}",url);
+        }
     }
 
 }
