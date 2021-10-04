@@ -1,6 +1,12 @@
 package com.lei.stu.base;
 
+import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Author leihaoyuan
@@ -12,17 +18,30 @@ import lombok.extern.slf4j.Slf4j;
 public class StringTest {
 
     public static void main(String[] args) {
-        testContins();
+        testJoin();
+    }
+
+    public static void testJoin(){
+        List<String> param = Lists.newArrayList();
+        param.add("");
+        param.add("www.baidu.com");
+        param.add("   ");
+        param.add("www.jd.com");
+        param = param.stream().filter(StringUtils::isNotBlank).collect(Collectors.toList());
+        log.info("过滤结果：{}", JSON.toJSONString(param));
+        String collect = param.stream().map(String::valueOf).collect(Collectors.joining(","));
+        log.info("逗号拼接结果：{}",collect);
     }
 
 
     public static void testContins() {
-        String param = "www.baidu.com,www.jd.com,www.tx.com, ,";
+        String param = "www.baidu.com,www.jd.com,www.tx.com,，，，，";
         String[] split = param.split(",");
         for (String s : split) {
             log.info("字符串切分结果：{}", s);
         }
     }
+
 
 
     public static void testSplit() {
