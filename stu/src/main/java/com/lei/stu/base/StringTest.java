@@ -17,7 +17,7 @@ public class StringTest {
 
 
     public static void testContins() {
-        String param = "www.baidu.com,www.jd.com,www.tx.com,,";
+        String param = "www.baidu.com,www.jd.com,www.tx.com, ,";
         String[] split = param.split(",");
         for (String s : split) {
             log.info("字符串切分结果：{}", s);
