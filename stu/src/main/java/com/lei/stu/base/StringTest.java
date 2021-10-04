@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 public class StringTest {
 
     public static void main(String[] args) {
-        testJoin();
+        testSplit();
     }
 
-    public static void testJoin(){
+    public static void testJoin() {
         List<String> param = Lists.newArrayList();
         param.add("");
         param.add("www.baidu.com");
@@ -30,18 +30,8 @@ public class StringTest {
         param = param.stream().filter(StringUtils::isNotBlank).collect(Collectors.toList());
         log.info("过滤结果：{}", JSON.toJSONString(param));
         String collect = param.stream().map(String::valueOf).collect(Collectors.joining(","));
-        log.info("逗号拼接结果：{}",collect);
+        log.info("逗号拼接结果：{}", collect);
     }
-
-
-    public static void testContins() {
-        String param = "www.baidu.com,www.jd.com,www.tx.com,，，，，";
-        String[] split = param.split(",");
-        for (String s : split) {
-            log.info("字符串切分结果：{}", s);
-        }
-    }
-
 
 
     public static void testSplit() {
