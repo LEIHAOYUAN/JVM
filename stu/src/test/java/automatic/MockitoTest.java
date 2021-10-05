@@ -21,7 +21,7 @@ public class MockitoTest extends BaseMockTest {
     }
 
     @Test
-    public void testSpy(){
+    public void testSpy() {
         ArrayList<Integer> arrayList = new ArrayList<Integer>();
         ArrayList spyList = spy(arrayList);
 
@@ -44,10 +44,9 @@ public class MockitoTest extends BaseMockTest {
      * 不过，需要注意的是，对 spy 对象进行 stub 时尽量使用 doReturn.when(spyObj).someMethod() 的方式，
      * 因为当使用 when(spyObj.someMethod()).thenReturn() 方式时 someMethod 相当于在 stub 之前被调用了一次，
      * 而 spy 对象调用未被 stub 的方法时，会直接调用原对象的相应方法，容易造成异常。
-     *
      */
     @Test
-    public void testSpyException(){
+    public void testSpyException() {
         ArrayList<Integer> arrayList = new ArrayList<Integer>();
         ArrayList spyList = spy(arrayList);
 

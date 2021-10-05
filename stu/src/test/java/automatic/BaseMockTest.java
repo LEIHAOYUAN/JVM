@@ -1,5 +1,6 @@
 package automatic;
 
+
 import org.junit.Before;
 import org.mockito.MockitoAnnotations;
 
