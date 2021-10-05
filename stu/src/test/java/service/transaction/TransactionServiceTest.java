@@ -14,6 +14,9 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @Date 2021/9/27 17:12
  * @Version 1.0
  * @Description
+ * 【1】@Transactional(propagation = Propagation.NEVER实际可以支持TransactionSynchronizationManager.registerSynchronization的执行
+ * 【2】简单来说，在同一个事务中TransactionSynchronizationManager.registerSynchronization只会执行一次，因为同个事务的状态只有一个
+ *
  */
 @Slf4j
 @RunWith(SpringRunner.class)
