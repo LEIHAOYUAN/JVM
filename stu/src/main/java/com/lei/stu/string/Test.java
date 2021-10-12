@@ -12,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 public class Test {
 
     public static void main(String[] args) {
-        testTrim();
+        char[] arr = null;
+        String str = new String(arr);
+        log.info(str);
     }
 
 
