@@ -3,6 +3,7 @@ package com.lei.stu.stream;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
@@ -26,8 +27,8 @@ public class ListTest {
 
     private static void testContains(){
         List<Long> param = Lists.newArrayList();
-        param.add(-1L);
         param.add(null);
+        log.info("集合是否为空：{}", CollectionUtils.isEmpty(param));
         log.info("测试集合包含：{}",param.contains(null));
     }
 
