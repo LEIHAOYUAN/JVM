@@ -21,7 +21,14 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testSimpleSort();
+        testContains();
+    }
+
+    private static void testContains(){
+        List<Long> param = Lists.newArrayList();
+        param.add(-1L);
+        param.add(null);
+        log.info("测试集合包含：{}",param.contains(null));
     }
 
 
