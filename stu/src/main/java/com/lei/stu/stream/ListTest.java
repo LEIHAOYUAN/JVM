@@ -22,27 +22,37 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testContains();
+        testAddAll();
     }
 
-    private static void testContains(){
+    private static void testAddAll() {
+        List<Long> param = Lists.newArrayList();
+        param.addAll(Lists.newArrayList());
+        param.addAll(Lists.newArrayList());
+        param.addAll(Lists.newArrayList());
+        param.addAll(Lists.newArrayList());
+        log.info("集合大小：{}", param.size());
+    }
+
+
+    private static void testContains() {
         List<Long> param = Lists.newArrayList();
         param.add(null);
         log.info("集合是否为空：{}", CollectionUtils.isEmpty(param));
-        log.info("测试集合包含：{}",param.contains(null));
+        log.info("测试集合包含：{}", param.contains(null));
     }
 
 
-    private static void testSimpleSort(){
+    private static void testSimpleSort() {
         List<Long> list = Lists.newArrayList();
         list.add(null);
         list.add(100L);
         list.add(19L);
         list.add(0L);
-        log.info("排序前：{}",JSON.toJSONString(list));
+        log.info("排序前：{}", JSON.toJSONString(list));
 
         List<Long> collect = list.stream().filter(Objects::nonNull).sorted().collect(Collectors.toList());
-        log.info("排序后：{}",JSON.toJSONString(collect));
+        log.info("排序后：{}", JSON.toJSONString(collect));
 
     }
 
@@ -51,10 +61,10 @@ public class ListTest {
      * 原因：
      * 循环中的 1000 个具有 10 万个元素的 List 始终得不到回收，因为它始终被 subList 方法返回的 子list 强引用
      */
-    private static void subListOOM(){
+    private static void subListOOM() {
         for (int i = 0; i < 1000; i++) {
             List<Integer> collect = IntStream.rangeClosed(1, 100000).boxed().collect(Collectors.toList());
-            subListData.add(collect.subList(0,1));
+            subListData.add(collect.subList(0, 1));
         }
     }
 
@@ -117,7 +127,6 @@ public class ListTest {
     }
 
 
-
     private static void testSplit() {
         String notes = "1,2   ,3,  ,5,6  ";
         if (StringUtils.isNotBlank(notes)) {
@@ -134,7 +143,6 @@ public class ListTest {
         boolean ccc = list.contains("AAA");
         System.out.println(ccc);
     }
-
 
 
     private static void test001() {
@@ -161,8 +169,8 @@ public class ListTest {
         newStu.setName("李四");
         list.add(newStu);
         sumList.addAll(list);
-        log.info("list添加重复对象：{}",JSON.toJSONString(list));
-        log.info("sumList添加重复对象：{}",JSON.toJSONString(sumList));
+        log.info("list添加重复对象：{}", JSON.toJSONString(list));
+        log.info("sumList添加重复对象：{}", JSON.toJSONString(sumList));
     }
 
     private static void test01() {
@@ -178,7 +186,7 @@ public class ListTest {
     private static void testDefaultProperties() {
         Man man = new Man();
         man.setIsMan(false);
-        log.info("校验对象默认值：{}",JSON.toJSONString(man));
+        log.info("校验对象默认值：{}", JSON.toJSONString(man));
 
     }
 
