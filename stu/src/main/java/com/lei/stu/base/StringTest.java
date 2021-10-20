@@ -18,7 +18,14 @@ import java.util.stream.Collectors;
 public class StringTest {
 
     public static void main(String[] args) {
-        testPlus();
+        testNumStr();
+    }
+
+
+    public static void testNumStr(){
+        Long  param = 123456L;
+        String str = param.toString();
+        log.info("数字长度：{}",str.length());
     }
 
 
