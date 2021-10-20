@@ -18,7 +18,12 @@ import java.util.stream.Collectors;
 public class StringTest {
 
     public static void main(String[] args) {
-        testSplit();
+        testPlus();
+    }
+
+
+    public static void testPlus(){
+        log.info(""+null);
     }
 
     public static void testJoin() {
