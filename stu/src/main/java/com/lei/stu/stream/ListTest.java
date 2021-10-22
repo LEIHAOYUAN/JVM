@@ -22,7 +22,23 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testAddAll();
+        testReference();
+    }
+
+
+    /**
+     * 测试集合中引用对象的属性变化
+     */
+    public static void testReference() {
+        List<Student> param = Lists.newArrayList();
+        Student ss = new Student("张三", "三十岁", BigDecimal.TEN);
+        param.add(ss);
+        Map<String, Student> studentMap = param.stream().collect(Collectors.toMap(Student::getName, i -> i));
+        for (Map.Entry<String, Student> stringStudentEntry : studentMap.entrySet()) {
+            stringStudentEntry.getValue().setAge("三千岁");
+        }
+        log.info("修改后-集合对象：{}", JSON.toJSONString(param));
+        log.info("修改后-map对象：{}", JSON.toJSONString(studentMap));
     }
 
     private static void testAddAll() {
