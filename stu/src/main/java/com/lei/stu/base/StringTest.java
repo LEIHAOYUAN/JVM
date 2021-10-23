@@ -18,19 +18,24 @@ import java.util.stream.Collectors;
 public class StringTest {
 
     public static void main(String[] args) {
-        testNumStr();
+        testValueOf();
     }
 
 
-    public static void testNumStr(){
-        Long  param = 123456L;
+    public static void testValueOf() {
+        log.info("null转换字符串：{}", String.valueOf(null));
+    }
+
+
+    public static void testNumStr() {
+        Long param = 123456L;
         String str = param.toString();
-        log.info("数字长度：{}",str.length());
+        log.info("数字长度：{}", str.length());
     }
 
 
-    public static void testPlus(){
-        log.info(""+null);
+    public static void testPlus() {
+        log.info("" + null);
     }
 
     public static void testJoin() {
