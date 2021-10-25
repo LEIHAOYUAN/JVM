@@ -23,7 +23,12 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testAddAllWithMap();
+        testEmptyMapStream();
+    }
+
+    public static void testEmptyMapStream() {
+        List<String> param = Lists.newArrayList();
+        log.info("测试空集合stream结果：{}", JSON.toJSONString(param.stream().distinct().collect(Collectors.toList())));
     }
 
     public static void testAddAllWithMap() {
