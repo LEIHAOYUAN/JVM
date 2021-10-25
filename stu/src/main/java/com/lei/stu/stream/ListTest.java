@@ -2,6 +2,7 @@ package com.lei.stu.stream;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -22,7 +23,17 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testReference();
+        testAddAllWithMap();
+    }
+
+    public static void testAddAllWithMap() {
+        Map<String, Long> map1 = Maps.newHashMap();
+        map1.put("AAA", 2L);
+        Map<String, Long> map2 = Maps.newHashMap();
+        List<String> resList = Lists.newArrayList();
+        resList.addAll(map1.keySet());
+        resList.addAll(map2.keySet());
+        log.info("汇总集合结果：{}", JSON.toJSONString(resList));
     }
 
 
