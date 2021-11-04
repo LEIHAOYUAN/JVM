@@ -8,7 +8,7 @@ package com.lei.stu.thread;
 public class DaemonTest {
 
     public static void main(String[] args) {
-        daemonThread();
+        notDaemonThread();
     }
 
     /**
