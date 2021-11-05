@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.lei.stu.stream.Student;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Iterator;
 import java.util.List;
@@ -17,8 +18,13 @@ import java.util.List;
 public class ListTest {
 
     public static void main(String[] args) {
-        testOrElse();
-        testGet();
+        testSplitJoin();
+    }
+
+    private static void testSplitJoin(){
+        List<String> param = Lists.newArrayList();
+        param.addAll(Lists.newArrayList());
+        log.info("拼接字符串结果：{}", StringUtils.join(param, ","));
     }
 
 
