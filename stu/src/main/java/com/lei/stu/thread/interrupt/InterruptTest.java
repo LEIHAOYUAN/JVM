@@ -16,7 +16,7 @@ public class InterruptTest {
         InterruptThread thread = new InterruptThread();
         thread.start();
         // 主线程休眠
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         thread.interrupt();
         // 等待thread子线程结束后继续执行main线程
         thread.join();
