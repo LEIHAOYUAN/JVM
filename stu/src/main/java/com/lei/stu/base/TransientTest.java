@@ -24,10 +24,13 @@ public class TransientTest implements Serializable {
     @Transient
     private String remark;
 
+    private transient String notes;
+
     public static void main(String[] args) {
         TransientTest param = new TransientTest();
         param.setName("AAA");
         param.setRemark("备注信息");
+        param.setNotes("附加信息");
         log.info("transient序列化测试：{}", JSON.toJSONString(param));
     }
 
