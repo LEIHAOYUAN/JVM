@@ -1,4 +1,4 @@
-package com.lei.design.factory.abstractfactory;
+package com.lei.design.factory.factorymethod;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;

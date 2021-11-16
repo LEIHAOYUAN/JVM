@@ -1,5 +1,8 @@
-package com.lei.design.factory.abstractfactory;
+package com.lei.design.factory.factorymethod;
 
+/**
+ * 工厂方法模式
+ */
 public class AbstractFactoryTest {
     public static void main(String[] args) {
         try {
