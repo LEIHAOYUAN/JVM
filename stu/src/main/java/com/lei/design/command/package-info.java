@@ -2,7 +2,7 @@
  * @Author leihaoyuan
  * @Date 2021/11/24 15:08
  * @Version 1.0
- * @Description 命令模式
+ * @Description 命令模式：http://c.biancheng.net/view/1380.html
  * 命令模式的定义：
  * 将一个请求封装为一个对象，使发送请求的责任和执行请求的责任分隔开。这样两者之间通过命令进行沟通，这样方便讲命令对象进行存储、传递、调用、增加与管理
  * 【优点】
