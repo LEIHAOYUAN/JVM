@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        testSplit();
+        testFilter();
     }
 
 
@@ -35,7 +35,7 @@ public class ListTest {
         BigDecimal total = param.stream().filter(i->null != i.getAmount() && null != i.getVolume())
                 .reduce(new BigDecimal(0),(x,y)->x.add(y.getVolume().multiply(y.getAmount()).divide(BigDecimal.TEN,7, RoundingMode.HALF_UP)),BigDecimal::add);
 
-
+        log.info("汇总总数量：{}",JSON.toJSONString(total));
 
     }
 
