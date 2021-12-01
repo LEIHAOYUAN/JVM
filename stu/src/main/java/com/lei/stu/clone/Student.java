@@ -1,15 +1,22 @@
 package com.lei.stu.clone;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.lang.reflect.Constructor;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class Student implements Cloneable {
 
     private Integer id;
+
+    private BigDecimal volume;
+
+    private BigDecimal amount;
 
     public Student(Integer id) {
         this.id = id;

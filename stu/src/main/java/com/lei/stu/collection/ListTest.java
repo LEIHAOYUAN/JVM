@@ -6,6 +6,8 @@ import com.lei.stu.clone.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.ListUtils;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -19,6 +21,22 @@ public class ListTest {
 
     public static void main(String[] args) {
         testSplit();
+    }
+
+
+    private static void testFilter(){
+        Student s1 = new Student(200,null,null);
+        Student s2 = new Student(300,null,null);
+        Student s3 = new Student(400,null,null);
+        List<Student> param = Lists.newArrayList();
+        param.add(s1);
+        param.add(s2);
+        param.add(s3);
+        BigDecimal total = param.stream().filter(i->null != i.getAmount() && null != i.getVolume())
+                .reduce(new BigDecimal(0),(x,y)->x.add(y.getVolume().multiply(y.getAmount()).divide(BigDecimal.TEN,7, RoundingMode.HALF_UP)),BigDecimal::add);
+
+
+
     }
 
 
