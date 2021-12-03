@@ -2,8 +2,12 @@ package com.lei.stu.collection;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.lei.stu.clone.Student;
+import com.lei.stu.collection.model.CompareWmsStockItemParam;
+import com.lei.stu.collection.model.CompareWmsStockParam;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.ListUtils;
 
 import java.math.BigDecimal;
@@ -24,18 +28,20 @@ public class ListTest {
     }
 
 
-    private static void testFilter(){
-        Student s1 = new Student(200,null,null);
-        Student s2 = new Student(300,null,null);
-        Student s3 = new Student(400,null,null);
+
+
+    private static void testFilter() {
+        Student s1 = new Student(200, null, null);
+        Student s2 = new Student(300, null, null);
+        Student s3 = new Student(400, null, null);
         List<Student> param = Lists.newArrayList();
         param.add(s1);
         param.add(s2);
         param.add(s3);
-        BigDecimal total = param.stream().filter(i->null != i.getAmount() && null != i.getVolume())
-                .reduce(new BigDecimal(0),(x,y)->x.add(y.getVolume().multiply(y.getAmount()).divide(BigDecimal.TEN,7, RoundingMode.HALF_UP)),BigDecimal::add);
+        BigDecimal total = param.stream().filter(i -> null != i.getAmount() && null != i.getVolume())
+                .reduce(new BigDecimal(0), (x, y) -> x.add(y.getVolume().multiply(y.getAmount()).divide(BigDecimal.TEN, 7, RoundingMode.HALF_UP)), BigDecimal::add);
 
-        log.info("汇总总数量：{}",JSON.toJSONString(total));
+        log.info("汇总总数量：{}", JSON.toJSONString(total));
 
     }
 
