@@ -1,5 +1,6 @@
 package com.lei.stu.bigdecimal;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
@@ -14,13 +15,19 @@ import java.math.RoundingMode;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        testConvertScientificNnotation();
+        testSetScale();
     }
 
 
-    private static void testConvertScientificNnotation(){
+    private static void testSetScale() {
+        BigDecimal param = new BigDecimal("1.2222888888888888888888888888888888888888888888");
+        log.info("保留10位小数：{}", JSON.toJSONString(param.setScale(10,RoundingMode.DOWN)));
+    }
+
+
+    private static void testConvertScientificNnotation() {
         String param = "-1.23400E-03";
-        log.info("科学计数法：{}，转换结果：{}",param,new BigDecimal(param).stripTrailingZeros().toPlainString());
+        log.info("科学计数法：{}，转换结果：{}", param, new BigDecimal(param).stripTrailingZeros().toPlainString());
     }
 
     private static void testNegate() {
