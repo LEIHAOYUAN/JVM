@@ -24,7 +24,24 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        testFilter();
+        testIterator();
+    }
+
+
+    private static void testIterator(){
+        List<String> param = Lists.newArrayList();
+        param.add("AA7888.56959E+45645646");
+        param.add("AAAE");
+        param.add("AAAE5+");
+        param.add("AAA+");
+        param.add("BBBe+");
+        Iterator<String> iterator = param.iterator();
+        while (iterator.hasNext()){
+            if(iterator.next().contains("E+")){
+                iterator.remove();
+            }
+        }
+        log.info("过滤后集合：{}",JSON.toJSONString(param));
     }
 
 
