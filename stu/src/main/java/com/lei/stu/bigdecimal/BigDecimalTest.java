@@ -15,7 +15,16 @@ import java.math.RoundingMode;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        testBigDecimalFail();
+        testScale();
+    }
+
+    private static void testScale(){
+        String param1 = "1.2";
+        String param2 = "91.00000";
+        String param3 = "966661.0005200";
+        log.info("{}的scale：{}",param1,new BigDecimal(param1).scale());
+        log.info("{}的scale：{}",param2,new BigDecimal(param2).scale());
+        log.info("{}的scale：{}",param3,new BigDecimal(param3).scale());
     }
 
 
@@ -62,17 +71,6 @@ public class BigDecimalTest {
         BigDecimal param = BigDecimal.valueOf(895.9368D);
         log.info("向下取整结果：{}", param.setScale(0, RoundingMode.DOWN).toPlainString());
         log.info("向下取整结果：{}", param.setScale(0, BigDecimal.ROUND_DOWN).toPlainString());
-    }
-
-
-    /**
-     * 校验小数位数
-     */
-    private static void testScale() {
-        BigDecimal decimal = BigDecimal.valueOf(188.095800);
-        String s = decimal.stripTrailingZeros().toPlainString();
-        int index = s.indexOf(".");
-        log.info("有效小数位数：{}", index < 0 ? 0 : s.length() - index - 1);
     }
 
 
