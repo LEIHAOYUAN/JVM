@@ -15,15 +15,36 @@ import java.math.RoundingMode;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        testSetScale();
+        testBigDecimalFail();
     }
 
 
-    private static void testSetScale() {
+    /**
+     * 获取参数有效精度
+     * eg：99.6300，有效精度为2
+     *
+     * @param param
+     * @return 有效精度位数
+     */
+    public static int getEffectivePrecision(BigDecimal param) {
+        if (null == param) {
+            return -1;
+        }
+        String str = param.stripTrailingZeros().toPlainString();
+        int index = str.indexOf(".");
+        return index < 0 ? 0 : str.length() - index - 1;
+    }
+
+    private static void testBigDecimalFail() {
         BigDecimal param = new BigDecimal("1.687509990908474944361409131444684604970941936099939247826161301979025038038977770166796339288862129715418257326009567138718542266624615517050634444802339660847090167559862031947785142789950030668117210626768776626314500083109056998722219551228543828721930658617730387300437600110103767650230124184271294275049004532941805106061859742139514550157789198735258988766466388569537946245283754299316988282421787786940989972714936004039811146321979392024790066711320390270662774028004449597015810960226318006545693716082227362484319095248256724179108189537953996081389505257951860947500612726013044743273368250177015390694259351648188568147745932473916855821661027208011733823902842508320964858116216E+1393754800");
         log.info("原数据：{}", JSON.toJSONString(param));
-        log.info("保留10位小数：{}", JSON.toJSONString(param.setScale(10, RoundingMode.DOWN)));
-//        log.info("{}",new BigDecimal(param.toEngineeringString()).setScale(10, RoundingMode.DOWN));
+        //log.info("保留10位小数：{}", JSON.toJSONString(param.setScale(10, RoundingMode.DOWN)));
+        log.info("去除多余的零：{}", JSON.toJSONString(param.stripTrailingZeros()));
+        log.info("科学表达式：{}", param.toEngineeringString());
+        log.info("获取正负号：{}", param.signum());
+        log.info("有效数字的个数：{}", param.precision());
+        log.info("scale：{}", param.scale());
+        log.info("ulp：{}", param.ulp());
     }
 
 
