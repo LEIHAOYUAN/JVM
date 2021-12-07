@@ -2,12 +2,8 @@ package com.lei.stu.collection;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.lei.stu.clone.Student;
-import com.lei.stu.collection.model.CompareWmsStockItemParam;
-import com.lei.stu.collection.model.CompareWmsStockParam;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.ListUtils;
 
 import java.math.BigDecimal;
@@ -24,11 +20,27 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        testIterator();
+        testRemoveAll();
     }
 
 
-    private static void testIterator(){
+    private static void testRemoveAll() {
+        List<String> param = Lists.newArrayList();
+        param.add("AA7888.56959E+45645646");
+        param.add("AAAE");
+        param.add("AAAE5+");
+        param.add("AAA+");
+        param.add("BBBe+");
+
+        List<String> failList = param.stream().filter(i -> JSON.toJSONString(i).contains("===")).collect(Collectors.toList());
+
+        param.removeAll(failList);
+        param.removeAll(Lists.newArrayList());
+        param.removeAll(null);
+        log.info("移除后集合：{}", JSON.toJSONString(param));
+    }
+
+    private static void testIterator() {
         List<String> param = Lists.newArrayList();
         param.add("AA7888.56959E+45645646");
         param.add("AAAE");
@@ -36,15 +48,13 @@ public class ListTest {
         param.add("AAA+");
         param.add("BBBe+");
         Iterator<String> iterator = param.iterator();
-        while (iterator.hasNext()){
-            if(iterator.next().contains("E+")){
+        while (iterator.hasNext()) {
+            if (iterator.next().contains("E+")) {
                 iterator.remove();
             }
         }
-        log.info("过滤后集合：{}",JSON.toJSONString(param));
+        log.info("过滤后集合：{}", JSON.toJSONString(param));
     }
-
-
 
 
     private static void testFilter() {
