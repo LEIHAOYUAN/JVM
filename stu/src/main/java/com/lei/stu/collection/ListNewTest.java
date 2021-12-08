@@ -10,9 +10,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -25,11 +25,14 @@ import java.util.stream.Collectors;
 public class ListNewTest {
 
     public static void main(String[] args) {
-        groupAndSort();
+        groupAndSort3();
     }
 
 
-    private static void groupAndSort() {
+    /**
+     * 分组并排序1
+     */
+    private static void groupAndSort1() {
         Student s1 = new Student("AAA", "11", BigDecimal.TEN);
         Student s2 = new Student("AAA", "63", BigDecimal.TEN);
         Student s3 = new Student("BBB", "52", BigDecimal.TEN);
@@ -46,7 +49,54 @@ public class ListNewTest {
         // 分组并排序
         Map<String, List<Student>> collect = param.stream().sorted(Comparator.comparing(Student::getAge))
                 .collect(Collectors.groupingBy(Student::getName));
-        log.info("分组排序结果：{}",JSON.toJSONString(collect));
+        log.info("【1】分组排序结果：{}",JSON.toJSONString(collect));
+    }
+
+    /**
+     * 分组并排序2
+     */
+    private static void groupAndSort2() {
+        Student s1 = new Student("AAA", "11", BigDecimal.TEN);
+        Student s2 = new Student("AAA", "63", BigDecimal.TEN);
+        Student s3 = new Student("BBB", "52", BigDecimal.TEN);
+        Student s4 = new Student("BBB", "1", BigDecimal.TEN);
+        Student s5 = new Student("BBB", "1", BigDecimal.TEN);
+        Student s6 = new Student("CCC", "1", BigDecimal.TEN);
+        List<Student> param = Lists.newArrayList();
+        param.add(s1);
+        param.add(s2);
+        param.add(s3);
+        param.add(s4);
+        param.add(s5);
+        param.add(s6);
+        // 分组并排序
+//        Map<String, Student> collect = param.stream().collect(Collectors.groupingBy(Student::getName, Collectors.collectingAndThen(Collectors.minBy(Comparator.comparing(Student::getAge)), Optional::get)));
+        Map<String, Student> collect = param.stream().collect(Collectors.toMap(Student::getName, Function.identity(), BinaryOperator.minBy(Comparator.comparing(Student::getAge))));
+        log.info("【2】分组排序结果：{}",JSON.toJSONString(collect));
+    }
+
+    /**
+     * 分组并排序3
+     */
+    private static void groupAndSort3() {
+        Student s1 = new Student("AAA", "11", BigDecimal.TEN);
+        Student s2 = new Student("AAA", "63", BigDecimal.TEN);
+        Student s3 = new Student("BBB", "52", BigDecimal.TEN);
+        Student s4 = new Student("BBB", "1", BigDecimal.TEN);
+        Student s5 = new Student("BBB", "1", BigDecimal.TEN);
+        Student s6 = new Student("CCC", "1", BigDecimal.TEN);
+        List<Student> param = Lists.newArrayList();
+        param.add(s1);
+        param.add(s2);
+        param.add(s3);
+        param.add(s4);
+        param.add(s5);
+        param.add(s6);
+        // 分组并排序
+        List<Student> collect = param.stream().collect(Collectors.groupingBy(Student::getName, Collectors.minBy(Comparator.comparing(Student::getAge))))
+                .values().stream().map(Optional::get).collect(Collectors.toList());
+        log.info("【3】分组排序结果：{}",JSON.toJSONString(collect));
+
     }
 
 
