@@ -12,7 +12,9 @@ import com.lei.design.chain.handler.ConcreteHandler2;
  */
 public class ChainOfResponsibilityPatternClient {
 
+
     public static void main(String[] args) {
+        // 可以利用管道模式自动处理责任链的组装
         AbstractHandler handler1 = new ConcreteHandler1();
         AbstractHandler handler2 = new ConcreteHandler2();
         handler1.setNext(handler2);
