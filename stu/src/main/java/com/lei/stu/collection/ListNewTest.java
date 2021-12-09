@@ -34,6 +34,7 @@ public class ListNewTest {
 
     /**
      * 先分组-多重排序
+     * 参考：https://www.cnblogs.com/kuanglongblogs/p/11230250.html
      */
     private static void multiSort() {
         Student s11 = new Student("AAA", "11", BigDecimal.ONE);
