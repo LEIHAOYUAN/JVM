@@ -41,12 +41,12 @@ public class ListNewTest {
         Student s13 = new Student("AAA", "11.02", BigDecimal.ONE);
         Student s14 = new Student("AAA", "11", BigDecimal.valueOf(1.000258));
         Student s21 = new Student("BBB", "52", BigDecimal.TEN);
-        Student s22 = new Student("BBB", "10", BigDecimal.TEN);
+        Student s22 = new Student("BBB", "52", BigDecimal.ONE);
         Student s23 = new Student("BBB", "1", BigDecimal.TEN);
         Student s31 = new Student("CCC", "1", BigDecimal.TEN);
         Student s32 = new Student("CCC", "0", BigDecimal.TEN);
         Student s41 = new Student("DDD", "0", BigDecimal.TEN);
-        Student s42 = new Student("DDD", "1", BigDecimal.TEN);
+        Student s42 = new Student("DDD", "1", BigDecimal.valueOf(999));
         List<Student> param = Lists.newArrayList();
         param.add(s11);
         param.add(s12);
@@ -62,7 +62,7 @@ public class ListNewTest {
         List<Student> resList = Lists.newArrayList();
         Student student;
         for (Map.Entry<String, List<Student>> entry : param.stream().collect(Collectors.groupingBy(Student::getName, Collectors.toList())).entrySet()) {
-            student = entry.getValue().stream().min(Comparator.comparing(Student::getAge)
+            student = entry.getValue().stream().min(Comparator.comparing(Student::getAge, Comparator.reverseOrder())
                     .thenComparing(Student::getScore))
                     .orElse(null);
             resList.add(student);
