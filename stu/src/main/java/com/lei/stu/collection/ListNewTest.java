@@ -10,7 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -25,16 +28,55 @@ import java.util.stream.Collectors;
 public class ListNewTest {
 
     public static void main(String[] args) {
-        groupAndSort3();
+        multiSort();
     }
 
+
+    /**
+     * 先分组-多重排序
+     */
+    private static void multiSort() {
+        Student s11 = new Student("AAA", "11", BigDecimal.ONE);
+        Student s12 = new Student("AAA", "11", BigDecimal.ONE);
+        Student s13 = new Student("AAA", "11.02", BigDecimal.ONE);
+        Student s14 = new Student("AAA", "11", BigDecimal.valueOf(1.000258));
+        Student s21 = new Student("BBB", "52", BigDecimal.TEN);
+        Student s22 = new Student("BBB", "10", BigDecimal.TEN);
+        Student s23 = new Student("BBB", "1", BigDecimal.TEN);
+        Student s31 = new Student("CCC", "1", BigDecimal.TEN);
+        Student s32 = new Student("CCC", "0", BigDecimal.TEN);
+        Student s41 = new Student("DDD", "0", BigDecimal.TEN);
+        Student s42 = new Student("DDD", "1", BigDecimal.TEN);
+        List<Student> param = Lists.newArrayList();
+        param.add(s11);
+        param.add(s12);
+        param.add(s13);
+        param.add(s14);
+        param.add(s21);
+        param.add(s22);
+        param.add(s23);
+        param.add(s31);
+        param.add(s32);
+        param.add(s41);
+        param.add(s42);
+        List<Student> resList = Lists.newArrayList();
+        Student student;
+        for (Map.Entry<String, List<Student>> entry : param.stream().collect(Collectors.groupingBy(Student::getName, Collectors.toList())).entrySet()) {
+            student = entry.getValue().stream().min(Comparator.comparing(Student::getAge)
+                    .thenComparing(Student::getScore))
+                    .orElse(null);
+            resList.add(student);
+        }
+        log.info("分组后多重排序结果：{}", JSON.toJSONString(resList));
+    }
 
     /**
      * 分组并排序1
      */
     private static void groupAndSort1() {
-        Student s1 = new Student("AAA", "11", BigDecimal.TEN);
-        Student s2 = new Student("AAA", "63", BigDecimal.TEN);
+        Student s1 = new Student("AAA", "11", BigDecimal.ONE);
+        Student s2 = new Student("AAA", "12", BigDecimal.ZERO);
+        Student s22 = new Student("AAA", "11", BigDecimal.ZERO);
         Student s3 = new Student("BBB", "52", BigDecimal.TEN);
         Student s4 = new Student("BBB", "1", BigDecimal.TEN);
         Student s5 = new Student("BBB", "1", BigDecimal.TEN);
@@ -49,7 +91,7 @@ public class ListNewTest {
         // 分组并排序
         Map<String, List<Student>> collect = param.stream().sorted(Comparator.comparing(Student::getAge))
                 .collect(Collectors.groupingBy(Student::getName));
-        log.info("【1】分组排序结果：{}",JSON.toJSONString(collect));
+        log.info("【1】分组排序结果：{}", JSON.toJSONString(collect));
     }
 
     /**
@@ -72,7 +114,7 @@ public class ListNewTest {
         // 分组并排序
 //        Map<String, Student> collect = param.stream().collect(Collectors.groupingBy(Student::getName, Collectors.collectingAndThen(Collectors.minBy(Comparator.comparing(Student::getAge)), Optional::get)));
         Map<String, Student> collect = param.stream().collect(Collectors.toMap(Student::getName, Function.identity(), BinaryOperator.minBy(Comparator.comparing(Student::getAge))));
-        log.info("【2】分组排序结果：{}",JSON.toJSONString(collect));
+        log.info("【2】分组排序结果：{}", JSON.toJSONString(collect));
     }
 
     /**
@@ -95,7 +137,7 @@ public class ListNewTest {
         // 分组并排序
         List<Student> collect = param.stream().collect(Collectors.groupingBy(Student::getName, Collectors.minBy(Comparator.comparing(Student::getAge))))
                 .values().stream().map(Optional::get).collect(Collectors.toList());
-        log.info("【3】分组排序结果：{}",JSON.toJSONString(collect));
+        log.info("【3】分组排序结果：{}", JSON.toJSONString(collect));
 
     }
 
