@@ -39,8 +39,8 @@ public class ListNewTest {
     private static void multiSort() {
         Student s11 = new Student("AAA", "11", BigDecimal.ONE);
         Student s12 = new Student("AAA", "11", BigDecimal.ONE);
-        Student s13 = new Student("AAA", "11.02", BigDecimal.ONE);
-        Student s14 = new Student("AAA", "11", BigDecimal.valueOf(1.000258));
+        Student s13 = new Student("AAA", "11", BigDecimal.ONE);
+        Student s14 = new Student("AAA", "11", BigDecimal.ONE);
         Student s21 = new Student("BBB", "52", BigDecimal.TEN);
         Student s22 = new Student("BBB", "52", BigDecimal.ONE);
         Student s23 = new Student("BBB", "1", BigDecimal.TEN);
