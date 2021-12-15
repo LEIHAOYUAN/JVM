@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class ListNewTest {
 
     public static void main(String[] args) {
-        testRepeat0();
+        groupAndSort2();
     }
 
 
@@ -99,6 +99,7 @@ public class ListNewTest {
      * 分组并排序2
      */
     private static void groupAndSort2() {
+        Student s0 = new Student("AAA", "11", BigDecimal.TEN);
         Student s1 = new Student("AAA", "11", BigDecimal.TEN);
         Student s2 = new Student("AAA", "63", BigDecimal.TEN);
         Student s3 = new Student("BBB", "52", BigDecimal.TEN);
@@ -106,6 +107,7 @@ public class ListNewTest {
         Student s5 = new Student("BBB", "1", BigDecimal.TEN);
         Student s6 = new Student("CCC", "1", BigDecimal.TEN);
         List<Student> param = Lists.newArrayList();
+        param.add(s0);
         param.add(s1);
         param.add(s2);
         param.add(s3);
@@ -116,6 +118,7 @@ public class ListNewTest {
 //        Map<String, Student> collect = param.stream().collect(Collectors.groupingBy(Student::getName, Collectors.collectingAndThen(Collectors.minBy(Comparator.comparing(Student::getAge)), Optional::get)));
         Map<String, Student> collect = param.stream().collect(Collectors.toMap(Student::getName, Function.identity(), BinaryOperator.minBy(Comparator.comparing(Student::getAge))));
         log.info("【2】分组排序结果：{}", JSON.toJSONString(collect));
+        log.info("收集名称并去重：{}",JSON.toJSONString(param.stream().map(Student::getName).distinct().collect(Collectors.toList())));
     }
 
     /**
