@@ -5,11 +5,13 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.lei.stu.collection.model.CompareWmsStockItemParam;
 import com.lei.stu.collection.model.CompareWmsStockParam;
+import com.lei.stu.stream.Person;
 import com.lei.stu.stream.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +30,64 @@ import java.util.stream.Collectors;
 public class ListNewTest {
 
     public static void main(String[] args) {
-        groupAndSort2();
+        test();
+    }
+
+    /*
+    这个表格里面有282人，你把他们分成6组，每组47人，然后47人再随机分成10，10，9，9，9;
+    要求是同个部门id的人尽量分布在30个组里面，比如部门id为12的有33人，那么每组1人，有3个组是每组2人
+     */
+    public static void test() {
+        List<Person> param = Lists.newArrayList();
+        param.add(new Person("A1", 1));
+        param.add(new Person("A2", 1));
+        param.add(new Person("A3", 1));
+        param.add(new Person("A4", 1));
+        param.add(new Person("A5", 1));
+        param.add(new Person("B1", 2));
+        param.add(new Person("B2", 2));
+        param.add(new Person("B3", 2));
+        param.add(new Person("B4", 2));
+        param.add(new Person("B5", 2));
+        param.add(new Person("B6", 2));
+        param.add(new Person("B7", 2));
+        param.add(new Person("B8", 2));
+        param.add(new Person("B9", 2));
+        param.add(new Person("B10", 2));
+        param.add(new Person("B11", 2));
+        param.add(new Person("C1", 3));
+        param.add(new Person("C2", 3));
+        param.add(new Person("C3", 3));
+        param.add(new Person("C4", 3));
+        param.add(new Person("C5", 3));
+        param.add(new Person("C6", 3));
+        param.add(new Person("C7", 3));
+        param.add(new Person("C8", 3));
+        param.add(new Person("C9", 3));
+        param.add(new Person("C10", 3));
+        param.add(new Person("D1", 4));
+        param.add(new Person("D2", 4));
+        param.add(new Person("D3", 4));
+        param.add(new Person("D4", 4));
+        // 分组数量
+        int groupNum = 4;
+        // 每组人数(作为集合偏移量)
+        int groupSize = BigDecimal.valueOf(param.size()).divide(BigDecimal.valueOf(groupNum), 0, RoundingMode.UP).intValue();
+        log.info("总数：{}，分组个数：{}，分组大小：{}", param.size(), groupNum, groupSize);
+
+        // 初始化最终分组集合
+        List<List<Person>> resList = Lists.newArrayList();
+        for (int i = 0; i < groupNum; i++) {
+            resList.add(Lists.newArrayList());
+        }
+        // 按照部门分组
+        for (Map.Entry<Integer, List<Person>> entry : param.stream().collect(Collectors.groupingBy(Person::getDept, Collectors.toList())).entrySet()) {
+            for (Person person : entry.getValue()) {
+                // 获取最小集合添加元素
+                resList.stream().min(Comparator.comparingInt(List::size)).get().add(person);
+            }
+        }
+        log.info("最终分组结果：{}", JSON.toJSONString(resList));
     }
 
 
@@ -118,7 +177,7 @@ public class ListNewTest {
 //        Map<String, Student> collect = param.stream().collect(Collectors.groupingBy(Student::getName, Collectors.collectingAndThen(Collectors.minBy(Comparator.comparing(Student::getAge)), Optional::get)));
         Map<String, Student> collect = param.stream().collect(Collectors.toMap(Student::getName, Function.identity(), BinaryOperator.minBy(Comparator.comparing(Student::getAge))));
         log.info("【2】分组排序结果：{}", JSON.toJSONString(collect));
-        log.info("收集名称并去重：{}",JSON.toJSONString(param.stream().map(Student::getName).distinct().collect(Collectors.toList())));
+        log.info("收集名称并去重：{}", JSON.toJSONString(param.stream().map(Student::getName).distinct().collect(Collectors.toList())));
     }
 
     /**
