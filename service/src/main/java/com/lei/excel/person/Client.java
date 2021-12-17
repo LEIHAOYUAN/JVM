@@ -4,7 +4,10 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -40,9 +43,9 @@ public class Client {
                 resList.stream().min(Comparator.comparingInt(List::size)).get().add(person);
             }
         }
-        System.out.println(JSON.toJSONString(resList));
+        log.info("分组最终结果：{}",JSON.toJSONString(resList));
         List<Person> collect = resList.stream().flatMap(Collection::stream).collect(Collectors.toList());
-        System.out.println("最终结果大小：" + collect.size());
+        log.info("最终结果大小：" + collect.size());
 
     }
 
