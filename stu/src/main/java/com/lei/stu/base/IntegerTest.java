@@ -18,6 +18,7 @@ public class IntegerTest {
     private static void testEquals(){
         Integer param = 9;
         log.info("equals比较结果：{}",param.equals(null));
+        log.info("instanceof结果：{}",null instanceof Integer);
     }
 
     private static void unBoxTest() {
