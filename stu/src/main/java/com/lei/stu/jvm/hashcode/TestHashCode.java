@@ -1,6 +1,7 @@
 package com.lei.stu.jvm.hashcode;
 
 import lombok.extern.slf4j.Slf4j;
+import org.openjdk.jol.info.ClassLayout;
 import org.openjdk.jol.vm.VM;
 
 /**
@@ -14,7 +15,8 @@ import org.openjdk.jol.vm.VM;
 public class TestHashCode {
 
     public static void main(String[] args) {
-        testHashCodeAndMemory();
+//        testHashCodeAndMemory();
+        testSystemIdentityHashCode();
     }
 
     /**
@@ -40,6 +42,18 @@ public class TestHashCode {
 
         log.info("GC前后地址比较：{}", address == afterAddress);
         log.info("GC前后HashCode比较：{}", hashCode == afterHashCode);
+    }
+
+
+    private static void testSystemIdentityHashCode() {
+        // 创建对象并打印JVM中对象的信息
+        Object person = new Object();
+        System.out.println(ClassLayout.parseInstance(person).toPrintable());
+        // 调用hashCode方法，如果重写了hashCode方法则调用System#identityHashCode方法
+        System.out.println(person.hashCode());
+        // System.out.println(System.identityHashCode(person));
+        // 再次打印对象JVM中的信息
+        System.out.println(ClassLayout.parseInstance(person).toPrintable());
     }
 
 
