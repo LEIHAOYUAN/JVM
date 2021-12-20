@@ -14,11 +14,18 @@ import org.openjdk.jol.vm.VM;
 public class TestHashCode {
 
     public static void main(String[] args) {
+        testHashCodeAndMemory();
+    }
+
+    /**
+     * 验证GC前后，对象地址、hashCode变化
+     */
+    private static void testHashCodeAndMemory() {
         Object obj = new Object();
         long address = VM.current().addressOf(obj);
         long hashCode = obj.hashCode();
-        log.info("before GC : The memory address is " + address);
-        log.info("before GC : The hash code is " + hashCode);
+        log.info("before GC : 内存地址：{} ", address);
+        log.info("before GC : HashCode:{}", hashCode);
 
         new Object();
         new Object();
@@ -28,12 +35,11 @@ public class TestHashCode {
 
         long afterAddress = VM.current().addressOf(obj);
         long afterHashCode = obj.hashCode();
-        log.info("after GC : The memory address is {}",afterAddress);
-        log.info("after GC : The hash code is " + afterHashCode);
-        log.info("---------------------");
+        log.info("after GC : 内存地址：{} ", afterAddress);
+        log.info("after GC : HashCode:{}", afterHashCode);
 
-        log.info("memory address = " + (address == afterAddress));
-        log.info("hash code = " + (hashCode == afterHashCode));
+        log.info("GC前后地址比较：{}", address == afterAddress);
+        log.info("GC前后HashCode比较：{}", hashCode == afterHashCode);
     }
 
 
