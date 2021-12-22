@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class BlockDemo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         new Thread(() -> {
             try {
                 server();
@@ -27,11 +27,7 @@ public class BlockDemo {
             }
         }, "t1").start();
 
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        TimeUnit.SECONDS.sleep(5);
 
         new Thread(() -> {
             try {
