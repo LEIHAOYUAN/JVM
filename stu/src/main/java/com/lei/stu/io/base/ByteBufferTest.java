@@ -11,7 +11,7 @@ import java.nio.ByteBuffer;
  * @Description https://blog.csdn.net/weixin_43314519/article/details/109993897
  */
 @Slf4j
-public class BufferTest {
+public class ByteBufferTest {
 
     public static void main(String[] args) {
 
