@@ -42,6 +42,11 @@ public class BlockDemo {
         }, "t2").start();
     }
 
+    /**
+     * 客户端
+     *
+     * @throws IOException
+     */
     public static void client() throws IOException {
         // 获取通道
         SocketChannel sChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1", 9898));
