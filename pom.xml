@@ -45,6 +45,8 @@
         <jmh.version>1.28</jmh.version>
         <!-- module -->
         <utils-module>1.0-SNAPSHOT</utils-module>
+        <!-- netty -->
+        <netty-all.version>4.1.66.Final</netty-all.version>
     </properties>
 
     <dependencyManagement>
@@ -189,6 +191,12 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty-all.version}</version>
             </dependency>
 
             <!--百度雪花算法依赖-->
