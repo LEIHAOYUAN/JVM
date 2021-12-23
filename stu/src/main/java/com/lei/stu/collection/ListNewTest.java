@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class ListNewTest {
 
     public static void main(String[] args) {
-        multiSortNewFail();
+        multiSortNew();
     }
 
     private static void testFixedSizeList() {
@@ -42,15 +42,15 @@ public class ListNewTest {
 
     private static void multiSortNew() {
         String json = "[" +
-                "{\"batchNo\":\"20210707\",\"batchStockNum\":\"96\",\"buyDeliveryRatio\":1.00,\"deliveryType\":0,\"distributioMpuConver\":12.00,\"mdMaterialCode\":20600003961,\"mdSpecCode\":20700006578,\"mpuUseConver\":250.00,\"productRatio\":\"3000\",\"shopBrandCodes\":\"-1\",\"specCode\":\"GS0984-001\",\"specName\":\"HQ专用测试货物仓配-品牌全部1箱*箱*12瓶*250毫升\"}," +
-                "{\"batchNo\":\"20210707\",\"batchStockNum\":\"107\",\"buyDeliveryRatio\":12.00,\"deliveryType\":0,\"distributioMpuConver\":1.00,\"mdMaterialCode\":20600003961,\"mdSpecCode\":20700006580,\"mpuUseConver\":350.00,\"productRatio\":\"350\",\"shopBrandCodes\":\"20200000003\",\"specCode\":\"GS0984-003\",\"specName\":\"HQ专用测试货物仓配-品牌舌尖工1箱*12瓶*瓶*350毫升\"}," +
+                "{\"batchNo\":\"20210707\",\"batchStockNum\":\"96\",\"buyDeliveryRatio\":1.00,\"deliveryType\":0,\"distributioMpuConver\":1.00,\"mdMaterialCode\":20600003961,\"mdSpecCode\":20700006578,\"mpuUseConver\":250.00,\"productRatio\":\"3000\",\"shopBrandCodes\":\"-1\",\"specCode\":\"GS0984-001\",\"specName\":\"HQ专用测试货物仓配-品牌全部1箱*箱*12瓶*250毫升\"}," +
+                "{\"batchNo\":\"20210707\",\"batchStockNum\":\"107\",\"buyDeliveryRatio\":12.00,\"deliveryType\":0,\"distributioMpuConver\":12.00,\"mdMaterialCode\":20600003961,\"mdSpecCode\":20700006580,\"mpuUseConver\":350.00,\"productRatio\":\"350\",\"shopBrandCodes\":\"20200000003\",\"specCode\":\"GS0984-003\",\"specName\":\"HQ专用测试货物仓配-品牌舌尖工1箱*12瓶*瓶*350毫升\"}," +
                 "{\"buyDeliveryRatio\":24.00,\"deliveryType\":0,\"distributioMpuConver\":500.00,\"mdMaterialCode\":20600003961,\"mdSpecCode\":20700006586,\"mpuUseConver\":1.00,\"shopBrandCodes\":\"20200000003\",\"specCode\":\"GS0984-004\",\"specName\":\"HQ专用测试货物仓配-品牌舌尖工1箱*24瓶*500毫升*毫\"}]";
         List<CommonMaterialSpecBO> param = JSON.parseArray(json, CommonMaterialSpecBO.class);
 
         CommonMaterialSpecBO res = param.stream().filter(i -> StringUtils.isNotBlank(i.getBatchNo()))
                 .min(Comparator.comparing(CommonMaterialSpecBO::getBatchNo)
                         .thenComparing(CommonMaterialSpecBO::getDistributioMpuConver)
-                        .thenComparing(CommonMaterialSpecBO::getBatchStockNum, Comparator.reverseOrder()))
+                        .thenComparing(CommonMaterialSpecBO::getBatchStockNum,Comparator.reverseOrder()))
                 .orElse(null);
         log.info("排序过滤结果：{}", JSON.toJSONString(res));
 

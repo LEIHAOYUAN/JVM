@@ -91,7 +91,7 @@ public class CommonMaterialSpecBO {
     /**
      * 批次库存数量
      */
-    private String batchStockNum;
+    private BigDecimal batchStockNum;
 
     /**
      * 换算关系乘积
