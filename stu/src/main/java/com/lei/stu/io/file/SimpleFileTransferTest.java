@@ -6,6 +6,8 @@ import java.nio.channels.FileChannel;
 
 /**
  * 传统IO和NIO传输文件性能对比
+ * https://www.zhihu.com/question/337609338/answer/775135962
+ *
  */
 public class SimpleFileTransferTest {
 
