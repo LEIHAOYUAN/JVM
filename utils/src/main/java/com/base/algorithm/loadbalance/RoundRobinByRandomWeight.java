@@ -71,6 +71,7 @@ public class RoundRobinByRandomWeight {
      * @return 权重值
      */
     private static int randomCore(int totalWeight, Set<Integer> weights) {
+        // [0,totalWeight)
         int offset = new Random().nextInt(totalWeight);
         for (Integer weight : weights) {
             // 用此随机数循环减去权重直到改值<0,则此权重值既是将要获取的
