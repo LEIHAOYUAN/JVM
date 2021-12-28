@@ -8,8 +8,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by caojun on 2018/2/20
- * 带权重的负载均衡算法实现
+ * @Author leihaoyuan
+ * @Date 2021/12/28 10:42
+ * @Version 1.0
+ * @Description 带权重的负载均衡算法实现
  * https://www.cnblogs.com/markcd/p/8456870.html
  */
 @Slf4j
@@ -29,8 +31,8 @@ public class RoundRobinByWeightLoadBalance {
     /**
      * 算法逻辑：
      * 1. 对于每个请求，遍历集群中的所有可用后端，对于每个后端peer执行：
-     *    peer->current_weight += peer->effecitve_weight。
-     *    同时累加所有peer的effective_weight，保存为total。
+     * peer->current_weight += peer->effecitve_weight。
+     * 同时累加所有peer的effective_weight，保存为total。
      * 2. 从集群中选出current_weight最大的peer，作为本次选定的后端。
      * 3. 对于本次选定的后端，执行：peer->current_weight -= total。
      *
@@ -112,6 +114,7 @@ public class RoundRobinByWeightLoadBalance {
 
     public interface Invoker {
         Boolean isAvalable();
+
         String id();
     }
 
