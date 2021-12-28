@@ -10,7 +10,7 @@ import java.util.List;
  * @Description 平滑的带有权重的轮询算法
  * https://www.dazhuanlan.com/balitaimonk/topics/1279481
  */
-public class SmoothWeightRoundRobin {
+public class RoundRobinBySmoothWeight {
 
     public static void main(String[] args) {
         List<Server> servers = new ArrayList<>();
@@ -19,7 +19,7 @@ public class SmoothWeightRoundRobin {
         servers.add(new Server("CCC", 3));
         servers.add(new Server("DDD", 4));
         // 平滑权重轮询算法
-        SmoothWeightRoundRobin swrr = new SmoothWeightRoundRobin(servers);
+        RoundRobinBySmoothWeight swrr = new RoundRobinBySmoothWeight(servers);
         for (int i = 0; i < 100; i++) {
             System.out.println(swrr.next());
         }
@@ -49,7 +49,7 @@ public class SmoothWeightRoundRobin {
     private List<Server> servers;
     private int totalWeight;
 
-    public SmoothWeightRoundRobin(List<Server> servers) {
+    public RoundRobinBySmoothWeight(List<Server> servers) {
         this.servers = servers;
         totalWeight = servers.stream().map(server -> server.weight).reduce((a, b) -> a + b).get();
     }
