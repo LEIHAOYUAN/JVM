@@ -1,5 +1,7 @@
 package com.base.algorithm.loadbalance;
 
+import com.base.algorithm.loadbalance.model.Node;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,60 +15,32 @@ import java.util.List;
 public class RoundRobinBySmoothWeight {
 
     public static void main(String[] args) {
-        List<Server> servers = new ArrayList<>();
-        servers.add(new Server("AAA", 1));
-        servers.add(new Server("BBB", 2));
-        servers.add(new Server("CCC", 2));
-        servers.add(new Server("DDD", 5));
+        List<Node> param = new ArrayList<>();
+        param.add(new Node("AAA", 1));
+        param.add(new Node("BBB", 2));
+        param.add(new Node("CCC", 2));
+        param.add(new Node("DDD", 5));
         // 平滑权重轮询算法
-        RoundRobinBySmoothWeight swrr = new RoundRobinBySmoothWeight(servers);
         for (int i = 0; i < 1000; i++) {
-            System.out.println(swrr.next());
+            System.out.println(choose(param));
         }
     }
 
 
-    public static class Server {
-        // 地址
-        private String address;
-        // 权重
-        private int weight;
-        // 当前权重
-        private int currentWeight;
-
-        public Server(String address, int weight) {
-            this.address = address;
-            this.weight = weight;
-        }
-
-        @Override
-        public String toString() {
-            return "Server{address='" + address + ", weight=" + weight + ", currentWeight=" + currentWeight + '}';
-        }
-    }
-
-
-    private List<Server> servers;
-    private int totalWeight;
-
-    public RoundRobinBySmoothWeight(List<Server> servers) {
-        this.servers = servers;
-        totalWeight = servers.stream().map(server -> server.weight).reduce((a, b) -> a + b).get();
-    }
-
-    public Server next() {
-        Server best = null;
-        for (Server server : servers) {
+    public static Node choose(List<Node> param) {
+        int totalWeight = param.stream().mapToInt(Node::getWeight).sum();
+        Node best = null;
+        for (Node server : param) {
             // step1:更新当前权重
-            server.currentWeight += server.weight;
+            server.setCurrentWeight(server.getCurrentWeight() + server.getWeight());
             // step2：找到最大的权重
-            if (best == null || best.currentWeight < server.currentWeight) {
+            if (best == null || best.getCurrentWeight() < server.getCurrentWeight()) {
                 best = server;
             }
         }
         // step3：最大的权重减去总权重
         if (best != null) {
-            best.currentWeight -= totalWeight;
+            best.setCurrentWeight(best.getCurrentWeight() - totalWeight);
         }
         return best;
     }

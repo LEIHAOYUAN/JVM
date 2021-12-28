@@ -1,8 +1,10 @@
 package com.base.algorithm.loadbalance;
 
+import com.base.algorithm.loadbalance.model.Node;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -16,11 +18,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RoundRobin {
 
     public static void main(String[] args) {
-        List<String> param = new ArrayList<>();
-        param.add("A");
-        param.add("B");
-        param.add("C");
-        param.add("D");
+        List<Node> param = Lists.newArrayList();
+        param.add(new Node("AAA"));
+        param.add(new Node("BBB"));
+        param.add(new Node("CCC"));
+        param.add(new Node("DDD"));
         for (int i = 0; i < 20; i++) {
             log.info("第{}次-轮询结果：{}", i, choose(param));
         }
@@ -37,8 +39,8 @@ public class RoundRobin {
      * @param param
      * @return
      */
-    public static String choose(List<String> param) {
-        if (null == param || param.size() <= 0) {
+    public static Node choose(List<Node> param) {
+        if (CollectionUtils.isEmpty(param)) {
             log.warn("无可选数据......");
             return null;
         }
