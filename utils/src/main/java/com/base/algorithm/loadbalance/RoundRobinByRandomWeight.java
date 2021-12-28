@@ -51,7 +51,7 @@ public class RoundRobinByRandomWeight {
             // 按照权重分组，防止有相同权重数据
             Map<Integer, List<Node>> weightCollect = param.stream().collect(Collectors.groupingBy(Node::getWeight, Collectors.toList()));
             // 获取权重组
-            List<Node> matchNodes = weightCollect.get(selectWeight(totalWeight, weightCollect.keySet()));
+            List<Node> matchNodes = weightCollect.get(randomCore(totalWeight, weightCollect.keySet()));
             if (null == matchNodes) {
                 return null;
             } else if (matchNodes.size() == 1) {
@@ -68,12 +68,12 @@ public class RoundRobinByRandomWeight {
      *
      * @param totalWeight 总权重
      * @param weights 权重集合
-     * @return
+     * @return 权重值
      */
-    private static int selectWeight(int totalWeight, Set<Integer> weights) {
+    private static int randomCore(int totalWeight, Set<Integer> weights) {
         int offset = new Random().nextInt(totalWeight);
         for (Integer weight : weights) {
-            // 用此随机数循环减去服务提供者的权重直到改值<0,则此服务提供者为目标服务提供者
+            // 用此随机数循环减去权重直到改值<0,则此权重值既是将要获取的
             offset -= weight;
             if (offset < 0) {
                 return weight;
