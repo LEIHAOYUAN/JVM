@@ -27,8 +27,11 @@ public class SmoothWeightRoundRobin {
 
 
     public static class Server {
+        // 地址
         private String address;
+        // 权重
         private int weight;
+        // 当前权重
         private int currentWeight;
 
         public Server(String address, int weight) {
