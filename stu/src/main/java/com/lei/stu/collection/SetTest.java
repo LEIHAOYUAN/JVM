@@ -28,7 +28,10 @@ public class SetTest {
         unitCodeSet.add(null);
         unitCodeSet.add(90L);
         unitCodeSet.add(60L);
+        unitCodeSet.add(569L);
         unitCodeSet.add(23L);
+        unitCodeSet.add(25L);
+        unitCodeSet.add(230L);
         unitCodeSet.add(0L);
         unitCodeSet.add(1L);
         log.info("set结果：{}", JSON.toJSONString(unitCodeSet));
