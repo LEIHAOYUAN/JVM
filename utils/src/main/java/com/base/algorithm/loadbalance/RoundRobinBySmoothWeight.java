@@ -16,11 +16,11 @@ public class RoundRobinBySmoothWeight {
         List<Server> servers = new ArrayList<>();
         servers.add(new Server("AAA", 1));
         servers.add(new Server("BBB", 2));
-        servers.add(new Server("CCC", 3));
-        servers.add(new Server("DDD", 4));
+        servers.add(new Server("CCC", 2));
+        servers.add(new Server("DDD", 5));
         // 平滑权重轮询算法
         RoundRobinBySmoothWeight swrr = new RoundRobinBySmoothWeight(servers);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             System.out.println(swrr.next());
         }
     }
