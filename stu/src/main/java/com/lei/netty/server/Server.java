@@ -52,7 +52,8 @@ public class Server {
                     .option(ChannelOption.SO_SNDBUF, 32 * 1024) //设置发送数据缓冲大小
                     .option(ChannelOption.SO_RCVBUF, 32 * 1024) //设置接受数据缓冲大小
                     .childOption(ChannelOption.SO_KEEPALIVE, true); //保持连接
-            ChannelFuture future = bootstrap.bind(port).sync();
+            // 绑定端口号
+            ChannelFuture future = bootstrap.bind(8379).sync();
             future.channel().closeFuture().sync();
         } catch (Exception e) {
             e.printStackTrace();
