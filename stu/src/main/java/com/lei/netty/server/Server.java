@@ -12,13 +12,11 @@ import io.netty.handler.timeout.IdleStateHandler;
 
 
 public class Server {
- 
-    private int port;
- 
-    public Server(int port) {
-        this.port = port;
+
+    public static void main(String[] args) {
+        new Server().run();
     }
- 
+
     public void run() {
         //用于处理服务器端接收客户端连接
         EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -62,8 +60,6 @@ public class Server {
             bossGroup.shutdownGracefully();
         }
     }
- 
-    public static void main(String[] args) {
-        new Server(8379).run();
-    }
+
+
 }
