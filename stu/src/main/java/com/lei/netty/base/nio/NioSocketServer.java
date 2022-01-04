@@ -1,7 +1,6 @@
 package com.lei.netty.base.nio;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -14,8 +13,8 @@ import java.util.LinkedList;
  * 单线程非阻塞的socket server，不用多路复用器，可以同时支持多个客户端
  * 缺点：每次循环将遍历所有的客户端连接，效率低下
  */
-public class MySocketServer1 {
-    private static Logger logger = LoggerFactory.getLogger(MySocketServer1.class);
+@Slf4j
+public class NioSocketServer {
     //用于存放连接上来的SocketChannel
     private static LinkedList<SocketChannel> clients = new LinkedList<>();
 
@@ -27,13 +26,13 @@ public class MySocketServer1 {
             server.configureBlocking(false);
             //分配4KB堆外内存作为读缓冲
             ByteBuffer readBuffer = ByteBuffer.allocateDirect(4 * 1024);
-            logger.info("single thread non-blocking socket server start...");
+            log.info("single thread non-blocking socket server start...");
             while (true) {
                 //处理新练上来的连接。非阻塞，立即返回null或者具体的SocketChannel
                 SocketChannel newClient = server.accept();
                 if (null != newClient) {
                     newClient.configureBlocking(false);
-                    logger.info("accept a client socket, port=" + newClient.socket().getPort());
+                    log.info("accept a client socket, port=" + newClient.socket().getPort());
                     clients.add(newClient);
                 }
                 //处理正连着的连接
@@ -47,7 +46,7 @@ public class MySocketServer1 {
                         //把read buffer中当前可用数据存到bytes数组
                         readBuffer.get(bytes);
                         String msg = new String(bytes);
-                        logger.info("receive from client[{}:{}], msg:{}", client.socket().getInetAddress(), client.socket().getPort(), msg);
+                        log.info("receive from client[{}:{}], msg:{}", client.socket().getInetAddress(), client.socket().getPort(), msg);
                         readBuffer.clear();
                         ByteBuffer writeBuffer = ByteBuffer.wrap(("echo from server:" + msg).getBytes());
                         client.write(writeBuffer);
