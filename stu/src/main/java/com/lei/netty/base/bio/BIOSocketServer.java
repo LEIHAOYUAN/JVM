@@ -10,6 +10,7 @@ import java.net.Socket;
 
 /**
  * java-bio实现socket
+ * 缺点：接收连接，处理连接，均会阻塞其他连接操作
  */
 @Slf4j
 public class BIOSocketServer {
@@ -18,12 +19,14 @@ public class BIOSocketServer {
         ServerSocket server = null;
         try {
             server = new ServerSocket();
-            server.bind(new InetSocketAddress("localhost", 9090), 100); //侦听本地9090端口，backlog设置为100
+            //侦听本地9090端口，backlog设置为100
+            server.bind(new InetSocketAddress("localhost", 9090), 100);
             log.info("单线程BIO服务启动...");
             while (true) {
                 //阻塞，等待可以接受一个客户端连接
                 Socket client = server.accept();
-                InputStream is = client.getInputStream();   //读取的输入流
+                //读取的输入流
+                InputStream is = client.getInputStream();
                 byte[] readBuf = new byte[4 * 1024];
                 //read没返回-1说明流没有读完。没有数据读则会一直阻塞。
                 while (is.read(readBuf) > 0) {

@@ -11,8 +11,8 @@ import java.nio.channels.SocketChannel;
 import java.util.LinkedList;
 
 /**
- * 单线程非阻塞的socket server
- * 不用多路复用器，可以同时支持多个客户端
+ * 单线程非阻塞的socket server，不用多路复用器，可以同时支持多个客户端
+ * 缺点：每次循环将遍历所有的客户端连接，效率低下
  */
 public class MySocketServer1 {
     private static Logger logger = LoggerFactory.getLogger(MySocketServer1.class);
