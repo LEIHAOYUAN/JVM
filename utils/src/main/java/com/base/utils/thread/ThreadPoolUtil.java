@@ -57,9 +57,7 @@ public class ThreadPoolUtil {
         // scheduledExecutor.shutdown();
         // 测试线程池
         // execute(() -> log.info("异步任务执行完毕........."));
-
-
-        testScheduledWithDemon();
+        testScheduledWithDemon(true);
 
     }
 
@@ -74,9 +72,9 @@ public class ThreadPoolUtil {
         }, 2000);
     }
 
-    private static void testScheduledWithDemon(){
+    private static void testScheduledWithDemon(boolean isDemon){
         // 定时任务执行器
-        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1, new NamedThreadFactory("DubboRegistryReconnectTimer", false));
-        scheduledExecutorService.schedule(() -> log.info("延迟任务执行完毕......"),2,TimeUnit.SECONDS);
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1, new NamedThreadFactory("DubboRegistryReconnectTimer", isDemon));
+        scheduledExecutorService.schedule(() -> log.info("延迟任务执行完毕......"),5,TimeUnit.SECONDS);
     }
 }
