@@ -1,8 +1,11 @@
 package com.base.utils.thread;
 
 
+import cn.hutool.core.thread.NamedThreadFactory;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.*;
 
 /**
@@ -13,6 +16,10 @@ import java.util.concurrent.*;
  */
 @Slf4j
 public class ThreadPoolUtil {
+
+    /**
+     * 普通线程池
+     */
     private static final ThreadPoolExecutor POOL = create(8, 2000);
 
     /**
@@ -49,11 +56,27 @@ public class ThreadPoolUtil {
         // scheduledExecutor.schedule(() -> log.info("延迟任务执行完毕......"),10,TimeUnit.SECONDS);
         // scheduledExecutor.shutdown();
         // 测试线程池
-        execute(new Runnable() {
+        // execute(() -> log.info("异步任务执行完毕........."));
+
+
+        testScheduledWithDemon();
+
+    }
+
+
+    private static void testTimer(){
+        // 定时器测试
+        new Timer(false).schedule(new TimerTask() {
             @Override
             public void run() {
-                log.info("异步任务执行完毕.........");
+                log.info("定时器测试");
             }
-        });
+        }, 2000);
+    }
+
+    private static void testScheduledWithDemon(){
+        // 定时任务执行器
+        ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1, new NamedThreadFactory("DubboRegistryReconnectTimer", false));
+        scheduledExecutorService.schedule(() -> log.info("延迟任务执行完毕......"),2,TimeUnit.SECONDS);
     }
 }
