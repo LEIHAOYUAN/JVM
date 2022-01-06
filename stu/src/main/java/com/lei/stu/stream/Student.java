@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @Description
@@ -19,5 +20,13 @@ public class Student {
     private String name;
     private String age;
     private BigDecimal score;
+
+    private List<Student> items;
+
+    public Student(String name,String age,BigDecimal score){
+        this.name = name;
+        this.age = age;
+        this.score = score;
+    }
 
 }

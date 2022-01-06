@@ -10,7 +10,6 @@ import com.lei.stu.stream.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang3.builder.ToStringExclude;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -28,7 +27,42 @@ import java.util.stream.Collectors;
 public class ListNewTest {
 
     public static void main(String[] args) {
-        multiSortNew();
+        testNestList();
+    }
+
+
+    /**
+     * 测试嵌套集合遍历
+     */
+    private static void testNestListWithNullParam() {
+        List<Student> param = null;
+        List<String> names = Optional.ofNullable(param).orElseGet(ArrayList::new).stream().map(Student::getItems)
+                .flatMap(list -> Optional.ofNullable(list).orElseGet(ArrayList::new).stream().map(Student::getName)).distinct().collect(Collectors.toList());
+        log.info("嵌套遍历结果：{}",JSON.toJSONString(names));
+    }
+
+
+    /**
+     * 测试嵌套集合遍历
+     */
+    private static void testNestList() {
+        List<Student> param = Lists.newArrayList();
+        param.add(buildStudent("AAA"));
+        param.add(buildStudent("BBB"));
+        param.add(buildStudent("CCC"));
+        param.add(buildStudent("ddd"));
+        param.add(buildStudent("dddAAA"));
+        param.add(buildStudent("dddAAA"));
+        List<String> names = Optional.ofNullable(param).orElseGet(ArrayList::new).stream().map(Student::getItems)
+                .flatMap(list -> Optional.ofNullable(list).orElseGet(ArrayList::new).stream().map(Student::getName)).distinct().collect(Collectors.toList());
+        log.info("嵌套遍历结果：{}",JSON.toJSONString(names));
+    }
+
+
+    private static Student buildStudent(String name) {
+        List<Student> items = Lists.newArrayList();
+        items.add(new Student(name, name, BigDecimal.TEN, null));
+        return new Student(name, name, BigDecimal.TEN, items);
     }
 
     private static void testFixedSizeList() {
@@ -50,7 +84,7 @@ public class ListNewTest {
         CommonMaterialSpecBO res = param.stream().filter(i -> StringUtils.isNotBlank(i.getBatchNo()))
                 .min(Comparator.comparing(CommonMaterialSpecBO::getBatchNo)
                         .thenComparing(CommonMaterialSpecBO::getDistributioMpuConver)
-                        .thenComparing(CommonMaterialSpecBO::getBatchStockNum,Comparator.reverseOrder()))
+                        .thenComparing(CommonMaterialSpecBO::getBatchStockNum, Comparator.reverseOrder()))
                 .orElse(null);
         log.info("排序过滤结果：{}", JSON.toJSONString(res));
 
