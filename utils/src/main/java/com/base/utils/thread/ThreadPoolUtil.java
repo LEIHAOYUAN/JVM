@@ -60,7 +60,24 @@ public class ThreadPoolUtil {
         // 测试线程池
         // execute(() -> log.info("异步任务执行完毕........."));
         // 周期性的执行定时任务
-        scheduledExecutor.scheduleAtFixedRate(() -> log.info("周期任务执行........."), 2, 2, TimeUnit.SECONDS);
+        // scheduledExecutor.scheduleAtFixedRate(() -> log.info("周期任务执行........."), 2, 2, TimeUnit.SECONDS);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                log.info("用户线程开始执行start...........");
+                try {
+                    Thread.sleep(60000);
+                } catch (InterruptedException ex) {
+                    log.info("线程catch被中断...........");
+                } finally {
+                    log.info("线程finally执行............");
+                }
+
+            }
+        }).start();
+
+        log.info("main线程执行完毕.........END");
     }
 
 
