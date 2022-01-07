@@ -59,7 +59,8 @@ public class ThreadPoolUtil {
         // scheduledExecutor.shutdown();
         // 测试线程池
         // execute(() -> log.info("异步任务执行完毕........."));
-        testScheduledWithDemon();
+        // 周期性的执行定时任务
+        scheduledExecutor.scheduleAtFixedRate(() -> log.info("周期任务执行........."), 2, 2, TimeUnit.SECONDS);
     }
 
 
@@ -70,11 +71,11 @@ public class ThreadPoolUtil {
             public void run() {
                 log.info("定时器测试");
             }
-        }, 2000);
+        }, 6000);
     }
 
     private static void testScheduledWithDemon() {
         // 定时任务执行器
-        scheduledExecutor.schedule(() -> log.info("延迟任务执行完毕......"), 5, TimeUnit.SECONDS);
+        scheduledExecutor.schedule(() -> log.info("延迟任务执行完毕......"), 2, TimeUnit.SECONDS);
     }
 }
