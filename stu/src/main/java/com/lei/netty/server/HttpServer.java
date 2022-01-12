@@ -1,7 +1,6 @@
 package com.lei.netty.server;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -10,6 +9,9 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.*;
 import io.netty.util.concurrent.DefaultThreadFactory;
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @Author leihaoyuan
@@ -21,11 +23,12 @@ import io.netty.util.concurrent.DefaultThreadFactory;
  * 【netty】boosgroup为什么只会有一个实际线程原理：
  * https://blog.csdn.net/u013076044/article/details/103933774
  */
+@Slf4j
 public class HttpServer {
 
     public static void main(String[] args) throws Exception {
 
-        NioEventLoopGroup bossGroup = new NioEventLoopGroup(0, new DefaultThreadFactory("bossGroup"));
+        NioEventLoopGroup bossGroup = new NioEventLoopGroup(4, new DefaultThreadFactory("bossGroup"));
         NioEventLoopGroup workGroup = new NioEventLoopGroup(4, new DefaultThreadFactory("workGroup"));
 
         ServerBootstrap serverBootstrap = new ServerBootstrap();
@@ -48,10 +51,30 @@ public class HttpServer {
                 });
             }
         });
-        ChannelFuture channelFuture = serverBootstrap.bind(8085).sync();
-        ChannelFuture closeFuture = channelFuture.channel().closeFuture();
-        closeFuture.sync();
 
+        CountDownLatch countDownLatch = new CountDownLatch(2);
+
+        new Thread(() -> {
+            try {
+                serverBootstrap.bind(8765).sync().channel().closeFuture().sync();
+            } catch (InterruptedException exception) {
+                log.error("绑定端口1异常：{}", exception.getMessage(), exception);
+            }finally {
+                countDownLatch.countDown();
+            }
+        }, "thread1").start();
+
+        new Thread(() -> {
+            try {
+                serverBootstrap.bind(8900).sync().channel().closeFuture().sync();
+            } catch (InterruptedException exception) {
+                log.error("绑定端口2异常：{}", exception.getMessage(), exception);
+            }finally {
+                countDownLatch.countDown();
+            }
+        }, "thread2").start();
+
+        countDownLatch.await();
         bossGroup.shutdownGracefully();
         workGroup.shutdownGracefully();
     }
