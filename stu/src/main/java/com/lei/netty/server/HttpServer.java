@@ -8,7 +8,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.*;
-import io.netty.util.concurrent.DefaultThreadFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CountDownLatch;
@@ -28,8 +27,8 @@ public class HttpServer {
 
     public static void main(String[] args) throws Exception {
 
-        NioEventLoopGroup bossGroup = new NioEventLoopGroup(4, new DefaultThreadFactory("bossGroup"));
-        NioEventLoopGroup workGroup = new NioEventLoopGroup(4, new DefaultThreadFactory("workGroup"));
+        NioEventLoopGroup bossGroup = new NioEventLoopGroup(2);
+        NioEventLoopGroup workGroup = new NioEventLoopGroup(4);
 
         ServerBootstrap serverBootstrap = new ServerBootstrap();
         serverBootstrap.group(bossGroup, workGroup);
@@ -59,7 +58,7 @@ public class HttpServer {
                 serverBootstrap.bind(8765).sync().channel().closeFuture().sync();
             } catch (InterruptedException exception) {
                 log.error("绑定端口1异常：{}", exception.getMessage(), exception);
-            }finally {
+            } finally {
                 countDownLatch.countDown();
             }
         }, "thread1").start();
@@ -69,7 +68,7 @@ public class HttpServer {
                 serverBootstrap.bind(8900).sync().channel().closeFuture().sync();
             } catch (InterruptedException exception) {
                 log.error("绑定端口2异常：{}", exception.getMessage(), exception);
-            }finally {
+            } finally {
                 countDownLatch.countDown();
             }
         }, "thread2").start();
