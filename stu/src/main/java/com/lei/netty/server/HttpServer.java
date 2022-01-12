@@ -18,6 +18,8 @@ import io.netty.util.concurrent.DefaultThreadFactory;
  * @Description 简单HTTPServer
  * 验证netty boosgroup实际线程数量问题：
  * https://zhuanlan.zhihu.com/p/378238584
+ * 【netty】boosgroup为什么只会有一个实际线程原理：
+ * https://blog.csdn.net/u013076044/article/details/103933774
  */
 public class HttpServer {
 
