@@ -20,9 +20,9 @@ public class Server {
 
     public void run() {
         //用于处理服务器端接收客户端连接
-        EventLoopGroup bossGroup = new NioEventLoopGroup();
+        EventLoopGroup bossGroup = new NioEventLoopGroup(2);
         //进行网络通信（读写）
-        EventLoopGroup workerGroup = new NioEventLoopGroup();
+        EventLoopGroup workerGroup = new NioEventLoopGroup(4);
         try {
             //辅助工具类，用于服务器通道的一系列配置
             ServerBootstrap bootstrap = new ServerBootstrap();

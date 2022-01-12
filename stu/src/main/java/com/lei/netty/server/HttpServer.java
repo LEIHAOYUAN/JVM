@@ -27,7 +27,7 @@ public class HttpServer {
 
     public static void main(String[] args) throws Exception {
 
-        NioEventLoopGroup bossGroup = new NioEventLoopGroup(2);
+        NioEventLoopGroup bossGroup = new NioEventLoopGroup(4);
         NioEventLoopGroup workGroup = new NioEventLoopGroup(4);
 
         ServerBootstrap serverBootstrap = new ServerBootstrap();
