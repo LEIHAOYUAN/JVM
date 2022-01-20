@@ -1,10 +1,12 @@
 package com.lei.stu.bigdecimal;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Map;
 
 /**
  * @Description
@@ -15,7 +17,31 @@ import java.math.RoundingMode;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        testScale();
+        testAdd();
+    }
+
+
+    private static void testAdd(){
+        BigDecimal aa = BigDecimal.TEN;
+        BigDecimal bb = BigDecimal.TEN.negate();
+        log.info("正数累加：{}",aa.add(aa).stripTrailingZeros().toPlainString());
+        log.info("正负数累加：{}",aa.add(bb).stripTrailingZeros().toPlainString());
+        log.info("负数累加：{}",bb.add(bb).stripTrailingZeros().toPlainString());
+
+        Map<String,String> param = Maps.newHashMap();
+        param.put("AA","AA");
+        param.put("AA","AA");
+        param.put("AA","AA");
+
+        Map<String,String> param1 = Maps.newHashMap();
+        param1.put("AA","AA1");
+        param1.put("AA","AA1");
+        param1.put("AA","AA1");
+
+        Map<String,String> res = Maps.newHashMap();
+        res.putAll(param);
+        res.putAll(param1);
+        log.info("最终结果：{}",JSON.toJSONString(res));
     }
 
     private static void testScale(){
