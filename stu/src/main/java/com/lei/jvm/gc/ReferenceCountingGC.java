@@ -6,6 +6,9 @@ package com.lei.jvm.gc;
  * @Version 1.0
  * @Description 检验循环引用对象会被GC回收
  * https://www.cnblogs.com/liulaolaiu/p/11744420.html
+ * 结论：
+ * 内存回收日志中包含9860K->1408K(498688K)，意味着虚拟机并没有因为这两
+ * 个对象互相引用就放弃回收它们，这也从侧面说明了Java虚拟机并不是通过引用计数算法来判断对象是否存活的。
  */
 public class ReferenceCountingGC {
 
