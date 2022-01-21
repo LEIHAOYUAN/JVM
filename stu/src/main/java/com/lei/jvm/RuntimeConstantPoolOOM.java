@@ -43,7 +43,7 @@ public class RuntimeConstantPoolOOM {
         // intern返回的引用和由StringBuilder创建的字符串是同一个
         String str1 = new StringBuilder("计算机").append("软件").toString();
         System.out.println(str1.intern() == str1);
-        //
+        // “java”字符串常量池中已经有它的引用，不符合intern()方法要求“首次遇到”的原则，“计算机软件”这个字符串则是首次出现的，因此结果返回true。
         String str2 = new StringBuilder("ja").append("va").toString();
         System.out.println(str2.intern() == str2);
     }
