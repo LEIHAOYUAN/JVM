@@ -1,4 +1,4 @@
-package com.lei.jvm;
+package com.lei.jvm.oom;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package com.lei.jvm;
+package com.lei.jvm.oom;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.MethodInterceptor;
