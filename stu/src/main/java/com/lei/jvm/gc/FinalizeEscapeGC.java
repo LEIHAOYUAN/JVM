@@ -1,5 +1,7 @@
 package com.lei.jvm.gc;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @Author leihaoyuan
  * @Date 2022/1/22 17:42
@@ -7,7 +9,7 @@ package com.lei.jvm.gc;
  * @Description 一次对象自我拯救的演示
  * 1.对象可以在被GC时自我拯救。
  * 2.这种自救的机会只有一次，因为一个对象的finalize()方法最多只会被系统自动调用一次
- *
+ * <p>
  * 还有一点需要特别说明，上面关于对象死亡时finalize()方法的描述可能带点悲情的艺术加工，笔
  * 者并不鼓励大家使用这个方法来拯救对象。相反，笔者建议大家尽量避免使用它，因为它并不能等同
  * 于C和C++语言中的析构函数，而是Java刚诞生时为了使传统C、C++程序员更容易接受Java所做出的一
@@ -16,18 +18,19 @@ package com.lei.jvm.gc;
  * 方法用途的一种自我安慰。finalize()能做的所有工作，使用try-finally或者其他方式都可以做得更好、
  * 更及时，所以笔者建议大家完全可以忘掉Java语言里面的这个方法。
  */
+@Slf4j
 public class FinalizeEscapeGC {
 
     public static FinalizeEscapeGC SAVE_HOOK = null;
 
     public void isAlive() {
-        System.out.println("yes, i am still alive :)");
+        log.info("yes, i am still alive :)");
     }
 
     @Override
     protected void finalize() throws Throwable {
         super.finalize();
-        System.out.println("finalize method executed!");
+        log.info("finalize method executed!");
         FinalizeEscapeGC.SAVE_HOOK = this;
     }
 
@@ -41,7 +44,7 @@ public class FinalizeEscapeGC {
         if (SAVE_HOOK != null) {
             SAVE_HOOK.isAlive();
         } else {
-            System.out.println("no, i am dead :(");
+            log.info("no, i am dead :(");
         }
         // 下面这段代码与上面的完全相同，但是这次自救却失败了
         SAVE_HOOK = null;
@@ -51,7 +54,7 @@ public class FinalizeEscapeGC {
         if (SAVE_HOOK != null) {
             SAVE_HOOK.isAlive();
         } else {
-            System.out.println("no, i am dead :(");
+            log.info("no, i am dead :(");
         }
     }
 
