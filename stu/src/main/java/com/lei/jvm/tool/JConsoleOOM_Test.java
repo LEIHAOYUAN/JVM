@@ -1,5 +1,7 @@
 package com.lei.jvm.tool;
 
+import com.google.common.collect.Lists;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,9 @@ import java.util.List;
  * @Date 2022/1/26 11:24
  * @Version 1.0
  * @Description 对象分配内存，使用JConsole监视
+ *
+ * 虚拟机参数：
+ * -Xms100m -Xmx100m -XX:+UseSerialGC
  */
 public class JConsoleOOM_Test {
 
@@ -19,7 +24,7 @@ public class JConsoleOOM_Test {
     }
 
     public static void fillHeap(int num) throws InterruptedException {
-        List<OOMObject> list = new ArrayList<OOMObject>();
+        List<OOMObject> list = Lists.newArrayList();
         for (int i = 0; i < num; i++) {
             // 稍作延时，令监视曲线的变化更加明显
             Thread.sleep(50);
