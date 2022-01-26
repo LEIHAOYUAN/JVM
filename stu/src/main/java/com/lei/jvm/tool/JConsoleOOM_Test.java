@@ -30,6 +30,7 @@ public class JConsoleOOM_Test {
             Thread.sleep(50);
             list.add(new OOMObject());
         }
+        // list对象在System.gc()执行时仍然处于作用域之内，如果将System.gc();移动到fillHeap方法外，可观察到内存被回收
         System.gc();
     }
 
