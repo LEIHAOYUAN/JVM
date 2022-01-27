@@ -1,5 +1,7 @@
 package com.lei.jvm.classload.load;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -9,10 +11,25 @@ import java.io.InputStream;
  * @Version 1.0
  * @Description 类加载器与instanceof关键字演示
  */
+@Slf4j
 public class ClassLoaderTest {
 
     public static void main(String[] args) throws Exception {
-        ClassLoader myLoader = new ClassLoader() {
+
+        ClassLoader classLoader = customerClassLoader();
+
+        Object obj = classLoader.loadClass("com.lei.jvm.classload.load.ClassLoaderTest").newInstance();
+        log.info("{}", obj.getClass());
+        log.info("{}", obj instanceof ClassLoaderTest);
+
+        log.info("---------------------分隔符---------------------------");
+
+
+    }
+
+
+    private static ClassLoader customerClassLoader() {
+        return new ClassLoader() {
             @Override
             public Class<?> loadClass(String name) throws ClassNotFoundException {
                 try {
@@ -29,9 +46,6 @@ public class ClassLoaderTest {
                 }
             }
         };
-        Object obj = myLoader.loadClass("com.lei.jvm.classload.load.ClassLoaderTest").newInstance();
-        System.out.println(obj.getClass());
-        System.out.println(obj instanceof ClassLoaderTest);
     }
 
 }
