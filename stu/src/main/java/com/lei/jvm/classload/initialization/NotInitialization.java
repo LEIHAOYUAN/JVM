@@ -1,8 +1,5 @@
-package com.lei.jvm.classload;
+package com.lei.jvm.classload.initialization;
 
-import com.lei.jvm.classload.initialization.ConstClass;
-import com.lei.jvm.classload.initialization.SubClass;
-import com.lei.jvm.classload.initialization.SuperClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**

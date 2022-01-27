@@ -1,4 +1,4 @@
-package com.lei.jvm.classload;
+package com.lei.jvm.classload.initialization;
 
 /**
  * @Author leihaoyuan
