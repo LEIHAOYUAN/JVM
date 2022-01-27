@@ -9,7 +9,7 @@ package com.lei.jvm.exeengine;
  * 该名字指的就是这个类能看到的那个字段。
  * 当子类声明了与父类同名的字段时，虽然在子类的内存中两个字段都会存在，但是子类的字段会遮蔽父类的同名字段。
  */
-public class FieldHasNoPolymorphic {
+public class FieldHasNoPolymorphic1 {
 
     static class Father {
         public int money = 1;
