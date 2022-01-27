@@ -7,6 +7,8 @@ package com.lei.jvm.exeengine;
  * @Description 方法静态分派演示
  * 静态分派的最典型应用表现就是方法重载
  * 静态分派发生在编译阶段，因此确定静态分派的动作实际上不是由虚拟机来执行的
+ * 使用命令：javap -verbose StaticDispatch
+ * 可以进行验证
  */
 public class StaticDispatch {
 
