@@ -14,7 +14,7 @@ import static java.lang.invoke.MethodHandles.lookup;
  * 注意点：动态类型语言与动态语言、弱类型语言并不是一个概念，需要区别对待
  * 方法句柄（MethodHandle)和反射（Reflection）区别：
  * 【1】Reflection是在模拟Java代码层次的方法调用，而MethodHandle是在模拟字节码层次的方法调用
- * 在MethodHandles.Lookup上的3个方法findStatic()、findVirtual()、findSpecial()正是为了对应于invokestatic、invokevirtual（以及invokeinterface）和invokespecial这几条字节码指令的执行权限校验行为，而这些底层细节在使用Reflection API时是不需要关心的。
+ * 在MethodHandles.Lookup上的3个方法findStatic()、findVirtual()、findSpecial()正是为了对应于invokestatic、invokevirtual、invokeinterface和invokespecial这几条字节码指令的执行权限校验行为，而这些底层细节在使用Reflection API时是不需要关心的。
  * 【2】Reflection中的java.lang.reflect.Method对象远比MethodHandle机制中的java.lang.invoke.MethodHandle对象所包含的信息来得多。
  * Reflection是方法在Java端的全面映像，包含了方法的签名、描述符以及方法属性表中各种属性的Java端表示方式，还包含执行权限等的运行期信息。
  * MethodHandle仅包含执行该方法的相关信息。用开发人员通俗的话来讲，Reflection是重量级，而MethodHandle是轻量级。

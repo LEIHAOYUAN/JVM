@@ -9,6 +9,7 @@ import static java.lang.invoke.MethodHandles.lookup;
  * @Date 2022/1/28 11:20
  * @Version 1.0
  * @Description InvokeDynamic指令演示
+ * invokedynamic指令与此前4条传统的“invoke*”指令的最大区别就是它的分派逻辑不是由虚拟机决定的，而是由程序员决定。
  */
 public class InvokeDynamicTest {
 
