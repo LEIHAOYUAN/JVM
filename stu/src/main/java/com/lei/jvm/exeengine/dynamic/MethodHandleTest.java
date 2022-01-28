@@ -1,4 +1,4 @@
-package com.lei.jvm.exeengine;
+package com.lei.jvm.exeengine.dynamic;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodType;
