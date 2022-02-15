@@ -21,6 +21,11 @@ import java.util.Date;
  */
 @Slf4j
 public class DateTimeUtil {
+
+    /**
+     * 简单月份格式
+     */
+    public static final String SIMPLE_MONTH_PARTTERN = "yyyyMM";
     /**
      * 默认时间格式
      */
@@ -42,7 +47,23 @@ public class DateTimeUtil {
     public static final String DEFAULT_DATE_PARTTERN = "yyyyMMdd";
 
     public static void main(String[] args) {
-        System.out.println(valid("2021122898","yyyyMMddHH"));
+        System.out.println(validYearMonth("202112"));
+    }
+
+    /**
+     * 校验日期[年月：yyyyMM]格式
+     *
+     * @param dateStrParam
+     * @return
+     */
+    public static boolean validYearMonth(String dateStrParam) {
+        try {
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(SIMPLE_MONTH_PARTTERN);
+            return YearMonth.parse(dateStrParam, fmt) != null;
+        } catch (Exception e) {
+            log.error("校验日期字符串，参数：{}，异常：{}", dateStrParam, e.getMessage(), e);
+            return false;
+        }
     }
 
 
