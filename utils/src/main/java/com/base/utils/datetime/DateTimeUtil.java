@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 
 /**
@@ -47,8 +48,42 @@ public class DateTimeUtil {
     public static final String DEFAULT_DATE_PARTTERN = "yyyyMMdd";
 
     public static void main(String[] args) {
-        System.out.println(validYearMonth("202112"));
+        System.out.println(getFirstDayOfMonth("202112").getTime());
+        System.out.println(getLastDayOfMonth("202112").getTime());
     }
+
+    /**
+     * 获取指定月份第一天
+     *
+     * @param param 格式：yyyyMM
+     * @return 日期
+     */
+    public static Date getFirstDayOfMonth(String param) {
+        if (StringUtils.isBlank(param)) {
+            return null;
+        }
+        Date date = convertToDate(param, SIMPLE_MONTH_PARTTERN);
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneId.systemDefault());
+        LocalDateTime endOfDay = localDateTime.with(TemporalAdjusters.firstDayOfMonth()).with(LocalTime.MIN);
+        return Date.from(endOfDay.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
+    /**
+     * 获取指定月份最后一天
+     *
+     * @param param 格式：yyyyMM
+     * @return 日期
+     */
+    public static Date getLastDayOfMonth(String param) {
+        if (StringUtils.isBlank(param)) {
+            return null;
+        }
+        Date date = convertToDate(param, SIMPLE_MONTH_PARTTERN);
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneId.systemDefault());
+        LocalDateTime endOfDay = localDateTime.with(TemporalAdjusters.lastDayOfMonth()).with(LocalTime.MAX);
+        return Date.from(endOfDay.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
 
     /**
      * 校验日期[年月：yyyyMM]格式
@@ -67,44 +102,45 @@ public class DateTimeUtil {
     }
 
 
-    private static Long duration(){
+    private static Long duration() {
         return Duration.between(LocalDateTime.of(LocalDate.now(), LocalTime.MAX), LocalDateTime.now()).toMillis();
     }
 
 
     /**
      * 日期字符串转换为Date类型
+     *
      * @param dateStrParam 指定日期字符串
-     * @param parttern 日期格式
+     * @param parttern     日期格式
      * @return
      */
-    public static Date convertToDate(String dateStrParam,String parttern){
+    public static Date convertToDate(String dateStrParam, String parttern) {
         try {
             return FastDateFormat.getInstance(parttern).parse(dateStrParam);
         } catch (ParseException e) {
-            throw new StockCommonException("日期转换异常，参数：{0}，格式：{1}",dateStrParam,parttern);
+            throw new StockCommonException("日期转换异常，参数：{0}，格式：{1}", dateStrParam, parttern);
         }
     }
 
-    private static String formatCurrentDateTime1(){
+    private static String formatCurrentDateTime1() {
         Long start = System.currentTimeMillis();
         String result = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DEFAULT_TIMESTAMP_PARTTERN));
-        log.info("耗时：{}",System.currentTimeMillis()-start);
+        log.info("耗时：{}", System.currentTimeMillis() - start);
         return result;
     }
 
-    public static String formatCurrentDateTime2(){
+    public static String formatCurrentDateTime2() {
         Long start = System.currentTimeMillis();
         String result = DateTimeFormatter.ofPattern(DEFAULT_TIMESTAMP_PARTTERN).format(LocalDateTime.ofInstant(Instant.ofEpochMilli(Clock.systemDefaultZone().millis()), ZoneId.systemDefault()));
-        log.info("耗时：{}",System.currentTimeMillis()-start);
+        log.info("耗时：{}", System.currentTimeMillis() - start);
         return result;
 
     }
 
-    public static String formatCurrentDateTime3(){
+    public static String formatCurrentDateTime3() {
         Long start = System.currentTimeMillis();
         String result = DateTimeFormatter.ofPattern(DEFAULT_TIMESTAMP_PARTTERN).format(LocalDateTime.ofInstant(Instant.ofEpochMilli(System.currentTimeMillis()), ZoneId.systemDefault()));
-        log.info("耗时：{}",System.currentTimeMillis()-start);
+        log.info("耗时：{}", System.currentTimeMillis() - start);
         return result;
     }
 
@@ -142,9 +178,10 @@ public class DateTimeUtil {
 
     /**
      * 校验年月是否合法
+     *
      * @return
      */
-    public static boolean validYearMonth(){
+    public static boolean validYearMonth() {
         DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyyMM");
         return YearMonth.parse("202107", fmt) != null;
     }
