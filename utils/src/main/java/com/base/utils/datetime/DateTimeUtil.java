@@ -48,8 +48,12 @@ public class DateTimeUtil {
     public static final String DEFAULT_DATE_PARTTERN = "yyyyMMdd";
 
     public static void main(String[] args) {
-        System.out.println(getFirstDayOfMonth("202112").getTime());
-        System.out.println(getLastDayOfMonth("202112").getTime());
+        System.out.println(getFirstDayOfMonth("202202").getTime());
+        System.out.println(getLastDayOfMonth("202202").getTime());
+        System.out.println("--------------------------------------------------");
+        Date date = new Date();
+        System.out.println(date.after(getFirstDayOfMonth("202202")));
+        System.out.println(date.before(getFirstDayOfMonth("202202")));
     }
 
     /**
@@ -67,6 +71,8 @@ public class DateTimeUtil {
         LocalDateTime endOfDay = localDateTime.with(TemporalAdjusters.firstDayOfMonth()).with(LocalTime.MIN);
         return Date.from(endOfDay.atZone(ZoneId.systemDefault()).toInstant());
     }
+
+
 
     /**
      * 获取指定月份最后一天
