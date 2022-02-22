@@ -21,7 +21,15 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-        testMaps();
+        testContains();
+    }
+
+    private static void testContains(){
+        Map<String, String> param = Maps.newHashMap();
+        param.put("AAa","AAa");
+        if(param.containsKey("A")){
+            log.info("包含测试通过");
+        }
     }
 
 
