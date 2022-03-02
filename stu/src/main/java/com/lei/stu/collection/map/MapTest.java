@@ -14,8 +14,7 @@ import java.util.stream.Collectors;
 /**
  * @Author leihaoyuan
  * @Date 2021/3/29 11:20
- * @Version 1.0
- * @Description map操作
+ * @Version 1.0 @Description map操作
  */
 @Slf4j
 public class MapTest {

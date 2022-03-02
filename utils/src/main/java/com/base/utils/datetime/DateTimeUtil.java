@@ -7,7 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.FastDateFormat;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
@@ -27,10 +29,32 @@ public class DateTimeUtil {
      * 简单月份格式
      */
     public static final String SIMPLE_MONTH_PARTTERN = "yyyyMM";
+
+    /**
+     * 反斜杠格式月份格式
+     */
+    public static final String BSLASH_MONTH_PARTTERN = "yyyy/MM";
+
+    /**
+     * 短横杠月份格式
+     */
+    public static final String EN_DASHED_MONTH_PARTTERN = "yyyy-MM";
+
+
     /**
      * 默认时间格式
      */
     public static final String DEFAULT_PARTTERN = "yyyy-MM-dd HH:mm:ss";
+
+    /**
+     * 短横杠日期格式
+     */
+    public static final String EN_DASHED_DEFAULT_PARTTERN = "yyyy-MM-dd";
+
+    /**
+     * 斜杠日期格式
+     */
+    public static final String BSLASH_DEFAULT_PARTTERN = "yyyy/MM/dd";
 
     /**
      * 默认拼接格式
@@ -48,12 +72,48 @@ public class DateTimeUtil {
     public static final String DEFAULT_DATE_PARTTERN = "yyyyMMdd";
 
     public static void main(String[] args) {
-        System.out.println(getFirstDayOfMonth("202202").getTime());
-        System.out.println(getLastDayOfMonth("202202").getTime());
-        System.out.println("--------------------------------------------------");
-        Date date = new Date();
-        System.out.println(date.after(getFirstDayOfMonth("202202")));
-        System.out.println(date.before(getFirstDayOfMonth("202202")));
+        // System.out.println(validYearMonth("202212","yyyyMM"));
+        // System.out.println(validYearMonth("2022/12", "yyyy/MM"));
+        // System.out.println(validYearMonth("2022-12", "yyyy-MM"));
+        // System.out.println("---------------------------------------------------");
+        // System.out.println(valid("20221229", "yyyyMMdd"));
+        // System.out.println(valid("2022/12/29", "yyyy/MM/dd"));
+        // System.out.println(valid("2022-12-29", "yyyy-MM-dd"));
+
+        System.out.println("-----------------------------------------------------");
+
+
+        try {
+            DateFormat df = new SimpleDateFormat("yyyyMM");
+            df.setLenient(Boolean.FALSE);
+            Date finishTimeDate = df.parse("20225");
+            System.out.println("转换成功："+df.format(finishTimeDate));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * 校验日期字符串是否符合指定格式
+     *
+     * @param dateStrParam 日期字符串参数
+     * @param parttern     日期格式
+     * @return
+     */
+    public static String validAndFormat(String dateStrParam, String parttern) {
+        ValidUtil.notBlank(parttern, "校验日期模板参数不能为空");
+        if (StringUtils.isBlank(dateStrParam)) {
+            return null;
+        }
+        try {
+            DateFormat df = new SimpleDateFormat(parttern);
+            df.setLenient(Boolean.FALSE);
+            return df.format(df.parse(dateStrParam));
+        } catch (Exception e) {
+            log.error("校验并转换日期字符串，参数：{}，异常：{}", dateStrParam, e.getMessage(), e);
+            return null;
+        }
     }
 
     /**
@@ -71,7 +131,6 @@ public class DateTimeUtil {
         LocalDateTime endOfDay = localDateTime.with(TemporalAdjusters.firstDayOfMonth()).with(LocalTime.MIN);
         return Date.from(endOfDay.atZone(ZoneId.systemDefault()).toInstant());
     }
-
 
 
     /**
@@ -103,6 +162,22 @@ public class DateTimeUtil {
             return YearMonth.parse(dateStrParam, fmt) != null;
         } catch (Exception e) {
             log.error("校验日期字符串，参数：{}，异常：{}", dateStrParam, e.getMessage(), e);
+            return false;
+        }
+    }
+
+    /**
+     * 校验日期[年月：yyyyMM]格式
+     *
+     * @param dateStrParam
+     * @return
+     */
+    public static boolean validYearMonth(String dateStrParam,String format) {
+        try {
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(format);
+            return YearMonth.parse(dateStrParam, fmt) != null;
+        } catch (Exception e) {
+            // log.error("校验日期字符串，参数：{}，异常：{}", dateStrParam, e.getMessage(), e);
             return false;
         }
     }
