@@ -3,6 +3,8 @@ package com.base.utils.regex;
 import cn.hutool.core.util.ReUtil;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.regex.Pattern;
+
 /**
  * @Author leihaoyuan
  * @Date 2021/3/12 15:13
@@ -10,6 +12,16 @@ import org.apache.commons.lang.StringUtils;
  * @Description 正则表达式
  */
 public class RegexUtil {
+
+    /**
+     * 不超过9位数的正整数
+     */
+    public static final String REGEX_POSITIVE_INTEGER_NINE = "0|(^[1-9]\\d{0,8}$)";
+
+    /**
+     * 不超过9位数的整数（包括0）
+     */
+    private static final String REGEX_NOT_NEGATIVE_INTEGER_NINE = "0|[1-9]\\d{0,8}$";
 
     private static final String SIMPLE_NUMBER = "^[0-9]*$";
 
@@ -33,13 +45,15 @@ public class RegexUtil {
 
 
     public static void main(String[] args) {
-        System.out.println(validSimpleNumer("442222222222222222222456"));
-        System.out.println(validPhone("188555555055"));
-        System.out.println(validEmail("1885555555@5"));
-
-        System.out.println("=========================================");
-
-        System.out.println(StringUtils.isBlank("   0   "));
+        // System.out.println(validSimpleNumer("442222222222222222222456"));
+        // System.out.println(validPhone("188555555055"));
+        // System.out.println(validEmail("1885555555@5"));
+        //
+        // System.out.println("=========================================");
+        //
+        // System.out.println(StringUtils.isBlank("   0   "));
+        String param = "888552.";
+        System.out.println(Pattern.matches(REGEX_NOT_NEGATIVE_INTEGER_NINE, param));
 
     }
 
