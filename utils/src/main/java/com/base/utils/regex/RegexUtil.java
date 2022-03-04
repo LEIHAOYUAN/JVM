@@ -23,8 +23,15 @@ public class RegexUtil {
      */
     private static final String REGEX_NOT_NEGATIVE_INTEGER_NINE = "0|[1-9]\\d{0,8}$";
 
-    private static final String SIMPLE_NUMBER = "^[0-9]*$";
+    /**
+     * 简单数字
+     */
+    private static final String SIMPLE_NUMBER = "(^[0-9]\\d*$)";
 
+    /**
+     * （1-50 整数）
+     */
+    public static final String REGEX_TAX_RATE = "(^[1-4][0-9]$)|(^[5][0]$)|(^[0-9]$)";
 
     /**
      * 正则表达式：验证手机号
@@ -52,8 +59,8 @@ public class RegexUtil {
         // System.out.println("=========================================");
         //
         // System.out.println(StringUtils.isBlank("   0   "));
-        String param = "888552.";
-        System.out.println(Pattern.matches(REGEX_NOT_NEGATIVE_INTEGER_NINE, param));
+        String param = "0789789";
+        System.out.println(Pattern.matches("(^[0-9]\\d*$)", param));
 
     }
 
