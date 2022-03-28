@@ -86,7 +86,7 @@ public class DateTimeUtil {
         try {
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             df.setLenient(Boolean.FALSE);
-            Date finishTimeDate = df.parse("2022-001-25");
+            Date finishTimeDate = df.parse("202145");
             System.out.println("转换成功："+df.format(finishTimeDate));
         } catch (ParseException e) {
             e.printStackTrace();
