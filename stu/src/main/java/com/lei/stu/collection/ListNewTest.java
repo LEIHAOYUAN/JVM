@@ -27,7 +27,30 @@ import java.util.stream.Collectors;
 public class ListNewTest {
 
     public static void main(String[] args) {
-        testNestList();
+        testJoin0();
+    }
+
+    private static void testJoin0(){
+        List<String> param = Lists.newArrayList();
+        String res = param.stream().filter(Objects::nonNull).distinct().collect(Collectors.joining(","));
+        log.info("转换结果：{}",res);
+    }
+
+
+    private static void testJoin1(){
+        List<String> param = Lists.newArrayList();
+        param.add("1");
+        param.add(null);
+        param.add("0");
+        param.add("0");
+        param.add("0");
+        param.add("0");
+        String res = param.stream().filter(Objects::nonNull).distinct().collect(Collectors.joining(","));
+        log.info("转换结果：{}",res);
+
+        String content = "XXX";
+        content += null;
+        log.info("拼接null后结果：{}",content);
     }
 
 
