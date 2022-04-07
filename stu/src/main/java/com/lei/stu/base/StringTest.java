@@ -18,8 +18,16 @@ import java.util.stream.Collectors;
 public class StringTest {
 
     public static void main(String[] args) {
-        testValueOf();
-        log.info("-" + null + "");
+        log.info(hide("18850049979"));
+    }
+
+    private static String hide(String phoneNo) {
+        if (StringUtils.isNotBlank(phoneNo)) {
+            if (phoneNo.length() == 11) {
+                return phoneNo.replaceAll("(\\w{3})\\w*(\\w{4})", "$1*****$2");
+            }
+        }
+        return phoneNo;
     }
 
 
