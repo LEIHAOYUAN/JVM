@@ -5,6 +5,8 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,7 +20,17 @@ import java.util.stream.Collectors;
 public class StringTest {
 
     public static void main(String[] args) {
-        log.info(hide("18850049979"));
+        List<String> labels = Lists.newArrayList();
+        labels.add("包装精美");
+        labels.add("口味适宜");
+        log.info("JSON-ARRAY:{}",JSON.toJSONString(labels));
+
+        log.info(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS").format(LocalDateTime.now()));
+
+        String param = "中国";
+        for (String s : param.split(",")) {
+            log.info("切割结果：{}",s);
+        }
     }
 
     private static String hide(String phoneNo) {
