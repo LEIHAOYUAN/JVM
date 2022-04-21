@@ -72,25 +72,26 @@ public class DateTimeUtil {
     public static final String DEFAULT_DATE_PARTTERN = "yyyyMMdd";
 
     public static void main(String[] args) {
-        // System.out.println(validYearMonth("202212","yyyyMM"));
-        // System.out.println(validYearMonth("2022/12", "yyyy/MM"));
-        // System.out.println(validYearMonth("2022-12", "yyyy-MM"));
-        // System.out.println("---------------------------------------------------");
-        // System.out.println(valid("20221229", "yyyyMMdd"));
-        // System.out.println(valid("2022/12/29", "yyyy/MM/dd"));
-        // System.out.println(valid("2022-12-29", "yyyy-MM-dd"));
+        log.info("判断结果：{}",validBetween(new Date(789789L)));
+    }
 
-        System.out.println("-----------------------------------------------------");
+    public static boolean validBetween(Date param) {
+        LocalDate now = LocalDate.now();
+        LocalDate date = dateToLocalDate(param);
+        return now.getMonth().getValue() == date.getMonth().getValue();
+    }
 
-
-        try {
-            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-            df.setLenient(Boolean.FALSE);
-            Date finishTimeDate = df.parse("202145");
-            System.out.println("转换成功："+df.format(finishTimeDate));
-        } catch (ParseException e) {
-            e.printStackTrace();
+    /**
+     * date 对象转换为 LocalDate
+     *
+     * @param date
+     * @return
+     */
+    public static LocalDate dateToLocalDate(Date date) {
+        if (null == date) {
+            return null;
         }
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
 
@@ -172,7 +173,7 @@ public class DateTimeUtil {
      * @param dateStrParam
      * @return
      */
-    public static boolean validYearMonth(String dateStrParam,String format) {
+    public static boolean validYearMonth(String dateStrParam, String format) {
         try {
             DateTimeFormatter fmt = DateTimeFormatter.ofPattern(format);
             return YearMonth.parse(dateStrParam, fmt) != null;
