@@ -72,7 +72,14 @@ public class DateTimeUtil {
     public static final String DEFAULT_DATE_PARTTERN = "yyyyMMdd";
 
     public static void main(String[] args) {
-        log.info("判断结果：{}",validBetween(new Date(789789L)));
+
+        String month = formatDate(new Date(), SIMPLE_MONTH_PARTTERN);
+        log.info("转换日期：{}", month);
+    }
+
+
+    public static String formatDate(Date date, String parttern) {
+        return FastDateFormat.getInstance(parttern).format(date);
     }
 
     public static boolean validBetween(Date param) {
