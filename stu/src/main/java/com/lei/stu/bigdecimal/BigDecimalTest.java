@@ -17,7 +17,7 @@ import java.util.Map;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        testAdd();
+        log.info("判断是否是整数：{}",isIntegerValue(BigDecimal.valueOf(10.00001)));
     }
 
 
