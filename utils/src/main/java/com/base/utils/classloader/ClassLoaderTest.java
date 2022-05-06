@@ -1,5 +1,6 @@
 package com.base.utils.classloader;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
@@ -16,8 +17,8 @@ import java.sql.DriverManager;
 public class ClassLoaderTest {
 
     public static void main(String[] args) {
-
-
+        Object obj = "AAAA";
+        log.info("结果：{}", JSON.toJSONString(obj));
     }
 
     private static void queryClassLoadTree() {
