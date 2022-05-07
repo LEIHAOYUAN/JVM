@@ -13,42 +13,14 @@ import java.io.Serializable;
  */
 @Slf4j
 @Data
-public class SubClass implements Serializable {
+public class SubClass extends ParentClass implements Serializable {
 
     private static final long serialVersionUID = -2481872506787156448L;
-
-    /**
-     * 用户ID（用于回调通知）
-     */
-    private Long userId;
 
     /**
      * 用户名称（用于回调通知）
      */
     private String userName;
 
-    /**
-     * 用户邮箱（用于回调通知）
-     */
-    private String userEmail;
 
-    /**
-     * 标题（用于回调通知）
-     */
-    private String title;
-
-    /**
-     * 内容（用于回调通知）
-     */
-    private String content;
-
-    /**
-     * 原方法返回值
-     */
-    private Object targetMethodResult;
-
-    /**
-     * 异常信息
-     */
-    private Throwable throwable;
 }
