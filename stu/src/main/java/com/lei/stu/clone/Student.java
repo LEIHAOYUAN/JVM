@@ -18,6 +18,8 @@ public class Student implements Cloneable {
 
     private BigDecimal amount;
 
+    private  Student student;
+
     public Student(Integer id) {
         this.id = id;
     }
