@@ -58,9 +58,9 @@ public class ListTest {
 
 
     private static void testFilter() {
-        Student s1 = new Student(200, null, null);
-        Student s2 = new Student(300, null, null);
-        Student s3 = new Student(400, null, null);
+        Student s1 = new Student(200);
+        Student s2 = new Student(300);
+        Student s3 = new Student(400);
         List<Student> param = Lists.newArrayList();
         param.add(s1);
         param.add(s2);
