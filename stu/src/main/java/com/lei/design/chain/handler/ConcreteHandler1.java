@@ -9,12 +9,12 @@ import lombok.extern.slf4j.Slf4j;
  * @Description 具体执行者1
  */
 @Slf4j
-public class ConcreteHandler1 extends AbstractHandler{
+public class ConcreteHandler1 extends AbstractHandler {
 
     @Override
     public void invoke(String request) {
         log.info("处理者:1正在处理.........");
-        if(null != getNext()){
+        if (null != getNext()) {
             getNext().invoke(request);
         }
     }

@@ -13,6 +13,7 @@ import java.util.List;
 public class ConcernSubject {
     // 观察者集合
     protected List<Observer> observers = Lists.newArrayList();
+
     // 通知观察者
     public void notifyObserver() {
         for (Observer obs : observers) {
