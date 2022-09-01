@@ -23,7 +23,7 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testEmptyMapStream();
+        testSort();
     }
 
     public static void testEmptyMapStream() {
