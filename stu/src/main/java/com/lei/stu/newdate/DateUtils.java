@@ -2,6 +2,8 @@ package com.lei.stu.newdate;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -31,16 +33,28 @@ public class DateUtils {
     public static final String TIME_FORMAT_2 = "HH:mm";
 
 
-    public static void main(String[] args) {
-//        System.out.println(validDateStr("2020-10-04"));
+    public static void main(String[] args) throws ParseException {
 
-        LocalDate yyyyMMdd = convertString2LocalDate("20200531", "yyyyMMdd");
-        LocalDate localDate = yyyyMMdd.plusDays(5);
-        log.info(yyyyMMdd.toString());
-        log.info(localDate.toString());
 
-        testPlusDays();
+        int year = LocalDateTime.now().getYear();
 
+        LocalDateTime date = LocalDateTime.parse("20220605121212", DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
+        if(year == date.getYear()){
+            log.info("转换格式：{}",date.format( DateTimeFormatter.ofPattern("MM/dd HH:mm:ss")));
+        }else{
+            log.info("转换格式：{}",date.format( DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+        }
+
+
+
+    }
+
+    public static void transferWithSimpleDateFormat() throws ParseException {
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+        Date parse = format1.parse("20220630");
+        SimpleDateFormat format2 = new SimpleDateFormat("MM/dd");
+        log.info("转换信息：{}",format2.format(parse));
+        log.info("-----------------------------------------------------------------------------------------");
     }
 
 
