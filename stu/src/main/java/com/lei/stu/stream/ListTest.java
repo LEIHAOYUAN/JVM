@@ -23,7 +23,24 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testSort();
+        testLimit();
+    }
+
+    public static void testLimit(){
+        List<Long> list = Lists.newArrayList();
+        list.add(655L);
+        list.add(1L);
+        list.add(2L);
+        list.add(3L);
+        list.add(4L);
+        list.add(5L);
+        list.add(6L);
+        list.add(7L);
+        list.add(8L);
+        list.add(9L);
+        list.add(10L);
+        List<Long> collect = list.stream().limit(1).collect(Collectors.toList());
+        log.info("截断result：{}",JSON.toJSONString(collect));
     }
 
     public static void testEmptyMapStream() {
