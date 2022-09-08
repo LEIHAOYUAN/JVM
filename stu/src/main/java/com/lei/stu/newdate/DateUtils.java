@@ -45,6 +45,8 @@ public class DateUtils {
             log.info("转换格式：{}",date.format( DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
         }
 
+        String format = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
+        log.info("转换时间戳：{}",Long.valueOf(format));
 
 
     }
