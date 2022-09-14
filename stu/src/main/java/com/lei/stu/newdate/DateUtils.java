@@ -4,7 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -34,35 +39,42 @@ public class DateUtils {
 
 
     public static void main(String[] args) throws ParseException {
+        formatLocalDate();
+    }
 
+    public static void formatLocalDate() {
+        String param = "20220914";
+        LocalDateTime localDateTime = LocalDate.parse(param, DateTimeFormatter.ofPattern("yyyyMMdd")).atStartOfDay();
+        log.info("转换结果：{}", localDateTime.format(DateTimeFormatter.ofPattern("MM/dd HH:mm")));
+        log.info("转换结果：{}", localDateTime.format(DateTimeFormatter.ofPattern("MM/dd")));
+    }
 
+    public static void formatLocalDateTime() {
         int year = LocalDateTime.now().getYear();
 
         LocalDateTime date = LocalDateTime.parse("20220605121212", DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
-        if(year == date.getYear()){
-            log.info("转换格式：{}",date.format( DateTimeFormatter.ofPattern("MM/dd HH:mm:ss")));
-        }else{
-            log.info("转换格式：{}",date.format( DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+        if (year == date.getYear()) {
+            log.info("转换格式：{}", date.format(DateTimeFormatter.ofPattern("MM/dd HH:mm:ss")));
+        } else {
+            log.info("转换格式：{}", date.format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
         }
 
         String format = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_TIME_FORMAT));
-        log.info("转换时间戳：{}",Long.valueOf(format));
-
-
+        log.info("转换时间戳：{}", Long.valueOf(format));
     }
 
     public static void transferWithSimpleDateFormat() throws ParseException {
         SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
         Date parse = format1.parse("20220630");
         SimpleDateFormat format2 = new SimpleDateFormat("MM/dd");
-        log.info("转换信息：{}",format2.format(parse));
+        log.info("转换信息：{}", format2.format(parse));
         log.info("-----------------------------------------------------------------------------------------");
     }
 
 
-    public static void testPlusDays(){
+    public static void testPlusDays() {
         LocalDate localDate = LocalDate.now().plusDays(1);
-        log.info("plusdays 测试：{}",localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        log.info("plusdays 测试：{}", localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
     }
 
     /**
