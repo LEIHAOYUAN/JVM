@@ -23,7 +23,25 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testLimit();
+        testJoining();
+
+    }
+
+
+    private static void testJoining() {
+        List<Student> list = Lists.newArrayList();
+        Student s1 = new Student();
+        s1.setName("AAA");
+        Student s2 = new Student();
+        s2.setName("AAA");
+        Student s3 = new Student();
+        s3.setName("BBB");
+
+        list.add(s1);
+        list.add(s2);
+        list.add(s3);
+
+        log.info("测试拼接字符串：{}",list.stream().map(Student::getName).collect(Collectors.joining(",")));
     }
 
     public static void testLimit(){
@@ -132,6 +150,8 @@ public class ListTest {
 
         List<String> collect = list.stream().map(Student::getName).distinct().collect(Collectors.toList());
         System.out.println(collect);
+
+        log.info("测试拼接字符串：{}",list.stream().map(Student::getName).collect(Collectors.joining(",")));
     }
 
     private static void tesSum() {
