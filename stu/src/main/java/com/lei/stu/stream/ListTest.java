@@ -28,6 +28,9 @@ public class ListTest {
     }
 
 
+    /**
+     * 测试字符串拼接集合属性
+     */
     private static void testJoining() {
         List<Student> list = Lists.newArrayList();
         Student s1 = new Student();
