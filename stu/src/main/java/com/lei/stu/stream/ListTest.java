@@ -8,7 +8,12 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -36,7 +41,6 @@ public class ListTest {
         Student s1 = new Student();
         s1.setName("AAA");
         Student s2 = new Student();
-        s2.setName("AAA");
         Student s3 = new Student();
         s3.setName("BBB");
 
@@ -44,10 +48,11 @@ public class ListTest {
         list.add(s2);
         list.add(s3);
 
-        log.info("测试拼接字符串：{}",list.stream().map(Student::getName).collect(Collectors.joining(",")));
+        log.info("测试拼接字符串：{}", list.stream().map(Student::getName).collect(Collectors.joining(",")));
+        log.info("测试拼接字符串（过滤空值）：{}", list.stream().map(Student::getName).filter(StringUtils::isNotBlank).collect(Collectors.joining(",")));
     }
 
-    public static void testLimit(){
+    public static void testLimit() {
         List<Long> list = Lists.newArrayList();
         list.add(655L);
         list.add(1L);
@@ -61,7 +66,7 @@ public class ListTest {
         list.add(9L);
         list.add(10L);
         List<Long> collect = list.stream().limit(1).collect(Collectors.toList());
-        log.info("截断result：{}",JSON.toJSONString(collect));
+        log.info("截断result：{}", JSON.toJSONString(collect));
     }
 
     public static void testEmptyMapStream() {
@@ -154,7 +159,7 @@ public class ListTest {
         List<String> collect = list.stream().map(Student::getName).distinct().collect(Collectors.toList());
         System.out.println(collect);
 
-        log.info("测试拼接字符串：{}",list.stream().map(Student::getName).collect(Collectors.joining(",")));
+        log.info("测试拼接字符串：{}", list.stream().map(Student::getName).collect(Collectors.joining(",")));
     }
 
     private static void tesSum() {
