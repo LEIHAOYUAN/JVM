@@ -47,9 +47,11 @@ public class ListTest {
         list.add(s1);
         list.add(s2);
         list.add(s3);
+        list.add(null);
 
-        log.info("测试拼接字符串：{}", list.stream().map(Student::getName).collect(Collectors.joining(",")));
-        log.info("测试拼接字符串（过滤空值）：{}", list.stream().map(Student::getName).filter(StringUtils::isNotBlank).collect(Collectors.joining(",")));
+        // log.info("测试拼接字符串：{}", list.stream().map(Student::getName).collect(Collectors.joining(",")));
+        // log.info("测试拼接字符串（过滤空值）：{}", list.stream().map(Student::getName).filter(StringUtils::isNotBlank).collect(Collectors.joining(",")));
+        log.info("测试拼接字符串（过滤空对象及空属性）：{}", list.stream().filter(Objects::nonNull).map(Student::getName).filter(StringUtils::isNotBlank).collect(Collectors.joining(",")));
     }
 
     public static void testLimit() {
