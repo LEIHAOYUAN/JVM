@@ -15,12 +15,13 @@ public class CacheTest {
 
     public static void main(String[] args) {
         String item = "AAAAAAAA";
-        Cache cache = buildCache();
-        for (int i = 0; i < 50000000; i++) {
+        Cache<Integer,String> cache = buildCache();
+        for (int i = 0; i < 5000; i++) {
             cache.put(i,item+i);
         }
         Object ifPresent = cache.getIfPresent(50000000-1);
         log.info("查询缓存结果：{}", JSON.toJSONString(ifPresent));
+
 
     }
 
