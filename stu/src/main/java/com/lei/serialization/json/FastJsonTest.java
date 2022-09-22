@@ -21,14 +21,11 @@ public class FastJsonTest {
         log.info("json格式：{}", JSON.toJSONString(info));
 
         String demoJson = "{\"name\":\"AAA\"}";
-        Object o = JSON.parseObject(demoJson, getDemoClass());
-        log.info("JSON反序列化");
+        SerializationInfo o = JSON.parseObject(demoJson, SerializationInfo.class);
+        log.info("JSON反序列化:{}",o.getId());
     }
 
 
-    public static Class getDemoClass() {
-        return SerializationInfo.class;
-    }
 
 
 }
