@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 public class HessianTest {
 
     public static void main(String[] args) {
-        SerializationInfo info = new SerializationInfo(100L, "hessian", BigDecimal.TEN);
+        SerializationInfo info = new SerializationInfo(100L, "hessian", BigDecimal.valueOf(111999999.56985623333338));
         byte[] obj = serialize(info);
         log.info("hessian 序列化结果长度：{}", obj.length);
         byte[] obj2 = serialize2(info);
@@ -30,6 +30,8 @@ public class HessianTest {
         log.info("JDK 序列化结果长度：{}", other.length);
         SerializationInfo student = deserialize2(obj2);
         log.info("反序列化结果：{}", student);
+        // 精度丢失
+        log.info("反序列化bigdecimal结果：{}", student.getAmount().toPlainString());
     }
 
 
