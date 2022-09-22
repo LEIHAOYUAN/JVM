@@ -43,7 +43,7 @@ public class HessianTest {
             output.writeObject(t);
             data = os.toByteArray();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("hessian序列化异常：{}", e.getMessage(), e);
         }
         return data;
     }
@@ -59,7 +59,7 @@ public class HessianTest {
             output.close();
             data = os.toByteArray();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("hessian2序列化异常：{}", e.getMessage(), e);
         }
         return data;
     }
@@ -74,7 +74,7 @@ public class HessianTest {
             output.close();
             data = os.toByteArray();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("JDK序列化异常：{}", e.getMessage(), e);
         }
         return data;
     }
@@ -90,7 +90,7 @@ public class HessianTest {
             HessianInput input = new HessianInput(is);
             result = input.readObject();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("hessian反序列化异常：{}", e.getMessage(), e);
         }
         return (T) result;
     }
@@ -106,7 +106,7 @@ public class HessianTest {
             Hessian2Input input = new Hessian2Input(is);
             result = input.readObject();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("hessian2反序列化异常：{}", e.getMessage(), e);
         }
         return (T) result;
     }
