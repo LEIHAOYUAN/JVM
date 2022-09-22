@@ -49,6 +49,8 @@
         <netty-all.version>4.1.66.Final</netty-all.version>
         <!--  caffeine -->
         <caffeine.version>2.8.4</caffeine.version>
+        <!--hessian-->
+        <hessian.version>4.0.62</hessian.version>
     </properties>
 
     <dependencyManagement>
@@ -268,6 +270,12 @@
                 <groupId>com.github.ben-manes.caffeine</groupId>
                 <artifactId>caffeine</artifactId>
                 <version>${caffeine.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.caucho</groupId>
+                <artifactId>hessian</artifactId>
+                <version>${hessian.version}</version>
             </dependency>
 
         </dependencies>

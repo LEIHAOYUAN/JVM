@@ -1,7 +1,10 @@
-package com.lei.json;
+package com.lei.serialization.json;
 
 import com.alibaba.fastjson.JSON;
+import com.lei.serialization.SerializationInfo;
 import lombok.extern.slf4j.Slf4j;
+
+import java.math.BigDecimal;
 
 /**
  *  职能描述：
@@ -13,29 +16,19 @@ import lombok.extern.slf4j.Slf4j;
 public class FastJsonTest {
 
     public static void main(String[] args) {
-        Demo demo = new Demo();
-        demo.setName("AAA");
-        log.info("json格式：{}", JSON.toJSONString(demo));
+        SerializationInfo info = new SerializationInfo(100L, "hessian", BigDecimal.TEN);
+        info.setName("AAA");
+        log.info("json格式：{}", JSON.toJSONString(info));
 
         String demoJson = "{\"name\":\"AAA\"}";
         Object o = JSON.parseObject(demoJson, getDemoClass());
+        log.info("JSON反序列化");
     }
 
 
     public static Class getDemoClass() {
-        return Demo.class;
+        return SerializationInfo.class;
     }
 
-    static class Demo {
-        private String name;
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-    }
 
 }
