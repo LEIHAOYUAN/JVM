@@ -15,27 +15,24 @@ public class CacheTest {
 
     public static void main(String[] args) {
         String item = "AAAAAAAA";
-        Cache<Object,Object> cache = buildCache();
-        for (int i = 0; i < 5000; i++) {
-            cache.put(i,item+i);
+        Cache<Object, Object> cache = buildCache();
+        for (int i = 1; i <= 5000; i++) {
+            cache.put(i, item + i);
         }
-        Object ifPresent = cache.getIfPresent(5000-5);
-        log.info("查询缓存结果：{}", JSON.toJSONString(ifPresent));
-
-
+        log.info("查询缓存结果：{}", JSON.toJSONString(cache.getIfPresent(5000)));
+        cache.invalidate(5000-10);
+        log.info("查询缓存结果：{}", JSON.toJSONString(cache.getIfPresent(5000-10)));
+        log.info("查询缓存结果：{}", JSON.toJSONString(cache.getIfPresent(5000-11)));
     }
 
 
-    private static Cache buildCache(){
+    private static Cache buildCache() {
         return Caffeine
                 .newBuilder()
                 //设置缓存的 Entries 个数最多不超过1000个
-                .maximumSize(10)
+                .maximumSize(5000)
                 .build();
     }
-
-
-
 
 
 }
