@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 public class HessianTest {
 
     public static void main(String[] args) {
-        SerializationInfo info = new SerializationInfo(100L, "hessian", BigDecimal.valueOf(111999999.56985623333338));
+        SerializationInfo info = new SerializationInfo(100L, "hessian", new BigDecimal("111999999.56985623333338"));
         byte[] obj = serialize(info);
         log.info("hessian 序列化结果长度：{}", obj.length);
         byte[] obj2 = serialize2(info);
