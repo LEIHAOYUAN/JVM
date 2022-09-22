@@ -6,12 +6,13 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * volatile关键字测试验证
+ * https://blog.51cto.com/u_15057819/2623150
  */
 @Slf4j
 public class VolatitleTest {
     //类变量
     final static int max = 5;
-    volatile static int init_value = 0;
+    static volatile int init_value = 0;
 
     public static void main(String args[]) {
         //启动一个线程，当发现local_value与init_value不同时，则输出init_value被修改的值
