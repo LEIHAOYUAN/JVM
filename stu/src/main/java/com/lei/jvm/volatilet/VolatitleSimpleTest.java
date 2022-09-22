@@ -5,11 +5,13 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.TimeUnit;
 
 /**
- * volatile关键字测试验证
- * https://blog.51cto.com/u_15057819/2623150
+ *  职能描述：volatile修饰基本类型变量测试
+ *  @author leihaoyuan
+ *  @version 2022/9/22 17:16
+ *  https://blog.51cto.com/u_15057819/2623150
  */
 @Slf4j
-public class VolatitleTest {
+public class VolatitleSimpleTest {
     //类变量
     final static int max = 5;
     static volatile int init_value = 0;
