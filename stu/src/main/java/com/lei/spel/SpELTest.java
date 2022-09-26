@@ -1,6 +1,7 @@
 package com.lei.spel;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
@@ -16,29 +17,60 @@ public class SpELTest {
 
 
     public static void main(String[] args) {
+        parse01();
+        parse02();
+    }
+
+    private static void parse01() {
+        // 表达式解析器
         ExpressionParser parser = new SpelExpressionParser();
-        Expression expression = parser.parseExpression("getInput()");
+        // 解析出一个表达式
+        Expression expression = parser.parseExpression("#user.name");
+        // 开始准备表达式运行环境
+        EvaluationContext ctx = new StandardEvaluationContext();
+        ctx.setVariable("user", buildUser());
+        String value = expression.getValue(ctx, String.class);
+        log.info("parse01获取结果：{}", value);
+    }
+
+    private static void parse02() {
+        ExpressionParser parser = new SpelExpressionParser();
+        Expression expression = parser.parseExpression("getName()");
         StandardEvaluationContext ctx = new StandardEvaluationContext();
-        User user = new User("张三");
+        User user = buildUser();
         // 设置需要执行方法的类
         ctx.setRootObject(user);
         String value = expression.getValue(ctx, String.class);
-        log.info("获取结果：{}", value);
+        log.info("parse02获取结果：{}", value);
+    }
+
+    private static User buildUser(){
+        User user = new User();
+        user.setAge(100);
+        user.setName("张三");
+        return user;
     }
 
     public static class User {
+
+        private Integer age;
+
         private String name;
 
-        public User(String name) {
-            this.name = name;
+        public Integer getAge() {
+            return age;
+        }
+
+        public void setAge(Integer age) {
+            this.age = age;
         }
 
         public String getName() {
             return this.name;
         }
 
-        public String getInput() {
-            return "我叫：" + this.name;
+        public void setName(String name) {
+            this.name = name;
         }
     }
 
