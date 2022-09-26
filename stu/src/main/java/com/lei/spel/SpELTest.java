@@ -24,6 +24,10 @@ public class SpELTest {
         parse03();
     }
 
+    private static void parse00(){
+
+    }
+
 
     private static void parse01() {
         // 表达式解析器
