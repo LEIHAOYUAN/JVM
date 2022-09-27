@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  * 
  * @author 五月的仓颉https://www.cnblogs.com/xrq730/p/10963689.html
  */
-public class HttpclientWithPoolTest extends BaseHttpClientTest {
+public class HttpclientWithPoolAnnotationTest extends BaseHttpClientTest {
 
     private CloseableHttpClient httpClient = null;
     

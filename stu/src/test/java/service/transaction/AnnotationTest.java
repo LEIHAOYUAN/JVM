@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("dev")
-public class Test {
+public class AnnotationTest {
 
     @Resource
     private AService aService;

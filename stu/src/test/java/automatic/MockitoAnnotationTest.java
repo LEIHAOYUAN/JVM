@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
  * @Version 1.0
  * @Description
  */
-public class MockitoTest extends BaseMockTest {
+public class MockitoAnnotationTest extends BaseMockAnnotationTest {
 
     @Test
     public void test() {

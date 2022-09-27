@@ -22,7 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("dev")
-public class TransactionServiceTest {
+public class TransactionServiceAnnotationTest {
 
     @Autowired
     private TransactionService transactionService;

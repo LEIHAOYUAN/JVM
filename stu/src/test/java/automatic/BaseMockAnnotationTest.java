@@ -10,7 +10,7 @@ import org.mockito.MockitoAnnotations;
  * @Version 1.0
  * @Description Mocktio单元测试
  */
-public class BaseMockTest {
+public class BaseMockAnnotationTest {
     @Before
     public void initEnv() {
         // 初始化Mokito

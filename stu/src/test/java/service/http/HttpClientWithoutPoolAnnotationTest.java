@@ -11,7 +11,7 @@ import org.junit.Test;
  * 
  * @author 五月的仓颉https://www.cnblogs.com/xrq730/p/10963689.html
  */
-public class HttpClientWithoutPoolTest extends BaseHttpClientTest {
+public class HttpClientWithoutPoolAnnotationTest extends BaseHttpClientTest {
 
     @Test
     public void test() throws Exception {

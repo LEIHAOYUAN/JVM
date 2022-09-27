@@ -1,6 +1,7 @@
 package com.lei.stu.stream;
 
 import com.alibaba.fastjson.JSON;
+import com.base.consts.StringConstants;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
@@ -28,8 +29,14 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testJoining();
+        log.info("拼接字符串：{}", buildCacheKeyWithParams(new Object[]{1, "AAA", 5.36, null, "", true, 99L}));
+    }
 
+    public static String buildCacheKeyWithParams(Object[] keys) {
+        if (keys.length > 0) {
+            return Lists.newArrayList(keys).stream().map(String::valueOf).collect(Collectors.joining(StringConstants.DEFAULT_EN_DASHED));
+        }
+        return org.apache.commons.lang.StringUtils.EMPTY;
     }
 
 
