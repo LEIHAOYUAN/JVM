@@ -19,6 +19,9 @@ public class AnnotationTest {
     }
 
 
+    /**
+     * 获取方法指定注解
+     */
     public static void testDefaultValue() {
         Method[] methods = AnnotationDemo.class.getMethods();
         for (Method method : methods) {
