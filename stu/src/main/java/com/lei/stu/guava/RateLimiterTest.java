@@ -1,6 +1,7 @@
 package com.lei.stu.guava;
 
 import com.google.common.util.concurrent.RateLimiter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
 
@@ -10,26 +11,36 @@ import java.util.concurrent.TimeUnit;
  * @Author leihaoyuan
  * @Date 2020/4/28 9:13
  */
+@Slf4j
 public class RateLimiterTest {
     private static RateLimiter rateLimter = RateLimiter.create(100);
 
     public static void main(String[] args) throws InterruptedException {
-//        testTryAcquire();
-        for (int i = 0; i < 100; i++)
+        testModifyRate(3);
+        testTryAcquire();
+    }
+
+    public static void testModifyRate(int rate) {
+        log.info("初始化rate={}", rateLimter.getRate());
+        if (rate != rateLimter.getRate()) {
+            rateLimter.setRate(rate);
+        }
+        log.info("修改后rate={}", rateLimter.getRate());
+    }
+
+
+    public static void testTryAcquire() {
+        for (int i = 0; i < 500; i++)
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    testTryAcquire();
+                    if (rateLimter.tryAcquire()) {
+                        log.info("获取到令牌={}", Thread.currentThread().getName());
+                    } else {
+                        log.info("未获取令牌");
+                    }
                 }
             }).start();
-    }
-
-    public static void testTryAcquire() {
-        if (rateLimter.tryAcquire()) {
-            System.out.println(System.currentTimeMillis());
-        } else {
-            System.out.println("未获取令牌");
-        }
     }
 
     public static void simpleRatelimeter() {
@@ -37,14 +48,14 @@ public class RateLimiterTest {
         while (true) {
             long start = System.currentTimeMillis();
             rateLimiter.acquire();
-            System.out.println(System.currentTimeMillis() - start);
+            log.info("耗时={}", System.currentTimeMillis() - start);
         }
     }
 
     public static void testSmoothBursty1() {
         RateLimiter r = RateLimiter.create(5);
         while (true) {
-            System.out.println("get 1 tokens: " + r.acquire() + "s");
+            log.info("get 1 tokens: " + r.acquire() + "s");
         }
         /**
          * output: 基本上都是0.2s执行一次，符合一秒发放5个令牌的设定。
@@ -61,26 +72,26 @@ public class RateLimiterTest {
     public static void testSmoothBursty2() {
         RateLimiter r = RateLimiter.create(2);
         while (true) {
-            System.out.println("get 1 tokens: " + r.acquire(1) + "s");
+            log.info("get 1 tokens: " + r.acquire(1) + "s");
             try {
                 Thread.sleep(2000);
             } catch (Exception e) {
             }
-            System.out.println("get 1 tokens: " + r.acquire(1) + "s");
-            System.out.println("get 1 tokens: " + r.acquire(1) + "s");
-            System.out.println("get 1 tokens: " + r.acquire(1) + "s");
-            System.out.println("end");
+            log.info("get 1 tokens: " + r.acquire(1) + "s");
+            log.info("get 1 tokens: " + r.acquire(1) + "s");
+            log.info("get 1 tokens: " + r.acquire(1) + "s");
+            log.info("end");
         }
     }
 
     public void testSmoothBursty3() {
         RateLimiter r = RateLimiter.create(5);
         while (true) {
-            System.out.println("get 5 tokens: " + r.acquire(5) + "s");
-            System.out.println("get 1 tokens: " + r.acquire(1) + "s");
-            System.out.println("get 1 tokens: " + r.acquire(1) + "s");
-            System.out.println("get 1 tokens: " + r.acquire(1) + "s");
-            System.out.println("end");
+            log.info("get 5 tokens: " + r.acquire(5) + "s");
+            log.info("get 1 tokens: " + r.acquire(1) + "s");
+            log.info("get 1 tokens: " + r.acquire(1) + "s");
+            log.info("get 1 tokens: " + r.acquire(1) + "s");
+            log.info("end");
             /**
              * output:
              * get 5 tokens: 0.0s
@@ -102,11 +113,11 @@ public class RateLimiterTest {
     public void testSmoothwarmingUp() {
         RateLimiter r = RateLimiter.create(2, 3, TimeUnit.SECONDS);
         while (true) {
-            System.out.println("get 1 tokens: " + r.acquire(1) + "s");
-            System.out.println("get 1 tokens: " + r.acquire(1) + "s");
-            System.out.println("get 1 tokens: " + r.acquire(1) + "s");
-            System.out.println("get 1 tokens: " + r.acquire(1) + "s");
-            System.out.println("end");
+            log.info("get 1 tokens: " + r.acquire(1) + "s");
+            log.info("get 1 tokens: " + r.acquire(1) + "s");
+            log.info("get 1 tokens: " + r.acquire(1) + "s");
+            log.info("get 1 tokens: " + r.acquire(1) + "s");
+            log.info("end");
             /**
              * output:
              * get 1 tokens: 0.0s
