@@ -123,7 +123,7 @@ public class SpELTest {
 
     private static User buildUser() {
         User user = new User();
-        user.setAge(100);
+        user.setAge(null);
         user.setName("张三");
         user.setMoney(BigDecimal.valueOf(3.36854212));
         return user;
