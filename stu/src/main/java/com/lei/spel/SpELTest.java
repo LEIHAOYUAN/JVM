@@ -36,17 +36,34 @@ public class SpELTest {
         ctx.setVariable("username", "张三");
         ctx.setVariable("password", 666666);
         ctx.setVariable("sex", true);
-        // 解析出一个表达式
+        ctx.setVariable("user", buildUser());
+
+        // 解析简单参数影射
         Expression expression1 = parser.parseExpression("#username");
         Expression expression2 = parser.parseExpression("#password");
         Expression expression3 = parser.parseExpression("#sex");
 
+        // 对象属性
+        Expression expression100 = parser.parseExpression("#user.name");
+        Expression expression101 = parser.parseExpression("#user.age");
+        Expression expression102 = parser.parseExpression("#user.amount");
+        Expression expression103 = parser.parseExpression("#user.money");
+
         Object value1 = expression1.getValue(ctx, Object.class);
         Object value2 = expression2.getValue(ctx, Object.class);
         Object value3 = expression3.getValue(ctx, Object.class);
-        log.info("parse00获取结果：{}", value1);
-        log.info("parse00获取结果：{}", value2);
-        log.info("parse00获取结果：{}", value3);
+
+        Object value100 = expression100.getValue(ctx, Object.class);
+        Object value101 = expression101.getValue(ctx, Object.class);
+        Object value102 = expression102.getValue(ctx, Object.class);
+        Object value103 = expression103.getValue(ctx, Object.class);
+        log.info("parse00-简单参数获取结果：{}", value1);
+        log.info("parse00-简单参数获取结果：{}", value2);
+        log.info("parse00-简单参数获取结果：{}", value3);
+        log.info("parse00=对象参数获取结果：{}", value100);
+        log.info("parse00=对象参数获取结果：{}", value101);
+        log.info("parse00=对象参数获取结果：{}", value102);
+        log.info("parse00=对象参数获取结果：{}", value103);
     }
 
 
