@@ -34,7 +34,7 @@ public class SpELTest {
         // 开始准备表达式运行环境
         EvaluationContext ctx = new StandardEvaluationContext();
         ctx.setVariable("username", "张三");
-        ctx.setVariable("password", 666666);
+        ctx.setVariable("password", null);
         ctx.setVariable("sex", true);
         ctx.setVariable("user", buildUser());
 
@@ -57,9 +57,11 @@ public class SpELTest {
         Object value101 = expression101.getValue(ctx, Object.class);
         Object value102 = expression102.getValue(ctx, Object.class);
         Object value103 = expression103.getValue(ctx, Object.class);
+        log.info("解析参数列表--------------------------------");
         log.info("parse00-简单参数获取结果：{}", value1);
         log.info("parse00-简单参数获取结果：{}", value2);
         log.info("parse00-简单参数获取结果：{}", value3);
+        log.info("解析对象属性------------------------------");
         log.info("parse00=对象参数获取结果：{}", value100);
         log.info("parse00=对象参数获取结果：{}", value101);
         log.info("parse00=对象参数获取结果：{}", value102);
