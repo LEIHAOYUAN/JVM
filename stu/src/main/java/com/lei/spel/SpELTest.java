@@ -19,16 +19,40 @@ public class SpELTest {
 
 
     public static void main(String[] args) {
+        parse00();
 //        parse01();
 //        parse02();
-        parse03();
+//        parse03();
     }
 
-    private static void parse00(){
+    /**
+     * 使用简单参数列表解析
+     */
+    private static void parse00() {
+        // 表达式解析器
+        ExpressionParser parser = new SpelExpressionParser();
+        // 开始准备表达式运行环境
+        EvaluationContext ctx = new StandardEvaluationContext();
+        ctx.setVariable("username", "张三");
+        ctx.setVariable("password", 666666);
+        ctx.setVariable("sex", true);
+        // 解析出一个表达式
+        Expression expression1 = parser.parseExpression("#username");
+        Expression expression2 = parser.parseExpression("#password");
+        Expression expression3 = parser.parseExpression("#sex");
 
+        Object value1 = expression1.getValue(ctx, Object.class);
+        Object value2 = expression2.getValue(ctx, Object.class);
+        Object value3 = expression3.getValue(ctx, Object.class);
+        log.info("parse00获取结果：{}", value1);
+        log.info("parse00获取结果：{}", value2);
+        log.info("parse00获取结果：{}", value3);
     }
 
 
+    /**
+     * 使用属性名解析单个属性
+     */
     private static void parse01() {
         // 表达式解析器
         ExpressionParser parser = new SpelExpressionParser();
@@ -41,6 +65,9 @@ public class SpELTest {
         log.info("parse01获取结果：{}", value);
     }
 
+    /**
+     * 使用属性方法解析
+     */
     private static void parse02() {
         ExpressionParser parser = new SpelExpressionParser();
         Expression expression = parser.parseExpression("getName()");
@@ -52,6 +79,9 @@ public class SpELTest {
         log.info("parse02获取结果：{}", value);
     }
 
+    /***
+     * 使用属性名解析对象多参数
+     */
     private static void parse03() {
         // 表达式解析器
         ExpressionParser parser = new SpelExpressionParser();
