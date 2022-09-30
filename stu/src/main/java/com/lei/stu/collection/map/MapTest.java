@@ -1,13 +1,14 @@
 package com.lei.stu.collection.map;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -19,20 +20,19 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-
-
-
-
+//        testFilter();
+        testCurrentMap();
     }
 
-    private static void test(int param){
-        log.info("参数：{}",param);
+
+    private static void test(int param) {
+        log.info("参数：{}", param);
     }
 
-    private static void testContains(){
+    private static void testContains() {
         Map<String, String> param = Maps.newHashMap();
-        param.put("AAa","AAa");
-        if(param.containsKey("A")){
+        param.put("AAa", "AAa");
+        if (param.containsKey("A")) {
             log.info("包含测试通过");
         }
     }
@@ -82,28 +82,21 @@ public class MapTest {
 
 
     private static void testCurrentMap() {
+        String json = "{\"key1\":\"test01\",\"key2\":\"test02\"}";
         Map<Long, String> map = Maps.newConcurrentMap();
         log.info("map结果：{}", map.get(null));
     }
 
-    private static void test01() {
-        Map<String, String> map = Maps.newHashMap();
-        map.put(null, "TEST%");
-        map.put("key1", "test01");
-        map.put("key2", "test02");
-        log.info("过滤前---------------------map数据：{}", JSON.toJSONString(map));
-        Map<String, String> filterMap = map.entrySet().stream().filter((i) -> StringUtils.isNotBlank(i.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    private static void testFilter() {
+        Map<String, String> param = Maps.newHashMap();
+        param.put(null, "TEST%");
+        param.put("key1", "test01");
+        param.put("key2", "test02");
+        param.put("key2", "test02");
+        log.info("过滤前---------------------map数据：{}", JSON.toJSONString(param));
+        Map<String, String> filterMap = param.entrySet().stream().filter((i) -> StringUtils.isNotBlank(i.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         log.info("过滤后---------------------map数据：{}", JSON.toJSONString(filterMap));
     }
 
-    private static void test02() {
-
-    }
-
-    private static void test03() {
-        HashMap<Object, Object> map1 = Maps.newHashMap();
-        HashMap<Object, Object> map2 = null;
-        map1.putAll(map2);
-    }
 
 }

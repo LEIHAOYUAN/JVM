@@ -15,23 +15,31 @@ import java.util.Map;
 public class App {
 
     public static void main(String[] args) {
-        formatConfigJson();
+        String json = formatConfigJson();
+        transferConfigJson(json);
     }
 
-    private static void formatConfigJson() {
+
+    private static String formatConfigJson() {
         LocalCacheConfigDomain localDomain = new LocalCacheConfigDomain();
         localDomain.setMaximumSize(1000L);
         localDomain.setExpireAfterWrite(1800L);
         Map<String, LocalCacheConfigDomain> localConfigMap = Maps.newConcurrentMap();
-        localConfigMap.put("study_map", localDomain);
+        localConfigMap.put("study-map", localDomain);
 
-        CacheConfigDomain domain = new CacheConfigDomain();
-        domain.setDefaultExpireTime(1800L);
-        domain.setLocalCacheSwitch(false);
-        domain.setRedisCacheSwitch(true);
+        CacheConfigDomain domain = CacheConfigDomain.getInstance();
         domain.setLocalConfigMap(localConfigMap);
 
-        log.info("配置项格式化：{}", JSON.toJSONString(domain));
+
+        String json = JSON.toJSONString(domain);
+        log.info("配置项格式化：{}", json);
+        return json;
     }
+
+    private static void transferConfigJson(String param) {
+        CacheConfigDomain cacheConfigDomain = JSON.parseObject(param, CacheConfigDomain.class);
+        log.info("反序列化结束");
+    }
+
 
 }
