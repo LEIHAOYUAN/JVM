@@ -84,8 +84,8 @@ public class ListNewTest {
 
     private static Student buildStudent(String name) {
         List<Student> items = Lists.newArrayList();
-        items.add(new Student(name, name, BigDecimal.TEN, null));
-        return new Student(name, name, BigDecimal.TEN, items);
+        items.add(new Student(name, name, BigDecimal.TEN));
+        return new Student(name, name, BigDecimal.TEN);
     }
 
     private static void testFixedSizeList() {

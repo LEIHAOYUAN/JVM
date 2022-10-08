@@ -3,6 +3,7 @@ package com.lei.stu.stream;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,6 +21,7 @@ public class Student {
     private String name;
     private String age;
     private BigDecimal score;
+    private long createTime;
 
     private List<Student> items;
 

@@ -2,13 +2,17 @@ package com.lei.stu.collection.map;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
+import com.lei.stu.stream.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -21,7 +25,28 @@ public class MapTest {
 
     public static void main(String[] args) {
 //        testFilter();
-        testCurrentMap();
+//        testCurrentMap();
+        testMinValue();
+    }
+
+    private static void testMinValue() {
+        Map<String, Student> map = Maps.newConcurrentMap();
+        Student s1 = new Student();
+        s1.setName("AAA");
+        s1.setCreateTime(1);
+
+        Student s2 = new Student();
+        s2.setName("BBB");
+        s2.setCreateTime(2);
+
+        map.put(s1.getName(), s1);
+        map.put(s2.getName(), s2);
+
+        String name = map.values().stream().min(Comparator.comparing(Student::getCreateTime)).get().getName();
+        log.info("获取到最小值：name={}",name);
+        map.remove(name);
+        log.info("移除后结果：{}",JSON.toJSONString(map));
+
     }
 
 
