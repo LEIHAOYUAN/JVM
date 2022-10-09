@@ -10,10 +10,19 @@ import org.springframework.stereotype.Component;
  *  @version 2022/10/9 13:15
  */
 @Slf4j
-@Component("a")
+@Component("Acmp")
 public class Acmp extends NodeComponent {
+
+
     @Override
     public void process() throws Exception {
         log.info("【a】组件执行.............");
     }
+
+    @Override
+    public boolean isAccess() {
+        return true;
+    }
+
+
 }

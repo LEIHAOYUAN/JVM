@@ -1,6 +1,6 @@
 package service.transaction;
 
-import com.lei.stu.transaction.TransactionService;
+import com.lei.jvm.stu.transaction.TransactionService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;

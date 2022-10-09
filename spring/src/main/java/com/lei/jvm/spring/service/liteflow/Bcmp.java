@@ -10,10 +10,15 @@ import org.springframework.stereotype.Component;
  *  @version 2022/10/9 13:15
  */
 @Slf4j
-@Component("b")
+@Component("Bcmp")
 public class Bcmp extends NodeComponent {
     @Override
     public void process() throws Exception {
         log.info("【b】组件执行.............");
+    }
+
+    @Override
+    public boolean isAccess() {
+        return true;
     }
 }
