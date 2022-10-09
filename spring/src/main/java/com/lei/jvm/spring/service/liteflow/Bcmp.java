@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 /**
- *  职能描述：LiteFlow组件a
+ *  职能描述：LiteFlow组件
  *  @author leihaoyuan
  *  @version 2022/10/9 13:15
  */

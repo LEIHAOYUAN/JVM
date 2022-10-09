@@ -18,14 +18,14 @@ import javax.annotation.Resource;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class LiteFlowTest {
+public class LiteFlowSpringTest {
 
     @Resource
     private FlowExecutor flowExecutor;
 
     @Test
     public void testListFlow() {
-        LiteflowResponse response = flowExecutor.execute2Resp("testChain", "");
+        LiteflowResponse response = flowExecutor.execute2Resp("testChain");
     }
 
 }
