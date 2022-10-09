@@ -14,3 +14,6 @@ server:
       max: 800
       min-spare: 30
     uri-encoding: UTF-8
+# liteflow配置项
+liteflow:
+  rule-source: config/flow.el.xml

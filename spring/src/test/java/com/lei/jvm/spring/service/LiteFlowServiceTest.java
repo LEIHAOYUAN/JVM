@@ -1,8 +1,7 @@
 package com.lei.jvm.spring.service;
 
+import com.lei.jvm.spring.service.liteflow.LiteFlowService;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,32 +9,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- *  职能描述：
+ *  职能描述：LiteFlow单元测试
  *  @author leihaoyuan
  *  @version 2022/10/9 13:05
  */
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class LogServiceTest {
+public class LiteFlowServiceTest {
 
     @Autowired
-    private LogService logService;
-
-    @BeforeClass
-    public static void init() {
-        log.info("单元测试开始执行........");
-    }
+    private LiteFlowService liteFlowService;
 
     @Test
-    public void testLog() {
-        logService.log();
+    public void testExecute() {
+        liteFlowService.execute();
     }
-
-    @AfterClass
-    public static void close() {
-        log.info("单元测试执行完毕.......");
-    }
-
 
 }
