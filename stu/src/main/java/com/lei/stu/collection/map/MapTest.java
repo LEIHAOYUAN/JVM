@@ -37,11 +37,12 @@ public class MapTest {
 
         Student s2 = new Student();
         s2.setName("BBB");
-        s2.setCreateTime(2);
+        s2.setCreateTime(1);
 
         map.put(s1.getName(), s1);
         map.put(s2.getName(), s2);
 
+        log.info("移除前={}",JSON.toJSONString(map));
         String name = map.values().stream().min(Comparator.comparing(Student::getCreateTime)).get().getName();
         log.info("获取到最小值：name={}",name);
         map.remove(name);
