@@ -21,8 +21,8 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot-starter-parent.version>2.5.3</spring-boot-starter-parent.version>
         <spring-boot-core.version>5.1.9.RELEASE</spring-boot-core.version>
+        <spring-boot.version>2.0.5.RELEASE</spring-boot.version>
         <spring-boot-starter-log4j2.version>2.4.2</spring-boot-starter-log4j2.version>
         <spring-kafka.version>2.6.5</spring-kafka.version>
         <lombok.version>1.18.12</lombok.version>
@@ -75,7 +75,14 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring-boot-starter-parent.version}</version>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
             <dependency>

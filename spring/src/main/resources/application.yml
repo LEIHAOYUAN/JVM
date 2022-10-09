@@ -1,0 +1,16 @@
+spring:
+  #服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: false
+server:
+  # 服务器的HTTP端口，默认为8080
+  port: 8090
+  servlet:
+    context-path: /
+  tomcat:
+    threads:
+      max: 800
+      min-spare: 30
+    uri-encoding: UTF-8
