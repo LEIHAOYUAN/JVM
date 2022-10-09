@@ -41,7 +41,7 @@
         <barcode4j-light.version>2.0</barcode4j-light.version>
         <jbcrypt.version>0.4</jbcrypt.version>
         <fastjson.version>1.2.66</fastjson.version>
-        <QLExpress.version>3.2.0</QLExpress.version>
+        <QLExpress.version>3.3.0</QLExpress.version>
         <easyexcel.version>2.2.10</easyexcel.version>
         <mockito.version>3.8.0</mockito.version>
         <jmh.version>1.28</jmh.version>

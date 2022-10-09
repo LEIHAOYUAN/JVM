@@ -1,7 +1,6 @@
 package com.lei.jvm.spring;
 
 import com.yomahub.liteflow.core.FlowExecutor;
-import com.yomahub.liteflow.flow.LiteflowResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,7 +24,11 @@ public class LiteFlowSpringTest {
 
     @Test
     public void testListFlow() {
-        LiteflowResponse response = flowExecutor.execute2Resp("testChain");
+        try {
+            flowExecutor.execute("testChain", null);
+        } catch (Exception e) {
+            log.error("流程执行异常={}", e.getMessage(), e);
+        }
     }
 
 }
