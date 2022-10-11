@@ -12,7 +12,7 @@ import org.apache.poi.ss.formula.functions.T;
 @Getter
 public enum ClassEnumType {
 
-//    NONE(0, SerializationInfo.class),
+//    NONE(0, SerializationInfo.class.getClass().),
     ;
 
     /**
