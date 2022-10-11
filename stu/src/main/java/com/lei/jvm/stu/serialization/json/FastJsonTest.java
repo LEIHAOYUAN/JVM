@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 public class FastJsonTest {
 
     public static void main(String[] args) {
-        testByte();
+        testByteWithNull();
     }
 
     private static void testParseObject() {
@@ -36,7 +36,12 @@ public class FastJsonTest {
         log.info("字节数据转换JSON={}", json);
         SerializationInfo serializationInfo = JSON.parseObject(json, SerializationInfo.class);
         log.info("转换对象={}", serializationInfo.getName());
+    }
 
+    private static void testByteWithNull() {
+        String json = new String(null, StandardCharsets.UTF_8);
+        SerializationInfo serializationInfo = JSON.parseObject(json, SerializationInfo.class);
+        log.info("转换结果={}", JSON.toJSONString(serializationInfo));
     }
 
     private static SerializationInfo buildObject() {
