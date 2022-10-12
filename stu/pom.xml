@@ -193,6 +193,13 @@
             <groupId>com.caucho</groupId>
             <artifactId>hessian</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+        </dependency>
+
+
     </dependencies>
 
     <build>
