@@ -1,11 +1,13 @@
 package com.lei.jvm.stu.serialization.json;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import com.lei.jvm.stu.serialization.SerializationInfo;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
 
 /**
  *  职能描述：
@@ -17,16 +19,18 @@ import java.nio.charset.StandardCharsets;
 public class FastJsonTest {
 
     public static void main(String[] args) {
-        testByteWithNull();
+        testParseObject();
     }
 
     private static void testParseObject() {
-        SerializationInfo info = buildObject();
-        log.info("json格式：{}", JSON.toJSONString(info));
+        HotKeyConfigDomain domain = new HotKeyConfigDomain();
+        domain.setApplicationName("应用名");
+        domain.setInterval(100);
+        domain.setThreshold(20);
+        List<HotKeyConfigDomain> list = Lists.newArrayList();
+        list.add(domain);
+        log.info(JSON.toJSONString(list));
 
-        String demoJson = "{\"name\":\"AAA\"}";
-        SerializationInfo o = JSON.parseObject(demoJson, SerializationInfo.class);
-        log.info("JSON反序列化:{}", o.getId());
     }
 
     private static void testByte() {
