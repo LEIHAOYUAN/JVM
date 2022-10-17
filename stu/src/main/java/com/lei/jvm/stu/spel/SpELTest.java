@@ -1,5 +1,7 @@
 package com.lei.jvm.stu.spel;
 
+import com.google.common.collect.Lists;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
@@ -8,6 +10,7 @@ import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  *  职能描述：测试SPEL解析表达式
@@ -33,8 +36,10 @@ public class SpELTest {
         ExpressionParser parser = new SpelExpressionParser();
         // 开始准备表达式运行环境
         EvaluationContext ctx = new StandardEvaluationContext();
+
         ctx.setVariable("username", "张三");
         ctx.setVariable("password", null);
+        ctx.setVariable("hobbies", buildHobby());
         ctx.setVariable("sex", true);
         ctx.setVariable("user", buildUser());
 
@@ -42,30 +47,39 @@ public class SpELTest {
         Expression expression1 = parser.parseExpression("#username");
         Expression expression2 = parser.parseExpression("#password");
         Expression expression3 = parser.parseExpression("#sex");
+        Expression expression4 = parser.parseExpression("#hobbies");
+
+        Object value1 = expression1.getValue(ctx, Object.class);
+        Object value2 = expression2.getValue(ctx, Object.class);
+        Object value3 = expression3.getValue(ctx, Object.class);
+        Object value4 = expression4.getValue(ctx, Object.class);
+
+        log.info("解析参数列表--------------------------------");
+        log.info("parse00-简单参数获取结果：{}", value1);
+        log.info("parse00-简单参数获取结果：{}", value2);
+        log.info("parse00-简单参数获取结果：{}", value3);
+        log.info("parse00-简单参数获取结果：{}", value4);
 
         // 对象属性
         Expression expression100 = parser.parseExpression("#user.name");
         Expression expression101 = parser.parseExpression("#user.age");
         Expression expression102 = parser.parseExpression("#user.amount");
         Expression expression103 = parser.parseExpression("#user.money");
+        Expression expression104 = parser.parseExpression("#user.listHobby");
 
-        Object value1 = expression1.getValue(ctx, Object.class);
-        Object value2 = expression2.getValue(ctx, Object.class);
-        Object value3 = expression3.getValue(ctx, Object.class);
 
         Object value100 = expression100.getValue(ctx, Object.class);
         Object value101 = expression101.getValue(ctx, Object.class);
         Object value102 = expression102.getValue(ctx, Object.class);
         Object value103 = expression103.getValue(ctx, Object.class);
-        log.info("解析参数列表--------------------------------");
-        log.info("parse00-简单参数获取结果：{}", value1);
-        log.info("parse00-简单参数获取结果：{}", value2);
-        log.info("parse00-简单参数获取结果：{}", value3);
+        Object value104 = expression104.getValue(ctx, Object.class);
+
         log.info("解析对象属性------------------------------");
         log.info("parse00=对象参数获取结果：{}", value100);
         log.info("parse00=对象参数获取结果：{}", value101);
         log.info("parse00=对象参数获取结果：{}", value102);
         log.info("parse00=对象参数获取结果：{}", value103);
+        log.info("parse00=对象参数获取结果：{}", value104);
     }
 
 
@@ -128,9 +142,18 @@ public class SpELTest {
         user.setAge(null);
         user.setName("张三");
         user.setMoney(BigDecimal.valueOf(3.36854212));
+        user.setListHobby(buildHobby());
         return user;
     }
 
+    private static List<String> buildHobby() {
+        List<String> listHobby = Lists.newArrayList();
+        listHobby.add("羽毛球");
+        listHobby.add("游泳");
+        return listHobby;
+    }
+
+    @Data
     public static class User {
 
         private Integer age;
@@ -141,37 +164,7 @@ public class SpELTest {
 
         private BigDecimal money;
 
-        public Integer getAge() {
-            return age;
-        }
-
-        public void setAge(Integer age) {
-            this.age = age;
-        }
-
-        public String getName() {
-            return this.name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public double getAmount() {
-            return amount;
-        }
-
-        public void setAmount(double amount) {
-            this.amount = amount;
-        }
-
-        public BigDecimal getMoney() {
-            return money;
-        }
-
-        public void setMoney(BigDecimal money) {
-            this.money = money;
-        }
+        private List<String> listHobby;
 
     }
 
