@@ -22,29 +22,17 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-//        testFilter();
-//        testCurrentMap();
-        testMinValue();
+        testRemove();
     }
 
     private static void testMinValue() {
-        Map<String, Student> map = Maps.newConcurrentMap();
-        Student s1 = new Student();
-        s1.setName("AAA");
-        s1.setCreateTime(1);
+        Map<String, Student> map = buildCurrentMapData();
 
-        Student s2 = new Student();
-        s2.setName("BBB");
-        s2.setCreateTime(1);
-
-        map.put(s1.getName(), s1);
-        map.put(s2.getName(), s2);
-
-        log.info("移除前={}",JSON.toJSONString(map));
+        log.info("移除前={}", JSON.toJSONString(map));
         String name = map.values().stream().min(Comparator.comparing(Student::getCreateTime)).get().getName();
-        log.info("获取到最小值：name={}",name);
+        log.info("获取到最小值：name={}", name);
         map.remove(name);
-        log.info("移除后结果：{}",JSON.toJSONString(map));
+        log.info("移除后结果：{}", JSON.toJSONString(map));
 
     }
 
@@ -120,6 +108,27 @@ public class MapTest {
         log.info("过滤前---------------------map数据：{}", JSON.toJSONString(param));
         Map<String, String> filterMap = param.entrySet().stream().filter((i) -> StringUtils.isNotBlank(i.getKey())).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
         log.info("过滤后---------------------map数据：{}", JSON.toJSONString(filterMap));
+    }
+
+    private static void testRemove() {
+        Map<String, Student> stringStudentMap = buildCurrentMapData();
+        stringStudentMap.remove("AAA");
+        log.info("测试移除结果={}", JSON.toJSONString(stringStudentMap));
+    }
+
+    private static Map<String, Student> buildCurrentMapData() {
+        Map<String, Student> map = Maps.newConcurrentMap();
+        Student s1 = new Student();
+        s1.setName("AAA");
+        s1.setCreateTime(1);
+
+        Student s2 = new Student();
+        s2.setName("BBB");
+        s2.setCreateTime(1);
+
+        map.put(s1.getName(), s1);
+        map.put(s2.getName(), s2);
+        return map;
     }
 
 
