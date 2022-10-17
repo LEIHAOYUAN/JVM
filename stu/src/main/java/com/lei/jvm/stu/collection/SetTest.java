@@ -18,7 +18,7 @@ import java.util.Set;
 public class SetTest {
 
     public static void main(String[] args) {
-        testSequence();
+        setToArray();
     }
 
     private static void testSequence() {
@@ -35,6 +35,14 @@ public class SetTest {
         unitCodeSet.add(0L);
         unitCodeSet.add(1L);
         log.info("set结果：{}", JSON.toJSONString(unitCodeSet));
+    }
+
+    private static void setToArray(){
+        Set<String> param = Sets.newHashSet();
+        for (int i = 0; i < 5; i++) {
+            param.add("A"+i);
+        }
+        log.info("转换为数组={}",JSON.toJSONString(param.toArray(new String[0])));
     }
 
     private static void arrayToSet() {
