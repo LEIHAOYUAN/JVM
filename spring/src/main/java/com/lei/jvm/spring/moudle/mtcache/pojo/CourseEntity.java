@@ -1,4 +1,4 @@
-package com.lei.jvm.spring.service.mtcache.pojo;
+package com.lei.jvm.spring.moudle.mtcache.pojo;
 
 import lombok.Data;
 

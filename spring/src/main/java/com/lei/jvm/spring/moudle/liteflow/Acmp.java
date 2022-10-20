@@ -1,4 +1,4 @@
-package com.lei.jvm.spring.service.liteflow;
+package com.lei.jvm.spring.moudle.liteflow;
 
 import com.yomahub.liteflow.core.NodeComponent;
 import lombok.extern.slf4j.Slf4j;

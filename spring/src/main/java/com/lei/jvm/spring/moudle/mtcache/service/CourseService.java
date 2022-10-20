@@ -1,10 +1,10 @@
-package com.lei.jvm.spring.service.mtcache.service;
+package com.lei.jvm.spring.moudle.mtcache.service;
 
 import com.exe.mtcache.core.annotation.MTUseCache;
 import com.exe.mtcache.core.annotation.MTWipeCache;
-import com.lei.jvm.spring.service.mtcache.dao.CourseDAO;
-import com.lei.jvm.spring.service.mtcache.pojo.CourseDTO;
-import com.lei.jvm.spring.service.mtcache.pojo.CourseEntity;
+import com.lei.jvm.spring.moudle.mtcache.dao.CourseDAO;
+import com.lei.jvm.spring.moudle.mtcache.pojo.CourseDTO;
+import com.lei.jvm.spring.moudle.mtcache.pojo.CourseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

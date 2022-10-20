@@ -1,10 +1,8 @@
-package com.lei.jvm.spring.service.mtcache.dao;
+package com.lei.jvm.spring.moudle.mtcache.dao;
 
-import com.lei.jvm.spring.service.mtcache.pojo.CourseDTO;
-import com.lei.jvm.spring.service.mtcache.pojo.CourseEntity;
+import com.lei.jvm.spring.moudle.mtcache.pojo.CourseDTO;
+import com.lei.jvm.spring.moudle.mtcache.pojo.CourseEntity;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  *  职能描述：
