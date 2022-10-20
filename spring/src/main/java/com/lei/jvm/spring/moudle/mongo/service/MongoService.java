@@ -61,8 +61,7 @@ public class MongoService {
      *
      * @param userList
      */
-
-    public void upsertReceiveCollection(List<User> userList) {
+    public void batchUpsert(List<User> userList) {
         // 构造数据
         List<Pair<Query, Update>> updateList = new ArrayList<>(userList.size());
         userList.forEach(user -> {
