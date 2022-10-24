@@ -22,23 +22,6 @@ public class FastJsonTest {
 
     public static void main(String[] args) {
 //        testParseObject();
-
-        Il8nDTO il8nDTO = new Il8nDTO();
-        il8nDTO.setApplicationName("exe-cloud-epaas-business");
-        Map<String, Map<String,String>> modules = Maps.newHashMap();
-        // biz-model模块
-        Map<String,String> bizModuleMap = Maps.newHashMap();
-        bizModuleMap.put("valid-id","ID不能为空");
-        bizModuleMap.put("valid-name","名称不能为空");
-        bizModuleMap.put("valid-time","时间不能为空");
-        modules.put("biz-model",bizModuleMap);
-        //
-        Map<String,String> designModuleMap = Maps.newHashMap();
-        designModuleMap.put("design-id","ID不能为空");
-        designModuleMap.put("design-template","模板不能为空");
-        modules.put("design-model",designModuleMap);
-        il8nDTO.setModules(modules);
-        log.info(JSON.toJSONString(il8nDTO));
     }
 
     private static void testParseObject() {
