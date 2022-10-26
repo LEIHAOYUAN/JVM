@@ -1,11 +1,11 @@
 package com.lei.jvm.stu.serialization.json;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Maps;
+import com.google.common.collect.Lists;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  *  职能描述：
@@ -16,27 +16,24 @@ import java.util.Map;
 @Data
 public class Il8nDTO {
 
-    private String applicationName;
-
-    private Map<String, Map<String,String>> modules;
+    private String key;
+    private String value;
+    private Long version;
 
     public static void main(String[] args) {
-        Il8nDTO il8nDTO = new Il8nDTO();
-        il8nDTO.setApplicationName("exe-cloud-epaas-business");
-        Map<String, Map<String,String>> modules = Maps.newHashMap();
-        // biz-model模块
-        Map<String,String> bizModuleMap = Maps.newHashMap();
-        bizModuleMap.put("valid-id","ID不能为空");
-        bizModuleMap.put("valid-name","名称不能为空");
-        bizModuleMap.put("valid-time","时间不能为空");
-        modules.put("biz-model",bizModuleMap);
-        //
-        Map<String,String> designModuleMap = Maps.newHashMap();
-        designModuleMap.put("design-id","ID不能为空");
-        designModuleMap.put("design-template","模板不能为空");
-        modules.put("design-model",designModuleMap);
-        il8nDTO.setModules(modules);
-        log.info(JSON.toJSONString(il8nDTO));
+        List<Il8nDTO> param = Lists.newArrayList();
+        param.add(buildDTO("i18n000001","参数为空",0));
+        param.add(buildDTO("i18n000002","请稍后重试",0));
+        log.info(JSON.toJSONString(param));
+    }
+
+    private static Il8nDTO buildDTO(String key, String value, long version) {
+        Il8nDTO dto = new Il8nDTO();
+        dto.setKey(key);
+        dto.setValue(value);
+        dto.setVersion(version);
+
+        return dto;
     }
 
 }
