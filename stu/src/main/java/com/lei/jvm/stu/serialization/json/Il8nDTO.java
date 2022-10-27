@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 public class Il8nDTO {
 
-    private String key;
+    private String key = "AAA";
     private String value;
     private Long version;
 
@@ -25,6 +25,7 @@ public class Il8nDTO {
         param.add(buildDTO("i18n000001","参数为空",0));
         param.add(buildDTO("i18n000002","请稍后重试",0));
         log.info(JSON.toJSONString(param));
+        log.info("测试默认属性={}",JSON.toJSONString(new Il8nDTO()));
     }
 
     private static Il8nDTO buildDTO(String key, String value, long version) {
