@@ -24,12 +24,12 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @Data
 @Component
-public class LocalLangResourceConfig {
+public class LocalLangYmlResourceConfig {
 
     private Map<String, LocalLangResourceModel> localResourceMap = new ConcurrentHashMap<>();
 
     @PostConstruct
-    public void loadLocalLangResource() throws IOException {
+    public void loadLocalLangYmlResource() throws IOException {
         ClassPathResource classPathResource = new ClassPathResource("lang/resource.yml");
         Yaml yaml = new Yaml();
         Map map = yaml.loadAs(classPathResource.getInputStream(), Map.class);

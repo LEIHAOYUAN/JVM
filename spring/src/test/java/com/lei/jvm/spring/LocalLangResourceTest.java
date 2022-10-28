@@ -1,7 +1,8 @@
 package com.lei.jvm.spring;
 
 import com.alibaba.fastjson.JSON;
-import com.lei.jvm.spring.config.LocalLangResourceConfig;
+import com.lei.jvm.spring.config.LocalLangPropertiesResourceConfig;
+import com.lei.jvm.spring.config.LocalLangYmlResourceConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,11 +21,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class LocalLangResourceTest {
 
     @Autowired
-    private LocalLangResourceConfig localLangResourceConfig;
+    private LocalLangYmlResourceConfig localLangYmlResourceConfig;
+
+    @Autowired
+    private LocalLangPropertiesResourceConfig localLangPropertiesResourceConfig;
 
     @Test
-    public void testLocalResource() {
-        log.info("读取到本地资源={}", JSON.toJSONString(localLangResourceConfig.getLocalResourceMap()));
+    public void testLocalYmlResource() {
+        log.info("读取到本地YML资源={}", JSON.toJSONString(localLangYmlResourceConfig.getLocalResourceMap()));
     }
+
+    @Test
+    public void testLocalPropertyResource() {
+        log.info("读取到本地PROPERTY资源={}", JSON.toJSONString(localLangPropertiesResourceConfig.getLocalPropertyMap()));
+    }
+
 
 }
