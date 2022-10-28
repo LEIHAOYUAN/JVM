@@ -1,7 +1,12 @@
-#admin: 9999
-AAA:
+AAA.001:
   value: ID不能为空
   version: 2
+AAA.002:
+  value: 参数不能为空
+  version: 1
+AAA.003:
+  value: 编号不能为空
+  version: 3
 BBB:
   value: 超过最大限制
   version: 3

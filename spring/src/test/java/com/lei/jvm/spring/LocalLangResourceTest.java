@@ -20,11 +20,11 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class LocalLangResourceTest {
 
     @Autowired
-    private LocalLangResourceConfig resourceConfig;
+    private LocalLangResourceConfig localLangResourceConfig;
 
     @Test
     public void testLocalResource() {
-        log.info("读取到本地资源={}", JSON.toJSONString(resourceConfig.getLocalResourceMap()));
+        log.info("读取到本地资源={}", JSON.toJSONString(localLangResourceConfig.getLocalResourceMap()));
     }
 
 }

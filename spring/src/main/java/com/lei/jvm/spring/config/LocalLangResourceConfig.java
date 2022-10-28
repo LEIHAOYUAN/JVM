@@ -1,26 +1,46 @@
 package com.lei.jvm.spring.config;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.lei.jvm.spring.model.LocalLangResourceModel;
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.yaml.snakeyaml.Yaml;
 
+import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  *  职能描述：读取本地配置文件
  *  @author leihaoyuan
  *  @version 2022/10/28 9:56
  */
-@SuppressWarnings("ConfigurationProperties")
+@Slf4j
 @Data
 @Component
-@PropertySource(factory = YamlPropertyLoaderFactory.class, value = "classpath:lang/resource.yml")
-@ConfigurationProperties
 public class LocalLangResourceConfig {
 
-    private Map<String, LocalLangResourceModel> localResourceMap;
+    private Map<String, LocalLangResourceModel> localResourceMap = new ConcurrentHashMap<>();
+
+    @PostConstruct
+    public void loadLocalLangResource() throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("lang/resource.yml");
+        Yaml yaml = new Yaml();
+        Map map = yaml.loadAs(classPathResource.getInputStream(), Map.class);
+        JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(map));
+        for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
+            String key = entry.getKey();
+            String s = JSON.toJSONString(entry.getValue());
+            localResourceMap.put(key,JSON.parseObject(s,LocalLangResourceModel.class));
+        }
+
+        log.info(JSON.toJSONString(localResourceMap));
+    }
+
 
 }
