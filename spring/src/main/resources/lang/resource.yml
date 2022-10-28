@@ -1,11 +1,10 @@
-#admin: 9999
 AAA:
   value: ID不能为空
   version: 2
+  name:
 BBB:
   value: 超过最大限制
   version: 3
 CCC:
   value: 请稍后重试
-  version: 1
 

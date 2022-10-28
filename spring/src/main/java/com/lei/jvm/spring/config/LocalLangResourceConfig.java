@@ -6,6 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.lei.jvm.spring.model.LocalLangResourceModel;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 import org.yaml.snakeyaml.Yaml;
@@ -36,9 +37,13 @@ public class LocalLangResourceConfig {
         for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
             String key = entry.getKey();
             String s = JSON.toJSONString(entry.getValue());
-            localResourceMap.put(key,JSON.parseObject(s,LocalLangResourceModel.class));
-        }
+            LocalLangResourceModel item = JSON.parseObject(s, LocalLangResourceModel.class);
+            if (null != item && StringUtils.isNotBlank(item.getValue())) {
 
+                localResourceMap.put(key, item);
+            }
+
+        }
         log.info(JSON.toJSONString(localResourceMap));
     }
 
