@@ -1,0 +1,13 @@
+tips:
+  AAA:
+    001:
+      value: ID不能为空
+      version: 22
+    002:
+      value: 参数不能为空
+      version: 22
+  BBB:
+    001:
+      value: 模板不能为空
+      version: 5
+
