@@ -32,8 +32,10 @@ public class NacosConfigDomain implements Serializable {
     public static void main(String[] args) {
         NacosConfigDomain domain = new NacosConfigDomain();
         domain.setRefreshLangResourceTopic("refresh-lang-resource-topic");
-        Map<String, String> langDictMap = Maps.newHashMap();
-        langDictMap.put("zh_cn", "简体中文");
+        Map<String, String> langDictMap = Maps.newConcurrentMap();
+        langDictMap.put("zh_cn", "简体中文1");
+        langDictMap.put("zh_cn", "简体中文2");
+        langDictMap.put("zh_cn", "简体中文3");
         langDictMap.put("zh_tw", "繁體中文");
         langDictMap.put("en", "english");
         langDictMap.put("vn", "ViệtName");
