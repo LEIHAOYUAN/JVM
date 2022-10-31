@@ -1,6 +1,7 @@
 package com.lei.jvm.utils.base.utils.datetime;
 
 
+import cn.hutool.core.date.SystemClock;
 import com.lei.jvm.utils.base.utils.exception.StockCommonException;
 import com.lei.jvm.utils.base.utils.valid.ValidUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +11,14 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.*;
+import java.time.Clock;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 import java.time.temporal.TemporalAdjusters;
@@ -72,9 +80,13 @@ public class DateTimeUtil {
     public static final String DEFAULT_DATE_PARTTERN = "yyyyMMdd";
 
     public static void main(String[] args) {
+        log.info("转换时间戳={}", formatDate(System.currentTimeMillis(), DEFAULT_PARTTERN));
+        log.info("转换时间戳={}", formatDate(0, DEFAULT_PARTTERN));
+        log.info("转换时间戳={}", formatDate(SystemClock.now(), DEFAULT_PARTTERN));
+    }
 
-        String month = formatDate(new Date(), SIMPLE_MONTH_PARTTERN);
-        log.info("转换日期：{}", month);
+    public static String formatDate(long timestamp, String parttern) {
+        return FastDateFormat.getInstance(parttern).format(new Date(timestamp));
     }
 
 
