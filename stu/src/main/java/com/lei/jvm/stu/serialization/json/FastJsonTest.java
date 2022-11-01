@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.lei.jvm.stu.serialization.SerializationInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
@@ -22,6 +23,8 @@ public class FastJsonTest {
 
     public static void main(String[] args) {
 //        testParseObject();
+        List<HotKeyConfigDomain> hotKeyConfigDomains = JSON.parseArray(StringUtils.EMPTY, HotKeyConfigDomain.class);
+        log.info("转换集合={}",hotKeyConfigDomains);
     }
 
     private static void testParseObject() {
