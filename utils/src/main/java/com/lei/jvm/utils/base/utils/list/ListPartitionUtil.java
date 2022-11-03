@@ -1,5 +1,6 @@
 package com.lei.jvm.utils.base.utils.list;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -18,6 +19,14 @@ import java.util.stream.Stream;
  */
 @Slf4j
 public class ListPartitionUtil {
+
+    public static void main(String[] args) {
+        List<String> param = new ArrayList<>();
+        List<List<String>> lists = partitionByApache(param, 100);
+        for (List<String> list : lists) {
+            log.info("分组结果={}", JSON.toJSONString(list));
+        }
+    }
 
     /**
      * 存java处理
