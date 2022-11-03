@@ -21,20 +21,23 @@ public class ListPartitionUtil {
 
     /**
      * 存java处理
-     * @param list
+     * @param param
      * @param size
      * @return
      * @param <T>
      */
-    public static <T> List<List<T>> partitioByBase(final List<T> list, final int size) {
+    public static <T> List<List<T>> partitioByBase(final List<T> param, final int size) {
+        if (CollectionUtils.isEmpty(param)) {
+            return Lists.newArrayList();
+        }
         List<List<T>> result = new ArrayList<List<T>>();
-        final int listSize = list.size();
+        final int listSize = param.size();
         for (int i = 0; i < listSize; i += size) {
             List<T> subList = null;
             if (i + size > listSize) {
-                subList = list.subList(i, i + listSize - i);
+                subList = param.subList(i, i + listSize - i);
             } else {
-                subList = list.subList(i, i + size);
+                subList = param.subList(i, i + size);
             }
             result.add(subList);
         }
@@ -72,31 +75,37 @@ public class ListPartitionUtil {
 
     /**
      * 使用流遍历操作
-     * @param list
+     * @param param
      * @param size
      * @return
      * @param <T>
      */
-    private static <T> List<List<T>> partitionBySimpleStream(final List<T> list, final int size) {
-        Integer limit = (list.size() + size - 1) / size;
+    private static <T> List<List<T>> partitionBySimpleStream(final List<T> param, final int size) {
+        if (CollectionUtils.isEmpty(param)) {
+            return Lists.newArrayList();
+        }
+        Integer limit = (param.size() + size - 1) / size;
         List<List<T>> mglist = new ArrayList<List<T>>();
         Stream.iterate(0, n -> n + 1).limit(limit).forEach(i -> {
-            mglist.add(list.stream().skip(i * size).limit(size).collect(Collectors.toList()));
+            mglist.add(param.stream().skip(i * size).limit(size).collect(Collectors.toList()));
         });
         return mglist;
     }
 
     /**
      * 使用流并行处理
-     * @param list
+     * @param param
      * @param size
      * @return
      * @param <T>
      */
-    private static <T> List<List<T>> partitionByParallelStream(final List<T> list, final int size) {
-        Integer limit = (list.size() + size - 1) / size;
+    private static <T> List<List<T>> partitionByParallelStream(final List<T> param, final int size) {
+        if (CollectionUtils.isEmpty(param)) {
+            return Lists.newArrayList();
+        }
+        Integer limit = (param.size() + size - 1) / size;
         List<List<T>> splitList = Stream.iterate(0, n -> n + 1).limit(limit).parallel()
-                .map(a -> list.stream().skip(a * size).limit(size).parallel().collect(Collectors.toList()))
+                .map(a -> param.stream().skip(a * size).limit(size).parallel().collect(Collectors.toList()))
                 .collect(Collectors.toList());
         return splitList;
     }
