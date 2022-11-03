@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Properties;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -28,7 +27,7 @@ public class LocalLangPropertiesResourceConfig {
 
     @PostConstruct
     public void loadLocalLangPropertiesResource() throws IOException {
-        ClassPathResource classPathResource = new ClassPathResource("lang/message-back.properties");
+        ClassPathResource classPathResource = new ClassPathResource("lang-back/message-back.properties");
         Properties properties = new Properties();
         properties.load(classPathResource.getInputStream());
         properties.forEach((key, value) -> {

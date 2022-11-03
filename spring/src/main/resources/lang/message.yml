@@ -1,0 +1,11 @@
+system_error_message:
+  value: 系统繁忙，请稍后重试
+  version: 1
+model_status_valid:
+  value: 模型{0}状态{1}非法
+  version: 2
+model_name_not_null:
+  value: 模型名称{0}不能为空
+  version: 2
+
+
