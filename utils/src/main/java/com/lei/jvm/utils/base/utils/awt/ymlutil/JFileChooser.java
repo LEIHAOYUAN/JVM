@@ -1,5 +1,7 @@
 package com.lei.jvm.utils.base.utils.awt.ymlutil;
 
+import com.lei.jvm.utils.base.utils.yaml.YamlUtil;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -49,7 +51,8 @@ public class JFileChooser extends JFrame {
             //选择了文件并点击了打开可保存按钮
             if (file != null && state == javax.swing.JFileChooser.APPROVE_OPTION) {
                 //显示提示信息
-                JOptionPane.showMessageDialog(null, file.getPath());
+                String tips = PropertiesUtil.transfer(file.getPath());
+                JOptionPane.showMessageDialog(null, tips);
                 //点击了撤销按钮
             } else if (state == javax.swing.JFileChooser.CANCEL_OPTION) {
 
