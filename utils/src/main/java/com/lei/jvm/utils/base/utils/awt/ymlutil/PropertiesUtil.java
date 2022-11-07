@@ -37,10 +37,12 @@ public class PropertiesUtil {
                     String value1 = (String) value;
                     if (StandardCharsets.UTF_8.name().equals(codedFormat)) {
                         localPropertyMap.put(new String(key1.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), new String(value1.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
+                    } else if (StandardCharsets.US_ASCII.name().equals(codedFormat)) {
+                        localPropertyMap.put(new String(key1.getBytes(StandardCharsets.US_ASCII), StandardCharsets.UTF_8), new String(value1.getBytes(StandardCharsets.US_ASCII), StandardCharsets.UTF_8));
                     } else if (StandardCharsets.ISO_8859_1.name().equals(codedFormat)) {
                         localPropertyMap.put(new String(key1.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8), new String(value1.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8));
                     } else {
-                        throw new IllegalArgumentException("编码格式未支持！！！");
+                        localPropertyMap.put(key1, value1);
                     }
                 }
             });

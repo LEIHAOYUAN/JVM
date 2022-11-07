@@ -35,6 +35,7 @@ public class JFileChooser extends JFrame {
         //增加组合框列表内容
         comboBox.addItem(StandardCharsets.UTF_8.name());
         comboBox.addItem(StandardCharsets.ISO_8859_1.name());
+        comboBox.addItem(StandardCharsets.US_ASCII.name());
         //增加组件到容器
         contentPane.add(comboBox);
 
