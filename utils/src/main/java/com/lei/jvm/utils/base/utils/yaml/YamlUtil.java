@@ -32,7 +32,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class YamlUtil {
 
     public static void main(String[] args) {
-        transferFile("E:\\message.properties");
+        //transferFile("E:\\message.properties");
+        log.info(StandardCharsets.UTF_8.name());
+
     }
 
 

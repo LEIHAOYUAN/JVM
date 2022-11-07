@@ -1,10 +1,9 @@
 package com.lei.jvm.utils.base.utils.awt.ymlutil;
 
-import com.lei.jvm.utils.base.utils.yaml.YamlUtil;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 //文件选择器演示
 
@@ -31,13 +30,22 @@ public class JFileChooser extends JFrame {
         //初始化文件选择器
         chooser = new javax.swing.JFileChooser();
 
+        //初始化组合框
+        comboBox = new JComboBox();
+        //增加组合框列表内容
+        comboBox.addItem(StandardCharsets.UTF_8.name());
+        comboBox.addItem(StandardCharsets.ISO_8859_1.name());
+        //增加组件到容器
+        contentPane.add(comboBox);
+
         //初始化按钮
         button = new JButton("选择文件");
-
         contentPane.add(button);
 
         //按钮事件处理
         button.addActionListener(e -> {
+            // 选择器选择编码格式
+            String codedFormat = comboBox.getSelectedItem().toString();
             //文件选择器返回状态
             int state;
             //移去所有文件过滤器
@@ -51,7 +59,7 @@ public class JFileChooser extends JFrame {
             //选择了文件并点击了打开可保存按钮
             if (file != null && state == javax.swing.JFileChooser.APPROVE_OPTION) {
                 //显示提示信息
-                String tips = PropertiesUtil.transfer(file.getPath());
+                String tips = PropertiesUtil.transfer(file.getPath(), codedFormat);
                 JOptionPane.showMessageDialog(null, tips);
                 //点击了撤销按钮
             } else if (state == javax.swing.JFileChooser.CANCEL_OPTION) {
