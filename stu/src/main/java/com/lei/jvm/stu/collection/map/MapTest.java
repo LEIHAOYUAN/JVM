@@ -22,7 +22,22 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-        testRemove();
+        testCover();
+    }
+
+
+    private static void testCover() {
+        Map<String, String> map1 = new HashMap<>();
+        map1.put("A", "A1");
+        Map<String, String> map2 = new HashMap<>();
+        map2.put("A", "A2");
+        Map<String, String> map3 = new HashMap<>();
+        map3.put("A", "A3");
+        Map<String, String> map = new HashMap<>();
+        map.putAll(map2);
+        map.putAll(map3);
+        map.putAll(map1);
+        log.info("最终结果={}", JSON.toJSONString(map));
     }
 
     private static void testMinValue() {
