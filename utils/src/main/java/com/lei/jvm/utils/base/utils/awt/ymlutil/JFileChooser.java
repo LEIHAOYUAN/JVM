@@ -50,6 +50,7 @@ public class JFileChooser extends JFrame {
             //文件选择器返回状态
             int state;
             //移去所有文件过滤器
+            chooser.setCurrentDirectory(new File("E:\\lang"));
             chooser.removeChoosableFileFilter(chooser.getAcceptAllFileFilter());
             //增加文件过滤器,接爱gif文件
             chooser.addChoosableFileFilter(new MyFileFilter("properties", "语言资源文件"));
