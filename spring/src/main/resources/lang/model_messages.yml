@@ -1,0 +1,970 @@
+ADAPT_DEVICE_TYPE_NOT_PRESENT:
+  value: 适配设备类型未传
+  version: 1
+APP:
+  value: 应用
+APP_ACTIVE_CAN_NOT_DELETE:
+  value: 应用已启用不能删除
+APP_IS_IMPORTING_ERROR:
+  value: 当前应用正在导入
+APP_NAME_EXIST:
+  value: 应用名称已存在
+APP_NOT_FOUND:
+  value: 未找到应用
+BIZ_MODEL:
+  value: 业务对象
+BIZ_MODEL_ACTIVE_CAN_NOT_MODIFY_NAME:
+  value: 业务对象已启用不可修改名字
+BIZ_MODEL_NOT_FOUND:
+  value: 业务对象不存在
+#业务规则
+BIZ_RULE:
+  value: 业务规则
+BIZ_RULE_ACTIVE_CAN_NOT_DELETE:
+  value: 业务规则已启用不能删除
+BIZ_RULE_NOT_EXIST:
+  value: 业务规则不存在
+BUTTON:
+  value: 按钮
+BUTTON_ID_INVALID:
+  value: 按钮id无效
+BUTTON_MODEL_NOT_FOUND:
+  value: 按钮模型不存在
+BUTTON_WAS_USING:
+  value: '{0} 按钮正在被使用'
+CAN_NOT_DECREASE_FIELD_DIGIT:
+  value: 不能减少{0}小数位数
+CAN_NOT_DECREASE_FIELD_SIZE:
+  value: 不能减少{0}字段长度
+CAN_NOT_DELETE_DEFAULT_FIELD:
+  value: 不能删除默认字段
+CAN_NOT_DELETE_MASTER_TABLE:
+  value: 不能删除主表
+CAN_NOT_DELETE_USING_CODE_FIELD:
+  value: 不能删除被使用的编号字段
+CAN_NOT_DELETE_USING_INNER_CODE:
+  value: 不能删除被使用的内部编号字段
+CAN_NOT_DELETE_USING_SUB_FIELD:
+  value: 不能删除被使用的标题字段
+CAN_NOT_LIKE_DEFAULT_FIELD:
+  value: 不允许与系统默认字段同名
+CAN_NOT_MODIFY_CUSTOM_VIEW:
+  value: 不能修改自定义视图
+CAN_NOT_MODIFY_DEFAULT_FIELD:
+  value: 默认字段无法修改
+CAN_NOT_MODIFY_SYSTEM_APP:
+  value: 无法修改系统应用
+CAN_NOT_MODIFY_SYSTEM_VIEW:
+  value: 不能修改系统视图
+CATEGORY:
+  value: 功能分类
+CLASSIFY_TREE:
+  value: 分类树
+DATA_TABLE_NOT_EXIST:
+  value: 业务表不存在
+DB_TABLE_NOT_EXIST:
+  value: 数据库表不存在
+DEFAULT:
+  value: 默认
+EVENT:
+  value: 事件
+EVENT_ACTIVE_CAN_NOT_DELETE:
+  value: 事件流已启用不能删除
+EVENT_EXECUTE_ERROR:
+  value: 事件流执行时错误【运行时异常以及未捕获的异常】
+EVENT_EXECUTE_NODE_BIZ_MODEL_NOT_FIND_ERROR:
+  value: 业务对象不存在
+EVENT_EXECUTE_NODE_BIZ_MODEL_NO_PERMISSION_ERROR:
+  value: 该节点无此业务对象操作权限
+EVENT_EXECUTE_NODE_BIZ_MODEL_PRIMARY_KEY_ERROR:
+  value: 业务对象主键不存在
+EVENT_EXECUTE_NODE_PARAM_IS_INVALID_ERROR:
+  value: 节点信息配置有误
+EVENT_EXECUTE_NODE_RESOURCE_MODEL_KEY_ERROR:
+  value: 资源节点查询不到资源
+EVENT_HANDLER_CAN_NOT_EMPTY_ERROR:
+  value: 事件流执行节点不能为空
+EVENT_JOB_SETTING_CRON_ERROR:
+  value: 事件流任务配置cron表达式错误
+EVENT_NOT_FOUND:
+  value: 事件模型不存在
+EVENT_PUBLISH_PARAM_IS_INVALID:
+  value: 事件流发布时参数异常
+EVENT_PUBLISH_VERSION_ERROR:
+  value: 事件流发布时版本异常
+EVENT_TRANSACTIONAL_CONFIG_ERROR:
+  value: 事件流事务配置异常
+EVENT_TRIGGER_TYPE_EXIST_ERROR:
+  value: 事件流已有此触发方式事件模型
+EXE_DEPT:
+  value: 部门
+EXE_USER:
+  value: 用户
+EXPORT_APPS_EMPTY:
+  value: 可导出应用为空，请确认应用业务对象是否启用
+EXPORT_FAIL:
+  value: 导出失败
+EXPORT_TIMEOUT:
+  value: 导出超时
+EXTERNAL_DATASOURCE_NOT_FOUND:
+  value: 外部数据源不存在
+# 字段
+FIELD:
+  value: 字段
+FIELD_ACTIVE_CAN_NOT_DELETE:
+  value: '{0}字段已启用不能删除'
+FIELD_BIZ_CONTROL_TYPE_MUST_NOT_EMPTY:
+  value: bizControlType不能为空
+FIELD_CONTROL_TYPE_IS_EMPTY:
+  value: 字段控件类型不能为空
+FIELD_CONTROL_TYPE_IS_IMMUTABLE:
+  value: 字段控件类型不可切换
+FIELD_DATA_TYPE_IS_EMPTY:
+  value: 字段数据类型不能为空
+FIELD_DISPLAY_NAME_IS_EMPTY:
+  value: 字段显示名称不能为空
+FIELD_ERROR:
+  value: 字段错误
+FIELD_ID_INVALID:
+  value: 字段id无效
+FIELD_ID_NOT_PRESENT:
+  value: 字段id未传
+FIELD_INVALID:
+  value: 字段已失效
+FIELD_KIND_IS_EMPTY:
+  value: 字段类型不能为空
+FIELD_LENGTH_MUST_NOT_LESS_THAN_ONE:
+  value: 字段长度不能小于1
+FIELD_NAME_EXIST:
+  value: 字段名称已存在
+FIELD_NAME_IS_EMPTY:
+  value: 字段名不能为空
+FIELD_NOT_SUPPORT_CONTROL_TYPE:
+  value: 不支持的控件类型
+FIELD_ORDER:
+  value: 顺序
+FIELD_SIZE_MUST_NOT_LESS_THAN_DIGIT:
+  value: 字段长度不得小于小数位长度
+FIELD_TYPE_NOT_COMPATIBLE_WITH_OLD:
+  value: '{0}字段类型不兼容'
+#文件
+FILE:
+  value: 文件
+FILE_UPLOAD_ERROR:
+  value: 文件上传错误
+# 表单
+FORM:
+  value: 表单
+FORM_ACTIVE_CAN_NOT_DELETE:
+  value: 表单已启用不能删除
+FORM_DISPLAY_NAME_EXIST:
+  value: 表单显示名称存在
+FORM_NOT_FOUND:
+  value: 表单不存在
+FROM_CONTENT_IS_EMPTY:
+  value: 表单内容为空
+FROM_FIELD_NAME_EXIST:
+  value: 字段名'{0}'重复
+FUNCTION:
+  value: 功能
+FUNCTION_ACTIVE_CAN_NOT_DELETE:
+  value: 功能已启用不能删除
+FUNCTION_ACTIVE_CAN_NOT_MODIFY_NAME:
+  value: 功能已启用不能修改名字
+FUNCTION_CATEGORY_DISPLAY_NAME_EXIST:
+  value: 功能分类名称已存在
+FUNCTION_CATEGORY_DISPLAY_NAME_NOT_PRESENT:
+  value: 功能分类名称未传
+FUNCTION_CATEGORY_NOT_FOUND:
+  value: 功能分类不存在
+FUNCTION_CATEGORY_NUMBER_LIMIT_EXCEEDED:
+  value: 功能分类创建数超过限制
+FUNCTION_ID_INVALID:
+  value: 功能id无效
+FUNCTION_ID_NOT_PRESENT:
+  value: 功能id未传
+FUNCTION_IS_ACTIVATING:
+  value: 功能正在发布中，请稍后再试
+FUNCTION_MODEL_DISABLED:
+  value: 功能模型已禁用
+FUNCTION_NAME_EXIST:
+  value: 功能名称已存在
+FUNCTION_NAME_NOT_PRESENT:
+  value: 功能名称未传
+FUNCTION_NOT_FOUND:
+  value: 未找到功能
+IMPORT_FAIL:
+  value: 导入失败
+INDEX:
+  value: 索引
+INDEX_ACTIVE_CAN_NOT_DELETE:
+  value: 索引已启用不能删除
+INDEX_ALREADY_EXISTS_ERROR:
+  value: 索引已存在
+INDEX_DATA_TABLE_ID_NOT_PRESENT:
+  value: 索引数据表id未传
+INDEX_DB_TABLE_ID_NOT_PRESENT:
+  value: 索引物理表id未传
+INDEX_FULL_ERROR:
+  value: 索引上限已满
+INDEX_METHOD_NULL_ERROR:
+  value: 索引方式不能为空
+INDEX_NOT_FOUND:
+  value: 索引不存在
+INDEX_NOT_NULL_ERROR:
+  value: 索引不能为空
+INDEX_TYPE_NULL_ERROR:
+  value: 索引类型不能为空
+INT_BIT_MULTI_SELECT_OPTIONS_OVER_SIZE:
+  value: 整型位运算多选选项超过32个
+#JOB
+JOB_LOG_CREATE_JOB_SUCCESS:
+  value: 创建任务成功
+JOB_LOG_DELETE_OFFICIAL_DATA:
+  value: 删除历史数据
+JOB_LOG_END_BACKUP:
+  value: 结束备份
+JOB_LOG_END_DOWNLOAD_FILE:
+  value: 结束下载文件
+JOB_LOG_EXECUTE_JOB_FAIL:
+  value: 任务执行失败
+JOB_LOG_EXECUTE_JOB_SUCCESS:
+  value: 任务执行成功
+JOB_LOG_FAIL:
+  value: 失败
+JOB_LOG_FLOW_SWITCH_BACKUP:
+  value: 切换流量到备份表
+JOB_LOG_FLOW_SWITCH_OFFICIAL:
+  value: 切换流量到正式表
+JOB_LOG_IMPORT_OFFICIAL_NEW_DATA:
+  value: 导入新数据
+JOB_LOG_REACTIVE_APP:
+  value: 重新启用应用
+JOB_LOG_START_BACKUP:
+  value: 开始备份
+JOB_LOG_START_DOWNLOAD_FILE:
+  value: 开始下载文件
+JOB_LOG_SUCCESS:
+  value: 导入成功
+JOB_LOG_UNCOMPRESS_FILE:
+  value: 开始解压文件
+LONG_INT_BIT_MULTI_SELECT_OPTIONS_OVER_SIZE:
+  value: 长整型位运算多选选项超过64个
+MASTER_TABLE:
+  value: 主表
+MASTER_TABLE_FIELD_ID_MUST_NOT_EMPTY:
+  value: 主表字段Id不能为空
+MASTER_TABLE_NAME_EXIST:
+  value: 主表名称已存在
+MENU:
+  value: 菜单
+MENU_ITEM:
+  value: 菜单项
+MENU_NOT_FOUND:
+  value: 菜单模型不存在
+MUST_RESERVE_ONE_DISPLAY_FIELD:
+  value: 至少保留一个显示字段
+MUST_RESERVE_ONE_FORM:
+  value: 没有创建表单视图
+MUST_RESERVE_ONE_SEARCH_CONDITION:
+  value: 至少保留一个查询字段
+MUST_RESERVE_ONE_VIEW:
+  value: 必须保留一个视图
+NO_UPDATE_NEED_N0T_REACTIVE:
+  value: 没有更新无需再次发布
+NUMBER_FIELD_CONTROL_TYPE_IS_EMPTY:
+  value: 第[{0}]个字段数据类型不能为空
+NUMBER_FIELD_DISPLAY_NAME_IS_EMPTY:
+  value: 第[{0}]个字段显示名称不能为空
+NUMBER_FIELD_KIND_IS_EMPTY:
+  value: 第[{0}]个字段类型不能为空
+NUMBER_FIELD_NAME_IS_EMPTY:
+  value: 第[{0}]个字段字段名不能为空
+ONE_TO_MANY_TABLE_HAS_SUB_TABLE_CANT_NOT_DELETE:
+  value: 存在子表不能删除
+ONE_TO_MANY_TABLE_HAS_SUB_TABLE_CANT_NOT_UPDATE_JOIN_TYPE:
+  value: 存在子表不能修改关联类型
+ONE_TO_ONE_CANT_ADD_SUB_TABLE:
+  value: 一对一关系不能添加子表
+PARENT_DATA_TABLE_ID_INVALID:
+  value: 父业务表id无效
+PARENT_TABLE_NOT_FOUND:
+  value: 父表不存在
+PC_FORM_ID_NOT_PRESENT:
+  value: PC表单id未传
+POPUP_TYPE_NOT_PRESENT:
+  value: 窗体类型未传
+RELATIVE_CONTROL_INFO_IS_EMPTY:
+  value: 数据关联控件信息为空
+RELATIVE_OBJECT_HAS_NO_BIZ_MODEL:
+  value: 数据关联字段：{0}/{1}，未选择业务对象
+REQUIRE:
+  value: 必填，不能空
+#资源
+RESOURCE_NOT_FOUND:
+  value: 资源模型不存在
+RESOURCE_POOL_NOT_FOUND:
+  value: 资源池不存在
+SHOW_CONDITIONS_IS_EMPTY:
+  value: 显示条件为空
+SUB_TABLE:
+  value: 子表
+SUB_TABLE_ACTIVE_CAN_NOT_DELETE:
+  value: 子表已启用不能删除
+SUB_TABLE_FIELD_ID_MUST_NOT_EMPTY:
+  value: 子表字段Id不能为空
+SUB_TABLE_FIELD_NAME_EXIST:
+  value: 子表字段名已存在
+SUB_TABLE_NAME_EXIST:
+  value: 子表名称已存在
+SUB_TABLE_NOT_EXIST:
+  value: 子表不存在
+SUB_TABLE_NUMBER_FIELD_DISPLAY_NAME_IS_EMPTY:
+  value: 子表[{0}]第[{1}]个字段显示名称不能为空
+SUB_TABLE_NUMBER_FIELD_KIND_IS_EMPTY:
+  value: 子表[{0}]第[{1}]个字段字段类型不能为空
+SUB_TABLE_NUMBER_FIELD_NAME_IS_EMPTY:
+  value: 子表[{0}]第[{1}]个字段字段名不能为空
+SYSTEM_APP:
+  value: 系统应用
+TABLE_ACTIVE_CAN_NOT_DELETE:
+  value: 表已启用不能删除
+TABLE_ACTIVE_CAN_NOT_MODIFY_JOIN_KEY:
+  value: 表已启用不能修改关联字段
+TABLE_ACTIVE_CAN_NOT_MODIFY_TABLE_NAME:
+  value: 表已启用不能修改表名
+TABLE_JOIN_KEY_NOT_PRESENT:
+  value: 关联字段未传
+TABLE_JOIN_TYPE_NOT_PRESENT:
+  value: 关联类型未传
+VIEW:
+  value: 列表视图
+VIEW_ACTIVE_CAN_NOT_DELETE:
+  value: 列表视图已启用不能删除
+VIEW_CONDITION_VALUE_NOT_PRESENT:
+  value: 条件值未传
+VIEW_CUSTOM_QUERY_FIELD:
+  value: 视图自定义查询字段
+VIEW_DEFAULT_CONDITION_FIELD:
+  value: 视图默认条件字段
+VIEW_DIRECTION_NOT_PRESENT:
+  value: 卡片类型未传
+VIEW_DISPLAY_NAME_NOT_PRESENT:
+  value: 视图显示名称未传
+VIEW_NOT_FOUND:
+  value: 列表视图不存在
+VIEW_PIC_FIELD_ID_INVALID:
+  value: 图片字段id无效
+VIEW_SHOW_FIELD:
+  value: 视图显示字段
+VIEW_SORT_FIELD:
+  value: 视图排序字段
+VIEW_TITLE_NOT_PRESENT:
+  value: 标题未传
+VIEW_TYPE_NOT_PRESENT:
+  value: 列表布局方式未传
+#----------------enum start------------------
+#应用类型
+enum.app_type.custom:
+  value: 自定义
+enum.app_type.system:
+  value: 系统应用
+#业务字段类型
+enum.biz_control_type.attachment:
+  value: 附件
+enum.biz_control_type.bigint:
+  value: 长整型
+enum.biz_control_type.cascader:
+  value: 级联
+enum.biz_control_type.color:
+  value: 颜色
+enum.biz_control_type.date:
+  value: 日期
+enum.biz_control_type.date_time:
+  value: 日期时间
+enum.biz_control_type.department:
+  value: 部门
+enum.biz_control_type.drop_select:
+  value: 下拉
+enum.biz_control_type.ext_relative:
+  value: 外部数据关联
+enum.biz_control_type.inner_code:
+  value: 内部编码
+enum.biz_control_type.multi_row:
+  value: 多行文本
+enum.biz_control_type.multi_select:
+  value: 多选
+enum.biz_control_type.number:
+  value: 数字
+enum.biz_control_type.password:
+  value: 密码
+enum.biz_control_type.pic_upload:
+  value: 图片上传
+enum.biz_control_type.rate:
+  value: 评分
+enum.biz_control_type.relative:
+  value: 数据关联
+enum.biz_control_type.rich_text:
+  value: 富文本
+enum.biz_control_type.simple_row:
+  value: 单行文本
+enum.biz_control_type.simple_select:
+  value: 单选
+enum.biz_control_type.slider:
+  value: 滑块
+enum.biz_control_type.sub_table:
+  value: 子表
+enum.biz_control_type.switch:
+  value: 开关
+enum.biz_control_type.time:
+  value: 时间
+enum.biz_control_type.user:
+  value: 用户
+enum.biz_control_type.year:
+  value: 年
+#字段类别
+enum.biz_field_kind.actual:
+  value: 实字段
+enum.biz_field_kind.relative:
+  value: 关联
+enum.biz_field_kind.virtual:
+  value: 虚字段
+#按钮点击后行为
+enum.button_click_type.again:
+  value: 二次确认
+enum.button_click_type.click:
+  value: 立即执行
+#按钮操作类型
+enum.button_operation.execute_method:
+  value: 执行方法
+enum.button_operation.open_form:
+  value: 打开表单
+enum.button_operation.open_view:
+  value: 打开列表
+#按钮位置枚举
+enum.button_position.detail:
+  value: 表单按钮
+enum.button_position.list_head:
+  value: 列表头按钮
+enum.button_position.list_row:
+  value: 列表行按钮
+#按钮显示条件
+enum.button_show_type.always:
+  value: 一直
+enum.button_show_type.conditon:
+  value: 满足条件
+enum.button_show_type.formula:
+  value: 满足公式
+#按钮来源
+enum.button_source.custom:
+  value: 自定义按钮
+enum.button_source.system:
+  value: 系统按钮
+#条件配置方式
+enum.configure_type.condition:
+  value: 条件规则
+enum.configure_type.expression:
+  value: 公式
+#开始执行时间
+enum.date_direction.after:
+  value: 之后
+enum.date_direction.before:
+  value: 之前
+enum.date_direction.now:
+  value: 在以上日期时间
+#日期格式枚举
+enum.date_format.year:
+  value: 年
+enum.date_format.year_month:
+  value: 年-月
+enum.date_format.year_month_day:
+  value: 年-月-日
+enum.date_format.year_month_day_hour_min:
+  value: 年-月-日 时:分
+enum.date_format.year_month_day_hour_min_second:
+  value: 年-月-日 时:分:秒
+#重复周期
+enum.date_period.month:
+  value: 每月
+enum.date_period.no:
+  value: 不重复
+enum.date_period.week:
+  value: 每周
+enum.date_period.year:
+  value: 每年
+#时间单位
+enum.date_unit.day:
+  value: 天
+enum.date_unit.hour:
+  value: 小时
+enum.date_unit.minute:
+  value: 分钟
+#设备类型
+enum.device.type.mobile:
+  value: 移动端
+enum.device.type.pc:
+  value: PC端
+#列表视图移动端布局方向
+enum.direction.left_right:
+  value: 样式1
+enum.direction.up_down:
+  value: 样式3
+enum.direction.up_down_pic:
+  value: 样式2
+#运行环境
+enum.env.design:
+  value: 设计期
+enum.env.runtime:
+  value: 运行期
+#事件分类
+enum.event_category.change:
+  value: 数据变更
+enum.event_category.click:
+  value: 单击事件
+enum.event_category.custom:
+  value: 自定义事件
+enum.event_category.system:
+  value: 系统标准动作
+#事件占位
+enum.event_exec_point.after:
+  value: after
+enum.event_exec_point.after_commit:
+  value: after_commit
+enum.event_exec_point.before:
+  value: before
+enum.event_exec_point.handling:
+  value: handling
+# 事件执行记录
+enum.event_execute_status.fail:
+  value: 执行异常
+enum.event_execute_status.success:
+  value: 执行成功
+enum.event_execute_status.wait:
+  value: 执行中
+#节点执行策略
+enum.event_execute_type.add_and_continue:
+  value: 新增后继续执行
+enum.event_execute_type.break:
+  value: 中止流程
+enum.event_execute_type.continue:
+  value: 继续执行
+#节点类型
+enum.event_handler_node_type.add:
+  value: 新增记录
+enum.event_handler_node_type.branch:
+  value: 分支节点
+enum.event_handler_node_type.custom_finder:
+  value: 自定义方法节点
+enum.event_handler_node_type.delete:
+  value: 删除记录
+enum.event_handler_node_type.email:
+  value: 发送邮件
+enum.event_handler_node_type.invoke_biz_process:
+  value: 调用业务流程节点
+enum.event_handler_node_type.loop_container:
+  value: 循环容器节点
+enum.event_handler_node_type.mq_producer:
+  value: MQ消息生产者节点
+enum.event_handler_node_type.pbp_output:
+  value: 业务流程输出节点
+enum.event_handler_node_type.process_param:
+  value: 流程参数节点
+enum.event_handler_node_type.query:
+  value: 获取单条数据
+enum.event_handler_node_type.resource:
+  value: 资源节点
+enum.event_handler_node_type.script:
+  value: 脚本节点
+enum.event_handler_node_type.sms:
+  value: 发送短信
+enum.event_handler_node_type.station_letter:
+  value: 发送站内通知
+enum.event_handler_node_type.template:
+  value: 模板节点
+enum.event_handler_node_type.transaction:
+  value: 事务容器节点
+enum.event_handler_node_type.update:
+  value: 更新记录
+#节点使用的脚本类型
+enum.event_handler_script_type.groovy:
+  value: groovy
+enum.event_handler_script_type.java_script:
+  value: java_script
+#事件模型类型
+enum.event_model_type.custom:
+  value: 自定义动作
+enum.event_model_type.date_job:
+  value: 按日期字段任务
+enum.event_model_type.event:
+  value: 事件
+enum.event_model_type.job:
+  value: 定时
+enum.event_model_type.mq_consumer:
+  value: MQ消费者
+enum.event_model_type.pbp:
+  value: 封装业务流程
+#事件处理方式
+enum.event_processing_mode.biz_async:
+  value: 异步事件
+enum.event_processing_mode.biz_sync:
+  value: 同步事件
+enum.event_processing_mode.page_event:
+  value: 页面事件
+#事件模型时机点
+enum.event_trigger_type.add:
+  value: 新增记录
+enum.event_trigger_type.custom:
+  value: 自定义动作
+enum.event_trigger_type.delete:
+  value: 删除记录
+enum.event_trigger_type.job:
+  value: 任务触发
+enum.event_trigger_type.mq_consumer:
+  value: MQ消息触发
+enum.event_trigger_type.pbp:
+  value: 业务流程节点调用
+enum.event_trigger_type.save:
+  value: 新增或更新记录
+enum.event_trigger_type.update:
+  value: 更新记录
+#表达式语言类别
+enum.expression_type.java:
+  value: java代码
+enum.expression_type.js:
+  value: js代码
+enum.expression_type.model_lan:
+  value: 模型语言
+enum.expression_type.system:
+  value: 系统标准事件
+#筛选条件枚举
+enum.field_condition_type.end_like:
+  value: 开始为
+enum.field_condition_type.ge:
+  value: 大于等于
+enum.field_condition_type.gt:
+  value: 大于
+enum.field_condition_type.in:
+  value: 包含
+enum.field_condition_type.in_scope:
+  value: 在范围内
+enum.field_condition_type.is:
+  value: 是
+enum.field_condition_type.le:
+  value: 小于等于
+enum.field_condition_type.like:
+  value: 全模糊
+enum.field_condition_type.lt:
+  value: 小于
+enum.field_condition_type.not:
+  value: 非
+enum.field_condition_type.not_in:
+  value: 不包含
+enum.field_condition_type.not_null:
+  value: 不为空
+enum.field_condition_type.null:
+  value: 为空
+enum.field_condition_type.out_scope:
+  value: 不范围内
+enum.field_condition_type.start_like:
+  value: 结尾为
+#节点字段变更方式
+enum.field_modify_type.add:
+  value: 增加
+enum.field_modify_type.set:
+  value: 设为
+enum.field_modify_type.sub:
+  value: 减少
+#字段值赋值类型
+enum.field_value_type.formula:
+  value: 公式
+enum.field_value_type.ql_express:
+  value: 字段
+enum.field_value_type.value:
+  value: 值
+#索引方式
+enum.index_method.b_tree:
+  value: b-tree
+#索引类型
+enum.index_type.normal:
+  value: 普通索引
+enum.index_type.unique:
+  value: 唯一索引
+#条件连接类型
+enum.join_type.and:
+  value: 且
+enum.join_type.or:
+  value: 或
+#libDataType
+enum.libDataType.auto_increment:
+  value: 自增
+enum.libDataType.auto_increment_64:
+  value: 自增64
+enum.libDataType.binary:
+  value: 二进制流
+enum.libDataType.boolean:
+  value: tinyint
+enum.libDataType.byte:
+  value: byte
+enum.libDataType.date:
+  value: date
+enum.libDataType.date_time:
+  value: datetime
+enum.libDataType.day:
+  value: 日
+enum.libDataType.double:
+  value: double
+enum.libDataType.hour_minute:
+  value: 时分
+enum.libDataType.int:
+  value: int
+enum.libDataType.json:
+  value: json字段
+enum.libDataType.large_memo:
+  value: mediumtext
+enum.libDataType.long_int:
+  value: bigint
+enum.libDataType.long_memo:
+  value: varchar(4000)
+enum.libDataType.month:
+  value: 月
+enum.libDataType.ntext:
+  value: varchar(400)
+enum.libDataType.numeric:
+  value: decimal
+enum.libDataType.short_memo:
+  value: varchar(2000)
+enum.libDataType.small_int:
+  value: smallint
+enum.libDataType.text:
+  value: varchar(200)
+enum.libDataType.time:
+  value: time
+enum.libDataType.unknow:
+  value: 未知
+enum.libDataType.year:
+  value: year
+#菜单类型
+enum.menu_item_type.directory:
+  value: 目录
+enum.menu_item_type.link:
+  value: 链接
+enum.menu_item_type.menu:
+  value: 菜单
+enum.menu_item_type.tree:
+  value: 树
+#菜单视图类型
+enum.menu_view_type.form:
+  value: 表单视图
+enum.menu_view_type.list:
+  value: 列表视图
+#模型状态
+enum.model_status.disabled:
+  value: 禁用
+enum.model_status.enabled:
+  value: 启用
+enum.model_status.not_enabled:
+  value: 未启用
+#模型版本
+enum.model_version.current:
+  value: 当前
+enum.model_version.designing:
+  value: 设计中
+enum.model_version.history:
+  value: 历史
+#消息发送类型
+enum.mq_send_type.async:
+  value: 异步
+enum.mq_send_type.oneway:
+  value: 单向
+enum.mq_send_type.sync:
+  value: 同步
+#发布处理器按钮动作枚举
+enum.publish_handler_action.apply:
+  value: 提交
+enum.publish_handler_action.cancel:
+  value: 取消审核
+enum.publish_handler_action.delete:
+  value: 删除
+enum.publish_handler_action.edit:
+  value: 编辑
+enum.publish_handler_action.fallback:
+  value: 审核不过
+enum.publish_handler_action.pass:
+  value: 审核通过
+#发布处理器执行类型枚举
+enum.publish_handler_exec_type.jar:
+  value: jar
+enum.publish_handler_exec_type.sql:
+  value: sql
+#发布处理器类型枚举
+enum.publish_handler_status.apply:
+  value: 已提交
+enum.publish_handler_status.deleted:
+  value: 已删除
+enum.publish_handler_status.fallback:
+  value: 回退
+enum.publish_handler_status.no_apply:
+  value: 未提交
+enum.publish_handler_status.pass:
+  value: 审核通过
+#发布处理器类型枚举
+enum.publish_handler_type.post:
+  value: 后置
+enum.publish_handler_type.prev:
+  value: 前置
+#数据关联显示方式
+enum.relative_source_display_type.all_show:
+  value: 两者都显示
+enum.relative_source_display_type.show_code:
+  value: 只显示编号
+enum.relative_source_display_type.show_name:
+  value: 只显示名称
+#资源扩展点类型
+enum.resource_point_type.custom:
+  value: 自定义
+enum.resource_point_type.delete:
+  value: 删除
+enum.resource_point_type.save:
+  value: 保存
+#资源类型
+enum.resource_type.groovy:
+  value: groovy
+enum.resource_type.jar:
+  value: jar包
+# biz rule
+enum.rule_condition_action.assign:
+  value: 赋值
+enum.rule_condition_action.editable:
+  value: 可编辑
+enum.rule_condition_action.empty:
+  value: 清空
+enum.rule_condition_action.hidden:
+  value: 隐藏
+enum.rule_condition_action.prompt_error:
+  value: 提示错误
+enum.rule_condition_action.readonly:
+  value: 只读
+enum.rule_condition_action.require:
+  value: 必填
+enum.rule_condition_action.show:
+  value: 显示
+enum.rule_condition_flag.field:
+  value: 字段编辑器
+enum.rule_condition_flag.formula:
+  value: 公式
+enum.rule_condition_type.contain:
+  value: 包含
+enum.rule_condition_type.equal:
+  value: 等于
+enum.rule_condition_type.ge:
+  value: 大于等于
+enum.rule_condition_type.gt:
+  value: 大于
+enum.rule_condition_type.le:
+  value: 小于等于
+enum.rule_condition_type.lt:
+  value: 小于
+enum.rule_condition_type.not_contain:
+  value: 不包含
+enum.rule_condition_type.not_equal:
+  value: 不等于
+enum.rule_condition_type.not_null:
+  value: 不为空
+enum.rule_condition_type.null:
+  value: 为空
+enum.rule_trigger_event_type.blur:
+  value: 获得焦点
+enum.rule_trigger_event_type.change:
+  value: 值变更
+enum.rule_trigger_event_type.focus:
+  value: 失去焦点
+enum.rule_trigger_event_type.input:
+  value: 进行输入
+enum.rule_trigger_source.button:
+  value: 按钮
+enum.rule_trigger_source.field:
+  value: 字段
+#简单的行格式枚举
+enum.simple_row_format.id_card:
+  value: 身份证号码
+enum.simple_row_format.mail:
+  value: 邮箱
+enum.simple_row_format.mobile:
+  value: 手机号码
+enum.simple_row_format.none:
+  value: 无
+enum.simple_row_format.post:
+  value: 邮政编码
+enum.simple_row_format.tel:
+  value: 电话号码
+enum.simple_row_format.url:
+  value: 网址
+#排序类型
+enum.sort_type.asc:
+  value: 升序
+enum.sort_type.desc:
+  value: 降序
+#系统按钮
+enum.system.button.btn_add:
+  value: 新增
+enum.system.button.btn_copy:
+  value: 复制
+enum.system.button.btn_delete:
+  value: 删除
+enum.system.button.btn_delete.tip:
+  value: 是否删除当前记录?
+enum.system.button.btn_edit:
+  value: 编辑
+enum.system.button.btn_export:
+  value: 导出
+enum.system.button.btn_import:
+  value: 导入
+enum.system.button.btn_preview:
+  value: 预览
+enum.system.button.btn_publish:
+  value: 发布
+enum.system.button.btn_publish.tip:
+  value: 发布过程可能需要较长时间，是否继续?
+#物理表关联类型
+enum.table.join.type.oneToMany:
+  value: 一对多关系
+enum.table.join.type.oneToOne:
+  value: 一对一关系
+#模型版本
+enum.version_status.current:
+  value: 当前
+enum.version_status.designing:
+  value: 设计中
+enum.version_status.history:
+  value: 历史
+#视图所有类型枚举
+enum.view_all_type.form_view:
+  value: 表单视图
+enum.view_all_type.list_view:
+  value: 列表视图
+#视图归属类型
+enum.view_owner_type.system:
+  value: 系统视图
+enum.view_owner_type.user_custom:
+  value: 用户自定义
+# 操作日志动作
+enum.operate.action.active:
+  value: 启用发布
+enum.operate.action.add:
+  value: 添加
+enum.operate.action.default:
+  value: 默认
+enum.operate.action.delete:
+  value: 删除
+enum.operate.action.disable:
+  value: 禁用
+enum.operate.action.display:
+  value: 显示
+enum.operate.action.enable:
+  value: 启用
+enum.operate.action.hide:
+  value: 隐藏
+enum.operate.action.save:
+  value: 保存
+enum.operate.action.update:
+  value: 更新

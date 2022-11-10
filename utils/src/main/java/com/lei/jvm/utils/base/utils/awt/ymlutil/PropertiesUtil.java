@@ -27,7 +27,7 @@ public class PropertiesUtil {
             return "文件路径为空";
         }
         try {
-            Map<String, String> localPropertyMap = new HashMap<>();
+            Map<String, String> localPropertyMap = new LinkedHashMap<>();
             Properties properties = new Properties();
             properties.load(Files.newInputStream(Paths.get(filePath)));
             properties.forEach((key, value) -> {
