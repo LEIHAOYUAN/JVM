@@ -30,7 +30,7 @@ public class LocalLangYmlResourceConfig {
 
     @PostConstruct
     public void loadLocalLangYmlResource() throws IOException {
-        ClassPathResource classPathResource = new ClassPathResource("lang/message.yml");
+        ClassPathResource classPathResource = new ClassPathResource("lang/messages.yml");
         Yaml yaml = new Yaml();
         Map map = yaml.loadAs(classPathResource.getInputStream(), Map.class);
         JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(map));
