@@ -1,4 +1,4 @@
-package com.lei.jvm.spring;
+package com.lei.jvm.spring.liteflow;
 
 import com.yomahub.liteflow.core.FlowExecutor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +17,7 @@ import javax.annotation.Resource;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class LiteFlowSpringTest {
+public class LiteFlowDemoTest {
 
     @Resource
     private FlowExecutor flowExecutor;
