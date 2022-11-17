@@ -25,7 +25,7 @@ public class LiteFlowDemoTest {
     @Test
     public void testListFlow() {
         try {
-            flowExecutor.execute("testChain", null);
+            flowExecutor.execute("test1117", null);
         } catch (Exception e) {
             log.error("流程执行异常={}", e.getMessage(), e);
         }

@@ -3,7 +3,6 @@ package com.lei.jvm.spring.liteflow;
 import com.yomahub.liteflow.builder.el.LiteFlowChainELBuilder;
 import com.yomahub.liteflow.core.FlowExecutor;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,17 +23,11 @@ public class LiteFlowIgnoreErrorTest {
     @Resource
     private FlowExecutor flowExecutor;
 
-//    @BeforeClass
-//    public static void init(){
-//        LiteFlowChainELBuilder chain = LiteFlowChainELBuilder.createChain();
-//        chain.setChainId("TEST");
-//        chain.setEL("WHEN(THEN(A1,A2,A3),THEN(B1,B2)).ignoreError(true)");
-//    }
-
     @Test
     public void test() {
+        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("WHEN(THEN(A1, A2, A3),THEN(B1, B2)).ignoreError(true)").build();
         try {
-            flowExecutor.execute("test", null);
+            flowExecutor.execute("test_chain", null);
         } catch (Exception e) {
             log.error("流程执行异常={}", e.getMessage(), e);
         }
