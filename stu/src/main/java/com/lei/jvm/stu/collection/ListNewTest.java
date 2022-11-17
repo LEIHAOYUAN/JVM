@@ -33,14 +33,16 @@ import java.util.stream.Collectors;
 public class ListNewTest {
 
     public static void main(String[] args) {
-        transferMap();
-        testParseArray();
+        testJoin0();
     }
 
     private static void testJoin0() {
         List<String> param = Lists.newArrayList();
-        String res = param.stream().filter(Objects::nonNull).distinct().collect(Collectors.joining(","));
+//        param.add("AAA");
+//        String res = param.stream().filter(Objects::nonNull).distinct().collect(Collectors.joining(","));
+        String res = param.stream().filter(StringUtils::isNotBlank).collect(Collectors.joining(","));
         log.info("转换结果：{}", res);
+        log.info("转换结果：{}", res.equals(""));
     }
 
     private static void testParseArray() {
@@ -231,7 +233,7 @@ public class ListNewTest {
 
     private static void transferMap() {
         List<Student> students = builderData();
-        Map<String, Student> collect = students.stream().filter(Objects::nonNull).filter(i -> StringUtils.isNotBlank(i.getName())).collect(Collectors.toConcurrentMap(Student::getName, i -> i,(t1, t2) -> t2));
+        Map<String, Student> collect = students.stream().filter(Objects::nonNull).filter(i -> StringUtils.isNotBlank(i.getName())).collect(Collectors.toConcurrentMap(Student::getName, i -> i, (t1, t2) -> t2));
         log.info("过滤去重结果：{}", JSON.toJSONString(collect));
     }
 
