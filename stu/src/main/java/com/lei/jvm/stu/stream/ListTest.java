@@ -1,9 +1,9 @@
 package com.lei.jvm.stu.stream;
 
 import com.alibaba.fastjson.JSON;
-import com.lei.jvm.utils.base.consts.StringConstants;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.lei.jvm.utils.base.consts.StringConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -29,7 +29,7 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        log.info("拼接字符串：{}", buildCacheKeyWithParams(new Object[]{1, "AAA", 5.36, null, "", true, 99L}));
+        testRemove();
     }
 
     public static String buildCacheKeyWithParams(Object[] keys) {
@@ -190,15 +190,24 @@ public class ListTest {
 
     private static void testFilter() {
         List<String> regionList = Lists.newArrayList();
-        List<String> collect = regionList.stream().filter(item -> "99".equals(item)).collect(Collectors.toList());
-        System.out.println(collect.size());
+        regionList.add("AAA");
+        regionList.add("BBB");
+        regionList.add("CCC");
+        regionList.add("DDD");
+        List<String> collect = regionList.stream().filter(item -> "CCC".equals(item)).collect(Collectors.toList());
+        log.info("过滤出结果：{}", JSON.toJSONString(collect));
+    }
 
-        List<String> collect1 = collect.stream().filter(item -> "111".equals(item)).collect(Collectors.toList());
-        System.out.println(collect1.size());
-
-        System.out.println("MAIN------start");
-        System.out.println(1 / 0);
-        System.out.println("MAIN------end");
+    private static void testRemove(){
+        List<Student> list = Lists.newArrayList();
+        list.add(new Student("张三", "16", BigDecimal.TEN));
+        list.add(new Student("张三", "16", BigDecimal.ZERO));
+        list.add(new Student("张三", "16", BigDecimal.TEN));
+        list.add(new Student("李四", "16", BigDecimal.ONE));
+        List<Student> collect = list.stream().filter(item -> item.getName().equals("张三")).collect(Collectors.toList());
+        log.info("过滤出结果：{}", JSON.toJSONString(collect));
+        list.removeAll(collect);
+        log.info("移出后结果：{}", JSON.toJSONString(list));
     }
 
     private static void testSort() {

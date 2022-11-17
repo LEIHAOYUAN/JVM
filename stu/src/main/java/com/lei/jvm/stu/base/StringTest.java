@@ -20,16 +20,24 @@ import java.util.stream.Collectors;
 public class StringTest {
 
     public static void main(String[] args) {
+        testConcatNull();
+    }
+
+    private static void testConcatNull() {
+        log.info(StringUtils.EMPTY.concat(null));
+    }
+
+    private static void testSplitWithList() {
         List<String> labels = Lists.newArrayList();
         labels.add("包装精美");
         labels.add("口味适宜");
-        log.info("JSON-ARRAY:{}",JSON.toJSONString(labels));
+        log.info("JSON-ARRAY:{}", JSON.toJSONString(labels));
 
         log.info(DateTimeFormatter.ofPattern("yyyyMMddHHmmssSSS").format(LocalDateTime.now()));
 
         String param = "中国";
         for (String s : param.split(",")) {
-            log.info("切割结果：{}",s);
+            log.info("切割结果：{}", s);
         }
     }
 
