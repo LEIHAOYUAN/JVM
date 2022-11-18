@@ -38,6 +38,10 @@ public class ListNewTest {
 
     private static void testJoin0() {
         List<String> param = Lists.newArrayList();
+        param.add(StringUtils.EMPTY);
+        param.add(StringUtils.EMPTY);
+        param.add(" ");
+        param.add(" ");
 //        param.add("AAA");
 //        String res = param.stream().filter(Objects::nonNull).distinct().collect(Collectors.joining(","));
         String res = param.stream().filter(StringUtils::isNotBlank).collect(Collectors.joining(","));
@@ -64,10 +68,6 @@ public class ListNewTest {
         param.add("0");
         String res = param.stream().filter(Objects::nonNull).distinct().collect(Collectors.joining(","));
         log.info("转换结果：{}", res);
-
-        String content = "XXX";
-        content += null;
-        log.info("拼接null后结果：{}", content);
     }
 
 

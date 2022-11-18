@@ -36,7 +36,7 @@ public class ListTest {
 
         param.removeAll(failList);
         param.removeAll(Lists.newArrayList());
-        param.removeAll(null);
+//        param.removeAll(null);
         log.info("移除后集合：{}", JSON.toJSONString(param));
     }
 
