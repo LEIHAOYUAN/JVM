@@ -12,6 +12,21 @@ public class App {
 
 
     public static void main(String[] args) {
-        log.info(ErrorCodeEnum.ID_NOT_PRESENT.name());
+        testSwitch(ErrorCodeEnum.AUTHORIZE_ERROR);
     }
+
+    private static void testSwitch(ErrorCodeEnum errorCodeEnum) {
+        switch (errorCodeEnum) {
+            case ERROR:
+                log.info(ErrorCodeEnum.ERROR.name() + ErrorCodeEnum.ERROR.getCode());
+                break;
+            case SUCCESS:
+                log.info(ErrorCodeEnum.SUCCESS.name() + ErrorCodeEnum.SUCCESS.getCode());
+                break;
+            default:
+                log.info("执行到默认节点");
+                break;
+        }
+    }
+
 }
