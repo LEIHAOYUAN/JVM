@@ -25,7 +25,7 @@ public class App {
         nodes.add(new Node("2"));
         nodes.add(new Node("3"));
         nodes.add(new Node("4"));
-        nodes.add(new Node("5"));
+//        nodes.add(new Node("5"));
         nodes.add(new Node("6"));
         nodes.add(new Node("7"));
         nodes.add(new Node("8"));
@@ -34,7 +34,7 @@ public class App {
         nodes.add(new Node("11"));
         nodes.add(new Node("12"));
         nodes.add(new Node("13"));
-        nodes.add(new Node("14"));
+        nodes.add(new Node("99"));
 
         List<Line> lines = Lists.newArrayList();
         lines.add(new Line("1", "2"));
@@ -49,10 +49,10 @@ public class App {
         lines.add(new Line("7", "11"));
         lines.add(new Line("10", "12"));
         lines.add(new Line("10", "13"));
-        lines.add(new Line("2", "14"));
+        lines.add(new Line("2", "99"));
 
 
-        Node currentNode = nodes.stream().filter(i -> i.getKey().equals("10")).findFirst().get();
+        Node currentNode = nodes.stream().filter(i -> i.getKey().equals("2")).findFirst().get();
         List<List<Node>> pathList = getPathList(currentNode, nodes, lines);
 
         for (List<Node> nodeList : pathList) {
