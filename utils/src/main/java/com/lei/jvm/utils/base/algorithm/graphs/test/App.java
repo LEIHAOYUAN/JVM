@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,77 +20,74 @@ public class App {
 
     public static void main(String[] args) {
 
-        List<VertexDTO> nodes = Lists.newArrayList();
-        nodes.add(new VertexDTO(1L));
-        nodes.add(new VertexDTO(2L));
-        nodes.add(new VertexDTO(3L));
-        nodes.add(new VertexDTO(4L));
-        nodes.add(new VertexDTO(5L));
-        nodes.add(new VertexDTO(100L));
+        List<Node> nodes = Lists.newArrayList();
+        nodes.add(new Node("1"));
+        nodes.add(new Node("2"));
+        nodes.add(new Node("3"));
+        nodes.add(new Node("4"));
+        nodes.add(new Node("5"));
+        nodes.add(new Node("6"));
+        nodes.add(new Node("7"));
+        nodes.add(new Node("8"));
+        nodes.add(new Node("9"));
+        nodes.add(new Node("10"));
+        nodes.add(new Node("11"));
 
-        List<EdgeDTO> lines = Lists.newArrayList();
-        lines.add(new EdgeDTO(1L, 2L));
-        lines.add(new EdgeDTO(1L, 100L));
-        lines.add(new EdgeDTO(1L, 3L));
-        lines.add(new EdgeDTO(2L, 4L));
-        lines.add(new EdgeDTO(4L, 5L));
-        lines.add(new EdgeDTO(3L, 5L));
+        List<Line> lines = Lists.newArrayList();
+        lines.add(new Line("1", "2"));
+        lines.add(new Line("2", "3"));
+        lines.add(new Line("2", "4"));
+        lines.add(new Line("2", "5"));
+        lines.add(new Line("3", "6"));
+        lines.add(new Line("3", "7"));
+        lines.add(new Line("3", "8"));
+        lines.add(new Line("4", "9"));
+        lines.add(new Line("5", "10"));
+        lines.add(new Line("2", "11"));
 
 
-        List<List<Long>> finalPath = Lists.newArrayList();
-        getPathList(Lists.newArrayList(), nodes, lines, 2L, finalPath);
+        Node currentNode = nodes.stream().filter(i -> i.getKey().equals("1")).findFirst().get();
+        List<List<Node>> pathList = getPathList(currentNode, nodes, lines);
 
-        log.info("深度遍历结果集={}", JSON.toJSONString(finalPath));
+        for (List<Node> nodeList : pathList) {
+            log.info("子链={}", JSON.toJSONString(nodeList));
+        }
     }
 
-    /**
-     * 递归获取起始点的所有路径
-     * @param path 临时路径
-     * @param vertices 所有顶点
-     * @param edges 所有边
-     * @param currentVertexId 当前顶点
-     * @param finalPath 最终路径
-     */
-    public static void getPathList(List<Long> path, List<VertexDTO> vertices, List<EdgeDTO> edges, Long currentVertexId, List<List<Long>> finalPath) {
-        if (path.contains(currentVertexId)) {
-            throw new IllegalArgumentException("当前节点" + currentVertexId + "存在环路");
-        }
-        //路径添加当前顶点
-        path.add(currentVertexId);
-        //判断当前顶点是否是终点
-        List<VertexDTO> nextVertexList = getNextVertexList(currentVertexId, vertices, edges);
-        //没有后续相邻顶点视为终点
-        if (CollectionUtils.isNotEmpty(nextVertexList)) {
-            for (VertexDTO vertexDTO : nextVertexList) {
-                getPathList(path, vertices, edges, vertexDTO.getId(), finalPath);
-            }
-        } else {
-            //当前路径加入结果路径集合
-            List<Long> road = new ArrayList<>(path);
-            finalPath.add(road);
-        }
-        //删除最后一位
-        path.remove(path.size() - 1);
+
+    public static List<List<Node>> getPathList(Node currentNode, List<Node> nodes, List<Line> lines) {
+        List<List<Node>> pathList = Lists.newArrayList();
+        dfs(currentNode, nodes, lines, Lists.newArrayList(), pathList);
+        return pathList;
     }
 
-    /**
-     * 获取顶点的相邻顶点集合
-     *
-     * @param vertexId
-     * @param vertices
-     * @param edges
-     * @return
-     */
-    public static List<VertexDTO> getNextVertexList(Long vertexId, List<VertexDTO> vertices, List<EdgeDTO> edges) {
-        List<VertexDTO> nextVertextList = vertices.stream().filter(v -> {
-            for (EdgeDTO edge : edges) {
-                if (edge.getFromVertexNo().equals(vertexId) && edge.getToVertexNo().equals(v.getId())) {
+    private static void dfs(Node currentNode, List<Node> nodes, List<Line> lines, List<Node> subChainTemp, List<List<Node>> finalPathList) {
+        if (subChainTemp.contains(currentNode)) {
+            log.error("当前节点={}存在环路", JSON.toJSONString(currentNode));
+            throw new IllegalArgumentException("当前节点存在环路");
+        }
+        // 子路径中添加当前节点
+        subChainTemp.add(currentNode);
+        // 获取当前节点的后继节点
+        List<Node> nextNodes = nodes.stream().filter(i -> {
+            for (Line line : lines) {
+                if (line.getPrev().equals(currentNode.getKey()) && line.getNext().equals(i.getKey())) {
                     return true;
                 }
             }
             return false;
         }).collect(Collectors.toList());
-        return nextVertextList;
+        // 无后继节点
+        if (CollectionUtils.isEmpty(nextNodes)) {
+            finalPathList.add(Lists.newArrayList(subChainTemp));
+        } else {
+            for (Node nextNode : nextNodes) {
+                dfs(nextNode, nodes, lines, subChainTemp, finalPathList);
+            }
+        }
+        //删除最后一位
+        subChainTemp.remove(subChainTemp.size() - 1);
     }
+
 
 }
