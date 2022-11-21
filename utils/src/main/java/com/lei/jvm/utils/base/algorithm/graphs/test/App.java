@@ -52,11 +52,10 @@ public class App {
      * @param currentVertexId 当前顶点
      * @param finalPath 最终路径
      */
-    public static void getPathList(List<Long> path,
-                                   List<VertexDTO> vertices,
-                                   List<EdgeDTO> edges,
-                                   Long currentVertexId,
-                                   List<List<Long>> finalPath) {
+    public static void getPathList(List<Long> path, List<VertexDTO> vertices, List<EdgeDTO> edges, Long currentVertexId, List<List<Long>> finalPath) {
+        if (path.contains(currentVertexId)) {
+            throw new IllegalArgumentException("当前节点" + currentVertexId + "存在环路");
+        }
         //路径添加当前顶点
         path.add(currentVertexId);
         //判断当前顶点是否是终点
@@ -83,10 +82,7 @@ public class App {
      * @param edges
      * @return
      */
-    public static List<VertexDTO> getNextVertexList(
-            Long vertexId,
-            List<VertexDTO> vertices,
-            List<EdgeDTO> edges) {
+    public static List<VertexDTO> getNextVertexList(Long vertexId, List<VertexDTO> vertices, List<EdgeDTO> edges) {
         List<VertexDTO> nextVertextList = vertices.stream().filter(v -> {
             for (EdgeDTO edge : edges) {
                 if (edge.getFromVertexNo().equals(vertexId) && edge.getToVertexNo().equals(v.getId())) {
