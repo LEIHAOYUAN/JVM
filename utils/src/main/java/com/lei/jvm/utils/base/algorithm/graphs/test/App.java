@@ -56,6 +56,8 @@ public class App {
         List<List<Node>> pathList = getPathList(currentNode, nodes, lines);
 
         for (List<Node> nodeList : pathList) {
+            // 排除自身
+            // nodeList.remove(currentNode);
             log.info("子链={}", JSON.toJSONString(nodeList));
         }
     }
