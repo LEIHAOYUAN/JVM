@@ -12,7 +12,7 @@ import org.apache.poi.ss.formula.functions.T;
 @Getter
 public enum ClassEnumType {
 
-//    NONE(0, SerializationInfo.class.getClass().),
+    NONE(0, ""),
     ;
 
     /**
@@ -22,9 +22,9 @@ public enum ClassEnumType {
     /**
      * 名称
      */
-    private Class<T> clazz;
+    private String clazz;
 
-    ClassEnumType(int code, Class<T> clazz) {
+    ClassEnumType(int code, String clazz) {
         this.code = code;
         this.clazz = clazz;
     }

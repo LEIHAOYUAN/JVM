@@ -2,15 +2,12 @@ package com.lei.jvm.stu.serialization.json;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.lei.jvm.stu.serialization.SerializationInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Map;
 
 /**
  *  职能描述：
@@ -22,9 +19,11 @@ import java.util.Map;
 public class FastJsonTest {
 
     public static void main(String[] args) {
-//        testParseObject();
-        List<HotKeyConfigDomain> hotKeyConfigDomains = JSON.parseArray(StringUtils.EMPTY, HotKeyConfigDomain.class);
-        log.info("转换集合={}",hotKeyConfigDomains);
+        HotKeyConfigDomain domain = new HotKeyConfigDomain();
+        domain.setInterval(Integer.MAX_VALUE);
+        String json = JSON.toJSONString(domain);
+        HotKeyConfigDomain domain1 = JSON.parseObject(json, HotKeyConfigDomain.class);
+        log.info("转换集合={}", domain1.getClassEnumType());
     }
 
     private static void testParseObject() {

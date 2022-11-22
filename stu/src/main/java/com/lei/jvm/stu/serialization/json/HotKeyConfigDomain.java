@@ -14,6 +14,8 @@ public class HotKeyConfigDomain implements Serializable {
 
     private static final long serialVersionUID = -1349135106413266322L;
 
+    private ClassEnumType classEnumType = ClassEnumType.NONE;
+
     /**
      * 应用名称
      */
