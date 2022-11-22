@@ -19,7 +19,11 @@ import java.util.stream.Collectors;
 public class App {
 
     public static void main(String[] args) {
+//        testGetPathList();
 
+    }
+
+    private static void testGetPathList() {
         List<Node> nodes = Lists.newArrayList();
         nodes.add(new Node("1"));
         nodes.add(new Node("2"));
@@ -53,7 +57,7 @@ public class App {
 
 
         Node currentNode = nodes.stream().filter(i -> i.getKey().equals("2")).findFirst().get();
-        List<List<Node>> pathList = getPathList(currentNode, nodes, lines);
+        List<List<Node>> pathList = getAllPathList(currentNode, nodes, lines);
 
         for (List<Node> nodeList : pathList) {
             // 排除自身
@@ -63,13 +67,28 @@ public class App {
     }
 
 
-    public static List<List<Node>> getPathList(Node currentNode, List<Node> nodes, List<Line> lines) {
+    /**
+     * 获取指定节点的所有路径
+     * @param currentNode
+     * @param nodes
+     * @param lines
+     * @return
+     */
+    public static List<List<Node>> getAllPathList(Node currentNode, List<Node> nodes, List<Line> lines) {
         List<List<Node>> pathList = Lists.newArrayList();
-        dfs(currentNode, nodes, lines, Lists.newArrayList(), pathList);
+        dfsAllPath(currentNode, nodes, lines, Lists.newArrayList(), pathList);
         return pathList;
     }
 
-    private static void dfs(Node currentNode, List<Node> nodes, List<Line> lines, List<Node> subChainTemp, List<List<Node>> finalPathList) {
+    /**
+     * 获取指定节点的所有路径
+     * @param currentNode
+     * @param nodes
+     * @param lines
+     * @param subChainTemp
+     * @param finalPathList
+     */
+    private static void dfsAllPath(Node currentNode, List<Node> nodes, List<Line> lines, List<Node> subChainTemp, List<List<Node>> finalPathList) {
         if (subChainTemp.contains(currentNode)) {
             log.error("当前节点={}存在环路", JSON.toJSONString(currentNode));
             throw new IllegalArgumentException("当前节点存在环路");
@@ -90,7 +109,7 @@ public class App {
             finalPathList.add(Lists.newArrayList(subChainTemp));
         } else {
             for (Node nextNode : nextNodes) {
-                dfs(nextNode, nodes, lines, subChainTemp, finalPathList);
+                dfsAllPath(nextNode, nodes, lines, subChainTemp, finalPathList);
             }
         }
         //删除最后一位
