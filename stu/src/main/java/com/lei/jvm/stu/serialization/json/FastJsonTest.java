@@ -22,8 +22,9 @@ public class FastJsonTest {
         HotKeyConfigDomain domain = new HotKeyConfigDomain();
         domain.setInterval(Integer.MAX_VALUE);
         String json = JSON.toJSONString(domain);
+        log.info("序列化={}", json);
         HotKeyConfigDomain domain1 = JSON.parseObject(json, HotKeyConfigDomain.class);
-        log.info("转换集合={}", domain1.getClassEnumType());
+        log.info("反序列化={}", domain1.getClassEnumType());
     }
 
     private static void testParseObject() {
