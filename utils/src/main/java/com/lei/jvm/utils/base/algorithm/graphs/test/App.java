@@ -20,26 +20,33 @@ public class App {
 
     public static void main(String[] args) {
 //        testGetPathList();
-
+        List<Node> sortList = Lists.newArrayList();
+        List<Node> nodes = buildNodes();
+        Node currentNode = nodes.stream().filter(i -> i.getKey().equals("1")).findFirst().get();
+        dfsSort(currentNode, nodes, buildLines(), sortList);
+        log.info("排序后节点={}", JSON.toJSONString(sortList));
     }
 
-    private static void testGetPathList() {
+    private static List<Node> buildNodes() {
         List<Node> nodes = Lists.newArrayList();
         nodes.add(new Node("1"));
-        nodes.add(new Node("2"));
         nodes.add(new Node("3"));
+        nodes.add(new Node("2"));
+        nodes.add(new Node("5"));
         nodes.add(new Node("4"));
-//        nodes.add(new Node("5"));
-        nodes.add(new Node("6"));
-        nodes.add(new Node("7"));
         nodes.add(new Node("8"));
+        nodes.add(new Node("6"));
         nodes.add(new Node("9"));
         nodes.add(new Node("10"));
         nodes.add(new Node("11"));
+        nodes.add(new Node("7"));
         nodes.add(new Node("12"));
-        nodes.add(new Node("13"));
         nodes.add(new Node("99"));
+        nodes.add(new Node("13"));
+        return nodes;
+    }
 
+    private static List<Line> buildLines() {
         List<Line> lines = Lists.newArrayList();
         lines.add(new Line("1", "2"));
         lines.add(new Line("2", "3"));
@@ -54,18 +61,41 @@ public class App {
         lines.add(new Line("10", "12"));
         lines.add(new Line("10", "13"));
         lines.add(new Line("2", "99"));
+        return lines;
+    }
 
 
+    private static void dfsSort(Node currentNode, List<Node> nodes, List<Line> lines, List<Node> sortList) {
+        // 子路径中添加当前节点
+        sortList.add(currentNode);
+        // 获取当前节点的后继节点
+        List<Node> nextNodes = nodes.stream().filter(i -> {
+            for (Line line : lines) {
+                if (line.getPrev().equals(currentNode.getKey()) && line.getNext().equals(i.getKey())) {
+                    return true;
+                }
+            }
+            return false;
+        }).collect(Collectors.toList());
+        if (CollectionUtils.isNotEmpty(nextNodes)) {
+            for (Node nextNode : nextNodes) {
+                dfsSort(nextNode, nodes, lines, sortList);
+            }
+        }
+    }
+
+
+    private static void testGetPathList() {
+        List<Node> nodes = buildNodes();
+        List<Line> lines = buildLines();
         Node currentNode = nodes.stream().filter(i -> i.getKey().equals("2")).findFirst().get();
         List<List<Node>> pathList = getAllPathList(currentNode, nodes, lines);
-
         for (List<Node> nodeList : pathList) {
             // 排除自身
             // nodeList.remove(currentNode);
             log.info("子链={}", JSON.toJSONString(nodeList));
         }
     }
-
 
     /**
      * 获取指定节点的所有路径

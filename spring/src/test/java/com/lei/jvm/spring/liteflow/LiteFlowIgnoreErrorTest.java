@@ -32,12 +32,13 @@ public class LiteFlowIgnoreErrorTest {
 //        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("temp=THEN(THEN(PRE(A3),B2,FINALLY(A1)),B1);THEN(temp);").build();
 //        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("chain=THEN(THEN(PRE(A3),B1,FINALLY(A1)),THEN(A2,B2));THEN(chain);").build();
 //        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("chain=THEN(PRE(A3),B1,FINALLY(A1));THEN(A2,B2);THEN(chain);").build();
-        LiteFlowChainELBuilder.createChain().setChainName("tran_chain").setEL("THEN(PRE(A3),B1,FINALLY(A1));").build();
-        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("THEN(B2,tran_chain);").build();
-
+        LiteFlowChainELBuilder tran_chain = LiteFlowChainELBuilder.createChain().setChainName("tran_chain").setEL("THEN(PRE(A3),B1,FINALLY(A1));");
+        tran_chain.build();
+        LiteFlowChainELBuilder test_chain = LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("THEN(B2,tran_chain);");
+        test_chain.build();
 
         try {
-            flowExecutor.execute("test", null);
+//            flowExecutor.execute("test", null);
         } catch (Exception e) {
             log.error("流程执行异常={}", e.getMessage(), e);
         }
