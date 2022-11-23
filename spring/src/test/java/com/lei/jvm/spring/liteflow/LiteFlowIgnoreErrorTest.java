@@ -30,7 +30,8 @@ public class LiteFlowIgnoreErrorTest {
 //        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("temp=THEN(THEN(PRE(A3),B2,FINALLY(A1)),B1);THEN(temp);").build();
 //        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("chain=THEN(THEN(PRE(A3),B1,FINALLY(A1)),THEN(A2,B2));THEN(chain);").build();
 //        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("chain=THEN(PRE(A3),B1,FINALLY(A1));THEN(A2,B2);THEN(chain);").build();
-        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("chain2=THEN(PRE(A3),B1,FINALLY(A1));THEN(B2,chain2);").build();
+        LiteFlowChainELBuilder.createChain().setChainName("tran_chain").setEL("THEN(PRE(A3),B1,FINALLY(A1));").build();
+        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("THEN(B2,tran_chain);").build();
         try {
             flowExecutor.execute("test_chain", null);
         } catch (Exception e) {
