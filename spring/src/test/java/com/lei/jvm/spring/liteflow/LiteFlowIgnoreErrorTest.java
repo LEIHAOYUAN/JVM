@@ -25,6 +25,8 @@ public class LiteFlowIgnoreErrorTest {
 
     @Test
     public void test() {
+//            测试空分支
+//        LiteFlowChainELBuilder.createChain().setChainName("test").setEL("SWITCH(SwitchCmp)").build();
 //        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("B1=THEN(B1,B2);WHEN(THEN(A1,A2,A3),B1).ignoreError(true);").build();
           // PRE/FINALLY实际未执行
 //        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("temp=THEN(THEN(PRE(A3),B2,FINALLY(A1)),B1);THEN(temp);").build();
@@ -32,8 +34,10 @@ public class LiteFlowIgnoreErrorTest {
 //        LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("chain=THEN(PRE(A3),B1,FINALLY(A1));THEN(A2,B2);THEN(chain);").build();
         LiteFlowChainELBuilder.createChain().setChainName("tran_chain").setEL("THEN(PRE(A3),B1,FINALLY(A1));").build();
         LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("THEN(B2,tran_chain);").build();
+
+
         try {
-            flowExecutor.execute("test_chain", null);
+            flowExecutor.execute("test", null);
         } catch (Exception e) {
             log.error("流程执行异常={}", e.getMessage(), e);
         }
