@@ -11,4 +11,14 @@
         THEN(B1,B2)
         ).ignoreError(true);
     </chain>
+
+    <chain name="chain1">
+        THEN(PRE(A3),B1,FINALLY(A1));
+    </chain>
+
+    <chain name="chain2">
+        THEN(B2,chain1);
+    </chain>
+
+
 </flow>
