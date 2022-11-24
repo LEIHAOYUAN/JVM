@@ -29,11 +29,8 @@ public class JSONTest {
         chains.add(buildChainModel("chain2", "xxxxxx2"));
         JSONObject chainJSON = new JSONObject();
         chainJSON.put("chain", chains);
-        JSONObject nodesJSON = new JSONObject();
-
-        nodesJSON.put("nodes",chainJSON);
         JSONObject flowJSON = new JSONObject();
-        flowJSON.put("flow",  nodesJSON);
+        flowJSON.put("flow",  chainJSON);
         log.info("构造结果={}", flowJSON.toJSONString());
     }
 
