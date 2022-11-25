@@ -8,8 +8,8 @@ import lombok.Getter;
  *  @version 2022/11/25 16:53
  */
 public enum BaseErrorCodeEnum {
-    MODEL(2000, "模型相关异常"),
-    EVENT(4000, "事件相关异常");
+    MODEL(1010000, "模型相关异常"),
+    EVENT(1020000, "事件相关异常");
     @Getter
     private Integer code;
     @Getter
