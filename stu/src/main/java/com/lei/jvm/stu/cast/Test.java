@@ -1,9 +1,12 @@
 package com.lei.jvm.stu.cast;
 
+import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.math.BigDecimal;
 
 /**
  * @Author leihaoyuan
@@ -15,8 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 public class Test {
 
     public static void main(String[] args) {
-        ISon son = null;
-        log.info("测试1={}",son instanceof IFather);
+
+        log.info("转换结果={}", JSON.parseObject("true", Boolean.class));
+        log.info("转换结果={}", JSON.parseObject("1", Integer.class));
+        log.info("转换结果={}", JSON.parseObject("1.256", BigDecimal.class));
     }
 
     private static <T> T parseProp(Class<T> clazz) {
