@@ -19,8 +19,8 @@ public class Test {
 
     public static void main(String[] args) {
 
-        log.info("转换结果={}", JSON.parseObject("true", Boolean.class));
-        log.info("转换结果={}", JSON.parseObject("1", Integer.class));
+        log.info("转换结果={}", JSON.parseObject(null, Boolean.class));
+        log.info("转换结果={}", JSON.parseObject("", Integer.class));
         log.info("转换结果={}", JSON.parseObject("1.256", BigDecimal.class));
     }
 
