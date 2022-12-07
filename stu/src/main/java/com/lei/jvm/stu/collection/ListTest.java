@@ -8,7 +8,14 @@ import org.apache.commons.collections4.ListUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
@@ -20,7 +27,7 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        testRemoveAll();
+        groupThenSortValue();
     }
 
 
@@ -65,8 +72,7 @@ public class ListTest {
         param.add(s1);
         param.add(s2);
         param.add(s3);
-        BigDecimal total = param.stream().filter(i -> null != i.getAmount() && null != i.getVolume())
-                .reduce(new BigDecimal(0), (x, y) -> x.add(y.getVolume().multiply(y.getAmount()).divide(BigDecimal.TEN, 7, RoundingMode.HALF_UP)), BigDecimal::add);
+        BigDecimal total = param.stream().filter(i -> null != i.getAmount() && null != i.getVolume()).reduce(new BigDecimal(0), (x, y) -> x.add(y.getVolume().multiply(y.getAmount()).divide(BigDecimal.TEN, 7, RoundingMode.HALF_UP)), BigDecimal::add);
 
         log.info("汇总总数量：{}", JSON.toJSONString(total));
 
@@ -188,11 +194,7 @@ public class ListTest {
         conditionList.add(null);
 
 
-        List<Student> listStu = Lists.newArrayList();
-        listStu.add(new Student(10));
-        listStu.add(new Student(10));
-        listStu.add(new Student(11));
-        listStu.add(new Student(12));
+        List<Student> listStu = getStudents();
 
         System.out.println("过滤前：" + JSON.toJSONString(listStu));
 
@@ -201,5 +203,33 @@ public class ListTest {
         }).collect(Collectors.toList());
 
         System.out.println("过滤后：" + JSON.toJSONString(listStu));
+    }
+
+    private static List<Student> getStudents() {
+        List<Student> listStu = Lists.newArrayList();
+        listStu.add(new Student(5, "AAA"));
+        listStu.add(new Student(2, "AAA"));
+        listStu.add(new Student(9, "AAA"));
+        listStu.add(new Student(0, "AAA"));
+        listStu.add(new Student(1, "AAA"));
+        listStu.add(new Student(9, "BBB"));
+        listStu.add(new Student(8, "BBB"));
+        listStu.add(new Student(4, "BBB"));
+        listStu.add(new Student(3, "BBB"));
+        listStu.add(new Student(2, "BBB"));
+        listStu.add(new Student(7, "BBB"));
+        return listStu;
+    }
+
+
+    private static void groupThenSortKey() {
+        List<Student> records = getStudents();
+        TreeMap<Integer, List<Student>> collect = records.stream().collect(Collectors.groupingBy(Student::getId, TreeMap::new, Collectors.toList()));
+    }
+
+    private static void groupThenSortValue() {
+        List<Student> records = getStudents();
+        Map<String, List<Student>> collect = records.stream().sorted(Comparator.comparing(Student::getId)).collect(Collectors.groupingBy(Student::getName, Collectors.toList()));
+        log.info("先分组后排序结果={}", JSON.toJSONString(collect));
     }
 }

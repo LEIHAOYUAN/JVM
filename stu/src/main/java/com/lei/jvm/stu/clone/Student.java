@@ -14,6 +14,8 @@ public class Student implements Cloneable {
 
     private Integer id;
 
+    private String name;
+
     private BigDecimal volume;
 
     private BigDecimal amount;
@@ -22,6 +24,11 @@ public class Student implements Cloneable {
 
     public Student(Integer id) {
         this.id = id;
+    }
+
+    public Student(Integer id,String name) {
+        this.id = id;
+        this.name = name;
     }
 
     @Override
