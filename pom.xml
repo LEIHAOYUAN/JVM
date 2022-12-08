@@ -26,7 +26,7 @@
         <spring-boot-starter-log4j2.version>2.4.2</spring-boot-starter-log4j2.version>
         <spring-kafka.version>2.6.5</spring-kafka.version>
         <lombok.version>1.18.12</lombok.version>
-        <mapstruct.version>1.2.0.Final</mapstruct.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
         <hutool.version>4.6.3</hutool.version>
         <javax.validation.version>2.0.1.Final</javax.validation.version>
         <hibernate.validation.version>6.1.2.Final</hibernate.validation.version>
@@ -187,6 +187,11 @@
             </dependency>
 
             <!-- mapstruct -->
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct-jdk8</artifactId>
