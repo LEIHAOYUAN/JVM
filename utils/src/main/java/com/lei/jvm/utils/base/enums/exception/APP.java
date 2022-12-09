@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class APP {
     public static void main(String[] args) {
-        EventBusinessException ex = new EventBusinessException(1, "测试异常");
+        EventBusinessException ex = new EventBusinessException("100", "测试异常");
         log.info("异常编码=[{}]，异常信息={}", ex.getErrorCode(), ex.getMessage());
     }
 

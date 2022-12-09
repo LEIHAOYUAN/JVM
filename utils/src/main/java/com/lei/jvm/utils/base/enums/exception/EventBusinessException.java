@@ -9,8 +9,8 @@ public class EventBusinessException extends AbsBaseException {
 
     private static final long serialVersionUID = -4528075504991830664L;
 
-    public EventBusinessException(int errorCode, String message) {
-        super(String.valueOf(errorCode), message);
+    public EventBusinessException(String errorCode, String message) {
+        super(errorCode, message);
     }
 
     @Override
