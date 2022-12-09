@@ -8,21 +8,21 @@ import lombok.Getter;
  *  @version 2022/11/25 16:53
  */
 public enum BaseErrorCodeEnum {
-    MODEL(1010000, "模型相关异常"),
-    EVENT(1020000, "事件相关异常");
+    MODEL("A100", "模型相关异常"),
+    EVENT("A200", "事件相关异常");
     @Getter
-    private Integer code;
+    private String code;
     @Getter
     private String label;
 
-    BaseErrorCodeEnum(Integer code, String label) {
+    BaseErrorCodeEnum(String code, String label) {
         this.code = code;
         this.label = label;
     }
 
-    public static BaseErrorCodeEnum getEnumByCode(int code) {
+    public static BaseErrorCodeEnum getEnumByCode(String code) {
         for (BaseErrorCodeEnum em : BaseErrorCodeEnum.values()) {
-            if (em.code == code) {
+            if (em.code.equals(code)) {
                 return em;
             }
         }
