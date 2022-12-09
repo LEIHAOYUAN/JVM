@@ -11,18 +11,18 @@ public enum EventExceptionCodeEnum {
     /**
      * 事件校验失败
      */
-    EVENT_VALID_ERROR(1, "事件校验失败"),
+    EVENT_VALID_ERROR("1000", "事件校验失败"),
     /**
      * 事件类型异常
      */
-    EVENT_TYPE_ERROR(2, "事件类型异常");
+    EVENT_TYPE_ERROR("1001", "事件类型异常");
 
     @Getter
-    private Integer code;
+    private String code;
     @Getter
     private String label;
 
-    EventExceptionCodeEnum(Integer code, String label) {
+    EventExceptionCodeEnum(String code, String label) {
         this.code = code;
         this.label = label;
     }
