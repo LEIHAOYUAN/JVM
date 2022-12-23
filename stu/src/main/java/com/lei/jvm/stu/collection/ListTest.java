@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.lei.jvm.stu.clone.Student;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.ListUtils;
 
 import java.math.BigDecimal;
@@ -27,7 +28,24 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        groupThenSortValue();
+        testComplexSort();
+    }
+
+    private static void testComplexSort() {
+        List<List<String>> allPath = Lists.newArrayList();
+        allPath.add(buildList("A", "B", "D", "H"));
+        allPath.add(buildList("A", "B"));
+        allPath.add(buildList("A", "B", "D"));
+        allPath.add(buildList("A", "C", "E", "F", "H"));
+        allPath.add(buildList("A", "C"));
+        allPath.add(buildList("A", "C", "E", "F"));
+        allPath.add(buildList("A", "C", "E"));
+        Collections.sort(allPath, (o1, o2) -> o1.size() > o2.size() ? 1 : -1);
+        log.info("排序结果={}",JSON.toJSONString(allPath));
+    }
+
+    private static List<String> buildList(String... args) {
+        return Lists.newArrayList(args);
     }
 
 
