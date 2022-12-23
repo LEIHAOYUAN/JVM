@@ -28,7 +28,12 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        testComplexSort();
+//        testComplexSort();
+
+        List<String> strings = buildList("A", "B", "C");
+        for (int i = 0; i < strings.size(); i++) {
+            log.info(strings.get(4));
+        }
     }
 
     private static void testComplexSort() {
