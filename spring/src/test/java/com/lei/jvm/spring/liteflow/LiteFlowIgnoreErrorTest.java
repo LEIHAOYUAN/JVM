@@ -41,7 +41,7 @@ public class LiteFlowIgnoreErrorTest {
         LiteFlowChainELBuilder.createChain().setChainName("test_chain").setEL("B1=THEN(B1,B2);WHEN(THEN(A1,A2,A3),B1).ignoreError(true);").build();
 
         try {
-            flowExecutor.execute("test_chain", null);
+            flowExecutor.execute("el_chain", null);
         } catch (Exception e) {
             log.error("流程执行异常={}", e.getMessage(), e);
         }

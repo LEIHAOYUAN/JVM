@@ -5,7 +5,7 @@
     </chain>
 
 
-<chain name="test1117">
+    <chain name="test1117">
         WHEN(
         THEN(A1,A2,A3),
         THEN(B1,B2)
@@ -18,6 +18,12 @@
 
     <chain name="chain2">
         THEN(B2,chain1);
+    </chain>
+
+    <chain name="el_chain">
+        bbb = THEN(B1,B2);
+        aaa = THEN(A1,bbb);
+        ccc=THEN(aaa);
     </chain>
 
 
