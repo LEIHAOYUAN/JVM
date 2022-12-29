@@ -3,10 +3,15 @@ package com.lei.jvm.utils.base.utils.thread;
 
 import cn.hutool.core.thread.NamedThreadFactory;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.NamedInheritableThreadLocal;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 该线程池工具类
@@ -54,6 +59,7 @@ public class ThreadPoolUtil {
     }
 
     public static void main(String[] args) throws InterruptedException {
+
         // 测试定时任务
         // scheduledExecutor.schedule(() -> log.info("延迟任务执行完毕......"),10,TimeUnit.SECONDS);
         // scheduledExecutor.shutdown();
@@ -62,17 +68,19 @@ public class ThreadPoolUtil {
         // 周期性的执行定时任务
         // scheduledExecutor.scheduleAtFixedRate(() -> log.info("周期任务执行........."), 2, 2, TimeUnit.SECONDS);
 
-        for (int i = 0; i < 10; i++) {
-            final int dd = i;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    log.info("除法结果={}",100/ dd);
-                }
-            }).start();
-        }
+        ThreadLocal<String> THREAD_LOCAL = new ThreadLocal();
+        THREAD_LOCAL.set("simple-thread-local");
+        ThreadLocal<String> INHERITABLE_THREAD_LOCAL = new NamedInheritableThreadLocal("token");
+        INHERITABLE_THREAD_LOCAL.set("inheritable");
+        execute(new Runnable() {
+            @Override
+            public void run() {
+                log.info("普通上下文={}", THREAD_LOCAL.get());
+                log.info("可传递上下文={}", INHERITABLE_THREAD_LOCAL.get());
+            }
+        });
 
-        Thread.sleep(10000);
+//        Thread.sleep(10000);
 
         log.info("main线程执行完毕.........END");
     }
