@@ -53,7 +53,7 @@ public class ThreadPoolUtil {
         POOL.execute(runnable);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // 测试定时任务
         // scheduledExecutor.schedule(() -> log.info("延迟任务执行完毕......"),10,TimeUnit.SECONDS);
         // scheduledExecutor.shutdown();
@@ -62,20 +62,17 @@ public class ThreadPoolUtil {
         // 周期性的执行定时任务
         // scheduledExecutor.scheduleAtFixedRate(() -> log.info("周期任务执行........."), 2, 2, TimeUnit.SECONDS);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                log.info("用户线程开始执行start...........");
-                try {
-                    Thread.sleep(60000);
-                } catch (InterruptedException ex) {
-                    log.info("线程catch被中断...........");
-                } finally {
-                    log.info("线程finally执行............");
+        for (int i = 0; i < 10; i++) {
+            final int dd = i;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    log.info("除法结果={}",100/ dd);
                 }
+            }).start();
+        }
 
-            }
-        }).start();
+        Thread.sleep(10000);
 
         log.info("main线程执行完毕.........END");
     }
