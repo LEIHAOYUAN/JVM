@@ -25,7 +25,7 @@ public class ThreadPoolUtil {
     /**
      * 普通线程池
      */
-    private static final ThreadPoolExecutor POOL = create(8, 2000);
+    private static final ThreadPoolExecutor POOL = create(1, 2000);
 
     /**
      * 定时任务线程池
@@ -77,13 +77,19 @@ public class ThreadPoolUtil {
             public void run() {
                 log.info("普通上下文={}", THREAD_LOCAL.get());
                 log.info("可传递上下文={}", INHERITABLE_THREAD_LOCAL.get());
-                INHERITABLE_THREAD_LOCAL.set("AA");
+//                INHERITABLE_THREAD_LOCAL.set("AA");
                 log.info("改变后可传递上下文={}", INHERITABLE_THREAD_LOCAL.get());
             }
         });
 
-        Thread.sleep(200);
+        Thread.sleep(100);
         log.info("传递线程变量={}", INHERITABLE_THREAD_LOCAL.get());
+        execute(new Runnable() {
+            @Override
+            public void run() {
+                log.info("再次获取可传递上下文={}", INHERITABLE_THREAD_LOCAL.get());
+            }
+        });
         log.info("main线程执行完毕.........END");
     }
 
