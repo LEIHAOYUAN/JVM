@@ -2,11 +2,13 @@ package com.lei.jvm.utils.base.utils.thread;
 
 
 import cn.hutool.core.thread.NamedThreadFactory;
+import com.alibaba.ttl.TransmittableThreadLocal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.NamedInheritableThreadLocal;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
@@ -68,28 +70,25 @@ public class ThreadPoolUtil {
         // 周期性的执行定时任务
         // scheduledExecutor.scheduleAtFixedRate(() -> log.info("周期任务执行........."), 2, 2, TimeUnit.SECONDS);
 
-        ThreadLocal<String> THREAD_LOCAL = new ThreadLocal();
-        THREAD_LOCAL.set("simple-thread-local");
-        ThreadLocal<String> INHERITABLE_THREAD_LOCAL = new NamedInheritableThreadLocal("token");
-        INHERITABLE_THREAD_LOCAL.set("inheritable");
-        execute(new Runnable() {
-            @Override
-            public void run() {
-                log.info("普通上下文={}", THREAD_LOCAL.get());
-                log.info("可传递上下文={}", INHERITABLE_THREAD_LOCAL.get());
-//                INHERITABLE_THREAD_LOCAL.set("AA");
-                log.info("改变后可传递上下文={}", INHERITABLE_THREAD_LOCAL.get());
-            }
-        });
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-        Thread.sleep(100);
-        log.info("传递线程变量={}", INHERITABLE_THREAD_LOCAL.get());
-        execute(new Runnable() {
-            @Override
-            public void run() {
-                log.info("再次获取可传递上下文={}", INHERITABLE_THREAD_LOCAL.get());
-            }
-        });
+        for (int i = 0; i < 5; i++) {
+            int finalI = i;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    TransmittableThreadLocal<String> INHERITABLE_THREAD_LOCAL = new TransmittableThreadLocal();
+                    INHERITABLE_THREAD_LOCAL.set("上下文" + finalI);
+                    executorService.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            log.info("子线程中获取={}", INHERITABLE_THREAD_LOCAL.get());
+                        }
+                    });
+                }
+            }).start();
+        }
+
         log.info("main线程执行完毕.........END");
     }
 
