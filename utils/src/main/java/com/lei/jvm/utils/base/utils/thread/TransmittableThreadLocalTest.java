@@ -58,5 +58,28 @@ public class TransmittableThreadLocalTest {
         executorService.submit(() -> System.out.println("4 obtain inheritableThreadLocal in threadPool: " + inheritableThreadLocal.get()));
     }
 
+    private static void test(){
+        ExecutorService executorService = TtlExecutors.getTtlExecutorService(Executors.newSingleThreadExecutor());
+        ThreadLocal<String> INHERITABLE_THREAD_LOCAL = new TransmittableThreadLocal();
+        for (int i = 0; i < 5; i++) {
+            INHERITABLE_THREAD_LOCAL.set("上下文" + i);
+            // 不使用线程池
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    log.info("子线程中获取={}", INHERITABLE_THREAD_LOCAL.get());
+                }
+            }).start();
+            // 使用线程池
+            executorService.execute(new Runnable() {
+                @Override
+                public void run() {
+                    log.info("子线程中获取={}", INHERITABLE_THREAD_LOCAL.get());
+                }
+            });
+        }
+        log.info("main线程执行完毕.........END");
+    }
+
 
 }

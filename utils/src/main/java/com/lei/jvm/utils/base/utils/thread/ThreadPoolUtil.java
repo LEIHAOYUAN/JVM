@@ -2,13 +2,10 @@ package com.lei.jvm.utils.base.utils.thread;
 
 
 import cn.hutool.core.thread.NamedThreadFactory;
-import com.alibaba.ttl.TransmittableThreadLocal;
-import com.alibaba.ttl.threadpool.TtlExecutors;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
@@ -61,19 +58,6 @@ public class ThreadPoolUtil {
         // execute(() -> log.info("异步任务执行完毕........."));
         // 周期性的执行定时任务
         // scheduledExecutor.scheduleAtFixedRate(() -> log.info("周期任务执行........."), 2, 2, TimeUnit.SECONDS);
-
-        ExecutorService executorService = TtlExecutors.getTtlExecutorService(Executors.newSingleThreadExecutor());
-        TransmittableThreadLocal<String> INHERITABLE_THREAD_LOCAL = new TransmittableThreadLocal();
-        for (int i = 0; i < 5; i++) {
-            INHERITABLE_THREAD_LOCAL.set("上下文" + i);
-            executorService.execute(new Runnable() {
-                @Override
-                public void run() {
-                    log.info("子线程中获取={}", INHERITABLE_THREAD_LOCAL.get());
-                }
-            });
-        }
-        log.info("main线程执行完毕.........END");
     }
 
 
