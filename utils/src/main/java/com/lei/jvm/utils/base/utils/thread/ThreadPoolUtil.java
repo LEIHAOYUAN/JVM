@@ -3,8 +3,8 @@ package com.lei.jvm.utils.base.utils.thread;
 
 import cn.hutool.core.thread.NamedThreadFactory;
 import com.alibaba.ttl.TransmittableThreadLocal;
+import com.alibaba.ttl.threadpool.TtlExecutors;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.NamedInheritableThreadLocal;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -32,27 +32,19 @@ public class ThreadPoolUtil {
     /**
      * 定时任务线程池
      */
-    private static final ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(2,
-            new NamedThreadFactory("scheduledExecutor",
-                    false));
+    private static final ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(2, new NamedThreadFactory("scheduledExecutor", false));
 
     /**
      * @param size
      * @return
      */
     public static ThreadPoolExecutor create(int size) {
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(size, size * 2,
-                60L, TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(1000),
-                new ThreadPoolExecutor.CallerRunsPolicy());
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(size, size * 2, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(1000), new ThreadPoolExecutor.CallerRunsPolicy());
         return threadPoolExecutor;
     }
 
     public static ThreadPoolExecutor create(int size, int queueSize) {
-        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(size, size * 2,
-                60L, TimeUnit.SECONDS,
-                new LinkedBlockingQueue<>(queueSize),
-                new ThreadPoolExecutor.CallerRunsPolicy());
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(size, size * 2, 60L, TimeUnit.SECONDS, new LinkedBlockingQueue<>(queueSize), new ThreadPoolExecutor.CallerRunsPolicy());
         return threadPoolExecutor;
     }
 
@@ -60,7 +52,7 @@ public class ThreadPoolUtil {
         POOL.execute(runnable);
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
 
         // 测试定时任务
         // scheduledExecutor.schedule(() -> log.info("延迟任务执行完毕......"),10,TimeUnit.SECONDS);
@@ -70,25 +62,17 @@ public class ThreadPoolUtil {
         // 周期性的执行定时任务
         // scheduledExecutor.scheduleAtFixedRate(() -> log.info("周期任务执行........."), 2, 2, TimeUnit.SECONDS);
 
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-
+        ExecutorService executorService = TtlExecutors.getTtlExecutorService(Executors.newSingleThreadExecutor());
+        TransmittableThreadLocal<String> INHERITABLE_THREAD_LOCAL = new TransmittableThreadLocal();
         for (int i = 0; i < 5; i++) {
-            int finalI = i;
-            new Thread(new Runnable() {
+            INHERITABLE_THREAD_LOCAL.set("上下文" + i);
+            executorService.execute(new Runnable() {
                 @Override
                 public void run() {
-                    TransmittableThreadLocal<String> INHERITABLE_THREAD_LOCAL = new TransmittableThreadLocal();
-                    INHERITABLE_THREAD_LOCAL.set("上下文" + finalI);
-                    executorService.execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            log.info("子线程中获取={}", INHERITABLE_THREAD_LOCAL.get());
-                        }
-                    });
+                    log.info("子线程中获取={}", INHERITABLE_THREAD_LOCAL.get());
                 }
-            }).start();
+            });
         }
-
         log.info("main线程执行完毕.........END");
     }
 

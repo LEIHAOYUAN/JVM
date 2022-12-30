@@ -24,11 +24,8 @@ public class TransmittableThreadLocalTest {
      * 使用ttlRunnable
      */
     private static void ttlRunnable() {
-
         TransmittableThreadLocal<String> inheritableThreadLocal = new TransmittableThreadLocal<>();
-
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-
         inheritableThreadLocal.set("main thread-1");
         executorService.submit(TtlRunnable.get(() -> System.out.println("1 obtain inheritableThreadLocal in threadPool: " + inheritableThreadLocal.get())));
 
@@ -40,7 +37,6 @@ public class TransmittableThreadLocalTest {
 
         inheritableThreadLocal.set("main thread-4");
         executorService.submit(TtlRunnable.get(() -> System.out.println("4 obtain inheritableThreadLocal in threadPool: " + inheritableThreadLocal.get())));
-
     }
 
     /**
@@ -60,7 +56,6 @@ public class TransmittableThreadLocalTest {
 
         inheritableThreadLocal.set("main thread-4");
         executorService.submit(() -> System.out.println("4 obtain inheritableThreadLocal in threadPool: " + inheritableThreadLocal.get()));
-
     }
 
 
