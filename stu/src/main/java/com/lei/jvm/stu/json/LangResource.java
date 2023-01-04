@@ -2,12 +2,14 @@ package com.lei.jvm.stu.json;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
+import com.lei.jvm.stu.annotation.MultiLangProp;
 import lombok.Data;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Map;
 
 /**
@@ -19,11 +21,24 @@ import java.util.Map;
 @Data
 public class LangResource {
 
-    @Getter
-    String displayName;
-    Map<String, Map<String, String>> lang;
+    @MultiLangProp(domain = "测试")
+    public String displayName;
 
-    public static void main(String[] args) {
+    private Map<String, Map<String, String>> lang;
+
+    public static void main(String[] args) throws NoSuchMethodException, NoSuchFieldException {
+        LangResource langResource = new LangResource();
+        langResource.setDisplayName("测试名称");
+        // 获取指定属性上的注解
+        Field field = langResource.getClass().getField("displayName");
+        log.info("annotation={}", field.getAnnotation(MultiLangProp.class).domain());
+        // 获取指定方法
+        Method method = langResource.getClass().getMethod("testPropMap", null);
+        log.info("method={}", method.getName());
+
+    }
+
+    public void testPropMap() {
         Map<String, Map<String, String>> resourceMap = Maps.newHashMap();
         // dispalyName字段
         Map<String, String> displayNameLangMap = Maps.newHashMap();
@@ -36,11 +51,8 @@ public class LangResource {
         remarkLangMap.put("en", "remark content");
         resourceMap.put("remark", remarkLangMap);
         log.info("格式化结果={}", JSON.toJSONString(resourceMap));
-
-        String name = new LangResource().displayName.getClass().getName();
-        Getter annotation = new LangResource().displayName.getClass().getAnnotation(Getter.class);
-        log.info("name={}", annotation.lazy());
     }
+
 
     public String getDisplayName() {
         if (MapUtils.isEmpty(this.getLang()) || MapUtils.isEmpty(this.getLang().get("displayName"))) {
