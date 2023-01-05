@@ -1,5 +1,6 @@
 package com.lei.jvm.spring.liteflow;
 
+import com.yomahub.liteflow.builder.el.LiteFlowChainELBuilder;
 import com.yomahub.liteflow.core.FlowExecutor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -29,6 +30,12 @@ public class LiteFlowDemoTest {
         } catch (Exception e) {
             log.error("流程执行异常={}", e.getMessage(), e);
         }
+    }
+
+    @Test
+    public void testCheckEL() {
+        boolean isValid = LiteFlowChainELBuilder.validate("THEN(B1,B2)");
+        log.info("EL校验结果={}", isValid);
     }
 
 }
