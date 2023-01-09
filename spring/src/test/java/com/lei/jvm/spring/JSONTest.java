@@ -1,15 +1,22 @@
 package com.lei.jvm.spring;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.lei.jvm.json.Person;
+import com.lei.jvm.json.Student;
+import com.lei.jvm.json.Teacher;
 import com.lei.jvm.spring.dto.liteflow.LiteFlowChainModel;
 import lombok.extern.slf4j.Slf4j;
 import org.assertj.core.util.Lists;
+import org.assertj.core.util.Maps;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *  职能描述：
@@ -20,6 +27,32 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class JSONTest {
+
+    @Test
+    public void testNestJSON(){
+        Map<String,Object> maps = new HashMap<>();
+        Person person = new Person();
+        person.setName("人类");
+        Teacher teacher = new Teacher();
+        teacher.setName("教师");
+        Student student = new Student();
+        student.setName("学生");
+
+        teacher.setStudents(Lists.newArrayList(student));
+        person.setTeacher(teacher);
+
+        Map map = JSON.parseObject(JSON.toJSONString(person), Map.class);
+        log.info("转换结果={}",JSON.toJSONString(map));
+    }
+
+    @Test
+    public void testNestMap(){
+        Map<String,Object> maps = new HashMap<>();
+        maps.put("name","人类");
+        maps.put("teacher.name","教师");
+        maps.put("teacher.students.name","学生");
+    }
+
 
     @Test
     public void testJsonObject() {
