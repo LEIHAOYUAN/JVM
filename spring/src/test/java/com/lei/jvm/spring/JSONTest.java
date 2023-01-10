@@ -42,7 +42,9 @@ public class JSONTest {
         person.setTeacher(teacher);
 
         Map map = JSON.parseObject(JSON.toJSONString(person), Map.class);
-        log.info("转换结果={}",JSON.toJSONString(map));
+
+        JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(map));
+        log.info("转换结果={}",jsonObject.toJSONString());
     }
 
     @Test
@@ -51,6 +53,9 @@ public class JSONTest {
         maps.put("name","人类");
         maps.put("teacher.name","教师");
         maps.put("teacher.students.name","学生");
+
+        JSONObject jsonObject = JSON.parseObject(JSON.toJSONString(maps));
+        log.info("解析JSONobject");
     }
 
 
