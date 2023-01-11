@@ -19,8 +19,20 @@ import java.util.stream.Collectors;
 @Slf4j
 public class StringTest {
 
+    private static final String POINT = ".";
+
+    private static final String ESCAPE_POINT = "\\.";
+
     public static void main(String[] args) {
-        testConcatNull();
+        testSplit();
+    }
+
+    public static void testSplit() {
+        String param = "..AAA.";
+        String[] urls = param.split(ESCAPE_POINT);
+        for (String url : urls) {
+            log.info("拆分URL：{}", url);
+        }
     }
 
     private static void testConcatNull() {
@@ -80,12 +92,6 @@ public class StringTest {
     }
 
 
-    public static void testSplit() {
-        String param = "http://www.baidu.comhttp://www.alibaba.com888,558";
-        String[] urls = param.split(",");
-        for (String url : urls) {
-            log.info("拆分URL：{}", url);
-        }
-    }
+
 
 }
