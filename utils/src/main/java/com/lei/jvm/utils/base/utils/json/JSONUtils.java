@@ -16,6 +16,7 @@ import java.util.Set;
  *  职能描述：JSON解析工具类
  *  @author leihaoyuan
  *  @version 2023/1/11 16:55
+ *  https://www.cnblogs.com/ssskkk/p/16168164.html#_label1
  */
 @Slf4j
 @UtilityClass
@@ -49,14 +50,6 @@ public class JSONUtils {
         Map<String, String> result = Maps.newHashMap();
         Map<String, String> stringStringMap = analysisJson2ALL(jsonObject, result, "");
         log.info("解析结果={}", stringStringMap);
-    }
-
-    public static Map<String, Object> parseJSON(Object obj, Map<String, Object> parseResult, String key) {
-        if (obj instanceof JSONObject) {
-            JSONObject jsonObject = (JSONObject)obj;
-
-        }
-        return null;
     }
 
 
