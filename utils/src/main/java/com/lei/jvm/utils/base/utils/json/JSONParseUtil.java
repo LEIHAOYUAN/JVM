@@ -74,17 +74,7 @@ public class JSONParseUtil {
         return null;
     }
 
-    private static List<Object> parseJSONArray(String json, String tag){
-        JSONArray array = JSON.parseArray(json);
-        for (Object o : array) {
 
-        }
-        return null;
-    }
-
-    private static Object parseJSONObject(String json, String tag){
-        return null;
-    }
 
     public static Map<String, Object> parseJSON(Object obj, Map<String, Object> resultMap, String joinKey) {
         if (null == joinKey) {

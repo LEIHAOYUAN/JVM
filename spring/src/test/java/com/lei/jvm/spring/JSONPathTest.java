@@ -1,17 +1,11 @@
 package com.lei.jvm.spring;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.JSONPath;
-import com.lei.jvm.json.Person;
-import com.lei.jvm.json.Student;
-import com.lei.jvm.json.Teacher;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.util.Lists;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 /**
  *  职能描述：
@@ -45,11 +39,18 @@ public class JSONPathTest {
                 "        }\n" +
                 "    ]\n" +
                 "}";
-        Object read = JSONPath.read(json, "$.results.index.id");
-        log.info("结果={}",JSON.toJSONString(read));
+        Object array = JSONPath.read(json, "$..index.id");
+        log.info("[array]结果={}", JSON.parseArray(JSON.toJSONString(array), Integer.class));
+
+        Object obj = JSONPath.read(json, "$.error");
+        log.info("[obj]结果={}", JSON.parseObject(JSON.toJSONString(obj), String.class));
 
     }
 
+    private static List<Object> parseJSONArray(String json, String tag) {
+        List<String> strings = JSON.parseArray(json, String.class);
+        return null;
+    }
 
 
 }
