@@ -32,10 +32,12 @@ public class JSONPathTest {
                 "            \"currentCity\": \"青岛\",\n" +
                 "            \"index\": [\n" +
                 "                {\n" +
+                "                    \"id\": 1,\n" +
                 "                    \"title\": \"穿衣\",\n" +
                 "                    \"des\": \"建议着厚外套加毛衣等服装\"\n" +
                 "                },\n" +
                 "                {\n" +
+                "                    \"id\": 2,\n" +
                 "                    \"title\": \"紫外线强度\",\n" +
                 "                    \"des\": \"属中等强度紫外线辐射天气\"\n" +
                 "                }\n" +
@@ -43,7 +45,7 @@ public class JSONPathTest {
                 "        }\n" +
                 "    ]\n" +
                 "}";
-        Object read = JSONPath.read(json, "$.results.index.des");
+        Object read = JSONPath.read(json, "$.results.index.id");
         log.info("结果={}",JSON.toJSONString(read));
 
     }
