@@ -1,6 +1,7 @@
 package com.lei.jvm.spring;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
@@ -11,9 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Slf4j
 @EnableMultiLang(extraResources = {"aaa.yml", "bbb.yml"})
 @SpringBootApplication
-public class SpringApplication {
+public class MyApplication {
 
     public static void main(String[] args) {
-        org.springframework.boot.SpringApplication.run(SpringApplication.class, args);
+        SpringApplication.run(MyApplication.class, args);
     }
 }
