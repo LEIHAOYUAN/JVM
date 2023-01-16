@@ -15,6 +15,7 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,15 @@ import java.util.Map;
 public class JSONTest {
 
     @Test
+    public void testStringValue() {
+        log.info("转换={}", String.valueOf(new BigDecimal("0.5")));
+        log.info("转换={}", String.valueOf(56));
+        log.info("转换={}", String.valueOf(Lists.newArrayList("AAA", "BBB")));
+    }
+
+    @Test
     public void testNestJSON() {
+
         Map<String, Object> maps = new HashMap<>();
         Person person = new Person();
         person.setName("人类");
