@@ -27,6 +27,7 @@ public class LiteFlowDemoTest {
     public void testListFlow() {
         try {
             flowExecutor.execute("switchchain", null);
+            log.info("xxxxxxxxxxx");
         } catch (Exception e) {
             log.error("流程执行异常={}", e.getMessage(), e);
         }

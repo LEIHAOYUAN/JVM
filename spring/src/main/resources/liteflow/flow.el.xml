@@ -18,7 +18,7 @@
 
     <chain name="switchchain">
         temp=THEN(A1).id("tempXXXssssss");
-        SWITCH(SwitchCmp).to(temp,B1,B2);
+        SWITCH(SwitchCmp).to(temp,B1,B2).id("XXXX");
     </chain>
 
     <chain name="el_chain">
