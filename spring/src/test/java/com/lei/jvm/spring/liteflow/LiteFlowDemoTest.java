@@ -26,7 +26,7 @@ public class LiteFlowDemoTest {
     @Test
     public void testListFlow() {
         try {
-            flowExecutor.execute("chain2", null);
+            flowExecutor.execute("switchchain", null);
         } catch (Exception e) {
             log.error("流程执行异常={}", e.getMessage(), e);
         }
@@ -34,7 +34,8 @@ public class LiteFlowDemoTest {
 
     @Test
     public void testCheckEL() {
-        boolean isValid = LiteFlowChainELBuilder.validate("THEN(B1,B2)");
+        boolean isValid = LiteFlowChainELBuilder.validate("temp=THEN(A1,A2);\n" +
+                "SWITCH(SwitchCmp).to(temp,B1,B2);");
         log.info("EL校验结果={}", isValid);
     }
 

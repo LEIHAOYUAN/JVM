@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SwitchCmp extends NodeSwitchComponent {
     @Override
     public String processSwitch() throws Exception {
-        return "A1";
+
+        return "tempXXXssssss";
     }
 }

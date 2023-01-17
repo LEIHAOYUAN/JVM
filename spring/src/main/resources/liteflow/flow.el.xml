@@ -16,8 +16,9 @@
         THEN(PRE(A3),B1,FINALLY(A1));
     </chain>
 
-    <chain name="chain2">
-        THEN(B2,chain1);
+    <chain name="switchchain">
+        temp=THEN(A1,A2).id("tempXXXssssss");
+        SWITCH(SwitchCmp).to(temp,B1,B2);
     </chain>
 
     <chain name="el_chain">
