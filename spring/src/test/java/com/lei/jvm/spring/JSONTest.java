@@ -3,6 +3,7 @@ package com.lei.jvm.spring;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONValidator;
 import com.lei.jvm.json.Person;
 import com.lei.jvm.json.Student;
 import com.lei.jvm.json.Teacher;
@@ -29,6 +30,13 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class JSONTest {
+
+    @Test
+    public void testValidJson() {
+        String json = "{}";
+        JSONValidator validator = JSONValidator.from(json);
+        log.info("校验结果={}",validator.validate());
+    }
 
     @Test
     public void testStringValue() {
