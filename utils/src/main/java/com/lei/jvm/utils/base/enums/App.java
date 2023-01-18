@@ -12,7 +12,9 @@ public class App {
 
 
     public static void main(String[] args) {
-        testSwitch(ErrorCodeEnum.AUTHORIZE_ERROR);
+//        testSwitch(ErrorCodeEnum.AUTHORIZE_ERROR);
+        log.info("比较结果={}", ErrorCodeEnum.SUCCESS == null);
+        log.info("比较结果={}", ErrorCodeEnum.SUCCESS != ErrorCodeEnum.ERROR);
     }
 
     private static void testSwitch(ErrorCodeEnum errorCodeEnum) {
