@@ -8,8 +8,11 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -51,6 +54,50 @@ public class JSONUtils {
         Map<String, String> stringStringMap = analysisJson2ALL(jsonObject, result, "");
         log.info("解析结果={}", stringStringMap);
     }
+
+    /**
+     * 获取指定key对应value值
+     * @param content json对象
+     * @param conditionKey 要查找的key
+     * @param result 输出map
+     */
+    public static void  parsingJson(JSONObject content, List<String> conditionKey , Map<String, Object> result) {
+
+        Set<String> keySet = content.keySet();
+
+        conditionKey.forEach(conkey -> {
+            keySet.forEach(key -> {
+                Object contentKey = content.get(key);
+
+                //如果是一个对象
+                if (contentKey instanceof JSONObject) {
+                    JSONObject jsonObject = (JSONObject) contentKey;
+                    //判断是否存在key
+                    Integer keyValue = jsonObject.getInteger(conkey);
+                    if(Objects.nonNull(keyValue)){
+                        //赋值map
+                        result.put(conkey,keyValue);
+                        //递归
+                    }else {
+                        parsingJson(jsonObject, Arrays.asList(conkey),result);
+                    }
+
+                    //如果是一个值
+                } else if (contentKey instanceof JSONArray) {
+                    JSONArray jsonArray = (JSONArray) contentKey;
+                    //判断当前是否找到key
+                    if(key.equals(conkey)){
+                        Integer keyValue = Integer.valueOf(jsonArray.toJSONString());
+                        //赋值map
+                        result.put(conkey,keyValue);
+                    }
+
+                }
+
+            });
+        });
+    }
+
 
 
     /**
