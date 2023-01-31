@@ -12,8 +12,10 @@ import java.util.List;
 @Data
 public class Struct {
 
+    private String key;
+
     private String name;
 
-    private List<Struct> items;
+    private List<Struct> children;
 
 }
