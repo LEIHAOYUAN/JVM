@@ -15,7 +15,8 @@ import java.util.Map;
 public class Test {
 
     public static void main(String[] args) {
-        parseStruct();
+//        parseStruct();
+        log.info("比较结果={}","fff".equals(null));
     }
 
     private static void parseStruct() {
