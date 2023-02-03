@@ -14,7 +14,7 @@ public class Struct {
 
     private String key;
 
-    private String value;
+    private Object value;
 
     private List<Struct> children;
 
