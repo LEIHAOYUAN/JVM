@@ -13,10 +13,12 @@ public enum StructTypeEnum {
      * 基本类型
      */
     BASE("Base"),
+
     /**
      * 数组
      */
     ARRAY("Array"),
+
     /**
      * 对象
      */
