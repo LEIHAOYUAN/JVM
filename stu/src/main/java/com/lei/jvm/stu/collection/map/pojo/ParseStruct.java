@@ -58,16 +58,16 @@ public class ParseStruct {
         Map<Object, Object> sun = new HashMap<>();
         Map<Object, Object> father = new HashMap<>();
         Map<Object, Object> unionMap = new HashMap<>();
-        if (CollectionUtils.isNotEmpty(struct.getChildren())) {
+        if (CollectionUtils.isEmpty(struct.getChildren())) {
+            sun.put(struct.getKey(), struct.getValue());
+            stack.push(sun);
+        } else {
             for (Struct child : struct.getChildren()) {
                 buildStack(stack, child);
                 father.put(child.getKey(), stack.pop());
             }
             unionMap.put(struct.getKey(), father);
             stack.push(unionMap);
-        } else {
-            sun.put(struct.getKey(), struct.getValue());
-            stack.push(sun);
         }
 
         if (MapUtils.isNotEmpty(father)) {
