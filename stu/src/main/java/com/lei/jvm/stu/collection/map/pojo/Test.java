@@ -40,7 +40,7 @@ public class Test {
     private static Struct buildStruct(String key) {
         Struct result = new Struct();
         result.setKey(key);
-        result.setName("name是" + key);
+        result.setValue("name是" + key);
         return result;
     }
 
@@ -68,7 +68,7 @@ public class Test {
 
     private static ExtendStruct buildExtendStruct(String name) {
         ExtendStruct result = new ExtendStruct();
-        result.setName(name);
+        result.setValue(name);
         result.setDefaultValue("默认值测试" + name);
         return result;
     }

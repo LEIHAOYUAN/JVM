@@ -27,11 +27,15 @@ public class ParseStruct {
         Struct a11 = buildStruct("a11");
         Struct a12 = buildStruct("a12");
 
+        Struct a21 = buildStruct("a21");
+
         Struct a111 = buildStruct("a111");
         Struct a112 = buildStruct("a112");
 
         a.setChildren(Lists.newArrayList(a1, a2));
         a1.setChildren(Lists.newArrayList(a11, a12));
+        a2.setChildren(Lists.newArrayList(a21));
+
         a11.setChildren(Lists.newArrayList(a111, a112));
 
         log.info("嵌套对象结构={}", JSON.toJSONString(a));
@@ -62,7 +66,7 @@ public class ParseStruct {
             unionMap.put(struct.getKey(), father);
             stack.push(unionMap);
         } else {
-            sun.put(struct.getKey(), struct.getName());
+            sun.put(struct.getKey(), struct.getValue());
             stack.push(sun);
         }
 
@@ -74,7 +78,7 @@ public class ParseStruct {
     private static Struct buildStruct(String key) {
         Struct result = new Struct();
         result.setKey(key);
-        result.setName("name是" + key);
+        result.setValue("name是" + key);
         return result;
     }
 
