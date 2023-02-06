@@ -3,8 +3,10 @@ package com.lei.jvm.utils.base.utils.json;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.JSONPath;
 import com.alibaba.fastjson.JSONValidator;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -26,6 +28,12 @@ public class JSONParseUtil {
 
     private static final String ESCAPE_POINT = "\\.";
 
+    public static void main(String[] args) {
+        Map<Object, Object> fullMap = Maps.newHashMap();
+        JSONPath.set(fullMap, "a.b.c", "测试");
+        log.info("转换结果={}", JSON.toJSONString(fullMap));
+    }
+
 
     private static List<Object> parseJSON(String json, String tag) {
         if (StringUtils.isBlank(json) || StringUtils.isBlank(tag)) {
@@ -37,7 +45,7 @@ public class JSONParseUtil {
             log.error("JSON字符串校验失败");
             return Lists.newArrayList();
         }
-        switch (validator.getType()){
+        switch (validator.getType()) {
             case Array:
                 break;
             case Object:
@@ -45,7 +53,7 @@ public class JSONParseUtil {
             case Value:
                 break;
             default:
-                log.error("不支持的JSON格式={}",json);
+                log.error("不支持的JSON格式={}", json);
                 return Lists.newArrayList();
         }
 
@@ -73,7 +81,6 @@ public class JSONParseUtil {
         }
         return null;
     }
-
 
 
     public static Map<String, Object> parseJSON(Object obj, Map<String, Object> resultMap, String joinKey) {
