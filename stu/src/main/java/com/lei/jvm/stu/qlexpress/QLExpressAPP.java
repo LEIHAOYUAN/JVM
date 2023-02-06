@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
  *  @version 2023/2/6 14:06
  */
 @Slf4j
-public class APP {
+public class QLExpressAPP {
 
     public static void main(String[] args) throws Exception {
         // 简单表达式测试
