@@ -35,7 +35,7 @@ public class JSONTest {
     public void testValidJson() {
         String json = "{}";
         JSONValidator validator = JSONValidator.from(json);
-        log.info("校验结果={}",validator.validate());
+        log.info("校验结果={}", validator.validate());
     }
 
     @Test
@@ -76,6 +76,34 @@ public class JSONTest {
         log.info("解析JSONobject");
     }
 
+    @Test
+    public void testParseMap() {
+        String param = "{\n" +
+                "    \"query\": \"getList\",\n" +
+                "    \"variables\": {\n" +
+                "        \"filters\": [\n" +
+                "            \"filter1\",\n" +
+                "            \"filter2\"\n" +
+                "        ],\n" +
+                "        \"valids\": [\n" +
+                "            {\n" +
+                "                \"userId\": \"XXX\"\n" +
+                "            },\n" +
+                "            {\n" +
+                "                \"orderNo\": \"XXX\",\n" +
+                "                \"orderType\": 1\n" +
+                "            }\n" +
+                "        ],\n" +
+                "        \"page\": 1,\n" +
+                "        \"pageSize\": 10\n" +
+                "    },\n" +
+                "    \"extra\": {\n" +
+                "        \"viewId\": \"63a11d5b73d9d425311bf1d6\"\n" +
+                "    }\n" +
+                "}";
+        Map map = JSON.parseObject(param, Map.class);
+        log.info("转换结果={}", map);
+    }
 
 
     /**
