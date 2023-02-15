@@ -29,11 +29,14 @@ public class JSONParseUtil {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        Map<Object, Object> fullMap = Maps.newHashMap();
-        JSONPath.set(fullMap, "a.1", "测试");
-        log.info("转换结果={}", JSON.toJSONString(fullMap));
+//        Map<Object, Object> fullMap = Maps.newHashMap();
+//        JSONPath.set(fullMap, "a.1", "测试");
+//        log.info("转换结果={}", JSON.toJSONString(fullMap));
+//
+//        JSONPath.compile("AAA");
 
-        JSONPath.compile("AAA");
+        Map map = JSON.parseObject(null, Map.class);
+        log.info("转换结果={}",map);
     }
 
 
