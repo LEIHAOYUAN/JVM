@@ -85,6 +85,76 @@ public class DateTimeUtil {
         log.info("转换时间戳={}", formatDate(SystemClock.now(), DEFAULT_PARTTERN));
     }
 
+    /**
+     * 转换日期格式
+     *
+     * @param localDate 参数
+     * @param format 目标格式
+     * @return
+     */
+    public static String LocalDateFormat(LocalDate localDate, String format) {
+        if (null == localDate) {
+            return StringUtils.EMPTY;
+        }
+        if (StringUtils.isBlank(format)) {
+            return localDate.toString();
+        }
+        try {
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(format);
+            return localDate.format(fmt);
+        } catch (Exception e) {
+            log.error("转换日期格式[{}]异常={}", format, e.getMessage(), e);
+            return localDate.toString();
+        }
+    }
+
+    /**
+     * 转换日期格式
+     *
+     * @param localDateTime 参数
+     * @param format 目标格式
+     * @return
+     */
+    public static String LocalDateTimeFormat(LocalDateTime localDateTime, String format) {
+        if (null == localDateTime) {
+            return StringUtils.EMPTY;
+        }
+        if (StringUtils.isBlank(format)) {
+            return localDateTime.toString();
+        }
+        try {
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(format);
+            return localDateTime.format(fmt);
+        } catch (Exception e) {
+            log.error("转换日期格式[{}]异常={}", format, e.getMessage(), e);
+            return localDateTime.toString();
+        }
+    }
+
+    /**
+     * 转换日期格式
+     *
+     * @param localTime 参数
+     * @param format 目标格式
+     * @return
+     */
+    public static String LocalTimeFormat(LocalTime localTime, String format) {
+        if (null == localTime) {
+            return StringUtils.EMPTY;
+        }
+        if (StringUtils.isBlank(format)) {
+            return localTime.toString();
+        }
+        try {
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern(format);
+            return localTime.format(fmt);
+        } catch (Exception e) {
+            log.error("转换日期格式[{}]异常={}", format, e.getMessage(), e);
+            return localTime.toString();
+        }
+    }
+
+
     public static String formatDate(long timestamp, String parttern) {
         return FastDateFormat.getInstance(parttern).format(new Date(timestamp));
     }
