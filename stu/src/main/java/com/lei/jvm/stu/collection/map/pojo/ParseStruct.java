@@ -41,8 +41,9 @@ public class ParseStruct {
         log.info("嵌套对象结构={}", JSON.toJSONString(a));
 
         Map<Object, Object> objectObjectMap = buildStructMap(a);
+        log.info("嵌套层级解析结果={}", JSON.toJSONString(objectObjectMap));
 
-        log.info("解析结果={}", JSON.toJSONString(objectObjectMap));
+        log.info("简单层级解析结果={}", JSON.toJSONString(buildStructMap(buildStruct("A"))));
     }
 
     private static Map<Object, Object> buildStructMap(Struct a) {
