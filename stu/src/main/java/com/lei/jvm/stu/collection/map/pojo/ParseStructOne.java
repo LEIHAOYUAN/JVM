@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Stack;
 
 @Slf4j
-public class ParseStruct {
+public class ParseStructOne {
 
 
     public static void main(String[] args) {
