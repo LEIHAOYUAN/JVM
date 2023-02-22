@@ -2,8 +2,8 @@ package com.lei.jvm.stu.collection.map.pojo;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.MapUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -54,15 +54,23 @@ public class ParseStruct {
         if (null == struct || StructTypeEnum.OBJECT != struct.getStructType()) {
             throw new IllegalArgumentException("非法结构体");
         }
+        Map<String, Object> result = Maps.newHashMap();
         Stack<Object> stack = new Stack<>();
         buildStack(stack, struct);
-        return (Map<String, Object>) stack.pop();
+        result.put(struct.getKey(), stack.pop());
+        return result;
     }
 
     private static void buildStack(Stack<Object> stack, Struct struct) {
-        Map<String, Object> father = new HashMap<>();
-        Map<String, Object> unionMap = new HashMap<>();
+//        Map<String, Object> father = new HashMap<>();
+//        Map<String, Object> unionMap = new HashMap<>();
+        if (null == struct) {
+            return;
+        }
         if (StructTypeEnum.BASE == struct.getStructType()) {
+//            Map<String, Object> map = new HashMap<>();
+//            map.put(struct.getKey(), struct.getValue());
+//            stack.push(map);
             stack.push(struct.getValue());
         } else if (StructTypeEnum.ARRAY == struct.getStructType()) {
             List<Struct> children = struct.getChildren();
@@ -71,7 +79,7 @@ public class ParseStruct {
                 buildStack(stack, child);
                 list.add(stack.pop());
             }
-            unionMap.put(struct.getKey(), list);
+//            unionMap.put(struct.getKey(), list);
             stack.push(list);
         } else if (StructTypeEnum.OBJECT == struct.getStructType()) {
             Map<String, Object> map = new HashMap<>();
@@ -79,12 +87,13 @@ public class ParseStruct {
                 buildStack(stack, child);
                 map.put(child.getKey(), stack.pop());
             }
-            father.put(struct.getKey(), map);
+            stack.push(map);
+//            father.put(struct.getKey(), map);
         }
 
-        if (MapUtils.isNotEmpty(father)) {
-            stack.push(father);
-        }
+//        if (MapUtils.isNotEmpty(father)) {
+//            stack.push(father);
+//        }
     }
 
     private static Struct buildStruct(String key, StructTypeEnum type) {
