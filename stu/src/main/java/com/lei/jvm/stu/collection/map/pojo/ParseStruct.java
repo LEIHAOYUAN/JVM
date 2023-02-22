@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,28 +28,26 @@ public class ParseStruct {
 
         Struct a21 = buildStruct("a21", StructTypeEnum.OBJECT);
 
-        Struct a111 = buildStruct("a111",StructTypeEnum.OBJECT);
-        Struct a112 = buildStruct("a112",StructTypeEnum.BASE);
+        Struct a111 = buildStruct("a111", StructTypeEnum.OBJECT);
+        Struct a112 = buildStruct("a112", StructTypeEnum.BASE);
 
         Struct a211 = buildStruct("a211", StructTypeEnum.BASE);
 
-        Struct a1111 = buildStruct("a1111",StructTypeEnum.BASE);
-        Struct a1112 = buildStruct("a1112",StructTypeEnum.BASE);
+        Struct a1111 = buildStruct("a1111", StructTypeEnum.BASE);
+        Struct a1112 = buildStruct("a1112", StructTypeEnum.BASE);
 
         a.setChildren(Lists.newArrayList(a1, a2));
         // a1节点
         a1.setChildren(Lists.newArrayList(a11, a12));
         a11.setChildren(Lists.newArrayList(a111, a112));
-        a111.setChildren(Lists.newArrayList(a1111,a1112));
+        a111.setChildren(Lists.newArrayList(a1111, a1112));
         // a2节点
         a2.setChildren(Lists.newArrayList(a21));
         a21.setChildren(Lists.newArrayList(a211));
 
 
         log.info("嵌套对象结构={}", JSON.toJSONString(a));
-
-        Map<String, Object> objectObjectMap = buildStructMap(a);
-        log.info("嵌套层级解析结果={}", JSON.toJSONString(objectObjectMap));
+        log.info("嵌套层级解析结果={}", JSON.toJSONString(buildStructMap(a)));
     }
 
     private static Map<String, Object> buildStructMap(Struct struct) {
@@ -69,13 +66,13 @@ public class ParseStruct {
             stack.push(struct.getValue());
         } else if (StructTypeEnum.ARRAY == struct.getStructType()) {
             List<Struct> children = struct.getChildren();
-            List<Object> list = new ArrayList<>(10);
+            List<Object> list = Lists.newArrayList();
             for (Struct child : children) {
                 buildStack(stack, child);
                 list.add(stack.pop());
             }
             unionMap.put(struct.getKey(), list);
-            stack.push(unionMap);
+            stack.push(list);
         } else if (StructTypeEnum.OBJECT == struct.getStructType()) {
             Map<String, Object> map = new HashMap<>();
             for (Struct child : struct.getChildren()) {
