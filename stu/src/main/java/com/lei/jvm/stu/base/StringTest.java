@@ -24,7 +24,14 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        testSplit();
+        testSubstring();
+    }
+
+
+    public static void testSubstring(){
+        String param = "aa.bb.";
+        String substring = param.substring(0,param.lastIndexOf("."));
+        log.info("截取结果={}",substring);
     }
 
     public static void testSplit() {
