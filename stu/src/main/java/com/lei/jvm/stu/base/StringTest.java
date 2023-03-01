@@ -24,7 +24,7 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        testSubstring();
+        testJoin();
     }
 
 
