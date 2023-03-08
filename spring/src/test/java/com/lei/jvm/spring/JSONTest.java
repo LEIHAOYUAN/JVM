@@ -32,6 +32,14 @@ import java.util.Map;
 public class JSONTest {
 
     @Test
+    public void testMapJson() {
+        Map<String, String> param = new HashMap<>();
+        param.put("A", "aaa");
+        param.put("B", "bbb");
+        log.info("JSON格式={}", JSON.toJSONString(param));
+    }
+
+    @Test
     public void testValidJson() {
         String json = "{}";
         JSONValidator validator = JSONValidator.from(json);
