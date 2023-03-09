@@ -17,5 +17,6 @@ public class MessageFormatUtil {
         log.info(MessageFormat.format("数据关联字段：''{0}''，未选择业务对象", "test"));
         log.info(MessageFormat.format("{0}字段已启用不能删除", "test"));
         log.info(MessageFormat.format("'{0}字段已启用不能删除'", "test"));
+        log.info(MessageFormat.format("{0}字段已启用不能删除","AAA"));
     }
 }
