@@ -1,5 +1,6 @@
 package com.lei.jvm.utils.base.utils.message;
 
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.MessageFormat;
@@ -18,5 +19,8 @@ public class MessageFormatUtil {
         log.info(MessageFormat.format("{0}字段已启用不能删除", "test"));
         log.info(MessageFormat.format("'{0}字段已启用不能删除'", "test"));
         log.info(MessageFormat.format("{0}字段已启用不能删除","AAA"));
+        log.info(MessageFormat.format("{0}测试空集合-{1}", Lists.newArrayList()));
+        log.info(MessageFormat.format("{0}测试空集合-{1}", Lists.newArrayList("AA","BB")));
+
     }
 }
