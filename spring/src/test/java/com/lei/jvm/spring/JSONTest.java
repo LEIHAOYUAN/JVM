@@ -40,6 +40,16 @@ public class JSONTest {
     }
 
     @Test
+    public void testDefault() {
+        Person person = new Person();
+        log.info("原始值={}", JSON.toJSONString(person));
+
+        String param = "{\"name\":\"BBBB\"}";
+        Person remote = JSON.parseObject(param, Person.class);
+        log.info("覆盖值={}", remote.getName());
+    }
+
+    @Test
     public void testValidJson() {
         String json = "{}";
         JSONValidator validator = JSONValidator.from(json);

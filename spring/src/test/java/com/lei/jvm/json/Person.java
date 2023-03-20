@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class Person {
 
-    private String name;
+    private String name = "AAA";
 
     private Teacher teacher;
 
