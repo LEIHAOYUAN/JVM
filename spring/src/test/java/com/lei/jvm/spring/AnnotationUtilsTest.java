@@ -1,12 +1,15 @@
 package com.lei.jvm.spring;
 
+import com.alibaba.fastjson.JSON;
 import com.lei.jvm.spring.enums.CommonEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
@@ -36,13 +39,13 @@ public class AnnotationUtilsTest {
 
     @Test
     public void testAnnotation() {
-//        Map<String, Object> beansWithAnnotation = context.getBeansWithAnnotation(CommonEnum.EnableMultiLang.class);
-//        for (Map.Entry<String, Object> stringObjectEntry : beansWithAnnotation.entrySet()) {
-//            log.info("注解类名：{}", stringObjectEntry.getKey());
-//        }
+        Map<String, Object> beansWithAnnotation = context.getBeansWithAnnotation(CommonEnum.class);
+        for (Map.Entry<String, Object> stringObjectEntry : beansWithAnnotation.entrySet()) {
+            log.info("注解类名：{}", stringObjectEntry.getKey());
+        }
 
-//        CommonEnum.EnableMultiLang annotation = AnnotationUtils.findAnnotation(SpringBootApplication.class, CommonEnum.EnableMultiLang.class);
-//        log.info("注解属性={}", JSON.toJSONString(annotation.extraResources()));
+        CommonEnum annotation = AnnotationUtils.findAnnotation(SpringBootApplication.class, CommonEnum.class);
+        log.info("注解属性={}", JSON.toJSONString(annotation.enabled()));
     }
 
     @Test
@@ -51,7 +54,10 @@ public class AnnotationUtilsTest {
         log.info("获取到指定注解的beans={}", beansWithAnnotation);
         for (Map.Entry<String, Object> entry : beansWithAnnotation.entrySet()) {
             CommonEnum annotation = context.findAnnotationOnBean(entry.getKey(), CommonEnum.class);
-            log.info("注解值[enabled]={},[size]={}", annotation.enabled(), annotation.size());
+            if (null != annotation) {
+                log.info("注解值[enabled]={},[size]={}", annotation.enabled(), annotation.size());
+                break;
+            }
         }
     }
 
