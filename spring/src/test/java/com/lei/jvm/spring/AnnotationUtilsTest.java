@@ -93,5 +93,28 @@ public class AnnotationUtilsTest {
         }
     }
 
+    @Test
+    public void testFindAnnotationByMain() {
+        Class<?> bootClass = deduceMainApplicationClass();
+        if (null != bootClass) {
+            CommonEnum resourceSwitch = bootClass.getDeclaredAnnotation(CommonEnum.class);
+        }
+
+    }
+
+    private Class<?> deduceMainApplicationClass() {
+        try {
+            StackTraceElement[] stackTrace = new RuntimeException().getStackTrace();
+            for (StackTraceElement stackTraceElement : stackTrace) {
+                if ("main".equals(stackTraceElement.getMethodName())) {
+                    return Class.forName(stackTraceElement.getClassName());
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            // Swallow and continue
+        }
+        return null;
+    }
+
 
 }
