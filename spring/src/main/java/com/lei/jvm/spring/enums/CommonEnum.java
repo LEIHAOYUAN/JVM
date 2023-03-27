@@ -1,4 +1,4 @@
-package com.lei.jvm.spring;
+package com.lei.jvm.spring.enums;
 
 
 import java.lang.annotation.ElementType;
@@ -13,12 +13,12 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface EnableMultiLang {
+public @interface CommonEnum {
 
     /**
-     * 额外的资源文件名列表（资源需要在resources/lang目录下）
+     * 是否开启
      */
-    String[] extraResources() default {};
+    boolean enabled() default false;
 
-
+    int size() default 0;
 }
