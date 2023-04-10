@@ -30,6 +30,7 @@ public class StringTest {
     public static void testContains(){
         String param = "中文简体(aaa-zh-zn)";
         log.info("测试结果={}","zh-zn".contains(param));
+        log.info("测试结果={}",param.contains("zh-zn"));
     }
 
 
