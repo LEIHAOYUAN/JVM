@@ -24,7 +24,12 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        testJoin();
+        testContains();
+    }
+
+    public static void testContains(){
+        String param = "中文简体(aaa-zh-zn)";
+        log.info("测试结果={}","zh-zn".contains(param));
     }
 
 
