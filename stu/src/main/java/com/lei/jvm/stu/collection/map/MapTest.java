@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,7 +23,22 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-        testCover();
+        testIterator();
+    }
+
+    private static void testIterator() {
+        Map<Integer, String> param = new HashMap<>();
+        param.put(1, "AAA");
+        param.put(2, "bbb");
+        Iterator<Map.Entry<Integer, String>> iterator = param.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Integer, String> entry = iterator.next();
+            if ("AAA".equals(entry.getValue())) {
+                log.warn("语言编号={}不存在或已失效！", entry.getValue());
+                iterator.remove();
+            }
+        }
+        log.info("迭代后={}", param);
     }
 
 
