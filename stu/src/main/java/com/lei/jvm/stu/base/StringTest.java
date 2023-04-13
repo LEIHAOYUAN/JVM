@@ -1,9 +1,11 @@
 package com.lei.jvm.stu.base;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.apache.xmlbeans.impl.xb.xsdschema.ListDocument;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -24,13 +26,22 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        testContains();
+        testExtract();
     }
 
     public static void testContains(){
         String param = "中文简体(aaa-zh-zn)";
         log.info("测试结果={}","zh-zn".contains(param));
         log.info("测试结果={}",param.contains("zh-zn"));
+    }
+
+    public static void testExtract(){
+        String param = "@aaa[中国+世界]@bbb@";
+        log.info("warp方法测试={}",StrUtil.isWrap(param,"[","]"));
+        String[] split = param.split("@");
+        log.info(split.toString());
+        log.info("instance测试{}",null instanceof List);
+
     }
 
 
