@@ -25,8 +25,7 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-//        testExtract();
-        getStr("A","测试");
+        testSplit();
     }
 
     public static void getStr(String key, String defaultContent) {
@@ -60,8 +59,10 @@ public class StringTest {
     }
 
     public static void testSplit() {
-        String param = "..AAA.";
-        String[] urls = param.split(ESCAPE_POINT);
+        String regex = "\\+";
+        String param = "AAA+";
+        String[] urls = param.split("\\+");
+        log.info("测试包含={}",param.contains("+"));
         for (String url : urls) {
             log.info("拆分URL：{}", url);
         }
