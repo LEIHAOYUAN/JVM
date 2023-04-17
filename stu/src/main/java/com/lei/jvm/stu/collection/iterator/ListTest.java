@@ -45,9 +45,9 @@ public class ListTest {
     }
 
     private static void testSplitJoin() {
-        List<String> param = Lists.newArrayList("AAA", "BBB", "CCC");
+        List<String> param = Lists.newArrayList("AAA", "BBB", "CCC", "", "CCC", "AAA");
         param.addAll(Lists.newArrayList());
-        log.info("拼接字符串结果：{}", StringUtils.join(param, "|"));
+        log.info("拼接字符串结果：{}", StringUtils.join(param.stream().filter(StringUtils::isNotBlank).distinct().collect(Collectors.toList()), "|"));
     }
 
 
