@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        testGroup();
+        testSplitJoin();
     }
 
     private static void testGroup() {
@@ -41,13 +41,13 @@ public class ListTest {
             }
             groupMap.get(prefix).addAll(param.stream().filter(i -> i.getName().contains(prefix)).collect(Collectors.toList()));
         }
-        log.info("分组结果={}",JSON.toJSONString(groupMap));
+        log.info("分组结果={}", JSON.toJSONString(groupMap));
     }
 
     private static void testSplitJoin() {
-        List<String> param = Lists.newArrayList();
+        List<String> param = Lists.newArrayList("AAA", "BBB", "CCC");
         param.addAll(Lists.newArrayList());
-        log.info("拼接字符串结果：{}", StringUtils.join(param, ","));
+        log.info("拼接字符串结果：{}", StringUtils.join(param, "|"));
     }
 
 
