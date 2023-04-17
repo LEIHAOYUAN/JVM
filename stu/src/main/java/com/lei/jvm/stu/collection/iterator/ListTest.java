@@ -23,6 +23,7 @@ public class ListTest {
 
     public static void main(String[] args) {
         testSplitJoin();
+        log.info("string.valueOf={}",String.valueOf(null));
     }
 
     private static void testGroup() {
