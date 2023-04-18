@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -29,7 +30,19 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testRemove();
+        testToLinkedHashMap();
+    }
+
+    public static void testToLinkedHashMap(){
+        List<Student> list = Lists.newArrayList(new Student("ZZZ",0),new Student("DDD",11),new Student("AAA",-1));
+
+        Map<String, Integer> map = list.stream().collect(Collectors.toMap(Student::getCode, Student::getNum));
+
+        LinkedHashMap<String, Integer> sortMap = list.stream().sorted(Comparator.comparing(Student::getNum).reversed()).collect(Collectors.toMap(Student::getCode, Student::getNum, (o1, o2) -> o1, LinkedHashMap::new));
+
+        log.info("无排序结果={}",JSON.toJSONString(map));
+        log.info("排序结果={}",JSON.toJSONString(sortMap));
+
     }
 
     public static String buildCacheKeyWithParams(Object[] keys) {

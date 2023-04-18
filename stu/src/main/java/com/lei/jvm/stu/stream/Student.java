@@ -17,12 +17,20 @@ import java.util.List;
 @NoArgsConstructor
 public class Student {
 
+    private String code;
     private String name;
     private String age;
+    private int num;
     private BigDecimal score;
     private long createTime;
 
     private List<Student> items;
+
+    public Student(String code,int num){
+        this.code = code;
+        this.name = code;
+        this.num = num;
+    }
 
     public Student(String name,String age,BigDecimal score){
         this.name = name;
