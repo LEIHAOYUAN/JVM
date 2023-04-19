@@ -30,6 +30,8 @@ public class StringTest {
 
     public static void testReplaceAll() {
         String param = "AAA|CCC|DDD";
+        log.info("测试替换={}",param.replaceAll("|",StringUtils.EMPTY));
+        log.info("测试替换={}",param.replaceAll("AAA|CCC|",StringUtils.EMPTY));
         log.info("测试替换={}",param.replaceAll("AAA|CCC|",StringUtils.EMPTY).replaceAll("\\|",StringUtils.EMPTY));
     }
 
