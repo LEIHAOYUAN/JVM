@@ -3,10 +3,8 @@ package com.lei.jvm.utils.base.utils.json;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.JSONPath;
 import com.alibaba.fastjson.JSONValidator;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -29,17 +27,45 @@ public class JSONParseUtil {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-//        Map<Object, Object> fullMap = Maps.newHashMap();
-//        JSONPath.set(fullMap, "a.1", "测试");
-//        log.info("转换结果={}", JSON.toJSONString(fullMap));
-//
-//        JSONPath.compile("AAA");
+        String param1 = "{\n" +
+                "  \"args\": {}, \n" +
+                "  \"data\": \"{\\\"data\\\":{\\\"name\\\":\\\"\\u5f20\\u4e09\\\"}}\", \n" +
+                "  \"files\": {}, \n" +
+                "  \"form\": {}, \n" +
+                "  \"headers\": {\n" +
+                "    \"Accept-Encoding\": \"gzip,deflate\", \n" +
+                "    \"Connection\": \"close\", \n" +
+                "    \"Content-Encoding\": \"UTF-8\", \n" +
+                "    \"Content-Length\": \"26\", \n" +
+                "    \"Content-Type\": \"application/json\", \n" +
+                "    \"Host\": \"echo.apifox.com\", \n" +
+                "    \"Remoteip\": \"47.96.90.90\", \n" +
+                "    \"User-Agent\": \"Apache-HttpClient/4.5.14 (Java/1.8.0_152)\"\n" +
+                "  }, \n" +
+                "  \"json\": {\n" +
+                "    \"data\": {\n" +
+                "      \"name\": \"u5f20\4e09\"\n" +
+                "    }\n" +
+                "  }, \n" +
+                "  \"method\": \"POST\", \n" +
+                "  \"origin\": \"117.28.133.31, 47.96.90.90\", \n" +
+                "  \"url\": \"https://echo.apifox.com/anything\"\n" +
+                "}";
 
-        Map map = JSON.parseObject(null, Map.class);
-        log.info("转换结果={}",map);
+        String param2 = "{\n" +
+                "\"name\": \"张三\"\n" +
+                "}";
+        log.info("校验1={}", validJSON(param1));
+        log.info("校验2={}", validJSON(param2));
     }
 
-
+    public static boolean validJSON(String json) {
+        if (StringUtils.isBlank(json)) {
+            return false;
+        }
+        JSONValidator validator = JSONValidator.from(json);
+        return validator.validate();
+    }
 
 
     private static List<Object> parseJSON(String json, String tag) {

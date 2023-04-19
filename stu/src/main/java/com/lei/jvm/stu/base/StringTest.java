@@ -25,7 +25,12 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        testSplit();
+        testReplaceAll();
+    }
+
+    public static void testReplaceAll() {
+        String param = "AAA|CCCC|";
+        log.info("测试替换={}",param.replaceAll("\\|",StringUtils.EMPTY));
     }
 
     public static void getStr(String key, String defaultContent) {
