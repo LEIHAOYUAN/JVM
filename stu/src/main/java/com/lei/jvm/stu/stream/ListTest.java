@@ -30,7 +30,14 @@ public class ListTest {
     private static List<List<Integer>> subListData = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
-        testToLinkedHashMap();
+//        testToLinkedHashMap();
+        List<Student> param = Lists.newArrayList(new Student("AA",11));
+        addRef(param);
+        log.info("集合大小={}",param.size());
+    }
+
+    private static void addRef(List<Student> param){
+        param.add(new Student("BB",11));
     }
 
     public static void testToLinkedHashMap(){
