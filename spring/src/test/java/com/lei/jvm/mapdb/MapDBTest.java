@@ -36,6 +36,9 @@ public class MapDBTest {
         ConcurrentMap map = db.hashMap("map").createOrOpen();
         String key = "something";
         map.put(key, "here");
+        map.put(key, "here123456");
+        map.put(key, "here1234560000");
+        map.put(key, "here123456111111111");
         log.info("文件读取={}", map.get(key));
         db.close();
     }
