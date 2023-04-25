@@ -26,7 +26,7 @@ public class ParseYamlResourceTest {
 
         String jarResourcePath = "classpath*:lang/extra_messages*.yml";
 
-        String localResourcePath = "classpath*:lang/messages*.yml";
+        String localResourcePath = "classpath:lang/messages*.yml";
 
         List<LocalLangItemResourceDTO> result = ParseLocalResourceUtil.parseResource(localResourcePath);
         log.info("解析结果={}", JSON.toJSONString(result));
