@@ -120,3 +120,4 @@ hs_err_pid*
 /spring/target/
 /JVM.iml
 /spring/spring.iml
+/spring/file.mapdb
