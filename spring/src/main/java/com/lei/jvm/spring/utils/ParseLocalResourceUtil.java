@@ -44,7 +44,7 @@ public class ParseLocalResourceUtil {
         Map<String, LocalLangItemResourceDTO> resourceMap = new HashMap<>();
         try {
             ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-            Resource[] resources = resolver.getResources("classpath*:lang/extra_messages.yml");
+            Resource[] resources = resolver.getResources("classpath*:lang/extra_messages*.yml");
             for (Resource itemResource : resources) {
                 resourceMap.putAll(parseYmlResource(itemResource));
             }
