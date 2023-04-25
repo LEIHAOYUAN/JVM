@@ -12,16 +12,28 @@ import java.util.concurrent.ConcurrentMap;
  *  职能描述：
  *  @author leihaoyuan
  *  @version 2023/4/25 19:40
+ *  https://www.jianshu.com/p/b6f43302338e
  */
 @Slf4j
 public class MapDBTest {
 
     private static final String FILE_DB = "file.mapdb";
 
+    @Test
+    public void testJvmMemory() {
+        DB db = DBMaker.memoryDB().make();
+        ConcurrentMap map = db.hashMap("map").createOrOpen();
+        String key = "Hello";
+        String val = "simple";
+        map.put(key, val);
+        log.info("获取内容={}",map.get(key));
+    }
+
+
 
     @Test
     public void testDirectMemory() {
-        DB db = DBMaker.memoryDB().make();
+        DB db = DBMaker.memoryDirectDB().make();
         ConcurrentMap map = db.hashMap("map").createOrOpen();
         String key = "Hello";
         String val = "simple";
