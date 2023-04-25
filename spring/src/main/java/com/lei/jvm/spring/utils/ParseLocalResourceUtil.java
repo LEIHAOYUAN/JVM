@@ -28,23 +28,25 @@ public class ParseLocalResourceUtil {
 
     /**
      * 解析本地资源文件
+     * @param resourcePath 资源路径
      * @return result
      */
-    public static List<LocalLangItemResourceDTO> parseResource() {
+    public static List<LocalLangItemResourceDTO> parseResource(String resourcePath) {
         Map<String, LocalLangItemResourceDTO> resourceMap = new HashMap<>();
         // 加载扩展资源
-        resourceMap.putAll(parseExtraResource());
+        resourceMap.putAll(parseExtraResource(resourcePath));
         // 加载默认资源
         resourceMap.putAll(parseLocalResource());
         log.info("本地资源集大小={}", resourceMap.size());
         return new ArrayList<>(resourceMap.values());
     }
 
-    private static Map<String, LocalLangItemResourceDTO> parseExtraResource() {
+    private static Map<String, LocalLangItemResourceDTO> parseExtraResource(String resourcePath) {
         Map<String, LocalLangItemResourceDTO> resourceMap = new HashMap<>();
         try {
             ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-            Resource[] resources = resolver.getResources("classpath*:lang/extra_messages*.yml");
+//             Resource[] resources = resolver.getResources("classpath*:lang/extra_messages*.yml");
+             Resource[] resources = resolver.getResources(resourcePath);
             for (Resource itemResource : resources) {
                 resourceMap.putAll(parseYmlResource(itemResource));
             }
@@ -60,7 +62,7 @@ public class ParseLocalResourceUtil {
     private static Map<String, LocalLangItemResourceDTO> parseLocalResource() {
         Map<String, LocalLangItemResourceDTO> resourceMap = new HashMap<>();
         try {
-            resourceMap = parseYmlResource(new ClassPathResource("lang/messages.yml"));
+             resourceMap = parseYmlResource(new ClassPathResource("lang/messages.yml"));
         } catch (Exception ex) {
             log.error("解析本地资源异常={}", ex.getMessage());
         }
