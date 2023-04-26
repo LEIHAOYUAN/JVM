@@ -65,7 +65,7 @@ public class MapDBTest {
     private void writeData(Map<String, String> map) {
         long start = System.currentTimeMillis();
         for (int i = 0; i < count; i++) {
-            map.put(key + i, "value".concat(key));
+            map.put(key + i, "new-value".concat(key));
         }
         log.info("写[{}]次耗时={}毫秒", count, System.currentTimeMillis() - start);
     }
