@@ -46,7 +46,20 @@ public class MapDBTest {
 
     @Test
     public void testFile() {
-        DB db = DBMaker.fileDB(FILE_DB).make();
+        DB db = DBMaker.fileDB(FILE_DB).fileMmapEnable().make();
+        ConcurrentMap<String, String> localMap = db.hashMap("local-map", Serializer.STRING, Serializer.STRING).createOrOpen();
+        ConcurrentMap<String, String> remoteMap = db.hashMap("remote-map", Serializer.STRING, Serializer.STRING).createOrOpen();
+        String key = "AAA";
+        localMap.put(key, "local-map-value");
+        remoteMap.put(key, "remote-map-value");
+        log.info("本地内容={}", localMap.get(key));
+        log.info("远程内容={}", remoteMap.get(key));
+        db.close();
+    }
+
+    @Test
+    public void testFileAutoDelete() {
+        DB db = DBMaker.fileDB(FILE_DB).fileMmapEnable().fileDeleteAfterClose().make();
         ConcurrentMap map = db.hashMap("map").createOrOpen();
         writeData(map);
         readData(map);
