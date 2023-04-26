@@ -26,19 +26,18 @@ public class MapDBTest {
         String key = "Hello";
         String val = "simple";
         map.put(key, val);
-        log.info("获取内容={}",map.get(key));
+        log.info("获取内容={}", map.get(key));
     }
-
 
 
     @Test
     public void testDirectMemory() {
         DB db = DBMaker.memoryDirectDB().make();
-        ConcurrentMap map = db.hashMap("map").createOrOpen();
+        ConcurrentMap map = db.hashMap("direct_map").createOrOpen();
         String key = "Hello";
         String val = "simple";
         map.put(key, val);
-        log.info("获取内容={}",map.get(key));
+        log.info("获取内容={}", map.get(key));
     }
 
 
@@ -47,10 +46,13 @@ public class MapDBTest {
         DB db = DBMaker.fileDB(FILE_DB).make();
         ConcurrentMap map = db.hashMap("map").createOrOpen();
         String key = "something";
-        map.put(key, "here");
+
         map.put(key, "here123456");
         map.put(key, "here1234560000");
         map.put(key, "here123456111111111");
+        for (int i = 0; i < 10000; i++) {
+            map.put(key + i, "value".concat(key));
+        }
         log.info("文件读取={}", map.get(key));
         db.close();
     }
@@ -58,10 +60,10 @@ public class MapDBTest {
     @Test
     public void testMixMemory() {
         DB db = DBMaker.fileDB(FILE_DB).fileMmapEnable().make();
-        ConcurrentMap<String,String> map = db.hashMap("testMap", Serializer.STRING, Serializer.STRING).createOrOpen();
+        ConcurrentMap<String, String> map = db.hashMap("testMap", Serializer.STRING, Serializer.STRING).createOrOpen();
         String key = "name";
         map.put(key, "xiaobai");
-        log.info("获取内容={}",map.get(key));
+        log.info("获取内容={}", map.get(key));
         db.close();
     }
 
