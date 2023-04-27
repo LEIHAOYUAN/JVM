@@ -92,6 +92,7 @@ public class MapDBTest {
                 .fileDeleteAfterOpen()
                 .fileDeleteAfterClose()
                 .closeOnJvmShutdown()
+                .closeOnJvmShutdownWeakReference()
                 .make();
         List<String> filePaths = filePath(db);
         writeData(db);
@@ -103,6 +104,7 @@ public class MapDBTest {
     @Test
     public void testFile() {
         String path = "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\mapdb688045750538849335temp";
+        new File(path).delete();
         File file = new File(path);
         log.info("文件[{}]是否存在[{}]", path, file.exists());
     }
