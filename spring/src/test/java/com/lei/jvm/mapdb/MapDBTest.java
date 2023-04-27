@@ -1,12 +1,15 @@
 package com.lei.jvm.mapdb;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 import org.mapdb.DB;
 import org.mapdb.DBMaker;
 import org.mapdb.Serializer;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,9 +20,7 @@ import java.util.Map;
 @Slf4j
 public class MapDBTest {
 
-    private static final String FILE_DB = "tips.cache";
-
-    private static final int count = 100000;
+    private static final int count = 10000;
 
     private static final String key = "key";
 
@@ -44,88 +45,90 @@ public class MapDBTest {
 
     @Test
     public void testFileNormal() {
-        DB db = DBMaker.fileDB(FILE_DB).fileDeleteAfterClose().closeOnJvmShutdown().make();
+        DB db = DBMaker.tempFileDB().fileDeleteAfterClose().closeOnJvmShutdown().make();
+        List<String> filePaths = filePath(db);
         writeData(db);
         readData(db);
         db.close();
+        testDelete(filePaths);
     }
 
 
     @Test
     public void testFileChannel() {
-        DB db = DBMaker.fileDB(FILE_DB).fileChannelEnable().fileDeleteAfterClose().closeOnJvmShutdown().make();
+        DB db = DBMaker.tempFileDB()
+                .fileChannelEnable()
+                .fileDeleteAfterClose()
+                .closeOnJvmShutdown()
+                .make();
+        List<String> filePaths = filePath(db);
         writeData(db);
         readData(db);
         db.close();
+        testDelete(filePaths);
     }
 
 
     @Test
     public void testFileMMapSupported() {
-        DB db = DBMaker.fileDB(FILE_DB).fileMmapEnableIfSupported()
+        DB db = DBMaker.tempFileDB()
+                .fileMmapEnableIfSupported()
                 .fileMmapPreclearDisable()
                 .fileDeleteAfterClose()
                 .closeOnJvmShutdown()
                 .make();
+        List<String> filePaths = filePath(db);
         writeData(db);
         readData(db);
         db.close();
+        testDelete(filePaths);
     }
 
     @Test
     public void testFileMMap() {
-        DB db = DBMaker.fileDB(FILE_DB).fileMmapEnable()
+        DB db = DBMaker.tempFileDB()
+                .fileMmapEnable()
                 .fileMmapPreclearDisable()
                 .fileDeleteAfterOpen()
                 .fileDeleteAfterClose()
                 .closeOnJvmShutdown()
                 .make();
+        List<String> filePaths = filePath(db);
         writeData(db);
         readData(db);
-        Iterable<String> paths = db.getStore().getAllFiles();
         db.close();
-        for (String path : paths) {
-            log.info("文件路径={}", path);
-            File file = new File(path);
-            file.setExecutable(true);
-            if (file.exists()) {
-                boolean delete = file.delete();
-                log.info("文件[{}]删除结果{}", path, delete);
-            }
-        }
+        testDelete(filePaths);
     }
 
     @Test
-    public void testTempFile() {
-        DB db = DBMaker.tempFileDB()
-                .fileMmapEnable()
-                .fileMmapPreclearDisable()
-                .fileDeleteAfterClose()
-                .closeOnJvmShutdown()
-                .make();
-
-        writeData(db);
-        readData(db);
-        Iterable<String> paths = db.getStore().getAllFiles();
-        db.close();
-        for (String path : paths) {
-            log.info("文件路径={}", path);
-            File file = new File(path);
-            file.setExecutable(true);
-            if (file.exists()) {
-                boolean delete = file.delete();
-                log.info("文件[{}]删除结果{}", path, delete);
-            }
-        }
-    }
-
-    @Test
-    public void testDelete(){
-        String path = "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\mapdb8969669302744447060temp";
+    public void testFile() {
+        String path = "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\mapdb688045750538849335temp";
         File file = new File(path);
-//        file.deleteOnExit();
-        boolean delete = file.delete();
-        log.info("删除结果={}",delete);
+        log.info("文件[{}]是否存在[{}]", path, file.exists());
+    }
+
+    private void testDelete(List<String> filePaths) {
+        if (CollectionUtils.isEmpty(filePaths)) {
+            return;
+        }
+        // String path = "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\mapdb1195042108499262413temp";
+        for (String filePath : filePaths) {
+            File file = new File(filePath);
+            if (file.exists()) {
+                log.info("文件[{}]删除结果={}", filePath, file.delete());
+            } else {
+                log.info("文件[{}]不存在", filePath);
+            }
+        }
+    }
+
+    private List<String> filePath(DB db) {
+        List<String> filePathList = Lists.newArrayList();
+        for (String filePath : db.getStore().getAllFiles()) {
+            log.info("文件路径={}", filePath);
+            filePathList.add(filePath);
+        }
+        return filePathList;
     }
 
     private void writeData(DB db) {
@@ -145,8 +148,6 @@ public class MapDBTest {
         }
         log.info("读[{}]次耗时={}毫秒", count, System.currentTimeMillis() - start);
     }
-
-
 
 
 }

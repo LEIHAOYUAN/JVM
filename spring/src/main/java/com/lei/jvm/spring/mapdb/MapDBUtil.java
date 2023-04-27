@@ -1,4 +1,4 @@
-package com.lei.jvm.spring.utils;
+package com.lei.jvm.spring.mapdb;
 
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
