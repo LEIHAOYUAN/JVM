@@ -113,7 +113,6 @@ public class MapDBTest {
         if (CollectionUtils.isEmpty(filePaths)) {
             return;
         }
-        // String path = "C:\\Users\\ADMINI~1\\AppData\\Local\\Temp\\mapdb1195042108499262413temp";
         for (String filePath : filePaths) {
             File file = new File(filePath);
             if (file.exists()) {
