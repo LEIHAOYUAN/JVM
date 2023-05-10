@@ -19,9 +19,11 @@ public class Test {
 
     public static void main(String[] args) {
 
-        log.info("转换结果={}", JSON.parseObject(null, Boolean.class));
-        log.info("转换结果={}", JSON.parseObject("ppp", Integer.class));
-        log.info("转换结果={}", JSON.parseObject("1.256", BigDecimal.class));
+//        log.info("转换结果={}", JSON.parseObject(null, Boolean.class));
+//        log.info("转换结果={}", JSON.parseObject("ppp", Integer.class));
+//        log.info("转换结果={}", JSON.parseObject("1.256", BigDecimal.class));
+        log.info("类型匹配测试-------------------------------------------------------");
+        log.info("子类匹配父类类型={}",new Son("A") instanceof IFather);
     }
 
     private static <T> T parseProp(Class<T> clazz) {
