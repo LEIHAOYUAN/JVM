@@ -1,12 +1,9 @@
 package com.lei.jvm.stu.cast;
 
-import com.alibaba.fastjson.JSON;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-
-import java.math.BigDecimal;
 
 /**
  * @Author leihaoyuan
@@ -23,7 +20,7 @@ public class Test {
 //        log.info("转换结果={}", JSON.parseObject("ppp", Integer.class));
 //        log.info("转换结果={}", JSON.parseObject("1.256", BigDecimal.class));
         log.info("类型匹配测试-------------------------------------------------------");
-        log.info("子类匹配父类类型={}",new Son("A") instanceof IFather);
+        log.info("子类匹配父类类型={}",new Son("A") instanceof IComm);
     }
 
     private static <T> T parseProp(Class<T> clazz) {
@@ -49,12 +46,16 @@ enum Type {
     }
 }
 
+interface IComm {
+
+}
+
 interface IFather {
 
 }
 
 @Data
-class Father implements IFather {
+class Father implements IFather, IComm {
 
 }
 
