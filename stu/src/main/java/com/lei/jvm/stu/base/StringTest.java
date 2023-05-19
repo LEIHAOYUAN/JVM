@@ -25,7 +25,8 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        testReplaceAll();
+//        testReplaceAll();
+        log.info("转换结果={}",Long.parseLong("844147031878914048"));
     }
 
     public static void testReplaceAll() {
