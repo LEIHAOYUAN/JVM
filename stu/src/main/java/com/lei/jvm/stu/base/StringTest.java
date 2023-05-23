@@ -31,6 +31,9 @@ public class StringTest {
 
         String encode = null + ":" + null;
         log.info("Base64编码={}", Base64.encode(encode));
+
+        Object obj = true;
+        log.info("字符串结果={}",String.valueOf(obj));
     }
 
     public static void testReplaceAll() {
