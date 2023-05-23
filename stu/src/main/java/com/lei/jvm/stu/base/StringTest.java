@@ -1,5 +1,6 @@
 package com.lei.jvm.stu.base;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
@@ -26,14 +27,17 @@ public class StringTest {
 
     public static void main(String[] args) {
 //        testReplaceAll();
-        log.info("转换结果={}",Long.parseLong("844147031878914048"));
+//        log.info("转换结果={}",Long.parseLong("844147031878914048"));
+
+        String encode = null + ":" + null;
+        log.info("Base64编码={}", Base64.encode(encode));
     }
 
     public static void testReplaceAll() {
         String param = "AAA|CCC|DDD";
-        log.info("测试替换={}",param.replaceAll("|",StringUtils.EMPTY));
-        log.info("测试替换={}",param.replaceAll("AAA|CCC|",StringUtils.EMPTY));
-        log.info("测试替换={}",param.replaceAll("AAA|CCC|",StringUtils.EMPTY).replaceAll("\\|",StringUtils.EMPTY));
+        log.info("测试替换={}", param.replaceAll("|", StringUtils.EMPTY));
+        log.info("测试替换={}", param.replaceAll("AAA|CCC|", StringUtils.EMPTY));
+        log.info("测试替换={}", param.replaceAll("AAA|CCC|", StringUtils.EMPTY).replaceAll("\\|", StringUtils.EMPTY));
     }
 
     public static void getStr(String key, String defaultContent) {
@@ -70,7 +74,7 @@ public class StringTest {
         String regex = "\\+";
         String param = "AAA+";
         String[] urls = param.split("\\+");
-        log.info("测试包含={}",param.contains("+"));
+        log.info("测试包含={}", param.contains("+"));
         for (String url : urls) {
             log.info("拆分URL：{}", url);
         }
