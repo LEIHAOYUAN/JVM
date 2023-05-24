@@ -34,6 +34,8 @@ public class StringTest {
 
         Object obj = true;
         log.info("字符串结果={}",String.valueOf(obj));
+
+        log.info("判断包含结果={}","".contains(null));
     }
 
     public static void testReplaceAll() {
