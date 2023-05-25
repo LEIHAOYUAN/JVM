@@ -30,6 +30,10 @@ public class StringTest {
 //        log.info("转换结果={}",Long.parseLong("844147031878914048"));
     }
 
+    public static void testValueOf(int status){
+        log.info("包装结果={}",String.valueOf(status));
+    }
+
     public static void testReplaceAll() {
         String param = "AAA|CCC|DDD";
         log.info("测试替换={}", param.replaceAll("|", StringUtils.EMPTY));
