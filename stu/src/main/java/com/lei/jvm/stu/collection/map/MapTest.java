@@ -23,7 +23,20 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-        testIterator();
+        testPutAll();
+    }
+
+
+    private static void testPutAll(){
+        Map<Object, Object> paramMap = Maps.newHashMap();
+        paramMap.put("AAA","1111");
+
+        Map<Object, Object> subMap = Maps.newHashMap();
+        subMap.put("AAA","222");
+        subMap.put("A","666");
+
+        paramMap.putAll(subMap);
+        log.info("添加结果={}",paramMap);
     }
 
     private static void testIterator() {
