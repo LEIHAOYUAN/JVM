@@ -28,14 +28,6 @@ public class StringTest {
     public static void main(String[] args) {
 //        testReplaceAll();
 //        log.info("转换结果={}",Long.parseLong("844147031878914048"));
-
-        String encode = null + ":" + null;
-        log.info("Base64编码={}", Base64.encode(encode));
-
-        Object obj = true;
-        log.info("字符串结果={}",String.valueOf(obj));
-
-        log.info("判断包含结果={}","".contains(null));
     }
 
     public static void testReplaceAll() {
