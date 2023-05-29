@@ -24,6 +24,9 @@ public class MapTest {
 
     public static void main(String[] args) {
         testPutAll();
+        Map<Object, Object> param = Maps.newHashMap();
+        param.put(null,"AAA");
+        log.info("添加结果={}",param);
     }
 
 
