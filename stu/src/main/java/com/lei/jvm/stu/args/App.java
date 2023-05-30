@@ -15,7 +15,12 @@ import java.util.List;
 public class App {
 
     public static void main(String[] args) {
-        String[] param = new String[]{"1","2","4","0"};
+        Object param = null;
+        log.info("instanceof测试={}", param instanceof String);
+    }
+
+    private static void testParam() {
+        String[] param = new String[]{"1", "2", "4", "0"};
         customArgs(param);
         log.info("集合传参测试");
         List<String> listParam = Lists.newArrayList();
@@ -26,9 +31,9 @@ public class App {
     }
 
 
-    public static void customArgs(Object ... args){
+    public static void customArgs(Object... args) {
         for (Object item : args) {
-            log.info("参数：{}",item);
+            log.info("参数：{}", item);
         }
     }
 
