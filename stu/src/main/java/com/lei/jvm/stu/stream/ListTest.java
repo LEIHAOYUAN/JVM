@@ -31,9 +31,13 @@ public class ListTest {
 
     public static void main(String[] args) throws InterruptedException {
 //        testToLinkedHashMap();
-        List<Student> param = Lists.newArrayList(new Student("AA",11));
-        addRef(param);
-        log.info("集合大小={}",param.size());
+//        List<Student> param = Lists.newArrayList(new Student("AA",11));
+//        addRef(param);
+//        log.info("集合大小={}",param.size());
+        Object param = null;
+        ArrayList<Object> objects = Lists.newArrayList(param);
+        log.info("集合大小={}",objects.size());
+
     }
 
     private static void addRef(List<Student> param){
