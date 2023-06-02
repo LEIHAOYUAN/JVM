@@ -1,6 +1,5 @@
 package com.lei.jvm.stu.base;
 
-import cn.hutool.core.codec.Base64;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
@@ -28,10 +27,12 @@ public class StringTest {
     public static void main(String[] args) {
 //        testReplaceAll();
 //        log.info("转换结果={}",Long.parseLong("844147031878914048"));
+        String param = "htt://www.baidu.com";
+        log.info("判断start开头={}", StrUtil.startWith(param, "http"));
     }
 
-    public static void testValueOf(int status){
-        log.info("包装结果={}",String.valueOf(status));
+    public static void testValueOf(int status) {
+        log.info("包装结果={}", String.valueOf(status));
     }
 
     public static void testReplaceAll() {
