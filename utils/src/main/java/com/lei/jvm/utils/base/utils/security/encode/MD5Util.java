@@ -1,5 +1,7 @@
 package com.lei.jvm.utils.base.utils.security.encode;
 
+import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.digest.DigestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -16,8 +18,12 @@ import java.security.NoSuchAlgorithmException;
 public class MD5Util {
 
     public static void main(String[] args) {
-        System.out.println(encodeByMD5("芥末"));
+        // java 工具
+        log.info("原生实现={}", encodeByMD5("芥末"));
+        log.info("hutool实现方式一={}", DigestUtil.md5Hex("芥末"));
+        log.info("hutool实现方式二={}", SecureUtil.md5("芥末"));
     }
+
 
     public static String encodeByMD5(String param) {
         if (StringUtils.isBlank(param)) {
