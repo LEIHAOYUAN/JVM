@@ -27,8 +27,12 @@ public class StringTest {
     public static void main(String[] args) {
 //        testReplaceAll();
 //        log.info("转换结果={}",Long.parseLong("844147031878914048"));
-        String param = "htt://www.baidu.com";
-        log.info("判断start开头={}", StrUtil.startWith(param, "http"));
+        testReplaceAllChar();
+    }
+
+    public static void testReplaceAllChar() {
+        String param = "E  AAA,.BBB.exe.中华。0000)))))))、、、  。【‘格式";
+        log.info("替换非法字符={}", param.replaceAll("[^a-zA-Z0-9\\u4e00-\\u9fa5]",""));
     }
 
     public static void testValueOf(int status) {
