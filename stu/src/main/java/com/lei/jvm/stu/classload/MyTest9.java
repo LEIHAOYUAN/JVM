@@ -1,19 +1,23 @@
 package com.lei.jvm.stu.classload;
 
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * @Description
  * @Author leihaoyuan
  * @Date 2019/10/23 13:06
  */
+@Slf4j
 public class MyTest9 {
 
 
-    public static void main(String[] args) throws ClassNotFoundException {
+    public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-
-        System.out.println(Class.forName("cn.Lock_LockInterruptibly.classload.MyTest9").hashCode());
-        System.out.println(Class.forName("cn.Lock_LockInterruptibly.classload.MyTest9").hashCode());
-        System.out.println(Class.forName("cn.Lock_LockInterruptibly.classload.MyTest9").hashCode());
+        Class<?> aClass = Class.forName("com.lei.jvm.stu.classload.Person");
+        Person person = (Person)aClass.newInstance();
+        person.setName("AAA");
+        log.info("反射实例对象={}", JSON.toJSONString(person));
 //        for (; ; ) {
 //            Enhancer enhancer = new Enhancer();
 //            enhancer.setSuperclass(MyTest9.class);
@@ -24,6 +28,12 @@ public class MyTest9 {
 //            System.out.println("creating...");
 //            enhancer.create();
 //        }
+    }
+
+    private static void testHashCode() throws ClassNotFoundException {
+        System.out.println(Class.forName("cn.Lock_LockInterruptibly.classload.MyTest9").hashCode());
+        System.out.println(Class.forName("cn.Lock_LockInterruptibly.classload.MyTest9").hashCode());
+        System.out.println(Class.forName("cn.Lock_LockInterruptibly.classload.MyTest9").hashCode());
     }
 
 }
