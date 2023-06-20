@@ -14,10 +14,10 @@ public class MyTest9 {
 
     public static void main(String[] args) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
 
-        Class<?> aClass = Class.forName("com.lei.jvm.stu.classload.Person");
-        Person person = (Person)aClass.newInstance();
-        person.setName("AAA");
-        log.info("反射实例对象={}", JSON.toJSONString(person));
+        log.info("测试".concat(null));
+
+
+//        createInstanceByReflect();
 //        for (; ; ) {
 //            Enhancer enhancer = new Enhancer();
 //            enhancer.setSuperclass(MyTest9.class);
@@ -28,6 +28,19 @@ public class MyTest9 {
 //            System.out.println("creating...");
 //            enhancer.create();
 //        }
+    }
+
+    /**
+     * 通过反射创建对象
+     * @throws ClassNotFoundException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
+    private static void createInstanceByReflect() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+        Class<?> aClass = Class.forName("com.lei.jvm.stu.classload.Person");
+        Person person = (Person)aClass.newInstance();
+        person.setName("AAA");
+        log.info("反射实例对象={}", JSON.toJSONString(person));
     }
 
     private static void testHashCode() throws ClassNotFoundException {
