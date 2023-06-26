@@ -1,7 +1,6 @@
 package com.lei.jvm.utils.base.utils.datetime;
 
 
-import cn.hutool.core.date.SystemClock;
 import com.lei.jvm.utils.base.utils.exception.StockCommonException;
 import com.lei.jvm.utils.base.utils.valid.ValidUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -80,10 +79,34 @@ public class DateTimeUtil {
     public static final String DEFAULT_DATE_PARTTERN = "yyyyMMdd";
 
     public static void main(String[] args) {
-        log.info("转换时间戳={}", formatDate(System.currentTimeMillis(), DEFAULT_PARTTERN));
-        log.info("转换时间戳={}", formatDate(0, DEFAULT_PARTTERN));
-        log.info("转换时间戳={}", formatDate(SystemClock.now(), DEFAULT_PARTTERN));
+//        log.info("转换时间戳={}", formatDate(System.currentTimeMillis(), DEFAULT_PARTTERN));
+//        log.info("转换时间戳={}", formatDate(0, DEFAULT_PARTTERN));
+//        log.info("转换时间戳={}", formatDate(SystemClock.now(), DEFAULT_PARTTERN));
+
+        String[] formats = {"yyyy-MM-dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"};
+        LocalDateTime start = parseDateTime("2023-06-02 16:12:55", formats);
+        LocalDateTime end = parseDateTime("2023-06-30 16:12:55", formats);
+        if (LocalDateTime.now().isAfter(start) && LocalDateTime.now().isBefore(end)) {
+            log.info("在时间区间内");
+        }
     }
+
+    public static LocalDateTime parseDateTime(String date, String... format) {
+        String[] var2 = format;
+        int var3 = format.length;
+
+        for (int var4 = 0; var4 < var3; ++var4) {
+            String s = var2[var4];
+            if (date.length() == s.replace("'", "").length()) {
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(s);
+                return LocalDateTime.from(dateTimeFormatter.parse(date));
+            }
+        }
+
+        DateTimeFormatter defaultFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return LocalDateTime.from(defaultFormatter.parse(date));
+    }
+
 
     /**
      * 转换日期格式
