@@ -84,10 +84,13 @@ public class DateTimeUtil {
 //        log.info("转换时间戳={}", formatDate(SystemClock.now(), DEFAULT_PARTTERN));
 
         String[] formats = {"yyyy-MM-dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"};
-        LocalDateTime start = parseDateTime("2023-06-02 16:12:55", formats);
-        LocalDateTime end = parseDateTime("2023-06-30 16:12:55", formats);
-        if (LocalDateTime.now().isAfter(start) && LocalDateTime.now().isBefore(end)) {
-            log.info("在时间区间内");
+        LocalDateTime start = parseDateTime("2025-07-02 16:12:55", formats);
+        LocalDateTime end = parseDateTime("2025-09-30 16:12:55", formats);
+        if (LocalDateTime.now().isBefore(start)) {
+            log.info("未到开始时间={}", start);
+        }
+        if (LocalDateTime.now().isAfter(end)) {
+            log.info("已超结束时间={}", end);
         }
     }
 
