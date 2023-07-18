@@ -34,10 +34,16 @@ public class ListTest {
 //        List<Student> param = Lists.newArrayList(new Student("AA",11));
 //        addRef(param);
 //        log.info("集合大小={}",param.size());
-        Object param = null;
-        ArrayList<Object> objects = Lists.newArrayList(param);
-        log.info("集合大小={}",objects.size());
+//        Object param = null;
+//        ArrayList<Object> objects = Lists.newArrayList(param);
+//        log.info("集合大小={}",objects.size());
+        testPeek();
+    }
 
+    public static void testPeek(){
+        List<Student> list = Lists.newArrayList(new Student("ZZZ",0),new Student("DDD",11),new Student("AAA",-1));
+        List<Student> result = list.stream().peek(i -> i.setCode(i.getCode() + "peek")).collect(Collectors.toList());
+        log.info("peek操作结果={}",JSON.toJSONString(result));
     }
 
     private static void addRef(List<Student> param){
