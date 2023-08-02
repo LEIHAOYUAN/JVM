@@ -23,7 +23,6 @@ public class ListTest {
 
     public static void main(String[] args) {
         testSplitJoin();
-        log.info("string.valueOf={}",String.valueOf(null));
     }
 
     private static void testGroup() {
@@ -49,6 +48,7 @@ public class ListTest {
         List<String> param = Lists.newArrayList("AAA", "BBB", "CCC", "", "CCC", "AAA");
         param.addAll(Lists.newArrayList());
         log.info("拼接字符串结果：{}", StringUtils.join(param.stream().filter(StringUtils::isNotBlank).distinct().collect(Collectors.toList()), "|"));
+        log.info("默认字符串拼接结果={}",StringUtils.join(param,","));
     }
 
 
