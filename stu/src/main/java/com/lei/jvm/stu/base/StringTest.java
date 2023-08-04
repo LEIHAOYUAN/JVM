@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,23 @@ public class StringTest {
     public static void main(String[] args) {
 //        testReplaceAll();
 //        log.info("转换结果={}",Long.parseLong("844147031878914048"));
-        testReplaceAllChar();
+        testBuildSQL("A/C");
+    }
+
+    public static void testBuildSQL(String newPath){
+        String oldPath = "A/B/C";
+        StringBuilder sqlBuilder = new StringBuilder();
+        sqlBuilder.append("UPDATE ").append("t_base_person ")
+                .append("SET ").append("path ").append("=")
+                .append(" concat(?, substring(path, ?)) ")
+                .append("WHERE ").append("path ").append("LIKE ").append(oldPath).append("%");
+
+
+        List<Object> args = Lists.newArrayList();
+        args.add(newPath + "/");
+        args.add(oldPath.length() + 2);
+        args.add(oldPath + "/%");
+        log.info("构造SQL={}",sqlBuilder.toString());
     }
 
     public static void testReplaceAllChar() {
