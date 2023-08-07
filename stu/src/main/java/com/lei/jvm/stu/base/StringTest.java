@@ -28,7 +28,15 @@ public class StringTest {
     public static void main(String[] args) {
 //        testReplaceAll();
 //        log.info("转换结果={}",Long.parseLong("844147031878914048"));
-        testBuildSQL("A/C");
+//        testBuildSQL("A/C");
+        testSubString();
+    }
+
+    public static void testSubString(){
+        String path = "ABCD";
+        String startWith = org.apache.commons.lang3.StringUtils.substring(path,0,3);
+        String endWith = org.apache.commons.lang3.StringUtils.substring(path,path.length()-3);
+        log.info("start=[{}]end=[{}]",startWith,endWith);
     }
 
     public static void testBuildSQL(String newPath){
