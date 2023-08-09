@@ -29,8 +29,28 @@ public class StringTest {
 //        testReplaceAll();
 //        log.info("转换结果={}",Long.parseLong("844147031878914048"));
 //        testBuildSQL("A/C");
-        testMessageFormat();
+//        testMessageFormat();
+        testPath("003014001002001");
     }
+
+    public static void testPath(String path) {
+        List<String> parentPathList = Lists.newArrayList();
+        int step = 3;
+        while (true) {
+            if (org.apache.commons.lang3.StringUtils.isBlank(path)) {
+                break;
+            }
+            path = path.substring(0, path.length() - 3);
+            if (path.length() <= step) {
+                parentPathList.add("'" + path + "'");
+                break;
+            } else {
+                parentPathList.add("'" + path + "'");
+            }
+        }
+        log.info("切割结果={}", JSON.toJSONString(parentPathList));
+    }
+
 
     public static void testSubString() {
         String path = "ABCD";
