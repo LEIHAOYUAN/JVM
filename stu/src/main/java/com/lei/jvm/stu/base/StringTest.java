@@ -6,9 +6,9 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,17 +29,28 @@ public class StringTest {
 //        testReplaceAll();
 //        log.info("转换结果={}",Long.parseLong("844147031878914048"));
 //        testBuildSQL("A/C");
-        testSubString();
+        testMessageFormat();
     }
 
-    public static void testSubString(){
+    public static void testSubString() {
         String path = "ABCD";
-        String startWith = org.apache.commons.lang3.StringUtils.substring(path,0,3);
-        String endWith = org.apache.commons.lang3.StringUtils.substring(path,path.length()-3);
-        log.info("start=[{}]end=[{}]",startWith,endWith);
+        String startWith = org.apache.commons.lang3.StringUtils.substring(path, 0, 3);
+        String endWith = org.apache.commons.lang3.StringUtils.substring(path, path.length() - 3);
+        log.info("start=[{}]end=[{}]", startWith, endWith);
     }
 
-    public static void testBuildSQL(String newPath){
+    public static void testMessageFormat() {
+        String path = "001001";
+        String startWith = org.apache.commons.lang3.StringUtils.substring(path, 0, 3);
+        int lenthLimit = path.length();
+        String endWith = org.apache.commons.lang3.StringUtils.substring(path, path.length() - 3);
+        // SQL范例：SELECT * FROM exe_local.comm_company WHERE path LIKE '001%' AND LENGTH(path) <= 6 AND path LIKE '%001' ORDER BY path;
+        String template = "SELECT id,parent_id FROM comm_user WHERE path LIKE '{0}%' AND LENGTH(path) < {1} AND path LIKE '%{2}' ORDER BY path;";
+        String sql = MessageFormat.format(template, startWith, lenthLimit, endWith);
+        log.info("SQL格式化结果={}", sql);
+    }
+
+    public static void testBuildSQL(String newPath) {
         String oldPath = "A/B/C";
         StringBuilder sqlBuilder = new StringBuilder();
         sqlBuilder.append("UPDATE ").append("t_base_person ")
@@ -52,12 +63,12 @@ public class StringTest {
         args.add(newPath + "/");
         args.add(oldPath.length() + 2);
         args.add(oldPath + "/%");
-        log.info("构造SQL={}",sqlBuilder.toString());
+        log.info("构造SQL={}", sqlBuilder.toString());
     }
 
     public static void testReplaceAllChar() {
         String param = "E  AAA,.BBB.exe.中华。0000)))))))、、、  。【‘格式";
-        log.info("替换非法字符={}", param.replaceAll("[^a-zA-Z0-9\\u4e00-\\u9fa5]",""));
+        log.info("替换非法字符={}", param.replaceAll("[^a-zA-Z0-9\\u4e00-\\u9fa5]", ""));
     }
 
     public static void testValueOf(int status) {
