@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,39 @@ import java.util.stream.Collectors;
 public class ListTest {
 
     public static void main(String[] args) {
-        testSplitJoin();
+//        testSplitJoin();
+        List<Student> students = initData();
+        testRemove(students);
+        log.info("清洗后数据={}", JSON.toJSONString(students));
+    }
+
+    private static void testRemove(List<Student> students) {
+        Iterator<Student> iterator = students.iterator();
+        while (iterator.hasNext()) {
+            Student student = iterator.next();
+            if ("AAA".equals(student.getName())) {
+                iterator.remove();
+                continue;
+            }
+            student.setName("new");
+        }
+    }
+
+    private static List<Student> initData() {
+        Student s1 = new Student();
+        s1.setName("AAA");
+
+        Student s2 = new Student();
+        s2.setName("AAA");
+
+        Student s3 = new Student();
+        s3.setName("BBB");
+
+        List<Student> list = Lists.newArrayList();
+        list.add(s1);
+        list.add(s2);
+        list.add(s3);
+        return list;
     }
 
     private static void testGroup() {
@@ -48,7 +81,7 @@ public class ListTest {
         List<String> param = Lists.newArrayList("AAA", "BBB", "CCC", "", "CCC", "AAA");
         param.addAll(Lists.newArrayList());
         log.info("拼接字符串结果：{}", StringUtils.join(param.stream().filter(StringUtils::isNotBlank).distinct().collect(Collectors.toList()), "|"));
-        log.info("默认字符串拼接结果={}",StringUtils.join(param,","));
+        log.info("默认字符串拼接结果={}", StringUtils.join(param, ","));
     }
 
 
