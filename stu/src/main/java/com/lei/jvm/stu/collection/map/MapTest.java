@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-        testTreeMap("ADMIN");
+        testTreeMap("AdMiN");
     }
 
 
