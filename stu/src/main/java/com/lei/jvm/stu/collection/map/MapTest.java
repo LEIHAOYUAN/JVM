@@ -7,11 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -23,23 +19,28 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-        testPutAll();
-        Map<Object, Object> param = Maps.newHashMap();
-        param.put(null,"AAA");
-        log.info("添加结果={}",param);
+        testTreeMap("ADMIN");
     }
 
 
-    private static void testPutAll(){
+    private static void testTreeMap(String key) {
+        Map<String, Long> sourceTargetMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        sourceTargetMap.put("admin", 99L);
+        sourceTargetMap.put("Admin", 88L);
+        log.info("查询结果={}", sourceTargetMap.get(key));
+    }
+
+
+    private static void testPutAll() {
         Map<Object, Object> paramMap = Maps.newHashMap();
-        paramMap.put("AAA","1111");
+        paramMap.put("AAA", "1111");
 
         Map<Object, Object> subMap = Maps.newHashMap();
-        subMap.put("AAA","222");
-        subMap.put("A","666");
+        subMap.put("AAA", "222");
+        subMap.put("A", "666");
 
         paramMap.putAll(subMap);
-        log.info("添加结果={}",paramMap);
+        log.info("添加结果={}", paramMap);
     }
 
     private static void testIterator() {
