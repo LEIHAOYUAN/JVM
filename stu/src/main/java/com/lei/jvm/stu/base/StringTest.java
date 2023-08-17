@@ -30,7 +30,10 @@ public class StringTest {
 //        log.info("转换结果={}",Long.parseLong("844147031878914048"));
 //        testBuildSQL("A/C");
 //        testMessageFormat();
-        testPath("003014001002001");
+//        testPath("003014001002001");
+
+        log.info("测试前缀匹配={}","system_co_0".startsWith("system"));
+
     }
 
     public static void testPath(String path) {
