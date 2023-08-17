@@ -44,6 +44,20 @@ public class LockComponentTest {
         Thread.sleep(50000);
     }
 
+    @Test
+    public void testFindLockMethodSingleThread() throws InterruptedException {
+        ThreadPoolUtil.execute(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < 50000; i++) {
+                    lockComponent.findLockMethod("dev");
+                }
+            }
+        });
+
+        Thread.sleep(50000);
+    }
+
 
     @Test
     public void testFindWithoutLock() throws Exception {
