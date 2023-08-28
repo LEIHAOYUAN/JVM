@@ -26,6 +26,8 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
+
+        log.info("比较结果={}","0".equals(0));
 //        testReplaceAll();
 //        log.info("转换结果={}",Long.parseLong("844147031878914048"));
 //        testBuildSQL("A/C");
