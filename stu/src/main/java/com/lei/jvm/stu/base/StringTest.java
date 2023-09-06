@@ -24,7 +24,6 @@ public class StringTest {
     private static final String POINT = ".";
 
     private static final String ESCAPE_POINT = "\\.";
-
     public static void main(String[] args) {
 
         Object obj = null;
