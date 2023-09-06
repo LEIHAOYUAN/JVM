@@ -27,6 +27,9 @@ public class StringTest {
 
     public static void main(String[] args) {
 
+        Object obj = null;
+        log.info("字符串转换结果={}",String.valueOf(obj));
+
         log.info("比较结果={}","0".equals(0));
 //        testReplaceAll();
 //        log.info("转换结果={}",Long.parseLong("844147031878914048"));
