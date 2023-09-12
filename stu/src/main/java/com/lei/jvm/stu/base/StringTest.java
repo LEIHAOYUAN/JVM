@@ -36,7 +36,13 @@ public class StringTest {
 //        testMessageFormat();
 //        testPath("003014001002001");
 
-        log.info("测试前缀匹配={}","system_co_0".startsWith("system"));
+        String param = "rm-00000";
+
+        String param2 = "AAA"+param+"00000fdsaf";
+
+        log.info("结果={}",param2.contains(param));
+
+//        log.info("测试前缀匹配={}","system_co_0".startsWith("system"));
 
     }
 
