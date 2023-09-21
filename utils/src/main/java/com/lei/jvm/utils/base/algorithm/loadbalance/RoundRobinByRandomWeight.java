@@ -1,8 +1,8 @@
 package com.lei.jvm.utils.base.algorithm.loadbalance;
 
 import com.alibaba.fastjson.JSON;
-import com.lei.jvm.utils.base.algorithm.loadbalance.model.Node;
 import com.google.common.collect.Lists;
+import com.lei.jvm.utils.base.algorithm.loadbalance.model.Node;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 

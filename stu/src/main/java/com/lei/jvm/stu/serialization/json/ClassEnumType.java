@@ -1,8 +1,6 @@
 package com.lei.jvm.stu.serialization.json;
 
-import com.lei.jvm.stu.serialization.SerializationInfo;
 import lombok.Getter;
-import org.apache.poi.ss.formula.functions.T;
 
 /**
  *  职能描述：缓存级别枚举

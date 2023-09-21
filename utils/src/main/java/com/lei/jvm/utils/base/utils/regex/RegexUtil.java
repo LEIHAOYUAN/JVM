@@ -1,7 +1,6 @@
 package com.lei.jvm.utils.base.utils.regex;
 
 import cn.hutool.core.util.ReUtil;
-import org.apache.commons.lang.StringUtils;
 
 import java.util.regex.Pattern;
 

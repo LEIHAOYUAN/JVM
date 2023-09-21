@@ -1,14 +1,14 @@
 package com.lei.jvm.stu.javax;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import lombok.Data;
+import org.hibernate.validator.HibernateValidator;
+
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-
-import lombok.Data;
-import org.hibernate.validator.HibernateValidator;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @Description 工作站-提货单BO

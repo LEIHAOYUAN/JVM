@@ -1,7 +1,7 @@
 package com.lei.jvm.stu.temp;
 
-import com.lei.jvm.utils.base.consts.NumberConstants;
 import com.google.common.collect.Maps;
+import com.lei.jvm.utils.base.consts.NumberConstants;
 import lombok.Data;
 
 import java.io.Serializable;

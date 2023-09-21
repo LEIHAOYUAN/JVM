@@ -1,13 +1,8 @@
 package com.lei.jvm.utils.base.utils.xml;
 
-import com.alibaba.fastjson.JSON;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
-import org.dom4j.Node;
+import org.dom4j.*;
 
 import java.util.HashMap;
 import java.util.List;
