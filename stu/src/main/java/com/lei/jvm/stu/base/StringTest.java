@@ -27,7 +27,7 @@ public class StringTest {
     public static void main(String[] args) {
         String param = null;
 
-        log.info("测试字符串拼接={}","PREFIX"+param);
+        log.info("测试字符串拼接={}",String.format("%s:p_ac:client:%s", param,param));
 
     }
 
