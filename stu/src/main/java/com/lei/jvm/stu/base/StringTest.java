@@ -25,24 +25,9 @@ public class StringTest {
 
     private static final String ESCAPE_POINT = "\\.";
     public static void main(String[] args) {
+        String param = null;
 
-        Object obj = null;
-        log.info("字符串转换结果={}",String.valueOf(obj));
-
-        log.info("比较结果={}","0".equals(0));
-//        testReplaceAll();
-//        log.info("转换结果={}",Long.parseLong("844147031878914048"));
-//        testBuildSQL("A/C");
-//        testMessageFormat();
-//        testPath("003014001002001");
-
-        String param = "rm-00000";
-
-        String param2 = "AAA"+param+"00000fdsaf";
-
-        log.info("结果={}",param2.contains(param));
-
-//        log.info("测试前缀匹配={}","system_co_0".startsWith("system"));
+        log.info("测试字符串拼接={}","PREFIX"+param);
 
     }
 
