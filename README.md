@@ -7,9 +7,11 @@
 ## spring
 * spring general function encapsulation
 * spring integrates the event flow orchestration engine
+* scaffolding work
 ## stu
 * New technology research and adaptation enhancement
 * Open source framework integration verification
+* pressure test
 ## utils
 * Packaging generic toolkit
 * Universal tool packaging
