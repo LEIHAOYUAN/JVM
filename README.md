@@ -3,8 +3,10 @@
 * auxiliary means
 * continue to optimize
 * Domain driven model framework
+* excel data processing engine
 ## spring
 * spring general function encapsulation
+* spring integrates the event flow orchestration engine
 ## stu
 * New technology research and adaptation enhancement
 * Open source framework integration verification
