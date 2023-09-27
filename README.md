@@ -11,11 +11,13 @@
 ## utils
 * Packaging generic toolkit
 * Universal tool packaging
+* Generic algorithm tool class
 ---
 # Project development planning
 * Encapsulate the enterprise's daily common toolkit
 * Quickly support the use of open source projects
 * Support for scripting engines and powerful expression parsing
+* Canvas algorithm model implementation
 
 # contact way
 646914508@qq.com
