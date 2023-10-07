@@ -2,6 +2,7 @@ package com.lei.jvm.stu.base;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -29,6 +30,12 @@ public class StringTest {
 
         log.info("测试字符串拼接={}",String.format("%s:p_ac:client:%s", param,param));
 
+    }
+
+
+    public static void testJoiner(){
+        String join = Joiner.on(",").join(Lists.newArrayList());
+        log.info(join);
     }
 
     public static void testPath(String path) {
