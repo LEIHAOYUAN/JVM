@@ -26,10 +26,15 @@ public class StringTest {
 
     private static final String ESCAPE_POINT = "\\.";
     public static void main(String[] args) {
+        Object obj = null;
+        log.info("测试类型转换={}",String.valueOf(obj));
+
+    }
+
+    private static void testFormat() {
         String param = null;
 
         log.info("测试字符串拼接={}",String.format("%s:p_ac:client:%s", param,param));
-
     }
 
 
