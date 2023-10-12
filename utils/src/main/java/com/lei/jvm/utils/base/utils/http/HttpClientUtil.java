@@ -26,9 +26,12 @@ import java.security.NoSuchAlgorithmException;
 @UtilityClass
 public class HttpClientUtil {
 
-    private static final int TIMEOUT = 5000; // 请求超时时间
-    private static final int MAX_TOTAL = 200; // 最大连接数
-    private static final int MAX_PER_ROUTE = 50; // 每个路由最大连接数
+    // 请求超时时间
+    private static final int TIMEOUT = 5000;
+    // 最大连接数
+    private static final int MAX_TOTAL = 200;
+    // 每个路由最大连接数
+    private static final int MAX_PER_ROUTE = 50;
 
     private static CloseableHttpClient httpClient;
 
