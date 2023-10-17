@@ -1,6 +1,7 @@
 package com.lei.jvm.stu.collection.map;
 
 import com.alibaba.fastjson.JSON;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.lei.jvm.stu.stream.Student;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,19 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-        testTreeMap("AdMiN");
+        testFlatValue();
+    }
+
+
+    public static void testFlatValue() {
+        Map<String, List<Integer>> param = Maps.newHashMap();
+
+        param.put("AAA", Lists.newArrayList(1, 2, 3, 4, 5));
+        param.put("BBB", Lists.newArrayList(6, 7, 8, 9, 10));
+
+        List<Integer> collect = param.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
+        log.info("所有结果={}",JSON.toJSONString(collect));
+
     }
 
 
