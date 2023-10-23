@@ -20,10 +20,10 @@ public class LongTest {
 
     private static void parseLong() {
         List<Long> result = Lists.newArrayList();
-        List<String> param = Lists.newArrayList("AAA", "78678835436546","1234568888888888L", "_NONE_");
+        List<String> param = Lists.newArrayList(" 8 ","","AAA", "78678835436546","1234568888888888L", "_NONE_");
         for (String item : param) {
             try {
-                result.add(Long.parseUnsignedLong(item));
+                result.add(Long.parseLong(item));
             } catch (Exception ex) {
                 log.warn("过滤非自定义数据权限项=[{}]", item);
             }
