@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.lei.jvm.stu.clone.Student;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.ListUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -22,10 +23,7 @@ public class ListTest {
     public static void main(String[] args) {
 //        testComplexSort();
 
-        List<String> strings = buildList("A", "B", "C");
-        for (int i = 0; i < strings.size(); i++) {
-            log.info(strings.get(4));
-        }
+        testMapDuplicateKey();
     }
 
     private static void testComplexSort() {
@@ -186,7 +184,7 @@ public class ListTest {
         listStu.add(new Student(10));
         listStu.add(new Student(11));
         listStu.add(new Student(12));
-        Map<Integer, Student> idMap = listStu.stream().collect(Collectors.toMap(Student::getId, s -> s));
+        Map<Integer, String> idMap = listStu.stream().filter(i-> StringUtils.isNotBlank(i.getName())).collect(Collectors.toMap(Student::getId, Student::getName));
         System.out.println(JSON.toJSONString(idMap));
     }
 
