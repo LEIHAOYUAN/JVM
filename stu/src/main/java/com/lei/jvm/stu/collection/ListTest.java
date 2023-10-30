@@ -22,8 +22,7 @@ public class ListTest {
 
     public static void main(String[] args) {
 //        testComplexSort();
-
-        testMapDuplicateKey();
+        testMultiFieldSort();
     }
 
     private static void testComplexSort() {
@@ -148,6 +147,19 @@ public class ListTest {
         list = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
         Collections.sort(list);
         log.info("排序后：{}", JSON.toJSONString(list));
+    }
+
+    private static void testMultiFieldSort() {
+        List<Student> listStu = Lists.newArrayList();
+        listStu.add(new Student(1,"AAA"));
+        listStu.add(new Student(6,"DDD"));
+        listStu.add(new Student(3,"AAA"));
+        listStu.add(new Student(2,"AAA"));
+        listStu.add(new Student(5,"CCC"));
+        listStu.add(new Student(4,"BBB"));
+
+        listStu = listStu.stream().sorted(Comparator.comparing(Student::getId).thenComparing(Student::getName)).collect(Collectors.toList());
+        log.info("排序结果={}",JSON.toJSONString(listStu));
     }
 
     private static void testDistinct() {
