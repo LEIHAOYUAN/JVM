@@ -71,7 +71,7 @@ public class JSONTest {
         person.setName("人类");
         Teacher teacher = new Teacher();
         teacher.setName("教师");
-        Student student = new Student();
+        Student student = new Student("AAA");
         student.setName("学生");
 
         teacher.setStudents(Lists.newArrayList(student));
