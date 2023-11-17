@@ -26,9 +26,7 @@ public class StringTest {
 
     private static final String ESCAPE_POINT = "\\.";
     public static void main(String[] args) {
-        Object obj = null;
-        log.info("测试类型转换={}",String.valueOf(obj));
-
+        testReplaceAllWithMultiChar();
     }
 
     private static void testFormat() {
@@ -105,11 +103,18 @@ public class StringTest {
         log.info("包装结果={}", String.valueOf(status));
     }
 
-    public static void testReplaceAll() {
+    public static void testReplaceAllWithSingeChar() {
         String param = "AAA|CCC|DDD";
         log.info("测试替换={}", param.replaceAll("|", StringUtils.EMPTY));
         log.info("测试替换={}", param.replaceAll("AAA|CCC|", StringUtils.EMPTY));
         log.info("测试替换={}", param.replaceAll("AAA|CCC|", StringUtils.EMPTY).replaceAll("\\|", StringUtils.EMPTY));
+    }
+
+    public static void testReplaceAllWithMultiChar() {
+        String param = "AAA&_&_CCC_&_DDD&";
+        log.info("测试替换={}", param.replaceAll("_&", StringUtils.EMPTY));
+        log.info("测试替换={}", param.replaceAll("_", StringUtils.EMPTY));
+        log.info("测试替换={}", param.replaceAll("_&_", StringUtils.EMPTY));
     }
 
     public static void getStr(String key, String defaultContent) {
