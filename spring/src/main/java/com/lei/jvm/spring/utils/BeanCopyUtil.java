@@ -1,5 +1,7 @@
 package com.lei.jvm.spring.utils;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.bean.copier.CopyOptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.*;
 import org.springframework.lang.Nullable;
@@ -16,7 +18,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class BeanUtil extends BeanUtils {
+public class BeanCopyUtil extends BeanUtils {
+
+
+    public void copyPropertiesIgnoreNull(Object source, Object target) {
+        BeanUtil.copyProperties(source, target, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
+    }
 
     public static <T> T fromBeanIgnoreNull(Object source, T target) {
         BeanWrapper beanWrapper = new BeanWrapperImpl(source);
