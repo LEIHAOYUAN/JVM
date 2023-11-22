@@ -20,7 +20,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class BeanCopyUtil extends BeanUtils {
 
-
+    /**
+     * hutool类拷贝工具
+     * @param source
+     * @param target
+     */
     public void copyPropertiesIgnoreNull(Object source, Object target) {
         BeanUtil.copyProperties(source, target, CopyOptions.create().setIgnoreNullValue(true).setIgnoreError(true));
     }
