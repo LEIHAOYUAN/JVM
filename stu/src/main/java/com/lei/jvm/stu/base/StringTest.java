@@ -1,5 +1,6 @@
 package com.lei.jvm.stu.base;
 
+import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Joiner;
@@ -25,18 +26,25 @@ public class StringTest {
     private static final String POINT = ".";
 
     private static final String ESCAPE_POINT = "\\.";
+
     public static void main(String[] args) {
-        testReplaceAllWithMultiChar();
+        validWord();
+    }
+
+
+    public static void validWord() {
+        // log.info("校验结果={}", Validator.isWord("abc中"));
+        log.info("校验结果={}", Validator.isLowerCase("abca_中"));
     }
 
     private static void testFormat() {
         String param = null;
 
-        log.info("测试字符串拼接={}",String.format("%s:p_ac:client:%s", param,param));
+        log.info("测试字符串拼接={}", String.format("%s:p_ac:client:%s", param, param));
     }
 
 
-    public static void testJoiner(){
+    public static void testJoiner() {
         String join = Joiner.on(",").join(Lists.newArrayList());
         log.info(join);
     }
