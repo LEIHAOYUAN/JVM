@@ -33,8 +33,8 @@ public class StringTest {
 
 
     public static void validGeneral() {
-        String param = "88Tttt";
-        log.info("校验小写字母以及数字结果={}", param.matches("^[a-z0-9]+$"));
+        String param = "t88ttt";
+        log.info("校验小写字母以及数字结果={}", param.matches("^[a-z][a-z0-9]*$"));
     }
 
     public static void validWord() {
