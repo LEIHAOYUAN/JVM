@@ -28,10 +28,15 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        validWord();
+        validGeneral();
     }
 
 
+
+    public static void validGeneral(){
+        String param = "88Tttt";
+        log.info("校验小写字母以及数字结果={}",param.matches("^[a-z0-9]+$"));
+    }
     public static void validWord() {
         // log.info("校验结果={}", Validator.isWord("abc中"));
         log.info("校验结果={}", Validator.isLowerCase("abca_中"));
