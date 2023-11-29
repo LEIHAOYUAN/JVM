@@ -28,7 +28,13 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        validGeneral();
+        testJoiner();
+    }
+
+
+    public static void testJoiner() {
+        log.info("拼接集合={}", Joiner.on(",").join(Lists.newArrayList("a,b,c,", "8,c")));
+        log.info("拼接空集合={}", Joiner.on(",").join(Lists.newArrayList()));
     }
 
 
@@ -48,11 +54,6 @@ public class StringTest {
         log.info("测试字符串拼接={}", String.format("%s:p_ac:client:%s", param, param));
     }
 
-
-    public static void testJoiner() {
-        String join = Joiner.on(",").join(Lists.newArrayList());
-        log.info(join);
-    }
 
     public static void testPath(String path) {
         List<String> parentPathList = Lists.newArrayList();
