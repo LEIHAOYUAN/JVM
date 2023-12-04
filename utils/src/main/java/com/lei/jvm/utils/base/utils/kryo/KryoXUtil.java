@@ -3,6 +3,7 @@ package com.lei.jvm.utils.base.utils.kryo;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.esotericsoftware.kryo.serializers.CompatibleFieldSerializer;
 import com.esotericsoftware.kryo.util.DefaultInstantiatorStrategy;
 import org.objenesis.strategy.StdInstantiatorStrategy;
 
@@ -20,6 +21,7 @@ public class KryoXUtil {
         kryo.setReferences(true);
         //默认值为true，避免版本变化显式设置
         kryo.setRegistrationRequired(false);
+        kryo.setDefaultSerializer(CompatibleFieldSerializer.class);
         //设定默认的实例化器
         ((DefaultInstantiatorStrategy) kryo.getInstantiatorStrategy())
                 .setFallbackInstantiatorStrategy(new StdInstantiatorStrategy());
