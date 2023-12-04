@@ -9,6 +9,9 @@ import org.objenesis.strategy.StdInstantiatorStrategy;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
+/**
+ * https://blog.csdn.net/2301_76607156/article/details/129442634
+ */
 public class KryoXUtil {
 
     private static final ThreadLocal<Kryo> kryoLocal = ThreadLocal.withInitial(() -> {
