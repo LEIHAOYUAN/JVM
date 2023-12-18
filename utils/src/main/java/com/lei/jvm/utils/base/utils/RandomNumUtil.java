@@ -31,6 +31,9 @@ public class RandomNumUtil {
             // 除以1万，防止随着时间递增超过int最大值
             long timeVersion = System.currentTimeMillis() / 10000;
             int incrVersion = VERSION_COUNTER.getAndIncrement();
+            if(incrVersion > 10){
+                VERSION_COUNTER.set(0);
+            }
             int finalVersion = (int) timeVersion + incrVersion;
             log.info("timeVersion=[{}]incrVersion=[{}]finalVersion=[{}]hbase版本号=[{}]", timeVersion, incrVersion, finalVersion, Integer.MAX_VALUE - finalVersion);
             Thread.sleep(100);
