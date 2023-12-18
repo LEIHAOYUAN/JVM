@@ -27,7 +27,7 @@
         <spring-kafka.version>2.6.5</spring-kafka.version>
         <lombok.version>1.18.12</lombok.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
-        <hutool.version>4.6.3</hutool.version>
+        <hutool.version>5.8.7</hutool.version>
         <javax.validation.version>2.0.1.Final</javax.validation.version>
         <hibernate.validation.version>6.1.2.Final</hibernate.validation.version>
         <javax.el.version>3.0.1-b09</javax.el.version>

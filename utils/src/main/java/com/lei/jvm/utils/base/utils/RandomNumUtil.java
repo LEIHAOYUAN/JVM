@@ -4,6 +4,8 @@ import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.RandomUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * 随机数工具类
  *
@@ -14,8 +16,25 @@ import lombok.extern.slf4j.Slf4j;
 public class RandomNumUtil {
 
 
-    public static void main(String[] args) {
-        buildIntegerMillis();
+    public static void main(String[] args) throws InterruptedException {
+        buildLogVersion();
+    }
+
+    private static void buildLogVersion() throws InterruptedException {
+        AtomicInteger VERSION_COUNTER = new AtomicInteger(0);
+        for (int i = 0; i < 500; i++) {
+            // 2099-01-01 00:00:00 000
+            // long mills = 4070880000000L;
+            // 2050-01-01 00:00:00 000
+            // long mills = 2524579200000L;
+
+            // 除以1万，防止随着时间递增超过int最大值
+            long timeVersion = System.currentTimeMillis() / 10000;
+            int incrVersion = VERSION_COUNTER.getAndIncrement();
+            int finalVersion = (int) timeVersion + incrVersion;
+            log.info("timeVersion=[{}]incrVersion=[{}]finalVersion=[{}]hbase版本号=[{}]", timeVersion, incrVersion, finalVersion, Integer.MAX_VALUE - finalVersion);
+            Thread.sleep(100);
+        }
     }
 
     private static void buildIntegerMillis() {
