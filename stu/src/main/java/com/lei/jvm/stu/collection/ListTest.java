@@ -22,7 +22,14 @@ public class ListTest {
 
     public static void main(String[] args) {
 //        testComplexSort();
-        testMultiFieldSort();
+        testRemove();
+    }
+
+
+    private static void testRemove(){
+        List<String> param = Lists.newArrayList("A","A","B","C");
+        param.remove("C");
+        log.info("去除后结果={}",JSON.toJSONString(param));
     }
 
     private static void testComplexSort() {
