@@ -13,7 +13,7 @@ public class AttributionEquals {
 
 
     public static void main(String[] args) {
-
+        log.info("比较={}",Boolean.TRUE.equals(null));
     }
 
 
