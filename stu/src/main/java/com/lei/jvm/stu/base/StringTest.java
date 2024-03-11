@@ -33,7 +33,7 @@ public class StringTest {
 
 
     public static void testJoiner() {
-        log.info("拼接集合={}", Joiner.on(",").join(Lists.newArrayList("a,b,c,", "8,c")));
+        log.info("拼接集合={}", Joiner.on(",").join(Lists.newArrayList("a,b,c", "8,c")));
         log.info("拼接空集合={}", Joiner.on(",").join(Lists.newArrayList()));
         log.info("拼接null集合={}", Joiner.on(",").join(Lists.newArrayList(null, null)));
     }
