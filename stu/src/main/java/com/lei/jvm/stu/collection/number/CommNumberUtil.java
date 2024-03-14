@@ -16,7 +16,7 @@ import java.util.List;
 public class CommNumberUtil {
 
     public static void main(String[] args) {
-        testIsNumber();
+        testCastLong();
     }
 
 
@@ -25,6 +25,13 @@ public class CommNumberUtil {
         for (String item : param) {
             log.info("[{}]是否是数字[{}]", item, NumberUtil.isNumber(item));
         }
+    }
+
+
+    public void testCastLong() {
+        String param = "8888888878787878d";
+        long res = Long.parseLong(param);
+        log.info("转换结果={}", res);
     }
 
 
