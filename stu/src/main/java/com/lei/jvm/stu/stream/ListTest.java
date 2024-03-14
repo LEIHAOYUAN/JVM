@@ -31,7 +31,7 @@ public class ListTest {
 //        Object param = null;
 //        ArrayList<Object> objects = Lists.newArrayList(param);
 //        log.info("集合大小={}",objects.size());
-        testPeek();
+        testAddAll();
     }
 
     public static void testPeek(){
@@ -138,7 +138,7 @@ public class ListTest {
         param.addAll(Lists.newArrayList());
         param.addAll(Lists.newArrayList());
         param.addAll(Lists.newArrayList());
-        param.addAll(Lists.newArrayList());
+        param.addAll(null);
         log.info("集合大小：{}", param.size());
     }
 
