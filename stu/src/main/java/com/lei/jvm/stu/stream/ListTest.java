@@ -31,7 +31,7 @@ public class ListTest {
 //        Object param = null;
 //        ArrayList<Object> objects = Lists.newArrayList(param);
 //        log.info("集合大小={}",objects.size());
-        testAddAll();
+        testFilter();
     }
 
     public static void testPeek(){
@@ -218,8 +218,8 @@ public class ListTest {
         regionList.add("BBB");
         regionList.add("CCC");
         regionList.add("DDD");
-        List<String> collect = regionList.stream().filter(item -> "CCC".equals(item)).collect(Collectors.toList());
-        log.info("过滤出结果：{}", JSON.toJSONString(collect));
+        List<String> collect = regionList.stream().filter(item -> "lei".equals(item)).collect(Collectors.toList());
+        log.info("过滤出结果：{}", collect.size());
     }
 
     private static void testRemove(){
