@@ -28,7 +28,13 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        testJoiner();
+        testAppend();
+    }
+
+    public static void testAppend() {
+        String param1 = null;
+        String param2 = "4";
+        log.info("结果={}", param1 + param2);
     }
 
 
