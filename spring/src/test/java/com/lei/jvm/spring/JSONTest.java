@@ -22,14 +22,20 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  职能描述：
- *  @author leihaoyuan
- *  @version 2022/11/24 10:10
+ * 职能描述：
+ *
+ * @author leihaoyuan
+ * @version 2022/11/24 10:10
  */
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class JSONTest {
+
+    @Test
+    public void testStringJson() {
+        log.info("JSON格式={}", JSON.toJSONString("AAA"));
+    }
 
     @Test
     public void testMapJson() {
@@ -125,24 +131,24 @@ public class JSONTest {
 
 
     /**
-     {
-     "query": "",
-     "variables": {
-     "filters": ["filter1","filter2"],
-     "valids": [
-     {
-     "userId": "XXX"
-     },
-     {
-     "orderNo": "XXX",
-     "orderType": 1
-     }
-     ],
-     "page": 1,
-     "pageSize": 10
-     },
-     "extra": { "viewId": "63a11d5b73d9d425311bf1d6"}
-     }
+     * {
+     * "query": "",
+     * "variables": {
+     * "filters": ["filter1","filter2"],
+     * "valids": [
+     * {
+     * "userId": "XXX"
+     * },
+     * {
+     * "orderNo": "XXX",
+     * "orderType": 1
+     * }
+     * ],
+     * "page": 1,
+     * "pageSize": 10
+     * },
+     * "extra": { "viewId": "63a11d5b73d9d425311bf1d6"}
+     * }
      */
     @Test
     public void testParseJson() {
