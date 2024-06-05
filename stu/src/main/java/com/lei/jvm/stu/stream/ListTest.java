@@ -218,6 +218,7 @@ public class ListTest {
         regionList.add("BBB");
         regionList.add("CCC");
         regionList.add("DDD");
+        regionList = Lists.newArrayList();
         List<String> collect = regionList.stream().filter(item -> "lei".equals(item)).collect(Collectors.toList());
         log.info("过滤出结果：{}", collect.size());
     }
