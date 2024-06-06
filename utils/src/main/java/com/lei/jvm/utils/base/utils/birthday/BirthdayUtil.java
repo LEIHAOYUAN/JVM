@@ -15,11 +15,11 @@ import java.nio.ByteOrder;
 public class BirthdayUtil {
 
     public static void main(String[] args) {
-        log.info("解密生日={}", decryptUint(3788187338L));
-        log.info("加密生日={}", encryptUint(20240606));
+        log.info("解密生日={}", decryptBirthday(3788187338L));
+        log.info("加密生日={}", encryptBirthday(20240606));
     }
 
-    public static long decryptUint(long value) {
+    public static long decryptBirthday(long value) {
         if (value < 99999999) {
             return value;
         }
@@ -38,7 +38,7 @@ public class BirthdayUtil {
         return value;
     }
 
-    public static long encryptUint(long value) {
+    public static long encryptBirthday(long value) {
         byte[] bytes = new byte[8];
         ByteBuffer buffer = ByteBuffer.wrap(bytes);
         buffer.order(ByteOrder.LITTLE_ENDIAN);
