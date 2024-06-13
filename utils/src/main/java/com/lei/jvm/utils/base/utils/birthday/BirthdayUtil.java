@@ -1,5 +1,6 @@
 package com.lei.jvm.utils.base.utils.birthday;
 
+import com.alibaba.fastjson.JSON;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,7 +17,7 @@ public class BirthdayUtil {
 
     public static void main(String[] args) {
         log.info("解密生日={}", decryptBirthday(3788187338L));
-        log.info("加密生日={}", encryptBirthday(20240606));
+        log.info("加密生日={}", encryptBirthday(19810229));
     }
 
     public static long decryptBirthday(long value) {

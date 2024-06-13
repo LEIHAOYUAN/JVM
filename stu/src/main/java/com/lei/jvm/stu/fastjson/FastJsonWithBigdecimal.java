@@ -15,7 +15,9 @@ import java.math.BigDecimal;
 public class FastJsonWithBigdecimal {
 
     public static void main(String[] args) {
-        test1();
+        log.info("构造json={}", JSON.toJSONString(new Person()));
+        Person person = JSON.parseObject("{}", Person.class);
+        log.info("转换对象={}", person);
     }
 
     private static void test1() {
