@@ -16,7 +16,7 @@ import java.nio.ByteOrder;
 public class BirthdayUtil {
 
     public static void main(String[] args) {
-        log.info("解密生日={}", decryptBirthday(3788187338L));
+        log.info("解密生日={}", decryptBirthday(3776389719L));
         log.info("加密生日={}", encryptBirthday(19810229));
     }
 
