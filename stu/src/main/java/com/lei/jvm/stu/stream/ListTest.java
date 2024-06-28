@@ -9,7 +9,13 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -31,28 +37,34 @@ public class ListTest {
 //        Object param = null;
 //        ArrayList<Object> objects = Lists.newArrayList(param);
 //        log.info("集合大小={}",objects.size());
-        testFilter();
+        testGetIndex();
     }
 
-    public static void testPeek(){
-        List<Student> list = Lists.newArrayList(new Student("ZZZ",0),new Student("DDD",11),new Student("AAA",-1));
+
+    public static void testGetIndex() {
+        List<String> param = Lists.newArrayList("A", "B");
+        log.info("获取元素={}", param.get(3));
+    }
+
+    public static void testPeek() {
+        List<Student> list = Lists.newArrayList(new Student("ZZZ", 0), new Student("DDD", 11), new Student("AAA", -1));
         List<Student> result = list.stream().peek(i -> i.setCode(i.getCode() + "peek")).collect(Collectors.toList());
-        log.info("peek操作结果={}",JSON.toJSONString(result));
+        log.info("peek操作结果={}", JSON.toJSONString(result));
     }
 
-    private static void addRef(List<Student> param){
-        param.add(new Student("BB",11));
+    private static void addRef(List<Student> param) {
+        param.add(new Student("BB", 11));
     }
 
-    public static void testToLinkedHashMap(){
-        List<Student> list = Lists.newArrayList(new Student("ZZZ",0),new Student("DDD",11),new Student("AAA",-1));
+    public static void testToLinkedHashMap() {
+        List<Student> list = Lists.newArrayList(new Student("ZZZ", 0), new Student("DDD", 11), new Student("AAA", -1));
 
         Map<String, Integer> map = list.stream().collect(Collectors.toMap(Student::getCode, Student::getNum));
 
         LinkedHashMap<String, Integer> sortMap = list.stream().sorted(Comparator.comparing(Student::getNum).reversed()).collect(Collectors.toMap(Student::getCode, Student::getNum, (o1, o2) -> o1, LinkedHashMap::new));
 
-        log.info("无排序结果={}",JSON.toJSONString(map));
-        log.info("排序结果={}",JSON.toJSONString(sortMap));
+        log.info("无排序结果={}", JSON.toJSONString(map));
+        log.info("排序结果={}", JSON.toJSONString(sortMap));
 
     }
 
@@ -223,7 +235,7 @@ public class ListTest {
         log.info("过滤出结果：{}", collect.size());
     }
 
-    private static void testRemove(){
+    private static void testRemove() {
         List<Student> list = Lists.newArrayList();
         list.add(new Student("张三", "16", BigDecimal.TEN));
         list.add(new Student("张三", "16", BigDecimal.ZERO));
