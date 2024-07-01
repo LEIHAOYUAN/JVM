@@ -1,6 +1,7 @@
 package com.lei.jvm.stu.base;
 
 import cn.hutool.core.lang.Validator;
+import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Joiner;
@@ -12,6 +13,7 @@ import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -29,6 +31,15 @@ public class StringTest {
 
     public static void main(String[] args) {
         testAppend();
+    }
+
+    public static void pickup() {
+        String param = "合同内容@{aaa}协议签署@sign{leader},终止合同签署，尾款@{不支持符号@{}";
+        String patternString = "@\\{[^}]*\\}";
+        Pattern pattern = Pattern.compile(patternString);
+        ReUtil.findAll(pattern, param, matcher -> {
+
+        });
     }
 
     public static void testAppend() {
