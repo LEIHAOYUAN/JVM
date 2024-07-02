@@ -30,23 +30,25 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        testReplace();
+        pickup();
     }
 
     public static void testReplace() {
         String param = "合同内容@{aaa}协议签署@sign{leader},终止合同签署，尾款@{不支持符号@{}";
-        String commPattern = "@\\{[^}]*\\}";
+        String commPattern = "\\$\\{[^}]*\\}";
         String signPattern = "@sign\\{[^}]*\\}";
         log.info("替换后={}", param.replaceAll(signPattern, ""));
     }
 
     public static void pickup() {
-        String param = "合同内容@{aaa}协议签署@sign{leader},终止合同签署，尾款@{不支持符号@{}";
-        String patternString = "@\\{[^}]*\\}";
-        Pattern pattern = Pattern.compile(patternString);
-        ReUtil.findAll(pattern, param, matcher -> {
+        String param = "合同内容${aaa}，${bbb}协议签署$.sign{leader},终止合同签署-$.year(年)-$.month(月)-$.day(日)";
 
-        });
+        List<Pattern> regexList = Lists.newArrayList(Pattern.compile("\\$\\{[^}]*\\}"),Pattern.compile("\\$.sign\\{[^}]*\\}"),Pattern.compile("\\$.year\\{[^}]*\\}"),Pattern.compile("\\$.month\\{[^}]*\\}"),Pattern.compile("\\$.day\\{[^}]*\\}"));
+        for (Pattern regex : regexList) {
+            ReUtil.findAll(regex, param,matcher->{
+                log.info("匹配结果={}",matcher.group());
+            });
+        }
     }
 
     public static void testAppend() {
