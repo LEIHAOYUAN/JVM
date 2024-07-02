@@ -30,7 +30,13 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        testAppend();
+        testReplace();
+    }
+
+    public static void testReplace() {
+        String param = "合同内容@{aaa}协议签署@sign{leader},终止合同签署，尾款@{不支持符号@{}";
+        String patternString = "@sign\\{[^}]*\\}";
+        log.info("替换后={}", param.replaceAll(patternString, ""));
     }
 
     public static void pickup() {
