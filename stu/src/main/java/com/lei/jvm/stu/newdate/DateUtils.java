@@ -1,5 +1,7 @@
 package com.lei.jvm.stu.newdate;
 
+import cn.hutool.core.date.DateTime;
+import cn.hutool.core.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
@@ -34,7 +36,18 @@ public class DateUtils {
 
 
     public static void main(String[] args) throws ParseException {
-        formatLocalDate();
+        log.info("校验日期时间格式={}",checkDateTime("2024070301000"));
+    }
+
+    private static boolean checkDateTime(String dateStr) {
+        try {
+            DateTime dateTime = DateUtil.parse(dateStr, "yyyyMMddHHmmss");
+            log.info("解析时间={}",dateTime);
+            return true;
+        } catch (Exception ex) {
+            log.error("日期格式非法[{}]", dateStr);
+        }
+        return false;
     }
 
     public static void formatLocalDate() {
