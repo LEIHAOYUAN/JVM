@@ -1,12 +1,16 @@
 package com.lei.jvm.stu.newdate;
 
-import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.*;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -36,13 +40,20 @@ public class DateUtils {
 
 
     public static void main(String[] args) throws ParseException {
-        log.info("校验日期时间格式={}",checkDateTime("2024070301000"));
+        log.info("校验日期时间格式={}", checkDateTime("20240703"));
     }
 
     private static boolean checkDateTime(String dateStr) {
         try {
-            DateTime dateTime = DateUtil.parse(dateStr, "yyyyMMddHHmmss");
-            log.info("解析时间={}",dateTime);
+            if (dateStr.length() != 8 && dateStr.length() != 14) {
+                log.error("时间日期参数值非法-{}", dateStr);
+                return false;
+            }
+            if (dateStr.length() == 8) {
+                DateUtil.parseLocalDateTime(dateStr, "yyyyMMdd");
+            } else {
+                DateUtil.parseLocalDateTime(dateStr, "yyyyMMddHHmmss");
+            }
             return true;
         } catch (Exception ex) {
             log.error("日期格式非法[{}]", dateStr);

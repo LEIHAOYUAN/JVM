@@ -49,6 +49,10 @@ public class StringTest {
                 String match = matcher.group();
                 String key = match.substring(match.indexOf("{") + 1, match.lastIndexOf("}"));
                 log.info("匹配结果={}-提取key={}", match, key);
+                if(key.equals("月")){
+                    return;
+                }
+                log.info("-----------------分隔符--------------------------");
             });
         }
     }
