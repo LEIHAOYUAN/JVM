@@ -41,12 +41,14 @@ public class StringTest {
     }
 
     public static void pickup() {
-        String param = "合同内容${aaa}，${bbb}协议签署$.sign{leader},终止合同签署-$.year(年)-$.month(月)-$.day(日)";
+        String param = "合同内容${aaa}，${bbb}协议签署$.sign{leader},终止合同签署-$.year{年}-$.month{月}--$.month{{月}+-$.month{月}}}-$.day{0}==$.day{{}}";
 
-        List<Pattern> regexList = Lists.newArrayList(Pattern.compile("\\$\\{[^}]*\\}"),Pattern.compile("\\$.sign\\{[^}]*\\}"),Pattern.compile("\\$.year\\{[^}]*\\}"),Pattern.compile("\\$.month\\{[^}]*\\}"),Pattern.compile("\\$.day\\{[^}]*\\}"));
-        for (Pattern regex : regexList) {
-            ReUtil.findAll(regex, param,matcher->{
-                log.info("匹配结果={}",matcher.group());
+        List<Pattern> REGEX_LIST = Lists.newArrayList(Pattern.compile("\\$\\{[^}]*\\}"), Pattern.compile("\\$\\.\\w+\\{[^}]*\\}"));
+        for (Pattern regex : REGEX_LIST) {
+            ReUtil.findAll(regex, param, matcher -> {
+                String match = matcher.group();
+                String key = match.substring(match.indexOf("{") + 1, match.lastIndexOf("}"));
+                log.info("匹配结果={}-提取key={}", match, key);
             });
         }
     }
