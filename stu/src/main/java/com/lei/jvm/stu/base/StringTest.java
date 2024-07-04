@@ -7,6 +7,7 @@ import com.alibaba.fastjson.JSON;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 
 import java.text.MessageFormat;
@@ -30,14 +31,22 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        pickup();
+        testEscape();
+        testReplace();
+    }
+
+
+    public static void testEscape() {
+        log.info("转义结果={}", StringEscapeUtils.escapeJava("$.day{valid_date}"));
     }
 
     public static void testReplace() {
-        String param = "合同内容@{aaa}协议签署@sign{leader},终止合同签署，尾款@{不支持符号@{}";
-        String commPattern = "\\$\\{[^}]*\\}";
-        String signPattern = "@sign\\{[^}]*\\}";
-        log.info("替换后={}", param.replaceAll(signPattern, ""));
+        String param = "合同内容@{aaa}协议签署$.day{valid_date},终止合同签署，尾款@{不支持符号@{}";
+        // log.info("替换后={}", param.replaceAll("\\$.day\\{valid_date\\}", "4"));
+        // String content = ReUtil.replaceAll(param, "$.day{valid_date}", "4");
+        log.info("转义测试");
+        String content = ReUtil.replaceAll(param, StringEscapeUtils.escapeJava("$.day{valid_date}"), "4");
+        log.info("替换结果={}", content);
     }
 
     public static void pickup() {
@@ -49,7 +58,7 @@ public class StringTest {
                 String match = matcher.group();
                 String key = match.substring(match.indexOf("{") + 1, match.lastIndexOf("}"));
                 log.info("匹配结果={}-提取key={}", match, key);
-                if(key.equals("月")){
+                if (key.equals("月")) {
                     return;
                 }
                 log.info("-----------------分隔符--------------------------");
