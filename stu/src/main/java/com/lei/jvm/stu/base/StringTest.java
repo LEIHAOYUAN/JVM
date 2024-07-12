@@ -31,8 +31,9 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        testEscape();
-        testReplace();
+        log.info("结果={}",String.valueOf(null));
+//        testEscape();
+//        testReplace();
     }
 
 
