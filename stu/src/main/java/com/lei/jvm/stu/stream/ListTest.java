@@ -37,7 +37,13 @@ public class ListTest {
 //        Object param = null;
 //        ArrayList<Object> objects = Lists.newArrayList(param);
 //        log.info("集合大小={}",objects.size());
-        testGetIndex();
+        testSubList();
+    }
+
+    public static void testSubList() {
+        ArrayList<String> param = Lists.newArrayList("1", "2", "3");
+        List<String> strings = param.subList(3, param.size());
+        log.info("截取结果={}", JSON.toJSONString(strings));
     }
 
 
