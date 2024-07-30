@@ -10,9 +10,17 @@ import org.apache.commons.lang3.time.FastDateFormat;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.*;
+import java.time.Clock;
+import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.YearMonth;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
+import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 
@@ -76,15 +84,17 @@ public class DateTimeUtil {
 //        log.info("转换时间戳={}", formatDate(0, DEFAULT_PARTTERN));
 //        log.info("转换时间戳={}", formatDate(SystemClock.now(), DEFAULT_PARTTERN));
 
-        String[] formats = {"yyyy-MM-dd HH:mm", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"};
-        LocalDateTime start = parseDateTime("2025-07-02 16:12:55", formats);
-        LocalDateTime end = parseDateTime("2025-09-30 16:12:55", formats);
-        if (LocalDateTime.now().isBefore(start)) {
-            log.info("未到开始时间={}", start);
-        }
-        if (LocalDateTime.now().isAfter(end)) {
-            log.info("已超结束时间={}", end);
-        }
+        getCurrentSeconds();
+    }
+
+    public static long getCurrentSeconds() {
+        // 获取当前瞬间
+        Instant now = Instant.now();
+
+        // 转换为自Unix纪元以来的秒数
+        long seconds = now.getEpochSecond();
+        log.info("当前系统秒数={}", seconds);
+        return seconds;
     }
 
     public static LocalDateTime parseDateTime(String date, String... format) {
@@ -108,7 +118,7 @@ public class DateTimeUtil {
      * 转换日期格式
      *
      * @param localDate 参数
-     * @param format 目标格式
+     * @param format    目标格式
      * @return
      */
     public static String LocalDateFormat(LocalDate localDate, String format) {
@@ -131,7 +141,7 @@ public class DateTimeUtil {
      * 转换日期格式
      *
      * @param localDateTime 参数
-     * @param format 目标格式
+     * @param format        目标格式
      * @return
      */
     public static String LocalDateTimeFormat(LocalDateTime localDateTime, String format) {
@@ -154,7 +164,7 @@ public class DateTimeUtil {
      * 转换日期格式
      *
      * @param localTime 参数
-     * @param format 目标格式
+     * @param format    目标格式
      * @return
      */
     public static String LocalTimeFormat(LocalTime localTime, String format) {
