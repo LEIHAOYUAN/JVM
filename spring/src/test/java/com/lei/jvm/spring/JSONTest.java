@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +32,12 @@ import java.util.Map;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class JSONTest {
+
+    @Test
+    public void testArrayJson() {
+        String jsonString = JSON.toJSONString(Lists.newArrayList());
+        log.info("JSON格式={}", jsonString.getBytes(StandardCharsets.UTF_8));
+    }
 
     @Test
     public void testStringJson() {
