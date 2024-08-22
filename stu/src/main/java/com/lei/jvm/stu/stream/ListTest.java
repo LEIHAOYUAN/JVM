@@ -38,6 +38,31 @@ public class ListTest {
 //        ArrayList<Object> objects = Lists.newArrayList(param);
 //        log.info("集合大小={}",objects.size());
         testSubList();
+        // List<String> sourceList = Lists.newArrayList("a", "b", "c", "d", "e", "f");
+        List<String> sourceList = Lists.newArrayList("a");
+        log.info("获取下一个元素={}", getNextElement(sourceList, ""));
+        log.info("获取下一个元素={}", getNextElement(sourceList, "a"));
+        log.info("获取下一个元素={}", getNextElement(sourceList, "b"));
+        log.info("获取下一个元素={}", getNextElement(sourceList, "c"));
+        log.info("获取下一个元素={}", getNextElement(sourceList, "d"));
+        log.info("获取下一个元素={}", getNextElement(sourceList, "e"));
+        log.info("获取下一个元素={}", getNextElement(sourceList, "f"));
+        log.info("获取下一个元素={}", getNextElement(sourceList, "XXX"));
+    }
+
+    public static String getNextElement(List<String> sourceList, String currentElement) {
+        if (CollectionUtils.isEmpty(sourceList)) {
+            return StringUtils.EMPTY;
+        }
+        if (StringUtils.isBlank(currentElement)) {
+            return sourceList.get(0);
+        }
+        if (!sourceList.contains(currentElement)) {
+            return currentElement;
+        }
+        int currentIndex = sourceList.indexOf(currentElement);
+        int nextIndex = (currentIndex + 1) % sourceList.size();
+        return sourceList.get(nextIndex);
     }
 
     public static void testSubList() {
