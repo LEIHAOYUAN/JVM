@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 public class TenantMapTest {
 
     public static void main(String[] args) {
-        buildTenantList();
+        buildTenantMap();
     }
 
 
@@ -304,7 +304,7 @@ public class TenantMapTest {
         for (String tenantId : tenantList) {
             tenantCodeList.add(tenantId.trim());
         }
-        log.info("租户列表={}",JSON.toJSONString(tenantCodeList.stream().distinct().collect(Collectors.toList())));
+        log.info("租户列表={}", JSON.toJSONString(tenantCodeList.stream().distinct().collect(Collectors.toList())));
     }
 
 
@@ -592,7 +592,7 @@ public class TenantMapTest {
         for (Map.Entry<String, String> entry : tenantMap.entrySet()) {
             metaMap.put(entry.getKey().trim(), entry.getValue().trim());
         }
-        log.info("预制数据={}", JSON.toJSONString(metaMap));
+        log.info("预制数据-总数=【{}】数据={}", metaMap.size(), JSON.toJSONString(metaMap));
     }
 
 
