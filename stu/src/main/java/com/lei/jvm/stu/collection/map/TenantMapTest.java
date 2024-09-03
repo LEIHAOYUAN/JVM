@@ -18,7 +18,17 @@ import java.util.stream.Collectors;
 public class TenantMapTest {
 
     public static void main(String[] args) {
-        buildTenantMap();
+        buildUpdateSQL();
+    }
+
+
+    private static void buildUpdateSQL() {
+        Map<String, String> tenantMap = buildTenantMap();
+        for (Map.Entry<String, String> entry : tenantMap.entrySet()) {
+            String tenantCode = entry.getKey();
+            String tenantName = entry.getValue();
+            System.out.println(String.format("UPDATE t_tenant SET tenant_name='%s' WHERE tenant_code = tenant_name AND tenant_code='%s';", tenantName, tenantCode));
+        }
     }
 
 
@@ -308,7 +318,7 @@ public class TenantMapTest {
     }
 
 
-    private static void buildTenantMap() {
+    private static Map<String, String> buildTenantMap() {
         Map<String, String> tenantMap = new HashMap<>();
         tenantMap.put("	21188	", "	争鲜	");
         tenantMap.put("	24hl	", "	希望24热线租户	");
@@ -592,7 +602,7 @@ public class TenantMapTest {
         for (Map.Entry<String, String> entry : tenantMap.entrySet()) {
             metaMap.put(entry.getKey().trim(), entry.getValue().trim());
         }
-        log.info("预制数据-总数=【{}】数据={}", metaMap.size(), JSON.toJSONString(metaMap.keySet()));
+        return metaMap;
     }
 
 

@@ -23,6 +23,10 @@ public class MapTest {
         testFlatValue();
     }
 
+    public static void buildSQL(){
+
+    }
+
 
     public static void testFlatValue() {
         Map<String, List<Integer>> param = Maps.newHashMap();
