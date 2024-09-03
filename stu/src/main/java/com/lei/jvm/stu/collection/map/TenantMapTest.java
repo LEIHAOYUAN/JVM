@@ -592,7 +592,7 @@ public class TenantMapTest {
         for (Map.Entry<String, String> entry : tenantMap.entrySet()) {
             metaMap.put(entry.getKey().trim(), entry.getValue().trim());
         }
-        log.info("预制数据-总数=【{}】数据={}", metaMap.size(), JSON.toJSONString(metaMap));
+        log.info("预制数据-总数=【{}】数据={}", metaMap.size(), JSON.toJSONString(metaMap.keySet()));
     }
 
 
