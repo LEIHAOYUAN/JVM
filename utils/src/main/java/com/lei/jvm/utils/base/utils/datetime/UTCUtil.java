@@ -18,8 +18,8 @@ import java.time.temporal.ChronoUnit;
 @UtilityClass
 public class UTCUtil {
 
-//    private static final ZoneId UTC_ZONE = ZoneId.of("UTC");
-    private static final ZoneId UTC_ZONE = ZoneId.systemDefault();
+    private static final ZoneId UTC_ZONE = ZoneId.of("UTC");
+    // private static final ZoneId UTC_ZONE = ZoneId.systemDefault();
 
 
     public static void main(String[] args) {
@@ -67,7 +67,7 @@ public class UTCUtil {
      * @return 转换后的LocalDateTime对象。
      */
     public static LocalDateTime toLocalDateTime(Instant utcInstant) {
-        return LocalDateTime.ofInstant(utcInstant, UTC_ZONE);
+        return LocalDateTime.ofInstant(utcInstant, ZoneId.systemDefault());
     }
 
     /**
