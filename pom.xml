@@ -53,6 +53,8 @@
         <caffeine.version>2.8.4</caffeine.version>
         <!--hessian-->
         <hessian.version>4.0.66</hessian.version>
+
+        <bouncycastle.version>1.70</bouncycastle.version>
     </properties>
 
     <dependencyManagement>
@@ -314,6 +316,18 @@
                 <groupId>com.lmax</groupId>
                 <artifactId>disruptor</artifactId>
                 <version>3.4.2</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${bouncycastle.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <version>${bouncycastle.version}</version>
             </dependency>
 
         </dependencies>

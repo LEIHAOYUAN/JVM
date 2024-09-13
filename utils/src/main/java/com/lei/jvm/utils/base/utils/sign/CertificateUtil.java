@@ -2,7 +2,6 @@ package com.lei.jvm.utils.base.utils.sign;
 
 import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.crypto.SignUtil;
 import cn.hutool.crypto.asymmetric.Sign;
 import cn.hutool.crypto.asymmetric.SignAlgorithm;
 import com.alibaba.fastjson.JSON;
@@ -24,11 +23,10 @@ import java.util.Map;
 @UtilityClass
 public class CertificateUtil {
 
-
     private static final SignAlgorithm SIGN_ALGORITHM = SignAlgorithm.SHA256withRSA;
 
     public static Pair<String, String> doGenerateSign() {
-        Sign sign = SignUtil.sign(SIGN_ALGORITHM);
+        Sign sign = new Sign(SIGN_ALGORITHM);
         return Pair.of(sign.getPublicKeyBase64(), sign.getPrivateKeyBase64());
     }
 
