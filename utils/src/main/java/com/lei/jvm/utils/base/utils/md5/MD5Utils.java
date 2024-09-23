@@ -24,7 +24,7 @@ public class MD5Utils {
         param.put("orgId", "123");
         param.put("userId", "456");
         // 将参数排序并拼接密钥
-        String joinParam = join(param, "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAJw7/5/kUw26z94VdDXaYWU8Uom3VNezyxvxLtytAIo+lRXjJVIfMNeZhBxxziaPac3+YJKf2Z0Gdvi8mI/WXb0CAwEAAQ==");
+        String joinParam = join(param, "+LN8mKLg3ZcCAwEAAQ==");
         // 生成MD5加密结果
         String md5Result = bytesToHex(generateMD5(joinParam.getBytes(StandardCharsets.UTF_8)));
         log.info("MD5加密结果={}", md5Result);
