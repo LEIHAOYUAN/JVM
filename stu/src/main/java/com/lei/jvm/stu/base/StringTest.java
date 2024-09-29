@@ -14,6 +14,7 @@ import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -31,9 +32,20 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        log.info("结果={}",String.valueOf(null));
+        pickupByPath();
 //        testEscape();
 //        testReplace();
+    }
+
+    public static void pickupByPath() {
+        String path = "paas/data/xxxx/prod/p_base_user__sys/paginate";
+        Pattern pattern = Pattern.compile("paas/data/(.*?)/prod");
+        Matcher matcher = pattern.matcher("");
+        if (matcher.find()) {
+            log.info("匹配到值={}", matcher.group(1));
+        } else {
+            log.warn("未匹配到");
+        }
     }
 
 
