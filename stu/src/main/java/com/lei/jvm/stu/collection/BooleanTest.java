@@ -16,7 +16,7 @@ public class BooleanTest {
 
     public static void testEquals(){
         Boolean param = null;
-        log.info("测试结果={}",Boolean.FALSE.equals(param));
+        log.info("测试结果={}",Boolean.TRUE.equals(null));
     }
 
 
