@@ -32,9 +32,13 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        pickupByPath();
+        testReplaceEnd();
 //        testEscape();
 //        testReplace();
+    }
+
+    private static void testReplaceEnd(){
+        log.info("测试结果={}",StringUtils.removeEnd("直属下属创建","创建"));
     }
 
     public static void pickupByPath() {
