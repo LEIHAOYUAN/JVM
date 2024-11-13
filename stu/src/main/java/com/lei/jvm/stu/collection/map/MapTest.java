@@ -8,7 +8,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 /**
@@ -20,11 +27,20 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-        testFlatValue();
+        buildSQL(99);
     }
 
-    public static void buildSQL(){
-
+    public static void buildSQL(int type) {
+        switch (type) {
+            case 0:
+                break;
+            case 1:
+                break;
+            default:
+                log.info("默认参数处理----------------");
+                return;
+        }
+        log.info("其他执行逻辑处理");
     }
 
 
@@ -35,7 +51,7 @@ public class MapTest {
         param.put("BBB", Lists.newArrayList(6, 7, 8, 9, 10));
 
         List<Integer> collect = param.values().stream().flatMap(Collection::stream).collect(Collectors.toList());
-        log.info("所有结果={}",JSON.toJSONString(collect));
+        log.info("所有结果={}", JSON.toJSONString(collect));
 
     }
 
