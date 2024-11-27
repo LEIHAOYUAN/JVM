@@ -37,17 +37,9 @@ public class ListTest {
 //        Object param = null;
 //        ArrayList<Object> objects = Lists.newArrayList(param);
 //        log.info("集合大小={}",objects.size());
-        testSubList();
+        // testSubList();
         // List<String> sourceList = Lists.newArrayList("a", "b", "c", "d", "e", "f");
-        List<String> sourceList = Lists.newArrayList("a");
-        log.info("获取下一个元素={}", getNextElement(sourceList, ""));
-        log.info("获取下一个元素={}", getNextElement(sourceList, "a"));
-        log.info("获取下一个元素={}", getNextElement(sourceList, "b"));
-        log.info("获取下一个元素={}", getNextElement(sourceList, "c"));
-        log.info("获取下一个元素={}", getNextElement(sourceList, "d"));
-        log.info("获取下一个元素={}", getNextElement(sourceList, "e"));
-        log.info("获取下一个元素={}", getNextElement(sourceList, "f"));
-        log.info("获取下一个元素={}", getNextElement(sourceList, "XXX"));
+        testRemoveSimple();
     }
 
     public static String getNextElement(List<String> sourceList, String currentElement) {
@@ -275,6 +267,12 @@ public class ListTest {
         List<Student> collect = list.stream().filter(item -> item.getName().equals("张三")).collect(Collectors.toList());
         log.info("过滤出结果：{}", JSON.toJSONString(collect));
         list.removeAll(collect);
+        log.info("移出后结果：{}", JSON.toJSONString(list));
+    }
+
+    private static void testRemoveSimple() {
+        List<String> list = Lists.newArrayList("A", "B", "C","A");
+        list.removeAll(Lists.newArrayList("748"));
         log.info("移出后结果：{}", JSON.toJSONString(list));
     }
 
