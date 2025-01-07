@@ -1,7 +1,6 @@
 package com.lei.jvm.stu.fastjson;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +20,6 @@ public class Student {
     @JSONField(name = "fullName")
     private String name;
 
-    @Ignore
     private String address;
 
 
