@@ -19,13 +19,6 @@ public class Swap {
         log.info("交换后：a={}，b={}", a, b);
     }
 
-    /**
-     * 交换顺序
-     *
-     * @param arr
-     * @param i
-     * @param j
-     */
     public static void swap01(int[] arr, int i, int j) {
         int temp = arr[i];
         arr[i] = arr[j];
