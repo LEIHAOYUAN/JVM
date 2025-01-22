@@ -44,7 +44,7 @@ public class XOR {
         int eorr = 0;
         for (int i = 0; i < arr.length; i++) {
             //[3]取出arr中与eor在相同位置为1的数
-            if ((rightone & arr[i]) == rightone) {
+            if ((rightone & arr[i]) == 1) {
                 //[4]满足条件继续全部异或
                 eorr ^= arr[i];
             }
