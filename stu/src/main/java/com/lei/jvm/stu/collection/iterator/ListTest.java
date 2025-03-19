@@ -23,9 +23,16 @@ public class ListTest {
 
     public static void main(String[] args) {
 //        testSplitJoin();
-        List<Student> students = initData();
-        testRemove(students);
-        log.info("清洗后数据={}", JSON.toJSONString(students));
+        testIN();
+    }
+
+    private static void testIN() {
+        List<String> param1 = Lists.newArrayList("A", "B");
+        List<String> param2 = Lists.newArrayList("A", "B", "D");
+
+        List<String> result = param1.stream().filter(param2::contains).toList();
+        log.info("交集结果={}", JSON.toJSONString(result));
+
     }
 
     private static void testRemove(List<Student> students) {
