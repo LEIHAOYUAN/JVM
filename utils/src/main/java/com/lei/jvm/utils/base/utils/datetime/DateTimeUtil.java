@@ -18,9 +18,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.YearMonth;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
-import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 
@@ -83,8 +83,7 @@ public class DateTimeUtil {
 //        log.info("转换时间戳={}", formatDate(System.currentTimeMillis(), DEFAULT_PARTTERN));
 //        log.info("转换时间戳={}", formatDate(0, DEFAULT_PARTTERN));
 //        log.info("转换时间戳={}", formatDate(SystemClock.now(), DEFAULT_PARTTERN));
-
-        getCurrentSeconds();
+        log.info("当前时间={}", ZonedDateTime.now());
     }
 
     public static long getCurrentSeconds() {
