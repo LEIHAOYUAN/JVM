@@ -13,7 +13,7 @@ public class TaxAPP {
 
     /**
      * build sql
-     * @param args
+     * @param args 参数
      */
     public static void main(String[] args) {
         List<Tax> data = JSON.parseArray(JSON_DATA, Tax.class);
