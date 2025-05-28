@@ -17,7 +17,7 @@ public class TaxAPP {
         List<String> result = Lists.newArrayList();
         for (Tax tax : data) {
             if (tax == null || StrUtil.isBlank(tax.tax_category) || StrUtil.isBlank(tax.tax_sub_category) || StrUtil.isBlank(tax.tax_driver_code)) {
-                log.warn("参数非法={}", JSON.toJSONString(tax));
+                log.warn("参数非法：{}", JSON.toJSONString(tax));
                 continue;
             }
             result.add(MessageFormat.format(SQL, tax.tax_driver_code, tax.tax_category, tax.tax_sub_category));
