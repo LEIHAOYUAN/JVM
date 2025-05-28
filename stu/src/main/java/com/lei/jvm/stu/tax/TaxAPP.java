@@ -11,6 +11,10 @@ import java.util.List;
 @Slf4j
 public class TaxAPP {
 
+    /**
+     * build sql
+     * @param args
+     */
     public static void main(String[] args) {
         List<Tax> data = JSON.parseArray(JSON_DATA, Tax.class);
         String SQL = "UPDATE tax_categories SET updated_time=NOW(),tax_driver_code=''{0}'' WHERE tax_driver_code='''' AND tax_category=''{1}'' AND tax_sub_category=''{2}'';";
