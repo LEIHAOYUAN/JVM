@@ -60,6 +60,7 @@ public class ProductClient {
     private static List<LocalInventory> buildLocalInventories() {
         LocalInventory localInventory = LocalInventory.newBuilder()
                 .setPlaceId("dr7253j")
+                //.putAttributes("", CustomAttributeOrBuilder.newBuilder().build())
                 .build();
         return List.of(localInventory);
     }

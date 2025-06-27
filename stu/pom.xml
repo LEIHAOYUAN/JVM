@@ -194,6 +194,19 @@
             <artifactId>disruptor</artifactId>
         </dependency>
 
+        <!-- geo-api -->
+<!--        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-main</artifactId>
+            <version>25.0</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.github.davidmoten</groupId>
+            <artifactId>geo</artifactId>
+            <version>0.8.1</version>
+        </dependency>
+
         <!-- google-cloud -->
         <dependency>
             <groupId>com.google.cloud</groupId>
