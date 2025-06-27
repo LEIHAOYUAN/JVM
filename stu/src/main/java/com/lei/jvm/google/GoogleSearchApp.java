@@ -9,20 +9,23 @@ import lombok.extern.slf4j.Slf4j;
  * @author lei
  * @see <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2">...</a>
  * GOOGLE_APPLICATION_CREDENTIALS
+ * 【搜索】
  * C:\工作文档\BaiduSyncdisk\google\dev-ai-search-user.json
+ * 【推荐】
+ * C:\工作文档\BaiduSyncdisk\google\dev-search-restaurant-user.json
  */
 @Slf4j
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-        doImport();
+        doCreate();
     }
 
-    private static void doImport() {
+    private static void doCreate() {
         try {
-            ProductClient.doImport();
+            ProductClient.doCreate();
         } catch (Exception ex) {
-            log.error("doImport error={}", ex.getMessage(), ex);
+            log.error("doCreate error={}", ex.getMessage(), ex);
         }
     }
 

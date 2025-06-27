@@ -2,10 +2,12 @@ package com.lei.jvm.google.retail;
 
 import com.google.cloud.retail.v2.AddLocalInventoriesRequest;
 import com.google.cloud.retail.v2.AddLocalInventoriesResponse;
+import com.google.cloud.retail.v2.CreateProductRequest;
 import com.google.cloud.retail.v2.ImportErrorsConfig;
 import com.google.cloud.retail.v2.ImportProductsRequest;
 import com.google.cloud.retail.v2.ImportProductsResponse;
 import com.google.cloud.retail.v2.LocalInventory;
+import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.ProductInputConfig;
 import com.google.cloud.retail.v2.ProductServiceClient;
 import com.google.protobuf.FieldMask;
@@ -20,6 +22,20 @@ import java.util.List;
  */
 @Slf4j
 public class ProductClient {
+
+    public static void doCreate() throws Exception {
+        Product product = Product.newBuilder()
+                .addBrands("custmerBrands")
+                .build();
+        CreateProductRequest request = CreateProductRequest.newBuilder()
+                .setParent(BranchBuilder.buildBranch())
+                .setProduct(product)
+                .setProductId("productId-1051830678")
+                .build();
+        try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
+            productServiceClient.createProduct(request);
+        }
+    }
 
     public static void doImport() throws Exception {
         ImportProductsRequest request = buildRequest();
