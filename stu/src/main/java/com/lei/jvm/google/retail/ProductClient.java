@@ -19,6 +19,7 @@ import java.util.List;
 
 /**
  * @see <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2.ProductServiceClient">...</a>
+ * @see 映射关系 https://wonder.atlassian.net/wiki/spaces/TP/pages/4086465195/Catalog+Data+Mapping
  */
 @Slf4j
 public class ProductClient {
