@@ -12,17 +12,15 @@ import com.google.cloud.retail.v2.ProductName;
 import com.google.cloud.retail.v2.ProductServiceClient;
 import com.google.protobuf.FieldMask;
 import com.google.protobuf.Timestamp;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 /**
  * @see <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2.ProductServiceClient">...</a>
  */
+@Slf4j
 public class ProductClient {
-
-    public static void main(String[] args) {
-
-    }
 
     public static void doImport() throws Exception {
         ImportProductsRequest request = buildRequest();

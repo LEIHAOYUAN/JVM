@@ -195,11 +195,11 @@
         </dependency>
 
         <!-- geo-api -->
-<!--        <dependency>
-            <groupId>org.geotools</groupId>
-            <artifactId>gt-main</artifactId>
-            <version>25.0</version>
-        </dependency>-->
+        <!--        <dependency>
+                    <groupId>org.geotools</groupId>
+                    <artifactId>gt-main</artifactId>
+                    <version>25.0</version>
+                </dependency>-->
 
         <dependency>
             <groupId>com.github.davidmoten</groupId>
@@ -208,10 +208,6 @@
         </dependency>
 
         <!-- google-cloud -->
-        <dependency>
-            <groupId>com.google.cloud</groupId>
-            <artifactId>google-cloud-storage</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-retail</artifactId>
