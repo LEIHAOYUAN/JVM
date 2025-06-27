@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-        doCreate();
+        doImport();
     }
 
     private static void doCreate() {
@@ -28,6 +28,15 @@ public class GoogleSearchApp {
             log.error("doCreate error={}", ex.getMessage(), ex);
         }
     }
+
+    private static void doImport() {
+        try {
+            ProductClient.doImport();
+        } catch (Exception ex) {
+            log.error("doImport error={}", ex.getMessage(), ex);
+        }
+    }
+
 
 
     private static void doSearch() {
