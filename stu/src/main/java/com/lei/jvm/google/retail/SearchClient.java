@@ -2,7 +2,6 @@ package com.lei.jvm.google.retail;
 
 import com.google.api.client.util.Strings;
 import com.google.api.core.ApiFuture;
-import com.google.cloud.retail.v2.BranchName;
 import com.google.cloud.retail.v2.SearchRequest;
 import com.google.cloud.retail.v2.SearchRequest.FacetSpec;
 import com.google.cloud.retail.v2.SearchResponse;
@@ -10,6 +9,7 @@ import com.google.cloud.retail.v2.SearchResponse.SearchResult;
 import com.google.cloud.retail.v2.SearchServiceClient;
 import com.google.cloud.retail.v2.SearchServiceClient.SearchPagedResponse;
 import com.google.cloud.retail.v2.UserInfo;
+import com.lei.jvm.google.retail.build.BranchBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -60,7 +60,7 @@ public class SearchClient {
     private static SearchRequest buildRequest() {
         SearchRequest request = SearchRequest.newBuilder()
                 .setPlacement("placement1792938725")
-                .setBranch(BranchName.of("[branch0]", "[LOCATION]", "[CATALOG]", "[BRANCH]").toString())
+                .setBranch(BranchBuilder.buildBranch())
                 .setQuery("query107944136")
                 .setVisitorId("visitorId1880545833")
                 .setUserInfo(UserInfo.newBuilder().build())

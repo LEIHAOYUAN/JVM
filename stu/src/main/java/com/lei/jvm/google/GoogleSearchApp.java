@@ -1,5 +1,7 @@
 package com.lei.jvm.google;
 
+import com.lei.jvm.google.retail.AnalyticsClient;
+import com.lei.jvm.google.retail.ProductClient;
 import com.lei.jvm.google.retail.SearchClient;
 import lombok.extern.slf4j.Slf4j;
 
@@ -13,14 +15,31 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-        doSearch();
+        doImport();
     }
+
+    private static void doImport() {
+        try {
+            ProductClient.doImport();
+        } catch (Exception ex) {
+            log.error("doImport error={}", ex.getMessage(), ex);
+        }
+    }
+
 
     private static void doSearch() {
         try {
             SearchClient.doSearch();
         } catch (Exception ex) {
             log.error("doSearch error={}", ex.getMessage(), ex);
+        }
+    }
+
+    private static void doExport() {
+        try {
+            AnalyticsClient.doExport();
+        } catch (Exception ex) {
+            log.error("doExport error={}", ex.getMessage(), ex);
         }
     }
 

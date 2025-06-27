@@ -2,16 +2,15 @@ package com.lei.jvm.google.retail;
 
 import com.google.cloud.retail.v2.AddLocalInventoriesRequest;
 import com.google.cloud.retail.v2.AddLocalInventoriesResponse;
-import com.google.cloud.retail.v2.BranchName;
 import com.google.cloud.retail.v2.ImportErrorsConfig;
 import com.google.cloud.retail.v2.ImportProductsRequest;
 import com.google.cloud.retail.v2.ImportProductsResponse;
 import com.google.cloud.retail.v2.LocalInventory;
 import com.google.cloud.retail.v2.ProductInputConfig;
-import com.google.cloud.retail.v2.ProductName;
 import com.google.cloud.retail.v2.ProductServiceClient;
 import com.google.protobuf.FieldMask;
 import com.google.protobuf.Timestamp;
+import com.lei.jvm.google.retail.build.BranchBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -33,7 +32,7 @@ public class ProductClient {
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
             AddLocalInventoriesRequest request =
                     AddLocalInventoriesRequest.newBuilder()
-                            .setProduct(ProductName.of("[PROJECT]", "[LOCATION]", "[CATALOG]", "[BRANCH]", "[PRODUCT]").toString())
+                            .setProduct(BranchBuilder.buildBranch())
                             .addAllLocalInventories(buildLocalInventories())
                             .setAddMask(FieldMask.newBuilder().build())
                             .setAddTime(Timestamp.newBuilder().build())
@@ -46,11 +45,11 @@ public class ProductClient {
     private static ImportProductsRequest buildRequest() {
         ImportProductsRequest request =
                 ImportProductsRequest.newBuilder()
-                        .setParent(BranchName.of("[PROJECT]", "[LOCATION]", "[CATALOG]", "[BRANCH]").toString())
+                        .setParent(BranchBuilder.buildBranch())
                         .setInputConfig(ProductInputConfig.newBuilder().build())
                         .setErrorsConfig(ImportErrorsConfig.newBuilder().build())
                         .setUpdateMask(FieldMask.newBuilder().build())
-                        .setNotificationPubsubTopic("notificationPubsubTopic-1361224991")
+                        //.setNotificationPubsubTopic("notificationPubsubTopic-1361224991")
                         .build();
         return request;
     }
