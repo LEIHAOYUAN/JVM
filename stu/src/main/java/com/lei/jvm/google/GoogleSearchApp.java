@@ -11,8 +11,10 @@ import lombok.extern.slf4j.Slf4j;
  * GOOGLE_APPLICATION_CREDENTIALS
  * 【搜索】
  * C:\工作文档\BaiduSyncdisk\google\dev-ai-search-user.json
+ * D:\工作文档\畅拓科技\BaiduSyncdisk\google\dev-ai-search-user.json
  * 【推荐】
  * C:\工作文档\BaiduSyncdisk\google\dev-search-restaurant-user.json
+ * D:\工作文档\畅拓科技\BaiduSyncdisk\google\dev-ai-search-user.json
  */
 @Slf4j
 public class GoogleSearchApp {
