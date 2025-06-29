@@ -72,6 +72,12 @@ public class PolygonToGeoHashUtil {
         return new ArrayList<>(geoHashSet);
     }
 
+    private static List<PolygonPoint> buildData() {
+        List<PolygonPoint> points = new ArrayList<>();
+        points.add(new PolygonPoint(40.804595947265625, -73.99360656738281));
+        return points;
+    }
+
     private static List<PolygonPoint> buildAllData() {
         double[][] coordinates = {
                 {-73.99360656738281, 40.804595947265625},
