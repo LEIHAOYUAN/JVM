@@ -5,6 +5,7 @@ import ch.hsr.geohash.GeoHash;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LinearRing;
 import org.locationtech.jts.geom.Polygon;
@@ -22,11 +23,11 @@ public class PolygonToGeoHashUtil {
 
     private static final GeometryFactory GEOMETRY_FACTORY = new GeometryFactory();
     // 默认Geohash精度
-    private static final int DEFAULT_PRECISION = 9;
+    private static final int DEFAULT_PRECISION = 7;
 
     public static void main(String[] args) {
-        List<PolygonPoint> polygonPoints = buildAllData();
-        List<String> result = polygonToGeoHashList(polygonPoints, DEFAULT_PRECISION);
+        List<PolygonPoint> polygonPoints = buildData();
+        List<String> result = polygonToGeoHashList(polygonPoints, DEFAULT_PRECISION, true);
         log.info("转换结果={}", JSON.toJSONString(result));
     }
 
@@ -35,46 +36,97 @@ public class PolygonToGeoHashUtil {
      *
      * @param points    多边形顶点列表（经纬度）
      * @param precision Geohash编码长度（通常为7~12）
+     * @param inner     是否只包含内部点（true=内部；false=包括边界）
      * @return Geohash字符串列表
      */
-    public static List<String> polygonToGeoHashList(List<PolygonPoint> points, int precision) {
+    public static List<String> polygonToGeoHashList(List<PolygonPoint> points, int precision, boolean inner) {
         if (points == null || points.size() < 3) {
             throw new IllegalArgumentException("The polygon needs at least three vertices!");
         }
-
-        Coordinate[] coordArray = new Coordinate[points.size() + 1];
-        for (int i = 0; i < points.size(); i++) {
-            PolygonPoint point = points.get(i);
-            // 注意顺序是 (lon, lat)
-            coordArray[i] = new Coordinate(point.longitude, point.latitude);
-        }
+        Coordinate[] coords = points.stream()
+                .map(p -> new Coordinate(p.longitude, p.latitude))
+                .toArray(Coordinate[]::new);
         // 闭合多边形
-        coordArray[coordArray.length - 1] = coordArray[0];
-        LinearRing ring = GEOMETRY_FACTORY.createLinearRing(coordArray);
+        coords[coords.length - 1] = coords[0];
+        LinearRing ring = GEOMETRY_FACTORY.createLinearRing(coords);
         Polygon polygon = GEOMETRY_FACTORY.createPolygon(ring, null);
-        return getCoveringGeoHashes(polygon, precision);
+        return polygonToGeoHashes(polygon, precision, inner);
     }
 
-    /**
-     * 获取覆盖多边形的Geohash格子列表
-     *
-     * @param polygon   JTS Polygon对象
-     * @param precision Geohash精度
-     * @return Geohash字符串列表
-     */
-    private static List<String> getCoveringGeoHashes(Polygon polygon, int precision) {
+    private static List<String> polygonToGeoHashes(Polygon polygon, int precision, boolean inner) {
         Set<String> geoHashSet = new HashSet<>();
-        // 获取外包矩形中心点生成一个 Geohash（简化实现）
-        double latCenter = (polygon.getEnvelopeInternal().getMinY() + polygon.getEnvelopeInternal().getMaxY()) / 2;
-        double lonCenter = (polygon.getEnvelopeInternal().getMinX() + polygon.getEnvelopeInternal().getMaxX()) / 2;
-        String centerHash = GeoHash.withCharacterPrecision(latCenter, lonCenter, precision).toBase32();
-        geoHashSet.add(centerHash);
+        Envelope envelope = polygon.getEnvelopeInternal();
+        double latMin = envelope.getMinY();
+        double latMax = envelope.getMaxY();
+        double lonMin = envelope.getMinX();
+        double lonMax = envelope.getMaxX();
+
+        double resolution = matchResolutionForPrecision(precision);
+        // 二分法造成计算时间复杂度过长
+        // double latStep = (latMax - latMin) / Math.pow(2, precision * 2);
+        // double lonStep = (lonMax - lonMin) / Math.pow(2, precision * 2);
+
+        for (double lat = latMin; lat <= latMax; lat += resolution) {
+            for (double lon = lonMin; lon <= lonMax; lon += resolution) {
+                Coordinate coordinate = new Coordinate(lon, lat);
+                // polygon contains可以考虑使用STRtree进行优化
+                if (inner || polygon.contains(GEOMETRY_FACTORY.createPoint(coordinate))) {
+                    String geohash = GeoHash.withCharacterPrecision(lat, lon, precision).toBase32();
+                    geoHashSet.add(geohash);
+                }
+            }
+        }
         return new ArrayList<>(geoHashSet);
     }
 
+    // 根据Geohash精度返回对应的经纬度步长（经验值）
+    private static double matchResolutionForPrecision(int precision) {
+        switch (precision) {
+            case 1:
+                return 2.0;
+            case 2:
+                return 0.6;
+            case 3:
+                return 0.02;
+            case 4:
+                return 0.005;
+            case 5:
+                return 0.001;
+            case 6:
+                return 0.0003;
+            case 7:
+                return 0.0001;
+            case 8:
+                return 0.00003;
+            case 9:
+                return 0.000006;
+            case 10:
+                return 0.000001;
+            default:
+                return 0.0001; // 默认为 precision=7
+        }
+    }
+
+
+/*    private static List<String> getCoveringGeoHashes(Polygon polygon, int precision) {
+        Set<String> geoHashSet = new HashSet<>();
+        // 由于geohash生成逻辑复杂，具体实现可以参考现有库或根据需要编写
+        List<Coordinate> coordinates = List.of(polygon.getCoordinates());
+        for (Coordinate coordinate : coordinates) {
+            String geohash = GeoHash.withCharacterPrecision(coordinate.y, coordinate.x, precision).toBase32();
+            if (inner || polygon.contains(GEOMETRY_FACTORY.createPoint(coordinate))) {
+                geoHashSet.add(geohash);
+            }
+        }
+        return new ArrayList<>(geoHashSet);
+    }*/
+
     private static List<PolygonPoint> buildData() {
         List<PolygonPoint> points = new ArrayList<>();
+        // 添加三个顶点构成一个三角形
         points.add(new PolygonPoint(40.804595947265625, -73.99360656738281));
+        points.add(new PolygonPoint(40.79498291015625, -73.99223327636719));
+        points.add(new PolygonPoint(40.792236328125, -74.00047302246094));
         return points;
     }
 
