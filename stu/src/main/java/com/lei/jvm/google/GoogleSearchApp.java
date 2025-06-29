@@ -1,6 +1,5 @@
 package com.lei.jvm.google;
 
-import com.lei.jvm.google.retail.AnalyticsClient;
 import com.lei.jvm.google.retail.ProductClient;
 import com.lei.jvm.google.retail.SearchClient;
 import lombok.extern.slf4j.Slf4j;
