@@ -90,19 +90,18 @@ public class ProductBuilder {
                 .build();
     }
 
+    // TODO 设置格式：{"placeId": "dr5rfd6", "attributes": {"availbility": {"numbers": [1]}}}
     private static List<LocalInventory> buildLocalInventories() {
         LocalInventory localInventory = LocalInventory.newBuilder()
                 .setPlaceId("dr7253j")
-                .putAttributes("attributes", buildCustomAttribute())
+                .putAttributes("availbility", buildCustomAttribute())
                 .build();
         return List.of(localInventory);
     }
-
-
+    
     private static CustomAttribute buildCustomAttribute() {
         return CustomAttribute.newBuilder()
-                // TODO 设置格式：{"placeId": "dr5rfd6", "attributes": {"availbility": {"numbers": [1]}}}
-                // TODO 设置格式：{"availbility": {"numbers": [1]}}
+                .addNumbers(1)
                 .build();
     }
 
