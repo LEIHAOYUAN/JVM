@@ -47,13 +47,5 @@ public class GoogleSearchApp {
         }
     }
 
-    private static void doExport() {
-        try {
-            AnalyticsClient.doExport();
-        } catch (Exception ex) {
-            log.error("doExport error={}", ex.getMessage(), ex);
-        }
-    }
-
 
 }
