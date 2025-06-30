@@ -51,6 +51,8 @@ public class ProductBuilder {
 
     private static Product buildProduct() {
         return Product.newBuilder()
+                .setTitle("restaurant_brand_name-1051830678")
+                .addAllCategories(BranchBuilder.buildCatagoryList())
                 .addBrands("custmerBrands")
                 .setType(Product.Type.COLLECTION)
                 .build();
