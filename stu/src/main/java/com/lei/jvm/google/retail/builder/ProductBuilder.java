@@ -5,11 +5,14 @@ import com.google.cloud.retail.v2.BigQuerySource;
 import com.google.cloud.retail.v2.CreateProductRequest;
 import com.google.cloud.retail.v2.CustomAttribute;
 import com.google.cloud.retail.v2.GcsSource;
+import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportErrorsConfig;
 import com.google.cloud.retail.v2.ImportProductsRequest;
+import com.google.cloud.retail.v2.ListProductsRequest;
 import com.google.cloud.retail.v2.LocalInventory;
 import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.ProductInlineSource;
+import com.google.cloud.retail.v2.PurgeProductsRequest;
 import com.google.common.collect.Lists;
 import com.google.protobuf.FieldMask;
 import com.google.protobuf.Timestamp;
@@ -22,6 +25,30 @@ import java.util.List;
  */
 public class ProductBuilder {
 
+    public static ListProductsRequest buildListProductsRequest(List<String> ids) {
+        String filter = "id in (\"" + String.join("\",\"", ids) + "\")";
+        return ListProductsRequest.newBuilder()
+                .setParent(BranchBuilder.buildBranch())
+                .setPageSize(ids.size())
+                .setPageToken("pageToken873572522")
+                .setFilter(filter)
+                .build();
+    }
+
+    public static PurgeProductsRequest buildPurgeProductRequest(List<String> ids) {
+        String filter = "id in (\"" + String.join("\",\"", ids) + "\")";
+        return PurgeProductsRequest.newBuilder()
+                .setParent(BranchBuilder.buildBranch())
+                .setFilter(filter)
+                .setForce(true)
+                .build();
+    }
+
+    public static GetProductRequest buildGetProductRequest() {
+        return GetProductRequest.newBuilder()
+                .setName(BranchBuilder.buildBranch())
+                .build();
+    }
 
     public static CreateProductRequest buildCreateProductRequest() {
         return CreateProductRequest.newBuilder()
@@ -98,7 +125,7 @@ public class ProductBuilder {
                 .build();
         return List.of(localInventory);
     }
-    
+
     private static CustomAttribute buildCustomAttribute() {
         return CustomAttribute.newBuilder()
                 .addNumbers(1)
