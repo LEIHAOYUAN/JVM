@@ -26,27 +26,24 @@ import java.util.List;
 public class ProductBuilder {
 
     public static ListProductsRequest buildListProductsRequest(List<String> ids) {
-        String filter = "id in (\"" + String.join("\",\"", ids) + "\")";
         return ListProductsRequest.newBuilder()
                 .setParent(BranchBuilder.buildBranch())
                 .setPageSize(ids.size())
-                .setPageToken("pageToken873572522")
-                .setFilter(filter)
+                .setFilter(BranchBuilder.buildCollectionIdFilter(ids))
                 .build();
     }
 
     public static PurgeProductsRequest buildPurgeProductRequest(List<String> ids) {
-        String filter = "id in (\"" + String.join("\",\"", ids) + "\")";
         return PurgeProductsRequest.newBuilder()
                 .setParent(BranchBuilder.buildBranch())
-                .setFilter(filter)
                 .setForce(true)
+                .setFilter(BranchBuilder.buildCollectionIdFilter(ids))
                 .build();
     }
 
-    public static GetProductRequest buildGetProductRequest() {
+    public static GetProductRequest buildGetProductRequest(String productId) {
         return GetProductRequest.newBuilder()
-                .setName(BranchBuilder.buildBranch())
+                .setName(BranchBuilder.buildProduct(productId))
                 .build();
     }
 

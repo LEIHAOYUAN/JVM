@@ -1,6 +1,8 @@
 package com.lei.jvm.google.retail.build;
 
 import com.google.cloud.retail.v2.BranchName;
+import com.google.cloud.retail.v2.Product;
+import com.google.cloud.retail.v2beta.ProductName;
 import com.google.common.collect.Lists;
 
 import java.util.List;
@@ -14,8 +16,22 @@ public class BranchBuilder {
         return BranchName.of("wonder-ai-search-dev", "global", "default_catalog", "2").toString();
     }
 
+    public static String buildProduct(String productId) {
+        return ProductName.of("wonder-ai-search-dev", "global", "default_catalog", "2", productId).toString();
+    }
+
     public static List<String> buildCatagoryList() {
         return Lists.newArrayList("Custom", "Poke Bowls", "Sides", "Kids", "Beverages", "Desserts");
     }
 
+    public static String buildCollectionIdFilter(List<String> productIds) {
+        return productIds.stream()
+                .map(id -> "collection_product_id = \"" + id + "\"")
+                .reduce((a, b) -> a + " or " + b)
+                .orElse("");
+    }
+
+    public static String buildPrimaryIdFilter(Product.Type type, List<String> productIds) {
+        return "primary_product_id in (\"" + String.join("\",\"", productIds) + "\")";
+    }
 }

@@ -19,7 +19,31 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-        doCreate();
+        doListProduct();
+    }
+
+    private static void doGetProduct() {
+        try {
+            ProductClient.doGet();
+        } catch (Exception ex) {
+            log.error("doGet error={}", ex.getMessage(), ex);
+        }
+    }
+
+    private static void doListProduct() {
+        try {
+            ProductClient.doList();
+        } catch (Exception ex) {
+            log.error("doList error={}", ex.getMessage(), ex);
+        }
+    }
+
+    private static void doPurgeProduct() {
+        try {
+            ProductClient.doPurge();
+        } catch (Exception ex) {
+            log.error("doPurge error={}", ex.getMessage(), ex);
+        }
     }
 
     private static void doCreate() {
