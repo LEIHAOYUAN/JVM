@@ -51,7 +51,7 @@ public class ProductBuilder {
         return CreateProductRequest.newBuilder()
                 .setParent(BranchBuilder.buildBranch())
                 .setProduct(ProductBuilder.buildProduct())
-                .setProductId("productId-1051830678")
+                .setProductId("productId-00000001")
                 .build();
     }
 

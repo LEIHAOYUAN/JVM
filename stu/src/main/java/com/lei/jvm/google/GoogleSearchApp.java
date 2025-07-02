@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-        doListProduct();
+        doCreate();
     }
 
     private static void doGetProduct() {
