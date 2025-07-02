@@ -25,11 +25,28 @@ import java.util.List;
  */
 public class ProductBuilder {
 
+    /**
+     * @param ids
+     * @return
+     * @See <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2.ListProductsRequest#com_google_cloud_retail_v2_ListProductsRequest_getFilter__">...</a>
+     */
     public static ListProductsRequest buildListProductsRequest(List<String> ids) {
+        String filter = ids.stream()
+                .map(id -> "primary_product_id = \"" + id + "\"")
+                .reduce((a, b) -> a + " or " + b)
+                .orElse("");
         return ListProductsRequest.newBuilder()
                 .setParent(BranchBuilder.buildBranch())
                 .setPageSize(ids.size())
-                .setFilter(BranchBuilder.buildCollectionIdFilter(ids))
+                //.setFilter(BranchBuilder.buildINFilter(Lists.newArrayList("productId-1051830678")))
+                //.setFilter("type = \"COLLECTION\" AND primary_product_id = \"productId-1051830678\")")
+                //.setFilter(BranchBuilder.buildPrimaryIdFilter(Lists.newArrayList("productId-1051830678")))
+                //.setFilter("id = \"productId-1051830678\" + \" or id = \"a02f481e-b3e7-41a8-b3bd-dcb5e54e35a9\"")
+                //.setFilter("primary_product_id = \"productId-1051830678\" + \" or primary_product_id = \"a02f481e-b3e7-41a8-b3bd-dcb5e54e35a9\"")
+                //.setFilter("primary_product_id = \"productId-1051830678\"")
+                //.setFilter("primary_product_id = \"productId-1051830678\"")
+                // 正确
+                .setFilter(filter)
                 .build();
     }
 

@@ -24,14 +24,18 @@ public class BranchBuilder {
         return Lists.newArrayList("Custom", "Poke Bowls", "Sides", "Kids", "Beverages", "Desserts");
     }
 
+    public static String buildINFilter(List<String> productIds) {
+        return "type = \"COLLECTION\" AND primary_product_id : ANY (\"" + String.join("\",\"", productIds) + "\")";
+    }
+
     public static String buildCollectionIdFilter(List<String> productIds) {
         return productIds.stream()
-                .map(id -> "collection_product_id = \"" + id + "\"")
+                .map(id -> "productId = \"" + id + "\"")
                 .reduce((a, b) -> a + " or " + b)
                 .orElse("");
     }
 
-    public static String buildPrimaryIdFilter(Product.Type type, List<String> productIds) {
-        return "primary_product_id in (\"" + String.join("\",\"", productIds) + "\")";
+    public static String buildPrimaryIdFilter(List<String> productIds) {
+        return "primary_product_id IN (\"" + String.join("\",\"", productIds) + "\")";
     }
 }

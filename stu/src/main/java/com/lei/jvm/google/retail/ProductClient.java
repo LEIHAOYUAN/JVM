@@ -26,7 +26,7 @@ public class ProductClient {
         ListProductsRequest request = ProductBuilder.buildListProductsRequest(Lists.newArrayList("productId-1051830678", "a02f481e-b3e7-41a8-b3bd-dcb5e54e35a9"));
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
             ListProductsPagedResponse response = productServiceClient.listProducts(request);
-            log.info("查询结果={}", response.toString());
+            log.info("查询结果={}", response.getPage().getResponse().getProductsCount());
         }
     }
 
