@@ -77,10 +77,10 @@ public class ProductBuilder {
                 ImportProductsRequest.newBuilder()
                         .setParent(BranchBuilder.buildBranch())
                         .setInputConfig(buildInputConfig())
-                        .setErrorsConfig(buildErrorConfig())
+                        //.setErrorsConfig(buildErrorConfig())
                         .setUpdateMask(FieldMask.newBuilder().build())
                         // 设置为true时，表示如果产品不存在，则创建新产品；如果产品已存在，则更新现有产品。
-                        // .setReconciliationMode(ImportProductsRequest.ReconciliationMode.INCREMENTAL)
+                        .setReconciliationMode(ImportProductsRequest.ReconciliationMode.INCREMENTAL)
                         // full模式会先删除再创建
                         // .setReconciliationMode(ImportProductsRequest.ReconciliationMode.FULL)
                         //.setNotificationPubsubTopic("notificationPubsubTopic-1361224991")
@@ -121,8 +121,10 @@ public class ProductBuilder {
     }
 
     private static Product buildProduct() {
+        String productId = "restaurant_brand_name-100000000";
         return Product.newBuilder()
-                .setTitle("restaurant_brand_name-1051830678")
+                .setId(productId)
+                .setTitle(productId)
                 .addAllCategories(BranchBuilder.buildCatagoryList())
                 .addBrands("custmerBrands")
                 .setType(Product.Type.COLLECTION)
