@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-        doImport();
+        doSearch();
     }
 
     private static void doGetProduct() {
@@ -65,7 +65,7 @@ public class GoogleSearchApp {
 
     private static void doSearch() {
         try {
-            SearchClient.doSearch();
+            SearchClient.doSearchWithPage();
         } catch (Exception ex) {
             log.error("doSearch error={}", ex.getMessage(), ex);
         }

@@ -16,12 +16,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class SearchClient {
 
+    public static void doSearchWithPage() throws Exception {
+        SearchRequest request = SearchBuilder.buildSearchRequest();
+        try (SearchServiceClient searchServiceClient = SearchServiceClient.create()) {
+            ApiFuture<SearchPagedResponse> responseApiFuture = searchServiceClient.searchPagedCallable().futureCall(request);
+            SearchPagedResponse searchPagedResponse = responseApiFuture.get();
+            log.info("查询结果={}", searchPagedResponse.toString());
+        }
+    }
+
     public static void doSearch() throws Exception {
         SearchRequest request = SearchBuilder.buildSearchRequest();
         try (SearchServiceClient searchServiceClient = SearchServiceClient.create()) {
             SearchPagedResponse response = searchServiceClient.search(request);
             for (SearchResult searchResult : response.iterateAll()) {
-                // doThingsWith(searchResult);
+                log.info("搜索结果={}", searchResult.toString());
             }
         }
     }
@@ -43,14 +52,5 @@ public class SearchClient {
             }
         }
     }
-
-    public static void doSearchWithPage() throws Exception {
-        SearchRequest request = SearchBuilder.buildSearchRequest();
-        try (SearchServiceClient searchServiceClient = SearchServiceClient.create()) {
-            ApiFuture<SearchPagedResponse> responseApiFuture = searchServiceClient.searchPagedCallable().futureCall(request);
-            SearchPagedResponse searchPagedResponse = responseApiFuture.get();
-        }
-    }
-
 
 }

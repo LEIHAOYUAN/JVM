@@ -11,16 +11,39 @@ import java.util.HashMap;
  * @author ryan
  */
 public class SearchBuilder {
+    /**
+     * @See <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2.SearchRequest">...</a>
+     */
     public static SearchRequest buildSearchRequest() {
+        return SearchRequest.newBuilder()
+                .setPlacement("placement1792938725")
+                .setBranch(CommonBuilder.buildBranch())
+                .setUserInfo(UserInfo.newBuilder().build())
+                .setPageSize(10)
+                .setOffset(1)
+                .addAllFacetSpecs(new ArrayList<SearchRequest.FacetSpec>())
+                .setBoostSpec(SearchRequest.BoostSpec.newBuilder().build())
+                .setQueryExpansionSpec(SearchRequest.QueryExpansionSpec.newBuilder().build())
+                .addAllVariantRollupKeys(new ArrayList<String>())
+                .addAllPageCategories(new ArrayList<String>())
+                .setPersonalizationSpec(SearchRequest.PersonalizationSpec.newBuilder().build())
+                .putAllLabels(new HashMap<String, String>())
+                .setSpellCorrectionSpec(SearchRequest.SpellCorrectionSpec.newBuilder().build())
+                .setConversationalSearchSpec(SearchRequest.ConversationalSearchSpec.newBuilder().build())
+                .setTileNavigationSpec(SearchRequest.TileNavigationSpec.newBuilder().build())
+                .build();
+    }
+
+    public static SearchRequest buildSearchRequestBackup() {
         return SearchRequest.newBuilder()
                 .setPlacement("placement1792938725")
                 .setBranch(CommonBuilder.buildBranch())
                 .setQuery("query107944136")
                 .setVisitorId("visitorId1880545833")
                 .setUserInfo(UserInfo.newBuilder().build())
-                .setPageSize(883849137)
+                .setPageSize(10)
                 .setPageToken("pageToken873572522")
-                .setOffset(-1019779949)
+                .setOffset(1)
                 .setFilter("filter-1274492040")
                 .setCanonicalFilter("canonicalFilter-722283124")
                 .setOrderBy("orderBy-1207110587")
