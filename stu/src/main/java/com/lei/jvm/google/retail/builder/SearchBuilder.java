@@ -2,7 +2,7 @@ package com.lei.jvm.google.retail.builder;
 
 import com.google.cloud.retail.v2.SearchRequest;
 import com.google.cloud.retail.v2.UserInfo;
-import com.lei.jvm.google.retail.build.BranchBuilder;
+import com.lei.jvm.google.retail.build.CommonBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,7 +14,7 @@ public class SearchBuilder {
     public static SearchRequest buildSearchRequest() {
         return SearchRequest.newBuilder()
                 .setPlacement("placement1792938725")
-                .setBranch(BranchBuilder.buildBranch())
+                .setBranch(CommonBuilder.buildBranch())
                 .setQuery("query107944136")
                 .setVisitorId("visitorId1880545833")
                 .setUserInfo(UserInfo.newBuilder().build())

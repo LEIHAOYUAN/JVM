@@ -16,7 +16,7 @@ import com.google.cloud.retail.v2.PurgeProductsRequest;
 import com.google.common.collect.Lists;
 import com.google.protobuf.FieldMask;
 import com.google.protobuf.Timestamp;
-import com.lei.jvm.google.retail.build.BranchBuilder;
+import com.lei.jvm.google.retail.build.CommonBuilder;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class ProductBuilder {
                 .reduce((a, b) -> a + " or " + b)
                 .orElse("");
         return ListProductsRequest.newBuilder()
-                .setParent(BranchBuilder.buildBranch())
+                .setParent(CommonBuilder.buildBranch())
                 .setPageSize(ids.size())
                 //.setFilter(BranchBuilder.buildINFilter(Lists.newArrayList("productId-1051830678")))
                 //.setFilter("type = \"COLLECTION\" AND primary_product_id = \"productId-1051830678\")")
@@ -52,21 +52,21 @@ public class ProductBuilder {
 
     public static PurgeProductsRequest buildPurgeProductRequest(List<String> ids) {
         return PurgeProductsRequest.newBuilder()
-                .setParent(BranchBuilder.buildBranch())
+                .setParent(CommonBuilder.buildBranch())
                 .setForce(true)
-                .setFilter(BranchBuilder.buildCollectionIdFilter(ids))
+                .setFilter(CommonBuilder.buildCollectionIdFilter(ids))
                 .build();
     }
 
     public static GetProductRequest buildGetProductRequest(String productId) {
         return GetProductRequest.newBuilder()
-                .setName(BranchBuilder.buildProduct(productId))
+                .setName(CommonBuilder.buildProduct(productId))
                 .build();
     }
 
     public static CreateProductRequest buildCreateProductRequest() {
         return CreateProductRequest.newBuilder()
-                .setParent(BranchBuilder.buildBranch())
+                .setParent(CommonBuilder.buildBranch())
                 .setProduct(ProductBuilder.buildProduct())
                 .setProductId("productId-00000001")
                 .build();
@@ -75,7 +75,7 @@ public class ProductBuilder {
     public static ImportProductsRequest buildImportProductRequest() {
         ImportProductsRequest request =
                 ImportProductsRequest.newBuilder()
-                        .setParent(BranchBuilder.buildBranch())
+                        .setParent(CommonBuilder.buildBranch())
                         .setInputConfig(buildInputConfig())
                         //.setErrorsConfig(buildErrorConfig())
                         .setUpdateMask(FieldMask.newBuilder().build())
@@ -112,7 +112,7 @@ public class ProductBuilder {
 
     public static AddLocalInventoriesRequest buildAddLocalInventoriesRequest() {
         return AddLocalInventoriesRequest.newBuilder()
-                .setProduct(BranchBuilder.buildBranch())
+                .setProduct(CommonBuilder.buildBranch())
                 .addAllLocalInventories(buildLocalInventories())
                 .setAddMask(FieldMask.newBuilder().build())
                 .setAddTime(Timestamp.newBuilder().build())
@@ -125,7 +125,7 @@ public class ProductBuilder {
         return Product.newBuilder()
                 .setId(productId)
                 .setTitle(productId)
-                .addAllCategories(BranchBuilder.buildCatagoryList())
+                .addAllCategories(CommonBuilder.buildCatagoryList())
                 .addBrands("custmerBrands")
                 .setType(Product.Type.COLLECTION)
                 // 同时指定inventory数据
