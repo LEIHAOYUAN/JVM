@@ -27,7 +27,6 @@ import com.lei.jvm.google.retail.builder.ProductBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 
 /**
  * @see <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2.ProductServiceClient">...</a>
@@ -35,23 +34,19 @@ import java.util.concurrent.Executor;
  */
 @Slf4j
 public class ProductClient {
-    public static void doUpdate() throws Exception {
-        GetProductRequest getRequest = GetProductRequest.newBuilder()
-                .setName(CommonBuilder.buildRecProduct("3c5b74b3-69ac-49f6-b698-e38b897c15c8"))
-                .build();
+    public static void doClearAll() throws Exception {
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
+            GetProductRequest getRequest = GetProductRequest.newBuilder()
+                    .setName(CommonBuilder.buildRecProduct("3c5b74b3-69ac-49f6-b698-e38b897c15c8"))
+                    .build();
             Product product = productServiceClient.getProduct(getRequest);
-            log.info("查询结果={}", product.toString());
             ImportProductsRequest importRequest = ImportProductsRequest.newBuilder()
                     .setParent(CommonBuilder.buildRecBranch())
-                    .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(Lists.newArrayList(product.toBuilder().clearCollectionMemberIds().build())).build()).build())
-                    //.setErrorsConfig(ImportErrorsConfig.newBuilder().build())
+                    .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(Lists.newArrayList(product)).build()).build())
                     .setUpdateMask(FieldMask.newBuilder().build())
-                    .setReconciliationMode(ReconciliationMode.INCREMENTAL)
+                    .setReconciliationMode(ReconciliationMode.FULL)
                     .build();
             OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(importRequest);
-            ImportProductsResponse response = future.get();
-            log.info("更新结果={}",productServiceClient.getProduct(getRequest));
         }
     }
 
@@ -62,49 +57,54 @@ public class ProductClient {
                 .setPageToken("");
         ProductServiceClient productServiceClient = ProductServiceClient.create();
         while (true) {
-            ListProductsPagedResponse response = doListWithPage(builder.build());
+            ListProductsPagedResponse response = doListWithPage(productServiceClient, builder.build());
             ListProductsPage page = response.getPage();
             if (CollectionUtil.isEmpty(page.getValues())) {
+                log.info("处理完成");
                 break;
             }
+            log.info("查询下一页产品={}", response.getNextPageToken());
             builder.setPageToken(response.getNextPageToken());
+            clearMemberIds(page, productServiceClient);
+            // Thread.sleep(10000);
+            doDelete(page, productServiceClient);
+        }
+    }
 
-//            List<Product> updateProducts = Lists.newArrayList();
-//            for (Product product : page.getValues()) {
-//                updateProducts.add(product.toBuilder().clearCollectionMemberIds().build());
-//                // update
-////                try {
-////                    productServiceClient.updateProduct(product.toBuilder().clearCollectionMemberIds().build(), FieldMask.newBuilder().addPaths("collection_member_ids").build());
-////                } catch (Exception ex) {
-////                    log.error("更新异常productId=[{}]异常={}", product.getId(), ex.getMessage(), ex);
-////                }
-//            }
-//
-//            ImportProductsRequest importRequest = ImportProductsRequest.newBuilder()
-//                    .setParent(CommonBuilder.buildRecBranch())
-//                    .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(updateProducts).build()).build())
-//                    //.setErrorsConfig(ImportErrorsConfig.newBuilder().build())
-//                    .setUpdateMask(FieldMask.newBuilder().build())
-//                    .setReconciliationMode(ReconciliationMode.INCREMENTAL)
-//                    .build();
-//            OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(importRequest);
-
-            for (Product product : page.getValues()) {
-                // delete
-                try {
-                    productServiceClient.deleteProduct(CommonBuilder.buildRecProduct(product.getId()));
-                } catch (Exception ex) {
-                    log.error("删除异常productId=[{}]异常={}", product.getId(), ex.getMessage(), ex);
-                }
+    private static void doDelete(ListProductsPage page, ProductServiceClient productServiceClient) {
+        for (Product product : page.getValues()) {
+            // delete
+            try {
+                productServiceClient.deleteProduct(CommonBuilder.buildRecProduct(product.getId()));
+                // ThreadPoolUtil.execute(() -> {});
+            } catch (Exception ex) {
+                log.error("删除异常productId=[{}]异常={}", product.getId(), ex.getMessage(), ex);
             }
         }
     }
 
-    private static ListProductsPagedResponse doListWithPage(ListProductsRequest request) throws Exception {
-        try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
-            ApiFuture<ListProductsPagedResponse> responseApiFuture = productServiceClient.listProductsPagedCallable().futureCall(request);
-            return responseApiFuture.get();
+    private static void clearMemberIds(ListProductsPage page, ProductServiceClient productServiceClient) throws Exception {
+        try {
+            List<Product> updateProducts = Lists.newArrayList();
+            for (Product product : page.getValues()) {
+                updateProducts.add(product.toBuilder().clearCollectionMemberIds().build());
+            }
+            ImportProductsRequest importRequest = ImportProductsRequest.newBuilder()
+                    .setParent(CommonBuilder.buildRecBranch())
+                    .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(updateProducts).build()).build())
+                    //.setErrorsConfig(ImportErrorsConfig.newBuilder().build())
+                    .setUpdateMask(FieldMask.newBuilder().addPaths("collection_member_ids").build())
+                    .setReconciliationMode(ReconciliationMode.INCREMENTAL)
+                    .build();
+            OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(importRequest);
+        } catch (Exception ex) {
+            log.error("清除collection_member_ids异常={}", ex.getMessage(), ex);
         }
+    }
+
+    private static ListProductsPagedResponse doListWithPage(ProductServiceClient productServiceClient, ListProductsRequest request) throws Exception {
+        ApiFuture<ListProductsPagedResponse> responseApiFuture = productServiceClient.listProductsPagedCallable().futureCall(request);
+        return responseApiFuture.get();
     }
 
     public static void doGet() throws Exception {
