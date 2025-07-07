@@ -11,26 +11,40 @@ import java.util.HashMap;
  * @author ryan
  */
 public class SearchBuilder {
+
     /**
      * @See <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2.SearchRequest">...</a>
      */
+    public static SearchRequest buildDefaultSearchRequest() {
+        return SearchRequest.newBuilder()
+                .setPlacement(CommonBuilder.buildPlacement())
+                .setBranch(CommonBuilder.buildBranch())
+                .setVisitorId("test-a")
+                .setQuery("burger")
+                .setFilter(("brands: ANY(\"Alanza\")"))
+                .setPageSize(120)
+                .build();
+    }
+
     public static SearchRequest buildSearchRequest() {
         return SearchRequest.newBuilder()
-                .setPlacement("placement1792938725")
+                .setPlacement(CommonBuilder.buildPlacement())
                 .setBranch(CommonBuilder.buildBranch())
-                .setUserInfo(UserInfo.newBuilder().build())
+                .setVisitorId("test-a")
+                //.setUserInfo(UserInfo.newBuilder().build())
                 .setPageSize(10)
-                .setOffset(1)
-                .addAllFacetSpecs(new ArrayList<SearchRequest.FacetSpec>())
-                .setBoostSpec(SearchRequest.BoostSpec.newBuilder().build())
-                .setQueryExpansionSpec(SearchRequest.QueryExpansionSpec.newBuilder().build())
-                .addAllVariantRollupKeys(new ArrayList<String>())
-                .addAllPageCategories(new ArrayList<String>())
-                .setPersonalizationSpec(SearchRequest.PersonalizationSpec.newBuilder().build())
-                .putAllLabels(new HashMap<String, String>())
-                .setSpellCorrectionSpec(SearchRequest.SpellCorrectionSpec.newBuilder().build())
-                .setConversationalSearchSpec(SearchRequest.ConversationalSearchSpec.newBuilder().build())
-                .setTileNavigationSpec(SearchRequest.TileNavigationSpec.newBuilder().build())
+                .setQuery("burger")
+                //.setOffset(1)
+                //.addAllFacetSpecs(new ArrayList<SearchRequest.FacetSpec>())
+                //.setBoostSpec(SearchRequest.BoostSpec.newBuilder().build())
+                //.setQueryExpansionSpec(SearchRequest.QueryExpansionSpec.newBuilder().build())
+                //.addAllVariantRollupKeys(new ArrayList<String>())
+                //.addAllPageCategories(new ArrayList<String>())
+                //.setPersonalizationSpec(SearchRequest.PersonalizationSpec.newBuilder().build())
+                //.putAllLabels(new HashMap<String, String>())
+                //.setSpellCorrectionSpec(SearchRequest.SpellCorrectionSpec.newBuilder().build())
+                //.setConversationalSearchSpec(SearchRequest.ConversationalSearchSpec.newBuilder().build())
+                //.setTileNavigationSpec(SearchRequest.TileNavigationSpec.newBuilder().build())
                 .build();
     }
 

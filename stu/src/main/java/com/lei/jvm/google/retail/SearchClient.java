@@ -17,7 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SearchClient {
 
     public static void doSearchWithPage() throws Exception {
-        SearchRequest request = SearchBuilder.buildSearchRequest();
+        SearchRequest request = SearchBuilder.buildDefaultSearchRequest();
         try (SearchServiceClient searchServiceClient = SearchServiceClient.create()) {
             ApiFuture<SearchPagedResponse> responseApiFuture = searchServiceClient.searchPagedCallable().futureCall(request);
             SearchPagedResponse searchPagedResponse = responseApiFuture.get();
@@ -26,7 +26,7 @@ public class SearchClient {
     }
 
     public static void doSearch() throws Exception {
-        SearchRequest request = SearchBuilder.buildSearchRequest();
+        SearchRequest request = SearchBuilder.buildDefaultSearchRequest();
         try (SearchServiceClient searchServiceClient = SearchServiceClient.create()) {
             SearchPagedResponse response = searchServiceClient.search(request);
             for (SearchResult searchResult : response.iterateAll()) {
@@ -36,7 +36,7 @@ public class SearchClient {
     }
 
     public static void doSearchWithCallable() throws Exception {
-        SearchRequest request = SearchBuilder.buildSearchRequest();
+        SearchRequest request = SearchBuilder.buildDefaultSearchRequest();
         try (SearchServiceClient searchServiceClient = SearchServiceClient.create()) {
             while (true) {
                 SearchResponse response = searchServiceClient.searchCallable().call(request);

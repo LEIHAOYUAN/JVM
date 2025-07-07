@@ -19,6 +19,10 @@ public class CommonBuilder {
         return ProductName.of("wonder-ai-search-dev", "global", "default_catalog", "2", productId).toString();
     }
 
+    public static String buildPlacement() {
+        return "projects/wonder-ai-search-dev/locations/global/catalogs/default_catalog/placements/default_search";
+    }
+
     public static List<String> buildCatagoryList() {
         return Lists.newArrayList("Custom", "Poke Bowls", "Sides", "Kids", "Beverages", "Desserts");
     }
