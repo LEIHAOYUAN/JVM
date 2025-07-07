@@ -19,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-
     }
 
     private static void doGetProduct() {
@@ -30,9 +29,9 @@ public class GoogleSearchApp {
         }
     }
 
-    private static void doDeleteProduct() {
+    private static void doClearProduct() {
         try {
-            ProductClient.doDelete();
+            ProductClient.doClear();
         } catch (Exception ex) {
             log.error("doList error={}", ex.getMessage(), ex);
         }
@@ -43,6 +42,14 @@ public class GoogleSearchApp {
             ProductClient.doCreate();
         } catch (Exception ex) {
             log.error("doCreate error={}", ex.getMessage(), ex);
+        }
+    }
+
+    private static void doUpdate() {
+        try {
+            ProductClient.doUpdate();
+        } catch (Exception ex) {
+            log.error("doUpdate error={}", ex.getMessage(), ex);
         }
     }
 

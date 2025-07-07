@@ -32,11 +32,6 @@ public class ProductBuilder {
                 .build();
     }
 
-    public static GetProductRequest buildGetProductRequest(String productId) {
-        return GetProductRequest.newBuilder()
-                .setName(CommonBuilder.buildSearchProduct(productId))
-                .build();
-    }
 
     public static CreateProductRequest buildCreateProductRequest() {
         return CreateProductRequest.newBuilder()

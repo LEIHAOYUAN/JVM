@@ -16,7 +16,7 @@ public class CommonBuilder {
     }
 
     public static String buildRecBranch() {
-        return BranchName.of("wonder-ai-search-dev", "global", "default_catalog", "2").toString();
+        return BranchName.of("wonder-search-restaurant-dev", "global", "default_catalog", "2").toString();
     }
 
     public static String buildSearchProduct(String productId) {
@@ -24,7 +24,7 @@ public class CommonBuilder {
     }
 
     public static String buildRecProduct(String productId) {
-        return ProductName.of("wonder-ai-search-dev", "global", "default_catalog", "2", productId).toString();
+        return ProductName.of("wonder-search-restaurant-dev", "global", "default_catalog", "2", productId).toString();
     }
 
     public static String buildSearchPlacement() {
