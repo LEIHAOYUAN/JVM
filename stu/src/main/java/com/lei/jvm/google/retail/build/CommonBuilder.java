@@ -11,24 +11,28 @@ import java.util.List;
  */
 public class CommonBuilder {
 
-    public static String buildBranch() {
+    public static String buildSearchBranch() {
         return BranchName.of("wonder-ai-search-dev", "global", "default_catalog", "2").toString();
     }
 
-    public static String buildProduct(String productId) {
+    public static String buildRecBranch() {
+        return BranchName.of("wonder-ai-search-dev", "global", "default_catalog", "2").toString();
+    }
+
+    public static String buildSearchProduct(String productId) {
         return ProductName.of("wonder-ai-search-dev", "global", "default_catalog", "2", productId).toString();
     }
 
-    public static String buildPlacement() {
+    public static String buildRecProduct(String productId) {
+        return ProductName.of("wonder-ai-search-dev", "global", "default_catalog", "2", productId).toString();
+    }
+
+    public static String buildSearchPlacement() {
         return "projects/wonder-ai-search-dev/locations/global/catalogs/default_catalog/placements/default_search";
     }
 
     public static List<String> buildCatagoryList() {
         return Lists.newArrayList("Custom", "Poke Bowls", "Sides", "Kids", "Beverages", "Desserts");
-    }
-
-    public static String buildINFilter(List<String> productIds) {
-        return "type = \"COLLECTION\" AND primary_product_id : ANY (\"" + String.join("\",\"", productIds) + "\")";
     }
 
     public static String buildCollectionIdFilter(List<String> productIds) {
@@ -38,7 +42,4 @@ public class CommonBuilder {
                 .orElse("");
     }
 
-    public static String buildPrimaryIdFilter(List<String> productIds) {
-        return "primary_product_id IN (\"" + String.join("\",\"", productIds) + "\")";
-    }
 }

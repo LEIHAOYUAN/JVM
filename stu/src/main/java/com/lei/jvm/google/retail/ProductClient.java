@@ -1,5 +1,7 @@
 package com.lei.jvm.google.retail;
 
+import cn.hutool.core.collection.CollectionUtil;
+import com.google.api.core.ApiFuture;
 import com.google.cloud.retail.v2.AddLocalInventoriesRequest;
 import com.google.cloud.retail.v2.AddLocalInventoriesResponse;
 import com.google.cloud.retail.v2.CreateProductRequest;
@@ -7,11 +9,14 @@ import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportProductsRequest;
 import com.google.cloud.retail.v2.ImportProductsResponse;
 import com.google.cloud.retail.v2.ListProductsRequest;
+import com.google.cloud.retail.v2.ListProductsRequest.Builder;
 import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.ProductServiceClient;
+import com.google.cloud.retail.v2.ProductServiceClient.ListProductsPage;
 import com.google.cloud.retail.v2.ProductServiceClient.ListProductsPagedResponse;
 import com.google.cloud.retail.v2.PurgeProductsRequest;
-import com.google.common.collect.Lists;
+import com.google.cloud.retail.v2.UpdateProductRequest;
+import com.lei.jvm.google.retail.build.CommonBuilder;
 import com.lei.jvm.google.retail.builder.ProductBuilder;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,11 +27,33 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ProductClient {
 
-    public static void doList() throws Exception {
-        ListProductsRequest request = ProductBuilder.buildListProductsRequest(Lists.newArrayList("productId-1051830678", "a02f481e-b3e7-41a8-b3bd-dcb5e54e35a9"));
+    public static void doDelete() throws Exception {
+        Builder builder = ListProductsRequest.newBuilder()
+                .setParent(CommonBuilder.buildRecBranch())
+                .setPageSize(100)
+                .setPageToken("");
+        ProductServiceClient productServiceClient = ProductServiceClient.create();
+        while (true) {
+            ListProductsPagedResponse response = doListWithPage(builder.build());
+            ListProductsPage page = response.getPage();
+            if (CollectionUtil.isEmpty(page.getValues())) {
+                break;
+            }
+            builder.setPageToken(response.getNextPageToken());
+            for (Product product : page.getValues()) {
+                try {
+                    productServiceClient.deleteProduct(CommonBuilder.buildRecProduct(product.getId()));
+                } catch (Exception ex) {
+                    log.error("删除异常productId=[{}]异常={}", product.getId(), ex.getMessage(), ex);
+                }
+            }
+        }
+    }
+
+    private static ListProductsPagedResponse doListWithPage(ListProductsRequest request) throws Exception {
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
-            ListProductsPagedResponse response = productServiceClient.listProducts(request);
-            log.info("查询结果={}", response.getPage().getResponse().getProductsCount());
+            ApiFuture<ListProductsPagedResponse> responseApiFuture = productServiceClient.listProductsPagedCallable().futureCall(request);
+            return responseApiFuture.get();
         }
     }
 
@@ -38,8 +65,13 @@ public class ProductClient {
         }
     }
 
-    public static void doPurge() throws Exception {
-        PurgeProductsRequest request = ProductBuilder.buildPurgeProductRequest(Lists.newArrayList("productId-1051830678", "1111111111"));
+
+    public static void doPurge(String parentName, String productId) throws Exception {
+        PurgeProductsRequest request = PurgeProductsRequest.newBuilder()
+                .setParent(parentName)
+                .setForce(true)
+                .setFilter("id = \"" + productId + "\"")
+                .build();
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
             productServiceClient.purgeProductsAsync(request);
         }

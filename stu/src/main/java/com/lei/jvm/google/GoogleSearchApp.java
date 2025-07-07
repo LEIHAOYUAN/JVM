@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-        doSearch();
+
     }
 
     private static void doGetProduct() {
@@ -30,19 +30,11 @@ public class GoogleSearchApp {
         }
     }
 
-    private static void doListProduct() {
+    private static void doDeleteProduct() {
         try {
-            ProductClient.doList();
+            ProductClient.doDelete();
         } catch (Exception ex) {
             log.error("doList error={}", ex.getMessage(), ex);
-        }
-    }
-
-    private static void doPurgeProduct() {
-        try {
-            ProductClient.doPurge();
-        } catch (Exception ex) {
-            log.error("doPurge error={}", ex.getMessage(), ex);
         }
     }
 

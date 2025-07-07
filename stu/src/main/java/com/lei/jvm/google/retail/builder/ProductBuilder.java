@@ -8,7 +8,6 @@ import com.google.cloud.retail.v2.GcsSource;
 import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportErrorsConfig;
 import com.google.cloud.retail.v2.ImportProductsRequest;
-import com.google.cloud.retail.v2.ListProductsRequest;
 import com.google.cloud.retail.v2.LocalInventory;
 import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.ProductInlineSource;
@@ -25,34 +24,9 @@ import java.util.List;
  */
 public class ProductBuilder {
 
-    /**
-     * @param ids
-     * @return
-     * @See <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2.ListProductsRequest#com_google_cloud_retail_v2_ListProductsRequest_getFilter__">...</a>
-     */
-    public static ListProductsRequest buildListProductsRequest(List<String> ids) {
-        String filter = ids.stream()
-                .map(id -> "primary_product_id = \"" + id + "\"")
-                .reduce((a, b) -> a + " or " + b)
-                .orElse("");
-        return ListProductsRequest.newBuilder()
-                .setParent(CommonBuilder.buildBranch())
-                .setPageSize(ids.size())
-                //.setFilter(BranchBuilder.buildINFilter(Lists.newArrayList("productId-1051830678")))
-                //.setFilter("type = \"COLLECTION\" AND primary_product_id = \"productId-1051830678\")")
-                //.setFilter(BranchBuilder.buildPrimaryIdFilter(Lists.newArrayList("productId-1051830678")))
-                //.setFilter("id = \"productId-1051830678\" + \" or id = \"a02f481e-b3e7-41a8-b3bd-dcb5e54e35a9\"")
-                //.setFilter("primary_product_id = \"productId-1051830678\" + \" or primary_product_id = \"a02f481e-b3e7-41a8-b3bd-dcb5e54e35a9\"")
-                //.setFilter("primary_product_id = \"productId-1051830678\"")
-                //.setFilter("primary_product_id = \"productId-1051830678\"")
-                // 正确
-                .setFilter(filter)
-                .build();
-    }
-
     public static PurgeProductsRequest buildPurgeProductRequest(List<String> ids) {
         return PurgeProductsRequest.newBuilder()
-                .setParent(CommonBuilder.buildBranch())
+                .setParent(CommonBuilder.buildRecBranch())
                 .setForce(true)
                 .setFilter(CommonBuilder.buildCollectionIdFilter(ids))
                 .build();
@@ -60,13 +34,13 @@ public class ProductBuilder {
 
     public static GetProductRequest buildGetProductRequest(String productId) {
         return GetProductRequest.newBuilder()
-                .setName(CommonBuilder.buildProduct(productId))
+                .setName(CommonBuilder.buildSearchProduct(productId))
                 .build();
     }
 
     public static CreateProductRequest buildCreateProductRequest() {
         return CreateProductRequest.newBuilder()
-                .setParent(CommonBuilder.buildBranch())
+                .setParent(CommonBuilder.buildRecBranch())
                 .setProduct(ProductBuilder.buildProduct())
                 .setProductId("productId-00000001")
                 .build();
@@ -75,7 +49,7 @@ public class ProductBuilder {
     public static ImportProductsRequest buildImportProductRequest() {
         ImportProductsRequest request =
                 ImportProductsRequest.newBuilder()
-                        .setParent(CommonBuilder.buildBranch())
+                        .setParent(CommonBuilder.buildRecBranch())
                         .setInputConfig(buildInputConfig())
                         //.setErrorsConfig(buildErrorConfig())
                         .setUpdateMask(FieldMask.newBuilder().build())
@@ -112,7 +86,7 @@ public class ProductBuilder {
 
     public static AddLocalInventoriesRequest buildAddLocalInventoriesRequest() {
         return AddLocalInventoriesRequest.newBuilder()
-                .setProduct(CommonBuilder.buildBranch())
+                .setProduct(CommonBuilder.buildRecBranch())
                 .addAllLocalInventories(buildLocalInventories())
                 .setAddMask(FieldMask.newBuilder().build())
                 .setAddTime(Timestamp.newBuilder().build())
