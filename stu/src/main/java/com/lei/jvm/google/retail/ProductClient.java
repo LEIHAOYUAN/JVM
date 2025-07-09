@@ -3,7 +3,6 @@ package com.lei.jvm.google.retail;
 import cn.hutool.core.collection.CollectionUtil;
 import com.google.api.core.ApiFuture;
 import com.google.api.gax.longrunning.OperationFuture;
-import com.google.cloud.retail.v2.AddLocalInventoriesRequest;
 import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportMetadata;
 import com.google.cloud.retail.v2.ImportProductsRequest;
@@ -131,11 +130,14 @@ public class ProductClient {
         }
     }
 
+    public static void doRemoveLocalInventory() throws Exception {
+        ProductServiceClient productServiceClient = ProductServiceClient.create();
+        productServiceClient.removeLocalInventoriesAsync(ProductBuilder.buildRemoveLocalInventoriesRequest());
+    }
+
     public static void doAddLocalInventory() throws Exception {
-        AddLocalInventoriesRequest request = ProductBuilder.buildAddLocalInventoriesRequest();
-        try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
-            productServiceClient.addLocalInventoriesAsync(request);
-        }
+        ProductServiceClient productServiceClient = ProductServiceClient.create();
+        productServiceClient.addLocalInventoriesAsync(ProductBuilder.buildAddLocalInventoriesRequest());
     }
 
 

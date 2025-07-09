@@ -9,6 +9,7 @@ import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.Product.Type;
 import com.google.cloud.retail.v2.ProductInlineSource;
 import com.google.cloud.retail.v2.ProductInputConfig;
+import com.google.cloud.retail.v2.RemoveLocalInventoriesRequest;
 import com.google.common.collect.Lists;
 import com.google.protobuf.FieldMask;
 import com.lei.jvm.google.retail.build.CommonBuilder;
@@ -58,6 +59,12 @@ public class ProductBuilder {
                 .build();
     }
 
+    public static RemoveLocalInventoriesRequest buildRemoveLocalInventoriesRequest() {
+        return RemoveLocalInventoriesRequest.newBuilder()
+                .setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID))
+                .build();
+    }
+
     public static AddLocalInventoriesRequest buildAddLocalInventoriesRequest() {
         return AddLocalInventoriesRequest.newBuilder()
                 .setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID))
@@ -76,7 +83,7 @@ public class ProductBuilder {
 
     private static CustomAttribute buildCustomAttribute() {
         return CustomAttribute.newBuilder()
-                .addNumbers(2)
+                .addNumbers(0)
                 .build();
     }
 
