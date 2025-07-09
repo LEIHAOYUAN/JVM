@@ -4,8 +4,6 @@ import cn.hutool.core.collection.CollectionUtil;
 import com.google.api.core.ApiFuture;
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.cloud.retail.v2.AddLocalInventoriesRequest;
-import com.google.cloud.retail.v2.AddLocalInventoriesResponse;
-import com.google.cloud.retail.v2.CreateProductRequest;
 import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportMetadata;
 import com.google.cloud.retail.v2.ImportProductsRequest;
@@ -108,11 +106,8 @@ public class ProductClient {
     }
 
     public static void doGet() throws Exception {
-        GetProductRequest request = GetProductRequest.newBuilder()
-                .setName(CommonBuilder.buildRecProduct("3c5b74b3-69ac-49f6-b698-e38b897c15c8"))
-                .build();
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
-            Product response = productServiceClient.getProduct(request);
+            Product response = productServiceClient.getProduct(ProductBuilder.buildGetRequest());
             log.info("查询结果={}", response.toString());
         }
     }
@@ -129,24 +124,17 @@ public class ProductClient {
         }
     }
 
-    public static void doCreate() throws Exception {
-        CreateProductRequest request = ProductBuilder.buildCreateProductRequest();
-        try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
-            productServiceClient.createProduct(request);
-        }
-    }
-
     public static void doImport() throws Exception {
         ImportProductsRequest request = ProductBuilder.buildImportProductRequest();
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
-            ImportProductsResponse response = productServiceClient.importProductsAsync(request).get();
+            productServiceClient.importProductsAsync(request);
         }
     }
 
     public static void doAddLocalInventory() throws Exception {
         AddLocalInventoriesRequest request = ProductBuilder.buildAddLocalInventoriesRequest();
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
-            AddLocalInventoriesResponse response = productServiceClient.addLocalInventoriesAsync(request).get();
+            productServiceClient.addLocalInventoriesAsync(request);
         }
     }
 

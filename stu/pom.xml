@@ -61,11 +61,11 @@
             <artifactId>javax.el</artifactId>
         </dependency>
 
-        <!-- guava -->
+<!--        &lt;!&ndash; guava &ndash;&gt;
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.apache.commons</groupId>
