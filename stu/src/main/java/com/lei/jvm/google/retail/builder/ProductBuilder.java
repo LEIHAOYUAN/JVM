@@ -57,7 +57,7 @@ public class ProductBuilder {
     public static RemoveLocalInventoriesRequest buildRemoveLocalInventoriesRequest() {
         return RemoveLocalInventoriesRequest.newBuilder()
             .setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID))
-            .addAllPlaceIds(Lists.newArrayList("dr7253j"))
+            .addAllPlaceIds(Lists.newArrayList("dr7253j", "dr72530"))
             .build();
     }
 
@@ -67,7 +67,7 @@ public class ProductBuilder {
 
     // TODO 设置格式：{"placeId": "dr5rfd6", "attributes": {"availbility": {"numbers": [1]}}}
     private static List<LocalInventory> buildLocalInventories() {
-        LocalInventory localInventory = LocalInventory.newBuilder().setPlaceId("dr7253j").putAttributes("availbility", buildCustomAttribute()).build();
+        LocalInventory localInventory = LocalInventory.newBuilder().setPlaceId("dr72530").putAttributes("availbility", buildCustomAttribute()).build();
         return Lists.newArrayList(localInventory);
     }
 

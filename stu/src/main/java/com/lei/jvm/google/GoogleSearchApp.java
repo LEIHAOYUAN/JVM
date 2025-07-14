@@ -20,8 +20,8 @@ public class GoogleSearchApp {
 
     public static void main(String[] args) {
         // doImport();
-        doRemoveLocalInventory();
-        // doAddLocalInventory();
+        // doRemoveLocalInventory();
+        doAddLocalInventory();
         doGetProduct();
     }
 
