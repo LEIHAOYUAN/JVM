@@ -10,9 +10,9 @@ import com.google.cloud.retail.v2.Product.Type;
 import com.google.cloud.retail.v2.ProductInlineSource;
 import com.google.cloud.retail.v2.ProductInputConfig;
 import com.google.cloud.retail.v2.RemoveLocalInventoriesRequest;
-import com.google.cloud.retail.v2beta.ProductName;
 import com.google.common.collect.Lists;
 import com.google.protobuf.FieldMask;
+import com.google.protobuf.Timestamp;
 import com.lei.jvm.google.retail.build.CommonBuilder;
 
 import java.util.List;
@@ -55,13 +55,12 @@ public class ProductBuilder {
             .build();
     }
 
-    public static ProductName buildRecProductName() {
-        return CommonBuilder.buildRecProductName(PRODUCT_ID);
-    }
-
     public static RemoveLocalInventoriesRequest buildRemoveLocalInventoriesRequest() {
         return RemoveLocalInventoriesRequest.newBuilder()
             .setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID))
+            .addAllPlaceIds(Lists.newArrayList("dr7253j"))
+            .setRemoveTime(Timestamp.newBuilder().build())
+            .setAllowMissing(true)
             .build();
     }
 
