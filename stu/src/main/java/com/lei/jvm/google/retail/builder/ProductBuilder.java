@@ -12,7 +12,6 @@ import com.google.cloud.retail.v2.ProductInputConfig;
 import com.google.cloud.retail.v2.RemoveLocalInventoriesRequest;
 import com.google.common.collect.Lists;
 import com.google.protobuf.FieldMask;
-import com.google.protobuf.Timestamp;
 import com.lei.jvm.google.retail.build.CommonBuilder;
 
 import java.util.List;
@@ -59,8 +58,6 @@ public class ProductBuilder {
         return RemoveLocalInventoriesRequest.newBuilder()
             .setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID))
             .addAllPlaceIds(Lists.newArrayList("dr7253j"))
-            .setRemoveTime(Timestamp.newBuilder().build())
-            .setAllowMissing(true)
             .build();
     }
 
@@ -75,7 +72,7 @@ public class ProductBuilder {
     }
 
     private static CustomAttribute buildCustomAttribute() {
-        return CustomAttribute.newBuilder().addNumbers(1).build();
+        return CustomAttribute.newBuilder().addNumbers(3).build();
     }
 
 

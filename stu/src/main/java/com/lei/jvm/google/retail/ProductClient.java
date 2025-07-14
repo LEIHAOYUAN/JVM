@@ -135,8 +135,6 @@ public class ProductClient {
     public static void doRemoveLocalInventory() throws Exception {
         ProductServiceClient productServiceClient = ProductServiceClient.create();
         OperationFuture<RemoveLocalInventoriesResponse, RemoveLocalInventoriesMetadata> future = productServiceClient.removeLocalInventoriesAsync(ProductBuilder.buildRemoveLocalInventoriesRequest());
-        RemoveLocalInventoriesResponse response = future.get();
-        log.info("移除结果={}", response.toString());
     }
 
     public static void doAddLocalInventory() throws Exception {
