@@ -18,6 +18,7 @@ import com.google.cloud.retail.v2.ProductServiceClient.ListProductsPage;
 import com.google.cloud.retail.v2.ProductServiceClient.ListProductsPagedResponse;
 import com.google.cloud.retail.v2.PurgeProductsRequest;
 import com.google.common.collect.Lists;
+import com.google.longrunning.Operation;
 import com.google.protobuf.FieldMask;
 import com.lei.jvm.google.retail.build.CommonBuilder;
 import com.lei.jvm.google.retail.builder.ProductBuilder;
@@ -132,7 +133,8 @@ public class ProductClient {
 
     public static void doRemoveLocalInventory() throws Exception {
         ProductServiceClient productServiceClient = ProductServiceClient.create();
-        productServiceClient.removeLocalInventoriesAsync(ProductBuilder.buildRemoveLocalInventoriesRequest());
+        Operation call = productServiceClient.removeLocalInventoriesCallable().call(ProductBuilder.buildRemoveLocalInventoriesRequest());
+        call.getDone();
     }
 
     public static void doAddLocalInventory() throws Exception {

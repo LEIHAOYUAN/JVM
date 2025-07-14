@@ -31,10 +31,12 @@ public class ProductBuilder {
         ImportProductsRequest request = ImportProductsRequest.newBuilder()
             .setParent(CommonBuilder.buildRecBranch())
             .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder()
-                .addAllProducts(Lists.newArrayList(buildProduct())).build()).build()).setUpdateMask(FieldMask.newBuilder().build())
+                .addAllProducts(Lists.newArrayList(buildProduct())).build()).build())
             // 设置为true时，表示如果产品不存在，则创建新产品；如果产品已存在，则更新现有产品。
             .setReconciliationMode(ImportProductsRequest.ReconciliationMode.INCREMENTAL)
-            .setUpdateMask(FieldMask.newBuilder().addPaths("title").build())
+            .setUpdateMask(FieldMask.newBuilder().build())
+            // 如果指定更新字段，则product不存在不会创建
+            // .setUpdateMask(FieldMask.newBuilder().addPaths("title").build())
             // full模式会先删除再创建
             // .setReconciliationMode(ImportProductsRequest.ReconciliationMode.FULL)
             //.setNotificationPubsubTopic("notificationPubsubTopic-1361224991")
@@ -53,7 +55,9 @@ public class ProductBuilder {
     }
 
     public static RemoveLocalInventoriesRequest buildRemoveLocalInventoriesRequest() {
-        return RemoveLocalInventoriesRequest.newBuilder().setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID)).build();
+        return RemoveLocalInventoriesRequest.newBuilder()
+            .setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID))
+            .build();
     }
 
     public static AddLocalInventoriesRequest buildAddLocalInventoriesRequest() {

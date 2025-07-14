@@ -19,9 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-        doImport();
+        // doImport();
+        doRemoveLocalInventory();
         //doAddLocalInventory();
-        //doGetProduct();
+        doGetProduct();
     }
 
     private static void doGetProduct() {
@@ -53,6 +54,14 @@ public class GoogleSearchApp {
             ProductClient.doImport();
         } catch (Exception ex) {
             log.error("doImport error={}", ex.getMessage(), ex);
+        }
+    }
+
+    private static void doRemoveLocalInventory() {
+        try {
+            ProductClient.doRemoveLocalInventory();
+        } catch (Exception ex) {
+            log.error("doRemoveLocalInventory error={}", ex.getMessage(), ex);
         }
     }
 
