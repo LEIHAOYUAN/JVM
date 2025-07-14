@@ -17,8 +17,9 @@ import com.google.cloud.retail.v2.ProductServiceClient;
 import com.google.cloud.retail.v2.ProductServiceClient.ListProductsPage;
 import com.google.cloud.retail.v2.ProductServiceClient.ListProductsPagedResponse;
 import com.google.cloud.retail.v2.PurgeProductsRequest;
+import com.google.cloud.retail.v2.RemoveLocalInventoriesMetadata;
+import com.google.cloud.retail.v2.RemoveLocalInventoriesResponse;
 import com.google.common.collect.Lists;
-import com.google.longrunning.Operation;
 import com.google.protobuf.FieldMask;
 import com.lei.jvm.google.retail.build.CommonBuilder;
 import com.lei.jvm.google.retail.builder.ProductBuilder;
@@ -35,24 +36,24 @@ public class ProductClient {
     public static void doClearAll() throws Exception {
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
             GetProductRequest getRequest = GetProductRequest.newBuilder()
-                    .setName(CommonBuilder.buildRecProduct("3c5b74b3-69ac-49f6-b698-e38b897c15c8"))
-                    .build();
+                .setName(CommonBuilder.buildRecProduct("3c5b74b3-69ac-49f6-b698-e38b897c15c8"))
+                .build();
             Product product = productServiceClient.getProduct(getRequest);
             ImportProductsRequest importRequest = ImportProductsRequest.newBuilder()
-                    .setParent(CommonBuilder.buildRecBranch())
-                    .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(Lists.newArrayList(product)).build()).build())
-                    .setUpdateMask(FieldMask.newBuilder().build())
-                    .setReconciliationMode(ReconciliationMode.FULL)
-                    .build();
+                .setParent(CommonBuilder.buildRecBranch())
+                .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(Lists.newArrayList(product)).build()).build())
+                .setUpdateMask(FieldMask.newBuilder().build())
+                .setReconciliationMode(ReconciliationMode.FULL)
+                .build();
             OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(importRequest);
         }
     }
 
     public static void doClear() throws Exception {
         Builder builder = ListProductsRequest.newBuilder()
-                .setParent(CommonBuilder.buildRecBranch())
-                .setPageSize(100)
-                .setPageToken("");
+            .setParent(CommonBuilder.buildRecBranch())
+            .setPageSize(100)
+            .setPageToken("");
         ProductServiceClient productServiceClient = ProductServiceClient.create();
         while (true) {
             ListProductsPagedResponse response = doListWithPage(productServiceClient, builder.build());
@@ -88,12 +89,12 @@ public class ProductClient {
                 updateProducts.add(product.toBuilder().clearCollectionMemberIds().build());
             }
             ImportProductsRequest importRequest = ImportProductsRequest.newBuilder()
-                    .setParent(CommonBuilder.buildRecBranch())
-                    .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(updateProducts).build()).build())
-                    //.setErrorsConfig(ImportErrorsConfig.newBuilder().build())
-                    .setUpdateMask(FieldMask.newBuilder().addPaths("collection_member_ids").build())
-                    .setReconciliationMode(ReconciliationMode.INCREMENTAL)
-                    .build();
+                .setParent(CommonBuilder.buildRecBranch())
+                .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(updateProducts).build()).build())
+                //.setErrorsConfig(ImportErrorsConfig.newBuilder().build())
+                .setUpdateMask(FieldMask.newBuilder().addPaths("collection_member_ids").build())
+                .setReconciliationMode(ReconciliationMode.INCREMENTAL)
+                .build();
             OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(importRequest);
         } catch (Exception ex) {
             log.error("清除collection_member_ids异常={}", ex.getMessage(), ex);
@@ -115,10 +116,10 @@ public class ProductClient {
 
     public static void doPurge(String parentName, String productId) throws Exception {
         PurgeProductsRequest request = PurgeProductsRequest.newBuilder()
-                .setParent(parentName)
-                .setForce(true)
-                .setFilter("id = \"" + productId + "\"")
-                .build();
+            .setParent(parentName)
+            .setForce(true)
+            .setFilter("id = \"" + productId + "\"")
+            .build();
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
             productServiceClient.purgeProductsAsync(request);
         }
@@ -133,8 +134,9 @@ public class ProductClient {
 
     public static void doRemoveLocalInventory() throws Exception {
         ProductServiceClient productServiceClient = ProductServiceClient.create();
-        Operation call = productServiceClient.removeLocalInventoriesCallable().call(ProductBuilder.buildRemoveLocalInventoriesRequest());
-        call.getDone();
+        OperationFuture<RemoveLocalInventoriesResponse, RemoveLocalInventoriesMetadata> future = productServiceClient.removeLocalInventoriesAsync(ProductBuilder.buildRemoveLocalInventoriesRequest());
+        RemoveLocalInventoriesResponse response = future.get();
+        log.info("移除结果={}", response.toString());
     }
 
     public static void doAddLocalInventory() throws Exception {

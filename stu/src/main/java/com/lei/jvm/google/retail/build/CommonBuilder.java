@@ -31,6 +31,10 @@ public class CommonBuilder {
         return BranchName.of(REC_PROJECT_ID, "global", "default_catalog", "2").toString();
     }
 
+    public static ProductName buildRecProductName(String productId) {
+        return ProductName.of(REC_PROJECT_ID, "global", "default_catalog", "2", productId);
+    }
+
     public static String buildRecProduct(String productId) {
         return ProductName.of(REC_PROJECT_ID, "global", "default_catalog", "2", productId).toString();
     }
@@ -45,9 +49,9 @@ public class CommonBuilder {
 
     public static String buildCollectionIdFilter(List<String> productIds) {
         return productIds.stream()
-                .map(id -> "productId = \"" + id + "\"")
-                .reduce((a, b) -> a + " or " + b)
-                .orElse("");
+            .map(id -> "productId = \"" + id + "\"")
+            .reduce((a, b) -> a + " or " + b)
+            .orElse("");
     }
 
 }
