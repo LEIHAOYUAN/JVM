@@ -139,7 +139,7 @@ public class ProductClient {
 
     public static void doAddLocalInventory() throws Exception {
         ProductServiceClient productServiceClient = ProductServiceClient.create();
-        productServiceClient.addLocalInventoriesAsync(ProductBuilder.buildAddLocalInventoriesRequest());
+        productServiceClient.addLocalInventoriesAsync(ProductBuilder.buildAddLocalInventoriesRequest()).get();
     }
 
 

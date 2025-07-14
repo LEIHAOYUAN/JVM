@@ -12,7 +12,6 @@ import com.google.cloud.retail.v2.ProductInputConfig;
 import com.google.cloud.retail.v2.RemoveLocalInventoriesRequest;
 import com.google.common.collect.Lists;
 import com.google.protobuf.FieldMask;
-import com.google.protobuf.Timestamp;
 import com.lei.jvm.google.retail.build.CommonBuilder;
 
 import java.util.List;
@@ -60,7 +59,7 @@ public class ProductBuilder {
             .setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID))
             .addAllPlaceIds(Lists.newArrayList())
             // .addAllPlaceIds(Lists.newArrayList("dr7253j", "dr72530"))
-            .setRemoveTime(Timestamp.newBuilder().build())
+            // .setRemoveTime(Timestamp.newBuilder().build())
             .build();
     }
 
@@ -68,18 +67,18 @@ public class ProductBuilder {
         return AddLocalInventoriesRequest.newBuilder()
             .setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID))
             .addAllLocalInventories(buildLocalInventories())
-            .setAddTime(Timestamp.newBuilder().build())
+            //.setAddTime(Timestamp.newBuilder()..build())
             .build();
     }
 
     // TODO 设置格式：{"placeId": "dr5rfd6", "attributes": {"availbility": {"numbers": [1]}}}
     private static List<LocalInventory> buildLocalInventories() {
-        LocalInventory localInventory = LocalInventory.newBuilder().setPlaceId("dr7253j").putAttributes("availbility", buildCustomAttribute()).build();
+        LocalInventory localInventory = LocalInventory.newBuilder().setPlaceId("dr72530").putAttributes("availbility", buildCustomAttribute()).build();
         return Lists.newArrayList(localInventory);
     }
 
     private static CustomAttribute buildCustomAttribute() {
-        return CustomAttribute.newBuilder().addNumbers(3).build();
+        return CustomAttribute.newBuilder().addNumbers(2).build();
     }
 
 

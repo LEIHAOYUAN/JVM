@@ -5,7 +5,7 @@ import com.lei.jvm.google.retail.SearchClient;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author lei
+ * @author ryan
  * @see <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2">...</a>
  * GOOGLE_APPLICATION_CREDENTIALS
  * 【搜索】
@@ -21,7 +21,7 @@ public class GoogleSearchApp {
     public static void main(String[] args) {
         // doImport();
         // doRemoveLocalInventory();
-         doAddLocalInventory();
+        doAddLocalInventory();
         doGetProduct();
     }
 
