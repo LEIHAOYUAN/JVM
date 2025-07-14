@@ -29,12 +29,12 @@ public class ProductBuilder {
 
     public static ImportProductsRequest buildImportProductRequest() {
         ImportProductsRequest request = ImportProductsRequest.newBuilder().setParent(CommonBuilder.buildRecBranch()).setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(Lists.newArrayList(buildProduct())).build()).build()).setUpdateMask(FieldMask.newBuilder().build())
-                // 设置为true时，表示如果产品不存在，则创建新产品；如果产品已存在，则更新现有产品。
-                .setReconciliationMode(ImportProductsRequest.ReconciliationMode.INCREMENTAL)
-                // full模式会先删除再创建
-                // .setReconciliationMode(ImportProductsRequest.ReconciliationMode.FULL)
-                //.setNotificationPubsubTopic("notificationPubsubTopic-1361224991")
-                .build();
+            // 设置为true时，表示如果产品不存在，则创建新产品；如果产品已存在，则更新现有产品。
+            .setReconciliationMode(ImportProductsRequest.ReconciliationMode.INCREMENTAL)
+            // full模式会先删除再创建
+            // .setReconciliationMode(ImportProductsRequest.ReconciliationMode.FULL)
+            //.setNotificationPubsubTopic("notificationPubsubTopic-1361224991")
+            .build();
         return request;
     }
 
@@ -47,7 +47,8 @@ public class ProductBuilder {
     }
 
     public static AddLocalInventoriesRequest buildAddLocalInventoriesRequest() {
-        return AddLocalInventoriesRequest.newBuilder().setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID)).addAllLocalInventories(buildLocalInventories()).build();
+        return AddLocalInventoriesRequest.newBuilder().setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID)).addAllLocalInventories(Lists.newArrayList()).build();
+        // return AddLocalInventoriesRequest.newBuilder().setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID)).addAllLocalInventories(buildLocalInventories()).build();
     }
 
     // TODO 设置格式：{"placeId": "dr5rfd6", "attributes": {"availbility": {"numbers": [1]}}}
@@ -57,7 +58,7 @@ public class ProductBuilder {
     }
 
     private static CustomAttribute buildCustomAttribute() {
-        return CustomAttribute.newBuilder().addNumbers(3).build();
+        return CustomAttribute.newBuilder().addNumbers(1).build();
     }
 
 
