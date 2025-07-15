@@ -3,7 +3,9 @@ package com.lei.jvm.google.retail.build;
 import com.google.cloud.retail.v2.BranchName;
 import com.google.cloud.retail.v2beta.ProductName;
 import com.google.common.collect.Lists;
+import com.google.protobuf.Timestamp;
 
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -37,6 +39,14 @@ public class CommonBuilder {
 
     public static String buildRecProduct(String productId) {
         return ProductName.of(REC_PROJECT_ID, "global", "default_catalog", "2", productId).toString();
+    }
+
+    public static Timestamp buildUTCTimestamp() {
+        Instant now = Instant.now();
+        return Timestamp.newBuilder()
+            .setSeconds(now.getEpochSecond())
+            .setNanos(now.getNano())
+            .build();
     }
 
     public static String buildRecPlacement() {

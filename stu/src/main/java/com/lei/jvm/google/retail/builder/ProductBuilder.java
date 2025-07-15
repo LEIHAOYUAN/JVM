@@ -57,9 +57,8 @@ public class ProductBuilder {
     public static RemoveLocalInventoriesRequest buildRemoveLocalInventoriesRequest() {
         return RemoveLocalInventoriesRequest.newBuilder()
             .setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID))
-            .addAllPlaceIds(Lists.newArrayList())
-            // .addAllPlaceIds(Lists.newArrayList("dr7253j", "dr72530"))
-            // .setRemoveTime(Timestamp.newBuilder().build())
+            .addAllPlaceIds(Lists.newArrayList("dr7253j", "dr72530"))
+            .setRemoveTime(CommonBuilder.buildUTCTimestamp())
             .build();
     }
 
@@ -67,7 +66,7 @@ public class ProductBuilder {
         return AddLocalInventoriesRequest.newBuilder()
             .setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID))
             .addAllLocalInventories(buildLocalInventories())
-            //.setAddTime(Timestamp.newBuilder()..build())
+            .setAddTime(CommonBuilder.buildUTCTimestamp())
             .build();
     }
 
