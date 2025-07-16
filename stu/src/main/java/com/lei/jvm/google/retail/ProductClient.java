@@ -1,15 +1,12 @@
 package com.lei.jvm.google.retail;
 
-import cn.hutool.core.collection.CollectionUtil;
 import com.google.api.core.ApiFuture;
 import com.google.api.gax.longrunning.OperationFuture;
-import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportMetadata;
 import com.google.cloud.retail.v2.ImportProductsRequest;
 import com.google.cloud.retail.v2.ImportProductsRequest.ReconciliationMode;
 import com.google.cloud.retail.v2.ImportProductsResponse;
 import com.google.cloud.retail.v2.ListProductsRequest;
-import com.google.cloud.retail.v2.ListProductsRequest.Builder;
 import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.ProductInlineSource;
 import com.google.cloud.retail.v2.ProductInputConfig;
@@ -33,52 +30,9 @@ import java.util.List;
  */
 @Slf4j
 public class ProductClient {
-    public static void doClearAll() throws Exception {
+    public static void doDelete() throws Exception {
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
-            GetProductRequest getRequest = GetProductRequest.newBuilder()
-                .setName(CommonBuilder.buildRecProduct("3c5b74b3-69ac-49f6-b698-e38b897c15c8"))
-                .build();
-            Product product = productServiceClient.getProduct(getRequest);
-            ImportProductsRequest importRequest = ImportProductsRequest.newBuilder()
-                .setParent(CommonBuilder.buildRecBranch())
-                .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(Lists.newArrayList(product)).build()).build())
-                .setUpdateMask(FieldMask.newBuilder().build())
-                .setReconciliationMode(ReconciliationMode.FULL)
-                .build();
-            OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(importRequest);
-        }
-    }
-
-    public static void doClear() throws Exception {
-        Builder builder = ListProductsRequest.newBuilder()
-            .setParent(CommonBuilder.buildRecBranch())
-            .setPageSize(100)
-            .setPageToken("");
-        ProductServiceClient productServiceClient = ProductServiceClient.create();
-        while (true) {
-            ListProductsPagedResponse response = doListWithPage(productServiceClient, builder.build());
-            ListProductsPage page = response.getPage();
-            if (CollectionUtil.isEmpty(page.getValues())) {
-                log.info("处理完成");
-                break;
-            }
-            log.info("查询下一页产品={}", response.getNextPageToken());
-            builder.setPageToken(response.getNextPageToken());
-            clearMemberIds(page, productServiceClient);
-            // Thread.sleep(10000);
-            doDelete(page, productServiceClient);
-        }
-    }
-
-    private static void doDelete(ListProductsPage page, ProductServiceClient productServiceClient) {
-        for (Product product : page.getValues()) {
-            // delete
-            try {
-                productServiceClient.deleteProduct(CommonBuilder.buildRecProduct(product.getId()));
-                // ThreadPoolUtil.execute(() -> {});
-            } catch (Exception ex) {
-                log.error("删除异常productId=[{}]异常={}", product.getId(), ex.getMessage(), ex);
-            }
+            productServiceClient.deleteProduct(CommonBuilder.buildSearchProduct(ProductBuilder.PRODUCT_ID));
         }
     }
 
@@ -128,7 +82,7 @@ public class ProductClient {
     public static void doImport() throws Exception {
         ImportProductsRequest request = ProductBuilder.buildImportProductRequest();
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
-            productServiceClient.importProductsAsync(request);
+            productServiceClient.importProductsCallable().call(request);
         }
     }
 

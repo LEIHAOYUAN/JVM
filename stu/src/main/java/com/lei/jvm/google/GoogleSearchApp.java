@@ -22,6 +22,7 @@ public class GoogleSearchApp {
         // doImport();
 //         doRemoveLocalInventory();
 //        doAddLocalInventory();
+        doDelete();
         doGetProduct();
     }
 
@@ -33,19 +34,11 @@ public class GoogleSearchApp {
         }
     }
 
-    private static void doClearProduct() {
+    private static void doDelete() {
         try {
-            ProductClient.doClear();
+            ProductClient.doDelete();
         } catch (Exception ex) {
-            log.error("doClearProduct error={}", ex.getMessage(), ex);
-        }
-    }
-
-    private static void doClearALL() {
-        try {
-            ProductClient.doClearAll();
-        } catch (Exception ex) {
-            log.error("doClearAll error={}", ex.getMessage(), ex);
+            log.error("doDelete error={}", ex.getMessage(), ex);
         }
     }
 

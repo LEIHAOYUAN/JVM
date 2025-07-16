@@ -21,15 +21,15 @@ import java.util.List;
  */
 public class ProductBuilder {
 
-    public static final String PRODUCT_ID = "restaurant_brand_name-1000000008";
+    public static final String PRODUCT_ID = "restaurant_brand_name-10000000101";
 
     public static GetProductRequest buildGetRequest() {
-        return GetProductRequest.newBuilder().setName(CommonBuilder.buildSearchProduct("ffda90cf-e470-4d69-b233-c35267b42c2c")).build();
+        return GetProductRequest.newBuilder().setName(CommonBuilder.buildSearchProduct(PRODUCT_ID)).build();
     }
 
     public static ImportProductsRequest buildImportProductRequest() {
         ImportProductsRequest request = ImportProductsRequest.newBuilder()
-            .setParent(CommonBuilder.buildRecBranch())
+            .setParent(CommonBuilder.buildSearchBranch())
             .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder()
                 .addAllProducts(Lists.newArrayList(buildProduct())).build()).build())
             // 设置为true时，表示如果产品不存在，则创建新产品；如果产品已存在，则更新现有产品。
@@ -47,6 +47,17 @@ public class ProductBuilder {
     private static Product buildProduct() {
         return Product.newBuilder().setId(PRODUCT_ID)
             .setTitle(PRODUCT_ID)
+            .addAllCategories(CommonBuilder.buildCatagoryList())
+            .addBrands("custmerBrands").setType(Type.COLLECTION)
+            .addAllCollectionMemberIds(Lists.newArrayList(PRODUCT_ID + "-1", PRODUCT_ID + "-2"))
+            .addAllLocalInventories(buildLocalInventories())
+            //.setDescription("test12345789")
+            .build();
+    }
+
+    private static Product buildProductItems() {
+        return Product.newBuilder().setId(PRODUCT_ID + "-1")
+            .setTitle(PRODUCT_ID + "-1")
             .addAllCategories(CommonBuilder.buildCatagoryList())
             .addBrands("custmerBrands").setType(Type.PRIMARY)
             .addAllLocalInventories(buildLocalInventories())
