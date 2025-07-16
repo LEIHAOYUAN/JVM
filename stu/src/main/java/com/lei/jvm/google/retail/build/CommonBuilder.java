@@ -15,10 +15,11 @@ public class CommonBuilder {
 
     private static final String SEARCH_PROJECT_ID = "wonder-ai-search-dev";
     private static final String REC_PROJECT_ID = "wonder-search-restaurant-dev";
+    private static final String DEFAULT_BRANCH = "0";
 
 
     public static String buildSearchBranch() {
-        return BranchName.of(SEARCH_PROJECT_ID, "global", "default_catalog", "2").toString();
+        return BranchName.of(SEARCH_PROJECT_ID, "global", "default_catalog", DEFAULT_BRANCH).toString();
     }
 
     public static String buildSearchPlacement() {
@@ -26,19 +27,15 @@ public class CommonBuilder {
     }
 
     public static String buildSearchProduct(String productId) {
-        return ProductName.of(SEARCH_PROJECT_ID, "global", "default_catalog", "2", productId).toString();
+        return ProductName.of(SEARCH_PROJECT_ID, "global", "default_catalog", DEFAULT_BRANCH, productId).toString();
     }
 
     public static String buildRecBranch() {
-        return BranchName.of(REC_PROJECT_ID, "global", "default_catalog", "2").toString();
-    }
-
-    public static ProductName buildRecProductName(String productId) {
-        return ProductName.of(REC_PROJECT_ID, "global", "default_catalog", "2", productId);
+        return BranchName.of(REC_PROJECT_ID, "global", "default_catalog", DEFAULT_BRANCH).toString();
     }
 
     public static String buildRecProduct(String productId) {
-        return ProductName.of(REC_PROJECT_ID, "global", "default_catalog", "2", productId).toString();
+        return ProductName.of(REC_PROJECT_ID, "global", "default_catalog", DEFAULT_BRANCH, productId).toString();
     }
 
     public static Timestamp buildUTCTimestamp() {
@@ -49,19 +46,8 @@ public class CommonBuilder {
             .build();
     }
 
-    public static String buildRecPlacement() {
-        return "projects/" + REC_PROJECT_ID + "/locations/global/catalogs/default_catalog/placements/default_search";
-    }
-
     public static List<String> buildCatagoryList() {
         return Lists.newArrayList("Custom", "Poke Bowls", "Sides", "Kids", "Beverages", "Desserts");
-    }
-
-    public static String buildCollectionIdFilter(List<String> productIds) {
-        return productIds.stream()
-            .map(id -> "productId = \"" + id + "\"")
-            .reduce((a, b) -> a + " or " + b)
-            .orElse("");
     }
 
 }

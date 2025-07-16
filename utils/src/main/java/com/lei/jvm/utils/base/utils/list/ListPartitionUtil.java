@@ -1,6 +1,5 @@
 package com.lei.jvm.utils.base.utils.list;
 
-import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
@@ -9,31 +8,47 @@ import org.apache.commons.collections4.ListUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
- *  职能描述：集合切分工具类
- *  @author leihaoyuan
- *  @version 2022/11/3 10:08
- *  https://www.cnblogs.com/zhanh247/p/11842748.html
+ * 职能描述：集合切分工具类
+ *
+ * @author leihaoyuan
+ * @version 2022/11/3 10:08
+ * https://www.cnblogs.com/zhanh247/p/11842748.html
  */
 @Slf4j
 public class ListPartitionUtil {
 
     public static void main(String[] args) {
-        List<String> param = new ArrayList<>();
-        List<List<String>> lists = partitionByApache(param, 100);
-        for (List<String> list : lists) {
-            log.info("分组结果={}", JSON.toJSONString(list));
+        List<String> param = Lists.newArrayList();
+        for (int i = 0; i < 1001; i++) {
+            param.add(i + "");
         }
+        List<List<String>> batch = toBatch(param, 10);
+        log.info("分组大小={}", batch.size());
+    }
+
+    public static <T> List<List<T>> toBatch(List<T> list, int batchSize) {
+        if (batchSize <= 0)
+            throw new IllegalArgumentException("batchSize must be greater than 0, batchSize=" + batchSize);
+
+        if (list == null || list.isEmpty()) return List.of();
+        return IntStream.range(0, (list.size() + batchSize - 1) / batchSize)
+            .mapToObj(i -> list.subList(
+                i * batchSize,
+                Math.min((i + 1) * batchSize, list.size())
+            )).toList();
     }
 
     /**
      * 存java处理
+     *
      * @param param
      * @param size
-     * @return
      * @param <T>
+     * @return
      */
     public static <T> List<List<T>> partitioByBase(final List<T> param, final int size) {
         if (CollectionUtils.isEmpty(param)) {
@@ -56,10 +71,11 @@ public class ListPartitionUtil {
 
     /**
      * 使用guava工具类
+     *
      * @param param
      * @param size
-     * @return
      * @param <T>
+     * @return
      */
     public static <T> List<List<T>> partitionByGuava(List<T> param, int size) {
         if (CollectionUtils.isEmpty(param)) {
@@ -70,10 +86,11 @@ public class ListPartitionUtil {
 
     /**
      * 使用apache工具类
+     *
      * @param param
      * @param size
-     * @return
      * @param <T>
+     * @return
      */
     public static <T> List<List<T>> partitionByApache(List<T> param, int size) {
         if (CollectionUtils.isEmpty(param)) {
@@ -84,10 +101,11 @@ public class ListPartitionUtil {
 
     /**
      * 使用流遍历操作
+     *
      * @param param
      * @param size
-     * @return
      * @param <T>
+     * @return
      */
     private static <T> List<List<T>> partitionBySimpleStream(final List<T> param, final int size) {
         if (CollectionUtils.isEmpty(param)) {
@@ -103,10 +121,11 @@ public class ListPartitionUtil {
 
     /**
      * 使用流并行处理
+     *
      * @param param
      * @param size
-     * @return
      * @param <T>
+     * @return
      */
     private static <T> List<List<T>> partitionByParallelStream(final List<T> param, final int size) {
         if (CollectionUtils.isEmpty(param)) {
@@ -114,8 +133,8 @@ public class ListPartitionUtil {
         }
         Integer limit = (param.size() + size - 1) / size;
         List<List<T>> splitList = Stream.iterate(0, n -> n + 1).limit(limit).parallel()
-                .map(a -> param.stream().skip(a * size).limit(size).parallel().collect(Collectors.toList()))
-                .collect(Collectors.toList());
+            .map(a -> param.stream().skip(a * size).limit(size).parallel().collect(Collectors.toList()))
+            .collect(Collectors.toList());
         return splitList;
     }
 

@@ -24,7 +24,7 @@ public class ProductBuilder {
     public static final String PRODUCT_ID = "restaurant_brand_name-1000000008";
 
     public static GetProductRequest buildGetRequest() {
-        return GetProductRequest.newBuilder().setName(CommonBuilder.buildRecProduct(PRODUCT_ID)).build();
+        return GetProductRequest.newBuilder().setName(CommonBuilder.buildSearchProduct("ffda90cf-e470-4d69-b233-c35267b42c2c")).build();
     }
 
     public static ImportProductsRequest buildImportProductRequest() {
