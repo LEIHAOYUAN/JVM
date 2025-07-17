@@ -1,5 +1,6 @@
 package com.lei.jvm.google.retail;
 
+import com.alibaba.fastjson.JSON;
 import com.google.api.core.ApiFuture;
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.cloud.retail.v2.ImportMetadata;
@@ -18,11 +19,15 @@ import com.google.cloud.retail.v2.RemoveLocalInventoriesMetadata;
 import com.google.cloud.retail.v2.RemoveLocalInventoriesResponse;
 import com.google.common.collect.Lists;
 import com.google.protobuf.FieldMask;
+import com.google.rpc.Status;
 import com.lei.jvm.google.retail.build.CommonBuilder;
 import com.lei.jvm.google.retail.builder.ProductBuilder;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @see <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2.ProductServiceClient">...</a>
@@ -30,6 +35,8 @@ import java.util.List;
  */
 @Slf4j
 public class ProductClient {
+    private static ExecutorService fixedThreadPool = Executors.newFixedThreadPool(10);
+
     public static void doDelete() throws Exception {
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
             productServiceClient.deleteProduct(CommonBuilder.buildSearchProduct(ProductBuilder.PRODUCT_ID));
@@ -82,7 +89,19 @@ public class ProductClient {
     public static void doImport() throws Exception {
         ImportProductsRequest request = ProductBuilder.buildImportProductRequest();
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
-            productServiceClient.importProductsCallable().call(request);
+            OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(request);
+            future.addListener(() -> {
+                try {
+                    ImportProductsResponse response = future.get();
+                    List<Status> errorSamplesList = response.getErrorSamplesList();
+                    if (CollectionUtils.isEmpty(errorSamplesList)) {
+                        return;
+                    }
+                    log.info("error_messages={}", JSON.toJSON(errorSamplesList));
+                } catch (Exception e) {
+                    log.error("导入失败，异常信息：{}", e.getMessage(), e);
+                }
+            }, fixedThreadPool);
         }
     }
 

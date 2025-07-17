@@ -19,10 +19,15 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-//         doImport();
+         doImport();
 //         doRemoveLocalInventory();
 //        doAddLocalInventory();
-        doGetProduct();
+//        doGetProduct();
+        try {
+            Thread.sleep(8000000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void doGetProduct() {

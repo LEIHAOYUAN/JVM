@@ -13,6 +13,7 @@ import com.google.cloud.retail.v2.RemoveLocalInventoriesRequest;
 import com.google.common.collect.Lists;
 import com.google.protobuf.FieldMask;
 import com.lei.jvm.google.retail.build.CommonBuilder;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -28,10 +29,14 @@ public class ProductBuilder {
     }
 
     public static ImportProductsRequest buildImportProductRequest() {
+        String product1 = "fdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdasfdasfdas001";
+        String product2 = "fdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdasfdasfdas002";
+        List<Product> productList = Lists.newArrayList(buildProduct(product1),buildProduct(product2));
         ImportProductsRequest request = ImportProductsRequest.newBuilder()
             .setParent(CommonBuilder.buildSearchBranch())
-            .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder()
-                .addAllProducts(Lists.newArrayList(buildProduct())).build()).build())
+            .setInputConfig(ProductInputConfig.newBuilder()
+                .setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(productList).build())
+                .build())
             // 设置为true时，表示如果产品不存在，则创建新产品；如果产品已存在，则更新现有产品。
             .setReconciliationMode(ImportProductsRequest.ReconciliationMode.INCREMENTAL)
             .setUpdateMask(FieldMask.newBuilder().build())
@@ -44,12 +49,14 @@ public class ProductBuilder {
         return request;
     }
 
-    private static Product buildProduct() {
-        return Product.newBuilder().setId(PRODUCT_ID)
-            .setTitle(PRODUCT_ID)
+    private static Product buildProduct(String productId) {
+        if (StringUtils.isBlank(productId)) {
+            productId = PRODUCT_ID;
+        }
+        return Product.newBuilder().setId(productId)
+            .setTitle(productId)
             .addAllCategories(CommonBuilder.buildCatagoryList())
             .addBrands("custmerBrands").setType(Type.COLLECTION)
-            .addAllCollectionMemberIds(Lists.newArrayList(PRODUCT_ID + "-1", PRODUCT_ID + "-2"))
             .addAllLocalInventories(buildLocalInventories())
             //.setDescription("test12345789")
             .build();

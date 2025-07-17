@@ -15,7 +15,7 @@ public class CommonBuilder {
 
     private static final String SEARCH_PROJECT_ID = "wonder-ai-search-dev";
     private static final String REC_PROJECT_ID = "wonder-search-restaurant-dev";
-    private static final String DEFAULT_BRANCH = "0";
+    private static final String DEFAULT_BRANCH = "2";
 
 
     public static String buildSearchBranch() {
