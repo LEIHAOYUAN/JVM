@@ -33,7 +33,9 @@ public class ListTest {
     public static void main(String[] args) {
 //        testComplexSort();
 //        testRemove();
-        markElements(Lists.newArrayList("A", "B", "C"), Lists.newArrayList("B", "C", "D"));
+//        markElements(Lists.newArrayList("A", "B", "C"), Lists.newArrayList("B", "C", "D"));
+        List<String> strings = limitStrings(Lists.newArrayList("1", "2", "3"), 100);
+        log.info("result={}", JSON.toJSONString(strings));
     }
 
     public static Map<String, Integer> markElements(List<String> A, List<String> B) {
@@ -43,16 +45,16 @@ public class ListTest {
 
         // 使用 Stream 处理所有元素
         Map<String, Integer> markMap = Stream.concat(A.stream(), B.stream())
-                .distinct() // 去重（避免重复处理相同元素）
-                .collect(Collectors.toMap(
-                        element -> element,            // 元素作为键
-                        element -> {                   // Lambda 计算状态值
-                            boolean inA = setA.contains(element);
-                            boolean inB = setB.contains(element);
-                            return (inA && inB) ? 3 : (inA ? 1 : 2);
-                        },
-                        (existing, replacement) -> existing // 合并函数（不会执行）
-                ));
+            .distinct() // 去重（避免重复处理相同元素）
+            .collect(Collectors.toMap(
+                element -> element,            // 元素作为键
+                element -> {                   // Lambda 计算状态值
+                    boolean inA = setA.contains(element);
+                    boolean inB = setB.contains(element);
+                    return (inA && inB) ? 3 : (inA ? 1 : 2);
+                },
+                (existing, replacement) -> existing // 合并函数（不会执行）
+            ));
         log.info("标记结果={}", JSON.toJSONString(markMap));
         return markMap;
     }
@@ -129,6 +131,9 @@ public class ListTest {
 
     }
 
+    private static List<String> limitStrings(List<String> values, int limit) {
+        return values.stream().filter(StringUtils::isNotBlank).limit(limit).collect(Collectors.toList());
+    }
 
     private static void testSplit() {
         List<Long> param = Lists.newArrayList();
