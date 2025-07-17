@@ -75,7 +75,7 @@ public class ProductBuilder {
             .addAllCategories(CommonBuilder.buildCatagoryList())
             .addBrands("custmerBrands").setType(Type.COLLECTION)
             .addAllLocalInventories(buildLocalInventories())
-            .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList("")).build())
+            .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList()).build())
             //.setDescription("test12345789")
             .build();
     }
