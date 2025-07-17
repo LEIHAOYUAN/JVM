@@ -99,7 +99,7 @@ public class ProductClient {
                     }
                     log.info("error_messages={}", JSON.toJSON(errorSamplesList));
                 } catch (Exception e) {
-                    log.error("导入失败，异常信息：{}", e.getMessage(), e);
+                    log.error("import exception：{}", e.getMessage(), e);
                 }
             }, fixedThreadPool);
         }
