@@ -32,11 +32,7 @@ public class ProductBuilder {
     public static ImportProductsRequest buildImportProductRequest() {
         String product1 = "fdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdasfdasfdas001";
         String product2 = "fdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdasfdasfdas002";
-        // List<Product> productList = Lists.newArrayList(buildProduct(product1),buildProduct(product2));
-        List<Product> productList = Lists.newArrayList();
-        for (int i = 0; i < 2; i++) {
-            productList.add(buildProduct("test-product-import" + i));
-        }
+         List<Product> productList = Lists.newArrayList(buildProduct(product1),buildProduct(product2));
         ImportProductsRequest request = ImportProductsRequest.newBuilder()
             .setParent(CommonBuilder.buildSearchBranch())
             .setInputConfig(ProductInputConfig.newBuilder()
@@ -45,7 +41,7 @@ public class ProductBuilder {
             // 设置为true时，表示如果产品不存在，则创建新产品；如果产品已存在，则更新现有产品。
             .setReconciliationMode(ImportProductsRequest.ReconciliationMode.INCREMENTAL)
             .setUpdateMask(FieldMask.newBuilder().build())
-            .setErrorsConfig(ImportErrorsConfig.newBuilder().build())
+            // .setErrorsConfig(ImportErrorsConfig.newBuilder().build())
             // 如果指定更新字段，则product不存在不会创建
             // .setUpdateMask(FieldMask.newBuilder().addPaths("title").build())
             // full模式会先删除再创建
@@ -60,9 +56,6 @@ public class ProductBuilder {
             productId = PRODUCT_ID;
         }
         List<String> collectionMemberIds = Lists.newArrayList();
-        for (int i = 0; i < 1002; i++) {
-            collectionMemberIds.add("item-" + i);
-        }
         return Product.newBuilder().setId(productId)
             .setTitle(productId)
             .addAllCollectionMemberIds(collectionMemberIds)
