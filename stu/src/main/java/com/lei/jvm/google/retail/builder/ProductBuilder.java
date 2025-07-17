@@ -3,7 +3,6 @@ package com.lei.jvm.google.retail.builder;
 import com.google.cloud.retail.v2.AddLocalInventoriesRequest;
 import com.google.cloud.retail.v2.CustomAttribute;
 import com.google.cloud.retail.v2.GetProductRequest;
-import com.google.cloud.retail.v2.ImportErrorsConfig;
 import com.google.cloud.retail.v2.ImportProductsRequest;
 import com.google.cloud.retail.v2.LocalInventory;
 import com.google.cloud.retail.v2.Product;
@@ -30,13 +29,11 @@ public class ProductBuilder {
     }
 
     public static ImportProductsRequest buildImportProductRequest() {
-        String product1 = "fdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdasfdasfdas001";
-        String product2 = "fdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdasfdasfdas002";
-         List<Product> productList = Lists.newArrayList(buildProduct(product1),buildProduct(product2));
+
         ImportProductsRequest request = ImportProductsRequest.newBuilder()
             .setParent(CommonBuilder.buildSearchBranch())
             .setInputConfig(ProductInputConfig.newBuilder()
-                .setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(productList).build())
+                .setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(buildMoreProduct()).build())
                 .build())
             // 设置为true时，表示如果产品不存在，则创建新产品；如果产品已存在，则更新现有产品。
             .setReconciliationMode(ImportProductsRequest.ReconciliationMode.INCREMENTAL)
@@ -49,6 +46,21 @@ public class ProductBuilder {
             //.setNotificationPubsubTopic("notificationPubsubTopic-1361224991")
             .build();
         return request;
+    }
+
+    private static List<Product> buildIllegalProduct() {
+        String product1 = "fdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdasfdasfdas001";
+        String product2 = "fdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdasfdasfdas002";
+        List<Product> productList = Lists.newArrayList(buildProduct(product1), buildProduct(product2));
+        return productList;
+    }
+
+    private static List<Product> buildMoreProduct() {
+        List<Product> productList = Lists.newArrayList();
+        for (int i = 0; i < 105; i++) {
+            productList.add(buildProduct("test-import-product-" + i));
+        }
+        return productList;
     }
 
     private static Product buildProduct(String productId) {

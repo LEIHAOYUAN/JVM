@@ -3,6 +3,7 @@ package com.lei.jvm.google.retail;
 import com.alibaba.fastjson.JSON;
 import com.google.api.core.ApiFuture;
 import com.google.api.gax.longrunning.OperationFuture;
+import com.google.api.gax.rpc.UnknownException;
 import com.google.cloud.retail.v2.ImportMetadata;
 import com.google.cloud.retail.v2.ImportProductsRequest;
 import com.google.cloud.retail.v2.ImportProductsRequest.ReconciliationMode;
@@ -98,8 +99,11 @@ public class ProductClient {
                         return;
                     }
                     log.info("error_messages={}", JSON.toJSON(errorSamplesList));
-                } catch (Exception e) {
-                    log.error("import exception：{}", e.getMessage(), e);
+                } catch (Exception ex) {
+                    if (ex instanceof UnknownException) {
+                        return;
+                    }
+                    log.error("import exception：{}", ex.getMessage(), ex);
                 }
             }, fixedThreadPool);
         }
