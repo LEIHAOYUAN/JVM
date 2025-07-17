@@ -57,7 +57,7 @@ public class ProductBuilder {
 
     private static List<Product> buildMoreProduct() {
         List<Product> productList = Lists.newArrayList();
-        for (int i = 0; i < 105; i++) {
+        for (int i = 0; i < 1; i++) {
             productList.add(buildProduct("test-import-product-" + i));
         }
         return productList;
@@ -67,6 +67,7 @@ public class ProductBuilder {
         if (StringUtils.isBlank(productId)) {
             productId = PRODUCT_ID;
         }
+
         List<String> collectionMemberIds = Lists.newArrayList();
         return Product.newBuilder().setId(productId)
             .setTitle(productId)
@@ -74,6 +75,7 @@ public class ProductBuilder {
             .addAllCategories(CommonBuilder.buildCatagoryList())
             .addBrands("custmerBrands").setType(Type.COLLECTION)
             .addAllLocalInventories(buildLocalInventories())
+            .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList("")).build())
             //.setDescription("test12345789")
             .build();
     }
