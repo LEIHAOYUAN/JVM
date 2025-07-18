@@ -130,7 +130,7 @@ public class ProductClient {
         ProductServiceClient productServiceClient = ProductServiceClient.create();
         AddLocalInventoriesRequest request = ProductBuilder.buildAddLocalInventoriesRequest();
         OperationFuture<AddLocalInventoriesResponse, AddLocalInventoriesMetadata> future = productServiceClient.addLocalInventoriesAsync(request);
-       /* List<String> errorMessages = Lists.newArrayList();
+        List<String> errorMessages = Lists.newArrayList();
         future.addListener(() -> {
             try {
                 AddLocalInventoriesResponse response = future.get();
@@ -139,7 +139,7 @@ public class ProductClient {
                     errorMessages.add(ex.getMessage());
                 }
             }
-        }, MONITOR_EXECUTOR);*/
+        }, MONITOR_EXECUTOR);
     }
 
 
