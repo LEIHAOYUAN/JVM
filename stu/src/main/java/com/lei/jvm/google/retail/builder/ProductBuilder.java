@@ -22,18 +22,18 @@ import java.util.List;
  */
 public class ProductBuilder {
 
-    public static final String PRODUCT_ID = "restaurant_brand_name-10000000101";
+    public static final String PRODUCT_ID = "test-local-inventory-001";
 
     public static GetProductRequest buildGetRequest() {
-        return GetProductRequest.newBuilder().setName(CommonBuilder.buildSearchProduct(PRODUCT_ID)).build();
+        return GetProductRequest.newBuilder().setName(CommonBuilder.buildProduct(PRODUCT_ID)).build();
     }
 
     public static ImportProductsRequest buildImportProductRequest() {
 
         ImportProductsRequest request = ImportProductsRequest.newBuilder()
-            .setParent(CommonBuilder.buildSearchBranch())
+            .setParent(CommonBuilder.buildBranch())
             .setInputConfig(ProductInputConfig.newBuilder()
-                .setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(buildMoreProduct()).build())
+                .setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(Lists.newArrayList(buildProduct(PRODUCT_ID))).build())
                 .build())
             // 设置为true时，表示如果产品不存在，则创建新产品；如果产品已存在，则更新现有产品。
             .setReconciliationMode(ImportProductsRequest.ReconciliationMode.INCREMENTAL)
@@ -58,7 +58,7 @@ public class ProductBuilder {
     private static List<Product> buildMoreProduct() {
         List<Product> productList = Lists.newArrayList();
         for (int i = 0; i < 1; i++) {
-            productList.add(buildProduct("test-import-product-" + i));
+            productList.add(buildProduct("test-local-import-product-" + i));
         }
         return productList;
     }
@@ -71,11 +71,11 @@ public class ProductBuilder {
         List<String> collectionMemberIds = Lists.newArrayList();
         return Product.newBuilder().setId(productId)
             .setTitle(productId)
-            .addAllCollectionMemberIds(collectionMemberIds)
+            //.addAllCollectionMemberIds(collectionMemberIds)
             .addAllCategories(CommonBuilder.buildCatagoryList())
             .addBrands("custmerBrands").setType(Type.COLLECTION)
-            .addAllLocalInventories(buildLocalInventories())
-            .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList()).build())
+            //.addAllLocalInventories(buildLocalInventories())
+            //.putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList()).build())
             //.setDescription("test12345789")
             .build();
     }
@@ -91,8 +91,9 @@ public class ProductBuilder {
     }
 
     public static RemoveLocalInventoriesRequest buildRemoveLocalInventoriesRequest() {
+        String placeId = "jfdkoajfkldjafkldjafkldjkaslfjdklasjfkdljafkldjasklfdjkalfjdklajfkdlasjfkldsjfkldsjfkldsajfkldsjafklsajfkldjklfjdklajfkdlajfkldsjfkldsjfkldasjfl";
         return RemoveLocalInventoriesRequest.newBuilder()
-            .setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID))
+            .setProduct(CommonBuilder.buildProduct(PRODUCT_ID))
             .addAllPlaceIds(Lists.newArrayList("dr7253j", "dr72530"))
             .setRemoveTime(CommonBuilder.buildUTCTimestamp())
             .build();
@@ -100,7 +101,7 @@ public class ProductBuilder {
 
     public static AddLocalInventoriesRequest buildAddLocalInventoriesRequest() {
         return AddLocalInventoriesRequest.newBuilder()
-            .setProduct(CommonBuilder.buildRecProduct(PRODUCT_ID))
+            .setProduct(CommonBuilder.buildProduct(PRODUCT_ID))
             .addAllLocalInventories(buildLocalInventories())
             .setAddTime(CommonBuilder.buildUTCTimestamp())
             .build();
@@ -113,7 +114,8 @@ public class ProductBuilder {
     }
 
     private static CustomAttribute buildCustomAttribute() {
-        return CustomAttribute.newBuilder().addNumbers(2).build();
+        CustomAttribute build = CustomAttribute.newBuilder().addAllText(Lists.newArrayList("local", "gh")).build();
+        return build;
     }
 
 

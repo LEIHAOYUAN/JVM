@@ -13,29 +13,23 @@ import java.util.List;
  */
 public class CommonBuilder {
 
+    private static final String CURRENT_PROJECT_ID = "wonder-ai-search-dev";
+
     private static final String SEARCH_PROJECT_ID = "wonder-ai-search-dev";
     private static final String REC_PROJECT_ID = "wonder-search-restaurant-dev";
     private static final String DEFAULT_BRANCH = "2";
 
 
-    public static String buildSearchBranch() {
-        return BranchName.of(SEARCH_PROJECT_ID, "global", "default_catalog", DEFAULT_BRANCH).toString();
+    public static String buildBranch() {
+        return BranchName.of(CURRENT_PROJECT_ID, "global", "default_catalog", DEFAULT_BRANCH).toString();
     }
 
-    public static String buildSearchPlacement() {
-        return "projects/" + SEARCH_PROJECT_ID + "/locations/global/catalogs/default_catalog/placements/default_search";
+    public static String buildPlacement() {
+        return "projects/" + CURRENT_PROJECT_ID + "/locations/global/catalogs/default_catalog/placements/default_search";
     }
 
-    public static String buildSearchProduct(String productId) {
-        return ProductName.of(SEARCH_PROJECT_ID, "global", "default_catalog", DEFAULT_BRANCH, productId).toString();
-    }
-
-    public static String buildRecBranch() {
-        return BranchName.of(REC_PROJECT_ID, "global", "default_catalog", DEFAULT_BRANCH).toString();
-    }
-
-    public static String buildRecProduct(String productId) {
-        return ProductName.of(REC_PROJECT_ID, "global", "default_catalog", DEFAULT_BRANCH, productId).toString();
+    public static String buildProduct(String productId) {
+        return ProductName.of(CURRENT_PROJECT_ID, "global", "default_catalog", DEFAULT_BRANCH, productId).toString();
     }
 
     public static Timestamp buildUTCTimestamp() {

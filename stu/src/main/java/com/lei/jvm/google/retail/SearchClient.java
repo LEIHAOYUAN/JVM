@@ -17,8 +17,8 @@ public class SearchClient {
 
     public static void doSearchWithPage() throws Exception {
         Builder pageBuilder = SearchRequest.newBuilder()
-                .setPlacement(CommonBuilder.buildSearchPlacement())
-                .setBranch(CommonBuilder.buildSearchBranch())
+                .setPlacement(CommonBuilder.buildPlacement())
+                .setBranch(CommonBuilder.buildBranch())
                 .setVisitorId("test-a")
                 .setQuery("burger")
                 //.setFilter(("brands: ANY(\"Alanza\")"))

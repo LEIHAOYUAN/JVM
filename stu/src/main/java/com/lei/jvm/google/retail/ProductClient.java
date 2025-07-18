@@ -1,9 +1,11 @@
 package com.lei.jvm.google.retail;
 
-import com.alibaba.fastjson.JSON;
 import com.google.api.core.ApiFuture;
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.api.gax.rpc.UnknownException;
+import com.google.cloud.retail.v2.AddLocalInventoriesMetadata;
+import com.google.cloud.retail.v2.AddLocalInventoriesRequest;
+import com.google.cloud.retail.v2.AddLocalInventoriesResponse;
 import com.google.cloud.retail.v2.ImportMetadata;
 import com.google.cloud.retail.v2.ImportProductsRequest;
 import com.google.cloud.retail.v2.ImportProductsRequest.ReconciliationMode;
@@ -20,15 +22,14 @@ import com.google.cloud.retail.v2.RemoveLocalInventoriesMetadata;
 import com.google.cloud.retail.v2.RemoveLocalInventoriesResponse;
 import com.google.common.collect.Lists;
 import com.google.protobuf.FieldMask;
-import com.google.rpc.Status;
 import com.lei.jvm.google.retail.build.CommonBuilder;
 import com.lei.jvm.google.retail.builder.ProductBuilder;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @see <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2.ProductServiceClient">...</a>
@@ -36,11 +37,11 @@ import java.util.concurrent.Executors;
  */
 @Slf4j
 public class ProductClient {
-    private static ExecutorService fixedThreadPool = Executors.newFixedThreadPool(10);
+    private static ExecutorService MONITOR_EXECUTOR = Executors.newFixedThreadPool(10);
 
     public static void doDelete() throws Exception {
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
-            productServiceClient.deleteProduct(CommonBuilder.buildSearchProduct(ProductBuilder.PRODUCT_ID));
+            productServiceClient.deleteProduct(CommonBuilder.buildProduct(ProductBuilder.PRODUCT_ID));
         }
     }
 
@@ -51,7 +52,7 @@ public class ProductClient {
                 updateProducts.add(product.toBuilder().clearCollectionMemberIds().build());
             }
             ImportProductsRequest importRequest = ImportProductsRequest.newBuilder()
-                .setParent(CommonBuilder.buildRecBranch())
+                .setParent(CommonBuilder.buildBranch())
                 .setInputConfig(ProductInputConfig.newBuilder().setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(updateProducts).build()).build())
                 //.setErrorsConfig(ImportErrorsConfig.newBuilder().build())
                 .setUpdateMask(FieldMask.newBuilder().addPaths("collection_member_ids").build())
@@ -91,7 +92,7 @@ public class ProductClient {
         ImportProductsRequest request = ProductBuilder.buildImportProductRequest();
         try (ProductServiceClient productServiceClient = ProductServiceClient.create()) {
             OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(request);
-            future.addListener(() -> {
+            /*future.addListener(() -> {
                 try {
                     ImportProductsResponse response = future.get();
                     List<Status> errorSamplesList = response.getErrorSamplesList();
@@ -105,18 +106,40 @@ public class ProductClient {
                     }
                     log.error("import exception：{}", ex.getMessage(), ex);
                 }
-            }, fixedThreadPool);
+            }, MONITOR_EXECUTOR);*/
         }
     }
 
     public static void doRemoveLocalInventory() throws Exception {
         ProductServiceClient productServiceClient = ProductServiceClient.create();
         OperationFuture<RemoveLocalInventoriesResponse, RemoveLocalInventoriesMetadata> future = productServiceClient.removeLocalInventoriesAsync(ProductBuilder.buildRemoveLocalInventoriesRequest());
+        List<String> errorMessages = Lists.newArrayList();
+        future.addListener(() -> {
+            try {
+                future.get(10, TimeUnit.SECONDS);
+                log.info("result");
+            } catch (Exception ex) {
+                if (!(ex.getCause() instanceof UnknownException)) {
+                    errorMessages.add(ex.getMessage());
+                }
+            }
+        }, MONITOR_EXECUTOR);
     }
 
     public static void doAddLocalInventory() throws Exception {
         ProductServiceClient productServiceClient = ProductServiceClient.create();
-        productServiceClient.addLocalInventoriesAsync(ProductBuilder.buildAddLocalInventoriesRequest()).get();
+        AddLocalInventoriesRequest request = ProductBuilder.buildAddLocalInventoriesRequest();
+        OperationFuture<AddLocalInventoriesResponse, AddLocalInventoriesMetadata> future = productServiceClient.addLocalInventoriesAsync(request);
+       /* List<String> errorMessages = Lists.newArrayList();
+        future.addListener(() -> {
+            try {
+                AddLocalInventoriesResponse response = future.get();
+            } catch (Exception ex) {
+                if (!(ex.getCause() instanceof UnknownException)) {
+                    errorMessages.add(ex.getMessage());
+                }
+            }
+        }, MONITOR_EXECUTOR);*/
     }
 
 

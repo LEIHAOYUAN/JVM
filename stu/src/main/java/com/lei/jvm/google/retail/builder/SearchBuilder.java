@@ -17,8 +17,8 @@ public class SearchBuilder {
      */
     public static SearchRequest buildDefaultSearchRequest() {
         return SearchRequest.newBuilder()
-                .setPlacement(CommonBuilder.buildSearchPlacement())
-                .setBranch(CommonBuilder.buildRecBranch())
+                .setPlacement(CommonBuilder.buildPlacement())
+                .setBranch(CommonBuilder.buildBranch())
                 .setVisitorId("test-a")
                 .setQuery("burger")
                 .setFilter(("brands: ANY(\"Alanza\")"))
@@ -28,8 +28,8 @@ public class SearchBuilder {
 
     public static SearchRequest buildSearchRequest() {
         return SearchRequest.newBuilder()
-                .setPlacement(CommonBuilder.buildSearchPlacement())
-                .setBranch(CommonBuilder.buildRecBranch())
+                .setPlacement(CommonBuilder.buildPlacement())
+                .setBranch(CommonBuilder.buildBranch())
                 .setVisitorId("test-a")
                 //.setUserInfo(UserInfo.newBuilder().build())
                 .setPageSize(10)
@@ -51,7 +51,7 @@ public class SearchBuilder {
     public static SearchRequest buildSearchRequestBackup() {
         return SearchRequest.newBuilder()
                 .setPlacement("placement1792938725")
-                .setBranch(CommonBuilder.buildRecBranch())
+                .setBranch(CommonBuilder.buildBranch())
                 .setQuery("query107944136")
                 .setVisitorId("visitorId1880545833")
                 .setUserInfo(UserInfo.newBuilder().build())
