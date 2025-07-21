@@ -7,6 +7,7 @@ import com.google.cloud.retail.v2.ImportProductsRequest;
 import com.google.cloud.retail.v2.ImportProductsResponse;
 import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.ProductServiceClient;
+import com.google.longrunning.Operation;
 import com.google.rpc.Status;
 import com.lei.jvm.google.retail.builder.ProductBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -44,6 +45,28 @@ public class ProductClient {
                 List<Status> errorSamplesList = response.getErrorSamplesList();
                 if (CollectionUtils.isEmpty(errorSamplesList)) {
                     return;
+                }
+                log.info("import end");
+            } catch (Exception ex) {
+                log.error("import exception：{}", ex.getMessage(), ex);
+            }
+        } catch (Exception ex) {
+            log.error("导入异常={}", ex.getMessage(), ex);
+        }
+    }
+
+    public static void doImportWithCall(String productId) {
+        try {
+            ProductServiceClient productServiceClient = ProductServiceClient.create();
+            ImportProductsRequest request = ProductBuilder.buildImportProductRequest("fdafdafdsafdsfdsofdiofdsafdsafdsafdffdsfdsfdsfdfdsfsdsafdsafdsaddddddddddddddsaufioduiouiouiouoiuiouiouiouiouiouiouiouoiuiouiouiouiouiouiouiououio");
+            Operation call = productServiceClient.importProductsCallable().call(request);
+            try {
+                if (call.hasResponse()) {
+                    ImportProductsResponse unpack = call.getResponse().unpack(ImportProductsResponse.class);
+                    List<Status> errorSamplesList = unpack.getErrorSamplesList();
+                    if (CollectionUtils.isEmpty(errorSamplesList)) {
+                        return;
+                    }
                 }
                 log.info("import end");
             } catch (Exception ex) {
