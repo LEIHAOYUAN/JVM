@@ -2,6 +2,7 @@ package com.lei.jvm.google;
 
 import com.lei.jvm.google.retail.ProductClient;
 import com.lei.jvm.google.retail.SearchClient;
+import com.lei.jvm.google.retail.geohash.SyncGeoHashService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -20,8 +21,7 @@ public class GoogleSearchApp {
 
     public static void main(String[] args) {
 //        doImport();
-//         doRemoveLocalInventory();
-        doAddLocalInventory();
+        doSyncLocalInventory();
 //        doGetProduct();
         try {
             Thread.sleep(8000000);
@@ -32,44 +32,27 @@ public class GoogleSearchApp {
 
     private static void doGetProduct() {
         try {
-            ProductClient.doGet();
+            ProductClient.doGet(null);
         } catch (Exception ex) {
             log.error("doGet error={}", ex.getMessage(), ex);
         }
     }
 
-    private static void doDelete() {
-        try {
-            ProductClient.doDelete();
-        } catch (Exception ex) {
-            log.error("doDelete error={}", ex.getMessage(), ex);
-        }
-    }
-
     private static void doImport() {
         try {
-            ProductClient.doImport();
+            ProductClient.doImport(null);
         } catch (Exception ex) {
             log.error("doImport error={}", ex.getMessage(), ex);
         }
     }
 
-    private static void doRemoveLocalInventory() {
+    private static void doSyncLocalInventory() {
         try {
-            ProductClient.doRemoveLocalInventory();
+            SyncGeoHashService.syncLocalInventory("test-20250721-0001");
         } catch (Exception ex) {
-            log.error("doRemoveLocalInventory error={}", ex.getMessage(), ex);
+            log.error("doSyncLocalInventory error={}", ex.getMessage(), ex);
         }
     }
-
-    private static void doAddLocalInventory() {
-        try {
-            ProductClient.doAddLocalInventory();
-        } catch (Exception ex) {
-            log.error("doAddLocalInventory error={}", ex.getMessage(), ex);
-        }
-    }
-
 
     private static void doSearch() {
         try {

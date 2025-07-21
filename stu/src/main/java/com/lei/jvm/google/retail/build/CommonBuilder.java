@@ -13,10 +13,12 @@ import java.util.List;
  */
 public class CommonBuilder {
 
-    private static final String CURRENT_PROJECT_ID = "wonder-ai-search-dev";
-
     private static final String SEARCH_PROJECT_ID = "wonder-ai-search-dev";
     private static final String REC_PROJECT_ID = "wonder-search-restaurant-dev";
+
+    private static final String CURRENT_PROJECT_ID = REC_PROJECT_ID;
+
+
     private static final String DEFAULT_BRANCH = "2";
 
 
