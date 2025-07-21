@@ -1,7 +1,5 @@
 package com.lei.jvm.google.retail.geohash;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.TypeReference;
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.cloud.retail.v2.AddLocalInventoriesMetadata;
 import com.google.cloud.retail.v2.AddLocalInventoriesRequest;
@@ -46,18 +44,23 @@ public class SyncGeoHashService {
 
     public static void syncLocalInventory(String productId) {
         try {
-            ProductServiceClient productServiceClient = ProductServiceClient.create();
             Product product = ProductClient.doGet(productId);
             if (product == null) {
                 ProductClient.doImport(productId);
             }
-            String json = loadJson();
-            Map<String, Set<String>> geohashMap = JSON.parseObject(json, new TypeReference<>() {
-            });
+//            Map<String, Set<String>> geohashMap = JSON.parseObject(loadJson(), new TypeReference<>() {
+//            });
+            Map<String, Set<String>> geohashMap = buildSimpleGeoHashMap();
             doSyncRecLocalInventory(product, geohashMap);
         } catch (Exception ex) {
             log.error("异常={}", ex.getMessage(), ex);
         }
+    }
+
+    private static Map<String, Set<String>> buildSimpleGeoHashMap() {
+        Map<String, Set<String>> geohashMap = Maps.newHashMap();
+        geohashMap.put("test", Set.of("1"));
+        return geohashMap;
     }
 
     private static String loadJson() {
