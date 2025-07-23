@@ -21,9 +21,9 @@ public class GoogleSearchApp {
 
     public static void main(String[] args) {
 //        doImport();
-        doSyncLocalInventory();
+//        doSyncLocalInventory();
 //        doGetProduct();
-//        doImportWithCall();
+        doImportWithCall();
         try {
             Thread.sleep(8000000);
         } catch (InterruptedException e) {
@@ -49,7 +49,7 @@ public class GoogleSearchApp {
 
     private static void doImportWithCall() {
         try {
-            ProductClient.doImportWithCall(null);
+            ProductClient.doImportWithCall("test-20250703-00001");
         } catch (Exception ex) {
             log.error("doImportWithCall error={}", ex.getMessage(), ex);
         }

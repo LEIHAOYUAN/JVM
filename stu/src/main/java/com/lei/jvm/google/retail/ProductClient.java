@@ -58,7 +58,7 @@ public class ProductClient {
     public static void doImportWithCall(String productId) {
         try {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
-            ImportProductsRequest request = ProductBuilder.buildImportProductRequest("fdafdafdsafdsfdsofdiofdsafdsafdsafdffdsfdsfdsfdfdsfsdsafdsafdsaddddddddddddddsaufioduiouiouiouoiuiouiouiouiouiouiouiouoiuiouiouiouiouiouiouiououio");
+            ImportProductsRequest request = ProductBuilder.buildImportProductRequest(productId);
             Operation call = productServiceClient.importProductsCallable().call(request);
             try {
                 if (call.hasResponse()) {
