@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class SyncGeoHashService {
     private static final ExecutorService MONITOR_EXECUTOR = Executors.newVirtualThreadPerTaskExecutor();
-    private static final RateLimiter recLocalInventoryLimiter = RateLimiter.create(60 / 60);
+    private static final RateLimiter LIMITER = RateLimiter.create(60 / 60);
 
     public static void syncLocalInventory(String productId) {
         try {
@@ -59,7 +59,7 @@ public class SyncGeoHashService {
 
     private static Map<String, Set<String>> buildSimpleGeoHashMap() {
         Map<String, Set<String>> geohashMap = Maps.newHashMap();
-        geohashMap.put("test", Set.of("1"));
+        geohashMap.put("dpdffnm", Set.of("1"));
         return geohashMap;
     }
 
@@ -81,23 +81,35 @@ public class SyncGeoHashService {
             }
             Map<String, Set<String>> existedMap = buildExistedLocalInventoryMap(product);
             DiffGeoHashBatchRecord diffGeoHashRecord = calcLocalInventoryMap(existedMap, geohashMap);
+            // remove local inventories
             if (ListUtil.isNotEmpty(diffGeoHashRecord.batchRemovedPlaceIds)) {
                 for (List<String> batchRemovedPlaceId : diffGeoHashRecord.batchRemovedPlaceIds) {
                     if (ListUtil.isNotEmpty(batchRemovedPlaceId)) {
-                        recLocalInventoryLimiter.acquire();
                         RemoveLocalInventoriesRequest request = buildRemoveLocalInventoriesRequest(product.getId(), batchRemovedPlaceId);
                         OperationFuture<RemoveLocalInventoriesResponse, RemoveLocalInventoriesMetadata> future = productServiceClient.removeLocalInventoriesAsync(request);
-                        removeLocalInventoryMonitorHandlerASync(request, future, true);
+                        future.addListener(() -> {
+                            try {
+                                future.get();
+                            } catch (Exception ex) {
+                                log.error("异常={}", ex.getMessage(), ex);
+                            }
+                        }, MONITOR_EXECUTOR);
                     }
                 }
             }
+            // add local inventories
             if (ListUtil.isNotEmpty(diffGeoHashRecord.batchAddGeoHashMaps)) {
                 for (Map<String, Set<String>> addGeoHashMap : diffGeoHashRecord.batchAddGeoHashMaps) {
                     if (MapUtil.isNotEmpty(addGeoHashMap)) {
-                        recLocalInventoryLimiter.acquire();
                         AddLocalInventoriesRequest request = buildAddLocalInventoriesRequest(product.getId(), addGeoHashMap);
                         OperationFuture<AddLocalInventoriesResponse, AddLocalInventoriesMetadata> future = productServiceClient.addLocalInventoriesAsync(request);
-                        addLocalInventoryMonitorHandlerASync(request, future, true);
+                        future.addListener(() -> {
+                            try {
+                                future.get();
+                            } catch (Exception ex) {
+                                log.error("异常={}", ex.getMessage(), ex);
+                            }
+                        }, MONITOR_EXECUTOR);
                     }
                 }
             }
@@ -133,27 +145,6 @@ public class SyncGeoHashService {
             .setAllowMissing(true)
             .build();
     }
-
-    public static void removeLocalInventoryMonitorHandlerASync(RemoveLocalInventoriesRequest request, OperationFuture<RemoveLocalInventoriesResponse, RemoveLocalInventoriesMetadata> future, boolean notify) {
-        future.addListener(() -> {
-            try {
-                future.get();
-            } catch (Exception ex) {
-                log.error("异常={}", ex.getMessage(), ex);
-            }
-        }, MONITOR_EXECUTOR);
-    }
-
-    public static void addLocalInventoryMonitorHandlerASync(AddLocalInventoriesRequest request, OperationFuture<AddLocalInventoriesResponse, AddLocalInventoriesMetadata> future, boolean notify) {
-        future.addListener(() -> {
-            try {
-                future.get();
-            } catch (Exception ex) {
-                log.error("异常={}", ex.getMessage(), ex);
-            }
-        }, MONITOR_EXECUTOR);
-    }
-
 
     private static Map<String, Set<String>> buildExistedLocalInventoryMap(Product product) {
         if (product == null || ListUtil.isEmpty(product.getLocalInventoriesList())) {

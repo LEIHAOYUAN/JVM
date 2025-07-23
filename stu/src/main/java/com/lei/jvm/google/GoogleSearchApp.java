@@ -21,9 +21,9 @@ public class GoogleSearchApp {
 
     public static void main(String[] args) {
 //        doImport();
-//        doSyncLocalInventory();
+        doSyncLocalInventory();
 //        doGetProduct();
-        doImportWithCall();
+//        doImportWithCall();
         try {
             Thread.sleep(8000000);
         } catch (InterruptedException e) {
@@ -57,7 +57,7 @@ public class GoogleSearchApp {
 
     private static void doSyncLocalInventory() {
         try {
-            SyncGeoHashService.syncLocalInventory("test-20250721-0001");
+            SyncGeoHashService.syncLocalInventory("3498d720-70e1-4edf-9c09-56aa6fac97db");
         } catch (Exception ex) {
             log.error("doSyncLocalInventory error={}", ex.getMessage(), ex);
         }
