@@ -23,8 +23,10 @@ public class GoogleSearchApp {
 //        ProductClient.doImportWithCall(productId);
 //        ProductClient.doImportWithFuture(productId);
 //        ProductClient.doCreate(productId);
-//        SyncGeoHashService.syncLocalInventory(productId);
         ProductClient.doUpdate(productId);
+
+//        SyncGeoHashService.syncLocalInventory(productId);
+
 //        SearchClient.doSearchWithPage();
         try {
             Thread.sleep(8000000);
