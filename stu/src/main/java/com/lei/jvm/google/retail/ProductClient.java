@@ -36,6 +36,24 @@ public class ProductClient {
         }
     }
 
+    public static void doCreate(String productId) {
+        try {
+            ProductServiceClient productServiceClient = ProductServiceClient.create();
+            productServiceClient.createProductCallable().call(ProductBuilder.buildCreateRequest(productId));
+        } catch (Exception ex) {
+            log.error("doCreate error={}", ex.getMessage(), ex);
+        }
+    }
+
+    public static void doUpdate(String productId) {
+        try {
+            ProductServiceClient productServiceClient = ProductServiceClient.create();
+            productServiceClient.updateProductCallable().call(ProductBuilder.buildUpdateRequest(productId));
+        } catch (Exception ex) {
+            log.error("doUpdate error={}", ex.getMessage(), ex);
+        }
+    }
+
     public static void doImportWithFuture(String productId) {
         try {
             ProductServiceClient productServiceClient = ProductServiceClient.create();

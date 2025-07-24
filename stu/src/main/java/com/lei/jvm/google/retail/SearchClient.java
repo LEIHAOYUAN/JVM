@@ -15,23 +15,28 @@ import org.apache.commons.lang.StringUtils;
 @Slf4j
 public class SearchClient {
 
-    public static void doSearchWithPage() throws Exception {
-        Builder pageBuilder = SearchRequest.newBuilder()
+    public static void doSearchWithPage() {
+        try {
+            SearchServiceClient searchServiceClient = SearchServiceClient.create();
+            Builder pageBuilder = SearchRequest.newBuilder()
                 .setPlacement(CommonBuilder.buildPlacement())
                 .setBranch(CommonBuilder.buildBranch())
                 .setVisitorId("test-a")
                 .setQuery("burger")
                 //.setFilter(("brands: ANY(\"Alanza\")"))
                 .setPageSize(120);
-        SearchServiceClient searchServiceClient = SearchServiceClient.create();
-        while (true) {
-            ApiFuture<SearchPagedResponse> responseFuture = searchServiceClient.searchPagedCallable().futureCall(pageBuilder.build());
-            SearchPagedResponse response = responseFuture.get();
-            if (StringUtils.isBlank(response.getNextPageToken())) {
-                break;
+
+            while (true) {
+                ApiFuture<SearchPagedResponse> responseFuture = searchServiceClient.searchPagedCallable().futureCall(pageBuilder.build());
+                SearchPagedResponse response = responseFuture.get();
+                if (StringUtils.isBlank(response.getNextPageToken())) {
+                    break;
+                }
+                pageBuilder.setPageToken(response.getNextPageToken());
+                log.info("分页查询结果={}", response.getNextPageToken());
             }
-            pageBuilder.setPageToken(response.getNextPageToken());
-            log.info("分页查询结果={}", response.getNextPageToken());
+        } catch (Exception ex) {
+            log.error("doSearchWithPage error={}", ex.getMessage(), ex);
         }
     }
 }

@@ -1,8 +1,6 @@
 package com.lei.jvm.google;
 
 import com.lei.jvm.google.retail.ProductClient;
-import com.lei.jvm.google.retail.SearchClient;
-import com.lei.jvm.google.retail.geohash.SyncGeoHashService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -20,56 +18,18 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-        doImportWithFuture();
-//        doSyncLocalInventory();
-//        doGetProduct();
-//        doImportWithCall();
+        String productId = "test-20250724-00001";
+//        ProductClient.doGet(productId);
+//        ProductClient.doImportWithCall(productId);
+//        ProductClient.doImportWithFuture(productId);
+//        ProductClient.doCreate(productId);
+//        SyncGeoHashService.syncLocalInventory(productId);
+        ProductClient.doUpdate(productId);
+//        SearchClient.doSearchWithPage();
         try {
             Thread.sleep(8000000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
-
-    private static void doGetProduct() {
-        try {
-            ProductClient.doGet(null);
-        } catch (Exception ex) {
-            log.error("doGet error={}", ex.getMessage(), ex);
-        }
-    }
-
-    private static void doImportWithFuture() {
-        try {
-            ProductClient.doImportWithFuture("test-20250703-00003");
-        } catch (Exception ex) {
-            log.error("doImport error={}", ex.getMessage(), ex);
-        }
-    }
-
-    private static void doImportWithCall() {
-        try {
-            ProductClient.doImportWithCall("test-20250703-00001");
-        } catch (Exception ex) {
-            log.error("doImportWithCall error={}", ex.getMessage(), ex);
-        }
-    }
-
-    private static void doSyncLocalInventory() {
-        try {
-            SyncGeoHashService.syncLocalInventory("3498d720-70e1-4edf-9c09-56aa6fac97db");
-        } catch (Exception ex) {
-            log.error("doSyncLocalInventory error={}", ex.getMessage(), ex);
-        }
-    }
-
-    private static void doSearch() {
-        try {
-            SearchClient.doSearchWithPage();
-        } catch (Exception ex) {
-            log.error("doSearch error={}", ex.getMessage(), ex);
-        }
-    }
-
-
 }

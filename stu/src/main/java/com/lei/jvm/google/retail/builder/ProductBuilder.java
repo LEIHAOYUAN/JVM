@@ -1,11 +1,13 @@
 package com.lei.jvm.google.retail.builder;
 
+import com.google.cloud.retail.v2.CreateProductRequest;
 import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportProductsRequest;
 import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.Product.Type;
 import com.google.cloud.retail.v2.ProductInlineSource;
 import com.google.cloud.retail.v2.ProductInputConfig;
+import com.google.cloud.retail.v2.UpdateProductRequest;
 import com.google.common.collect.Lists;
 import com.google.protobuf.FieldMask;
 import com.lei.jvm.google.retail.build.CommonBuilder;
@@ -25,6 +27,26 @@ public class ProductBuilder {
             productId = PRODUCT_ID;
         }
         return GetProductRequest.newBuilder().setName(CommonBuilder.buildProduct(productId)).build();
+    }
+
+    public static CreateProductRequest buildCreateRequest(String productId) {
+        if (StringUtils.isBlank(productId)) {
+            productId = PRODUCT_ID;
+        }
+        return CreateProductRequest.newBuilder()
+            .setParent(CommonBuilder.buildBranch())
+            .setProductId(productId)
+            .setProduct(buildProduct(productId))
+            .build();
+    }
+
+    public static UpdateProductRequest buildUpdateRequest(String productId) {
+        if (StringUtils.isBlank(productId)) {
+            productId = PRODUCT_ID;
+        }
+        return UpdateProductRequest.newBuilder()
+            .setProduct(buildProduct(productId))
+            .build();
     }
 
     public static ImportProductsRequest buildImportProductRequest(String productId) {
@@ -77,7 +99,7 @@ public class ProductBuilder {
             .addBrands("custmerBrands").setType(Type.COLLECTION)
             //.addAllLocalInventories(buildLocalInventories())
             //.putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList()).build())
-            //.setDescription("test12345789")
+            .setDescription("test000000000000")
             .build();
     }
 
