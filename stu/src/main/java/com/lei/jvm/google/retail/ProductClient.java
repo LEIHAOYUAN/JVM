@@ -1,5 +1,6 @@
 package com.lei.jvm.google.retail;
 
+import com.google.api.core.ApiFuture;
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportMetadata;
@@ -35,16 +36,19 @@ public class ProductClient {
         }
     }
 
-    public static void doImport(String productId) {
+    public static void doImportWithFuture(String productId) {
         try {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             ImportProductsRequest request = ProductBuilder.buildImportProductRequest(productId);
             OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(request);
             try {
-                ImportProductsResponse response = future.get();
-                List<Status> errorSamplesList = response.getErrorSamplesList();
-                if (CollectionUtils.isEmpty(errorSamplesList)) {
-                    return;
+                ImportProductsResponse importProductsResponse = future.get();
+                ApiFuture<ImportMetadata> importMetadataApiFuture = future.getMetadata();
+                ImportMetadata importMetadata = importMetadataApiFuture.get();
+                long failureCount = importMetadata.getFailureCount();
+                if (failureCount > 0) {
+                    ImportProductsResponse response = future.get();
+                    List<Status> errorSamplesList = response.getErrorSamplesList();
                 }
                 log.info("import end");
             } catch (Exception ex) {

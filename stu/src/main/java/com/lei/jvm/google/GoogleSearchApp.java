@@ -20,10 +20,10 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-//        doImport();
+        doImportWithFuture();
 //        doSyncLocalInventory();
 //        doGetProduct();
-        doImportWithCall();
+//        doImportWithCall();
         try {
             Thread.sleep(8000000);
         } catch (InterruptedException e) {
@@ -39,9 +39,9 @@ public class GoogleSearchApp {
         }
     }
 
-    private static void doImport() {
+    private static void doImportWithFuture() {
         try {
-            ProductClient.doImport(null);
+            ProductClient.doImportWithFuture("test-20250703-00003");
         } catch (Exception ex) {
             log.error("doImport error={}", ex.getMessage(), ex);
         }

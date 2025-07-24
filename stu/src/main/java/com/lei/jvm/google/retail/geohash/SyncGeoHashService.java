@@ -46,7 +46,7 @@ public class SyncGeoHashService {
         try {
             Product product = ProductClient.doGet(productId);
             if (product == null) {
-                ProductClient.doImport(productId);
+                ProductClient.doImportWithFuture(productId);
             }
 //            Map<String, Set<String>> geohashMap = JSON.parseObject(loadJson(), new TypeReference<>() {
 //            });
