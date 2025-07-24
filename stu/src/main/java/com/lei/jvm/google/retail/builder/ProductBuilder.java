@@ -33,10 +33,11 @@ public class ProductBuilder {
         if (StringUtils.isBlank(productId)) {
             productId = PRODUCT_ID;
         }
+        Product product = buildProduct(productId);
         return CreateProductRequest.newBuilder()
             .setParent(CommonBuilder.buildBranch())
-            .setProductId(productId)
-            .setProduct(buildProduct(productId))
+            .setProduct(product)
+            .setProductId(product.getId())
             .build();
     }
 
