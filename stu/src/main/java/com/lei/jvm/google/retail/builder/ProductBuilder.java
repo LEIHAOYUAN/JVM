@@ -54,10 +54,11 @@ public class ProductBuilder {
         if (StringUtils.isBlank(productId)) {
             productId = PRODUCT_ID;
         }
+        List<Product> products = Lists.newArrayList(buildProduct(productId));
         ImportProductsRequest request = ImportProductsRequest.newBuilder()
             .setParent(CommonBuilder.buildBranch())
             .setInputConfig(ProductInputConfig.newBuilder()
-                .setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(Lists.newArrayList(buildProduct(productId))).build())
+                .setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(products).build())
                 .build())
             // 设置为true时，表示如果产品不存在，则创建新产品；如果产品已存在，则更新现有产品。
             .setReconciliationMode(ImportProductsRequest.ReconciliationMode.INCREMENTAL)
@@ -97,7 +98,7 @@ public class ProductBuilder {
             .setTitle(productId)
             //.addAllCollectionMemberIds(collectionMemberIds)
             .addAllCategories(CommonBuilder.buildCatagoryList())
-            .addBrands("custmerBrands").setType(Type.COLLECTION)
+            .addBrands("custmerBrands").setType(Type.PRIMARY)
             //.addAllLocalInventories(buildLocalInventories())
             //.putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList()).build())
             .setDescription("test000000000000")

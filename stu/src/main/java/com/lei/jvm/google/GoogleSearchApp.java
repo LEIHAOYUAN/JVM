@@ -20,9 +20,9 @@ public class GoogleSearchApp {
     public static void main(String[] args) {
         String productId = "test-20250724-00002";
 //        ProductClient.doGet(productId);
-//        ProductClient.doImportWithCall(productId);
+        ProductClient.doImportWithCall(productId);
 //        ProductClient.doImportWithFuture(productId);
-        ProductClient.doCreate(productId);
+//        ProductClient.doCreate(productId);
 //        ProductClient.doUpdate(productId);
 
 //        SyncGeoHashService.syncLocalInventory(productId);
