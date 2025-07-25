@@ -48,6 +48,7 @@ public class ProductBuilder {
         }
         return UpdateProductRequest.newBuilder()
             .setProduct(buildProduct(productId))
+            .setUpdateMask(FieldMask.newBuilder().build())
             .build();
     }
 
@@ -96,8 +97,8 @@ public class ProductBuilder {
 
 
         String textValue = """
-             
-             
+            
+            
             """;
 
         List<String> collectionMemberIds = Lists.newArrayList();
