@@ -94,6 +94,12 @@ public class ProductBuilder {
             productId = PRODUCT_ID;
         }
 
+
+        String textValue = """
+            
+            .
+            """;
+
         List<String> collectionMemberIds = Lists.newArrayList();
         return Product.newBuilder().setId(productId)
             .setTitle(productId)
@@ -101,7 +107,7 @@ public class ProductBuilder {
             .addAllCategories(CommonBuilder.buildCatagoryList())
             .addBrands("custmerBrands").setType(Type.PRIMARY)
             //.addAllLocalInventories(buildLocalInventories())
-            .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList("  \n" + ".")).build())
+            .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList(textValue)).build())
             .setDescription("test000000000000")
             .build();
     }
