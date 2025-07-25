@@ -21,9 +21,9 @@ public class GoogleSearchApp {
         String productId = "test-20250724-00004";
 //        ProductClient.doGet(productId);
 //        ProductClient.doImportWithCall(productId);
-        ProductClient.doImportWithFuture(productId);
+//        ProductClient.doImportWithFuture(productId);
 //        ProductClient.doCreate(productId);
-//        ProductClient.doUpdate(productId);
+        ProductClient.doUpdate(productId);
 
 //        SyncGeoHashService.syncLocalInventory(productId);
 

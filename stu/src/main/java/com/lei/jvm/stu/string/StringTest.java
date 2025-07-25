@@ -12,7 +12,9 @@ import lombok.extern.slf4j.Slf4j;
 public class StringTest {
 
     public static void main(String[] args) {
-        testConcat();
+        StringBuilder builder = new StringBuilder();
+        log.info("测试结果：{}",builder.toString().equals(""));
+        log.info("测试结果：{}",builder.toString().length());
     }
 
     private static void testConcat(){
