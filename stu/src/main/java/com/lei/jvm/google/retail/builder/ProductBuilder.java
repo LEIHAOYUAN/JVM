@@ -96,8 +96,8 @@ public class ProductBuilder {
 
 
         String textValue = """
-            
-            .
+             
+             
             """;
 
         List<String> collectionMemberIds = Lists.newArrayList();

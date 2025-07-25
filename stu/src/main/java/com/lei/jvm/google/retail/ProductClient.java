@@ -1,5 +1,6 @@
 package com.lei.jvm.google.retail;
 
+import com.alibaba.fastjson.JSON;
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportMetadata;
@@ -63,6 +64,8 @@ public class ProductClient {
                 if (metadata != null && metadata.getFailureCount() > 0) {
                     ImportProductsResponse importProductsResponse = future.get();
                     List<Status> errorSamplesList = importProductsResponse.getErrorSamplesList();
+                    List<String> errorMsgs = errorSamplesList.stream().map(Status::getMessage).distinct().toList();
+                    log.error("错误详情={}", JSON.toJSON(errorMsgs));
                 }
                 log.info("import end");
             } catch (Exception ex) {
