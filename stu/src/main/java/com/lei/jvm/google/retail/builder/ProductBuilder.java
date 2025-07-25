@@ -1,6 +1,7 @@
 package com.lei.jvm.google.retail.builder;
 
 import com.google.cloud.retail.v2.CreateProductRequest;
+import com.google.cloud.retail.v2.CustomAttribute;
 import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportProductsRequest;
 import com.google.cloud.retail.v2.Product;
@@ -100,7 +101,7 @@ public class ProductBuilder {
             .addAllCategories(CommonBuilder.buildCatagoryList())
             .addBrands("custmerBrands").setType(Type.PRIMARY)
             //.addAllLocalInventories(buildLocalInventories())
-            //.putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList()).build())
+            .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList("  \n" + ".")).build())
             .setDescription("test000000000000")
             .build();
     }

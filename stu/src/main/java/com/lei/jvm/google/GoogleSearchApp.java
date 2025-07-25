@@ -18,10 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-        String productId = "test-20250724-00002";
+        String productId = "test-20250724-00003";
 //        ProductClient.doGet(productId);
-        ProductClient.doImportWithCall(productId);
-//        ProductClient.doImportWithFuture(productId);
+//        ProductClient.doImportWithCall(productId);
+        ProductClient.doImportWithFuture(productId);
 //        ProductClient.doCreate(productId);
 //        ProductClient.doUpdate(productId);
 
