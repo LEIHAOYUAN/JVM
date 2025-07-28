@@ -102,7 +102,7 @@ public class ProductBuilder {
         return Product.newBuilder().setId(productId)
             .setTitle(productId)
             .setName(CommonBuilder.buildProduct(productId))
-            //.addAllCollectionMemberIds(collectionMemberIds)
+            .addAllCollectionMemberIds(collectionMemberIds)
             .addAllCategories(CommonBuilder.buildCatagoryList())
             .addBrands("custmerBrands").setType(Type.PRIMARY)
             //.addAllLocalInventories(buildLocalInventories())
