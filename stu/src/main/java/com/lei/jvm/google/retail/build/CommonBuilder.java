@@ -17,7 +17,7 @@ public class CommonBuilder {
     private static final String REC_PROJECT_ID = "wonder-search-restaurant-dev";
     private static final String DANSON_TEST = "danson-test";
 
-    private static final String CURRENT_PROJECT_ID = DANSON_TEST;
+    private static final String CURRENT_PROJECT_ID = REC_PROJECT_ID;
 
 
     private static final String DEFAULT_BRANCH = "2";

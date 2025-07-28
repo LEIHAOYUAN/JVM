@@ -95,14 +95,13 @@ public class ProductBuilder {
             productId = PRODUCT_ID;
         }
 
-
         String textValue = """
-           8888888888
+            66666666
             """;
-
         List<String> collectionMemberIds = Lists.newArrayList();
         return Product.newBuilder().setId(productId)
             .setTitle(productId)
+            .setName(CommonBuilder.buildProduct(productId))
             //.addAllCollectionMemberIds(collectionMemberIds)
             .addAllCategories(CommonBuilder.buildCatagoryList())
             .addBrands("custmerBrands").setType(Type.PRIMARY)

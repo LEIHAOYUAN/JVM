@@ -2,12 +2,14 @@ package com.lei.jvm.google.retail;
 
 import com.alibaba.fastjson.JSON;
 import com.google.api.gax.longrunning.OperationFuture;
+import com.google.cloud.retail.v2.CreateProductRequest;
 import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportMetadata;
 import com.google.cloud.retail.v2.ImportProductsRequest;
 import com.google.cloud.retail.v2.ImportProductsResponse;
 import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.ProductServiceClient;
+import com.google.cloud.retail.v2.UpdateProductRequest;
 import com.google.longrunning.Operation;
 import com.google.rpc.Status;
 import com.lei.jvm.google.retail.builder.ProductBuilder;
@@ -38,8 +40,9 @@ public class ProductClient {
 
     public static void doCreate(String productId) {
         try {
+            CreateProductRequest request = ProductBuilder.buildCreateRequest(productId);
             ProductServiceClient productServiceClient = ProductServiceClient.create();
-            productServiceClient.createProductCallable().call(ProductBuilder.buildCreateRequest(productId));
+            productServiceClient.createProduct(request);
         } catch (Exception ex) {
             log.error("doCreate error={}", ex.getMessage(), ex);
         }
@@ -47,8 +50,9 @@ public class ProductClient {
 
     public static void doUpdate(String productId) {
         try {
+            UpdateProductRequest request = ProductBuilder.buildUpdateRequest(productId);
             ProductServiceClient productServiceClient = ProductServiceClient.create();
-            productServiceClient.updateProductCallable().call(ProductBuilder.buildUpdateRequest(productId));
+            productServiceClient.updateProduct(request);
         } catch (Exception ex) {
             log.error("doUpdate error={}", ex.getMessage(), ex);
         }
