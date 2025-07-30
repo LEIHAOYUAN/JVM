@@ -2,6 +2,7 @@ package com.lei.jvm.google.retail.builder;
 
 import com.google.cloud.retail.v2.CreateProductRequest;
 import com.google.cloud.retail.v2.CustomAttribute;
+import com.google.cloud.retail.v2.DeleteProductRequest;
 import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportProductsRequest;
 import com.google.cloud.retail.v2.Product;
@@ -49,6 +50,15 @@ public class ProductBuilder {
         return UpdateProductRequest.newBuilder()
             .setProduct(buildProduct(productId))
             .setUpdateMask(FieldMask.newBuilder().build())
+            .build();
+    }
+
+    public static DeleteProductRequest buildDeleteRequest(String productId) {
+        if (StringUtils.isBlank(productId)) {
+            productId = PRODUCT_ID;
+        }
+        return DeleteProductRequest.newBuilder()
+            .setName(CommonBuilder.buildProduct(productId))
             .build();
     }
 

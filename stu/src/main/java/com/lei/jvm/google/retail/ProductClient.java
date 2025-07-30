@@ -3,6 +3,7 @@ package com.lei.jvm.google.retail;
 import com.alibaba.fastjson.JSON;
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.cloud.retail.v2.CreateProductRequest;
+import com.google.cloud.retail.v2.DeleteProductRequest;
 import com.google.cloud.retail.v2.GetProductRequest;
 import com.google.cloud.retail.v2.ImportMetadata;
 import com.google.cloud.retail.v2.ImportProductsRequest;
@@ -55,6 +56,16 @@ public class ProductClient {
             productServiceClient.updateProduct(request);
         } catch (Exception ex) {
             log.error("doUpdate error={}", ex.getMessage(), ex);
+        }
+    }
+
+    public static void doDelete(String productId) {
+        try {
+            DeleteProductRequest request = ProductBuilder.buildDeleteRequest(productId);
+            ProductServiceClient productServiceClient = ProductServiceClient.create();
+            productServiceClient.deleteProduct(request);
+        } catch (Exception ex) {
+            log.error("doDelete error={}", ex.getMessage(), ex);
         }
     }
 
