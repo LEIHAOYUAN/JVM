@@ -23,7 +23,9 @@ public class GoogleSearchApp {
 //        ProductClient.doImportWithCall(productId);
 //        ProductClient.doImportWithFuture(productId);
 //        ProductClient.doCreate(productId);
-        ProductClient.doUpdate(productId);
+        for (int i = 0; i < 500; i++) {
+            ProductClient.doUpdate(productId);
+        }
 //        SyncGeoHashService.syncLocalInventory(productId);
 
 //        SearchClient.doSearchWithPage();
