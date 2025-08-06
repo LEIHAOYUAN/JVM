@@ -35,8 +35,9 @@ public class ProductClient {
             GetProductRequest request = ProductBuilder.buildGetRequest(productId);
             return productServiceClient.getProduct(request);
         } catch (Exception ex) {
-            return null;
+            log.error("doGet Fail={}", ex.getMessage(), ex);
         }
+        return null;
     }
 
     public static void doCreate(String productId) {
@@ -74,18 +75,20 @@ public class ProductClient {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             ImportProductsRequest request = ProductBuilder.buildImportProductRequest(productId);
             OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(request);
-            try {
-                ImportMetadata metadata = future.getMetadata().get();
-                if (metadata != null && metadata.getFailureCount() > 0) {
-                    ImportProductsResponse importProductsResponse = future.get();
-                    List<Status> errorSamplesList = importProductsResponse.getErrorSamplesList();
-                    List<String> errorMsgs = errorSamplesList.stream().map(Status::getMessage).distinct().toList();
-                    log.error("错误详情={}", JSON.toJSON(errorMsgs));
+            future.addListener(() -> {
+                try {
+                    ImportMetadata metadata = future.getMetadata().get();
+                    if (metadata != null && metadata.getFailureCount() > 0) {
+                        ImportProductsResponse importProductsResponse = future.get();
+                        List<Status> errorSamplesList = importProductsResponse.getErrorSamplesList();
+                        List<String> errorMsgs = errorSamplesList.stream().map(Status::getMessage).distinct().toList();
+                        log.error("错误详情={}", JSON.toJSON(errorMsgs));
+                    }
+                    log.info("import end");
+                } catch (Exception ex) {
+                    log.error("import exception：{}", ex.getMessage(), ex);
                 }
-                log.info("import end");
-            } catch (Exception ex) {
-                log.error("import exception：{}", ex.getMessage(), ex);
-            }
+            }, MONITOR_EXECUTOR);
         } catch (Exception ex) {
             log.error("导入异常={}", ex.getMessage(), ex);
         }

@@ -15,6 +15,14 @@ import org.apache.commons.lang.StringUtils;
 @Slf4j
 public class SearchClient {
 
+    public static void doSearch() {
+        try {
+
+        } catch (Exception ex) {
+            log.error("doSearchError={}", ex.getMessage(), ex);
+        }
+    }
+
     public static void doSearchWithPage() {
         try {
             SearchServiceClient searchServiceClient = SearchServiceClient.create();

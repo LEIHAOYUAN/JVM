@@ -18,14 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 public class GoogleSearchApp {
 
     public static void main(String[] args) {
-        String productId = "test-20250724-00006";
+        String productId = "test-20250806-00008";
 //        ProductClient.doGet(productId);
 //        ProductClient.doImportWithCall(productId);
-//        ProductClient.doImportWithFuture(productId);
+        ProductClient.doImportWithFuture(productId);
 //        ProductClient.doCreate(productId);
-        for (int i = 0; i < 500; i++) {
-            ProductClient.doUpdate(productId);
-        }
+//        ProductClient.doUpdate(productId);
 //        SyncGeoHashService.syncLocalInventory(productId);
 
 //        SearchClient.doSearchWithPage();
@@ -35,4 +33,11 @@ public class GoogleSearchApp {
             throw new RuntimeException(e);
         }
     }
+
+
+    public static void testDelay() {
+        String productId = "test-20250724-00007";
+        ProductClient.doImportWithFuture(productId);
+    }
+
 }

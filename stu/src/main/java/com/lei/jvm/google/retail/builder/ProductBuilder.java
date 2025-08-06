@@ -108,13 +108,14 @@ public class ProductBuilder {
         String textValue = """
             66666666
             """;
-        List<String> collectionMemberIds = Lists.newArrayList();
+        List<String> collectionMemberIds = Lists.newArrayList("a");
         return Product.newBuilder().setId(productId)
             .setTitle(productId)
             .setName(CommonBuilder.buildProduct(productId))
             .addAllCollectionMemberIds(collectionMemberIds)
             .addAllCategories(CommonBuilder.buildCatagoryList())
-            .addBrands("custmerBrands").setType(Type.PRIMARY)
+            .addBrands("custmerBrands")
+            .setType(Type.COLLECTION)
             //.addAllLocalInventories(buildLocalInventories())
             .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList(textValue)).build())
             .setDescription("test000000000000")
