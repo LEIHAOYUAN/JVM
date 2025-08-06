@@ -35,9 +35,8 @@ public class ProductClient {
             GetProductRequest request = ProductBuilder.buildGetRequest(productId);
             return productServiceClient.getProduct(request);
         } catch (Exception ex) {
-            log.error("doGet Fail={}", ex.getMessage(), ex);
+            return null;
         }
-        return null;
     }
 
     public static void doCreate(String productId) {
