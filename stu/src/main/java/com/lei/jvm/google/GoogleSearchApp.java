@@ -21,7 +21,7 @@ import java.util.concurrent.locks.LockSupport;
 @Slf4j
 public class GoogleSearchApp {
 
-    public static String productId = "test-20250806-0000102";
+    public static String productId = "fe8b5a4b-02ea-40c1-9653-f9845601bf8a";
 
     public static void main(String[] args) {
 //        ProductClient.doGet(productId);
@@ -42,7 +42,7 @@ public class GoogleSearchApp {
 
 
     public static void testDelay() {
-        ProductClient.doImportWithFuture(productId);
+//        ProductClient.doImportWithFuture(productId);
         StopWatch stopWatch = StopWatch.create("monitor");
         stopWatch.start();
         while (true) {
