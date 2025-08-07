@@ -36,7 +36,7 @@ public class SearchClient {
                 .setVisitorId("test-a")
                 .setQuery("burger")
                 //.setFilter("availability: ANY(\"IN_STOCK\")")
-                .setFilter(("title:ANY(\"" + title + "\")"))
+                .setFilter(("title: ANY(\"" + title + "\")"))
                 .setPageSize(1)
                 .build();
             SearchPagedResponse response = searchServiceClient.searchPagedCallable().call(request);
