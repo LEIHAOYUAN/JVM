@@ -1,13 +1,18 @@
 package com.lei.jvm.google.retail;
 
 import com.google.api.core.ApiFuture;
+import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.SearchRequest;
 import com.google.cloud.retail.v2.SearchRequest.Builder;
+import com.google.cloud.retail.v2.SearchResponse;
 import com.google.cloud.retail.v2.SearchServiceClient;
 import com.google.cloud.retail.v2.SearchServiceClient.SearchPagedResponse;
 import com.lei.jvm.google.retail.build.CommonBuilder;
+import com.lei.jvm.google.retail.utils.ListUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.List;
 
 /**
  * @see <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2.SearchServiceClient">...</a>
@@ -15,12 +20,35 @@ import org.apache.commons.lang.StringUtils;
 @Slf4j
 public class SearchClient {
 
-    public static void doSearch() {
+    /**
+     * 过滤条件：
+     * attributes.line_item_type: ANY("ITEM") AND availability: ANY("IN_STOCK")
+     *
+     * @param title
+     * @return
+     */
+    public static Product doSearch(String title) {
         try {
-
+            SearchServiceClient searchServiceClient = SearchServiceClient.create();
+            SearchRequest request = SearchRequest.newBuilder()
+                .setPlacement(CommonBuilder.buildPlacement())
+                .setBranch(CommonBuilder.buildBranch())
+                .setVisitorId("test-a")
+                .setQuery("burger")
+                //.setFilter("availability: ANY(\"IN_STOCK\")")
+                .setFilter(("title:ANY(\"" + title + "\")"))
+                .setPageSize(1)
+                .build();
+            SearchPagedResponse response = searchServiceClient.searchPagedCallable().call(request);
+            List<SearchResponse.SearchResult> resultsList = response.getPage().getResponse().getResultsList();
+            if (ListUtil.isEmpty(resultsList)) {
+                return null;
+            }
+            return resultsList.getFirst().getProduct();
         } catch (Exception ex) {
             log.error("doSearchError={}", ex.getMessage(), ex);
         }
+        return null;
     }
 
     public static void doSearchWithPage() {

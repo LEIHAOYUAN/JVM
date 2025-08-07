@@ -110,7 +110,7 @@ public class ProductBuilder {
             """;
         List<String> collectionMemberIds = Lists.newArrayList("a");
         return Product.newBuilder().setId(productId)
-            .setTitle(productId)
+            .setTitle(CommonBuilder.TITLE_PREFIX + productId)
             .setName(CommonBuilder.buildProduct(productId))
             .addAllCollectionMemberIds(collectionMemberIds)
             .addAllCategories(CommonBuilder.buildCatagoryList())

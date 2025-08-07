@@ -3,6 +3,8 @@ package com.lei.jvm.google;
 import cn.hutool.core.date.StopWatch;
 import com.google.cloud.retail.v2.Product;
 import com.lei.jvm.google.retail.ProductClient;
+import com.lei.jvm.google.retail.SearchClient;
+import com.lei.jvm.google.retail.build.CommonBuilder;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.locks.LockSupport;
@@ -21,7 +23,7 @@ import java.util.concurrent.locks.LockSupport;
 @Slf4j
 public class GoogleSearchApp {
 
-    public static String productId = "fe8b5a4b-02ea-40c1-9653-f9845601bf8a";
+    public static String productId = "test-20250807-00001";
 
     public static void main(String[] args) {
 //        ProductClient.doGet(productId);
@@ -32,7 +34,7 @@ public class GoogleSearchApp {
 //        SyncGeoHashService.syncLocalInventory(productId);
 
 //        SearchClient.doSearchWithPage();
-        testDelay();
+        testSearchDelay();
         try {
             Thread.sleep(8000000);
         } catch (InterruptedException e) {
@@ -41,19 +43,34 @@ public class GoogleSearchApp {
     }
 
 
-    public static void testDelay() {
-//        ProductClient.doImportWithFuture(productId);
+    public static void testImportDelay() {
+        ProductClient.doImportWithFuture(productId);
         StopWatch stopWatch = StopWatch.create("monitor");
         stopWatch.start();
         while (true) {
             Product product = ProductClient.doGet(productId);
-            if (product != null) {
+            if (product != null && product.getTitle().startsWith(CommonBuilder.TITLE_PREFIX)) {
                 break;
             }
             LockSupport.parkNanos(1_000_000);
         }
         stopWatch.stop();
-        log.info("生效总耗时=[{}]秒", stopWatch.getTotalTimeSeconds());
+        log.info("import生效总耗时=[{}]秒", stopWatch.getTotalTimeSeconds());
+    }
+
+    public static void testSearchDelay() {
+        ProductClient.doImportWithFuture(productId);
+        StopWatch stopWatch = StopWatch.create("monitor");
+        stopWatch.start();
+        while (true) {
+            Product product = SearchClient.doSearch(CommonBuilder.TITLE_PREFIX);
+            if (product != null && product.getTitle().startsWith(CommonBuilder.TITLE_PREFIX)) {
+                break;
+            }
+            LockSupport.parkNanos(1_000_000);
+        }
+        stopWatch.stop();
+        log.info("search生效总耗时=[{}]秒", stopWatch.getTotalTimeSeconds());
     }
 
 }

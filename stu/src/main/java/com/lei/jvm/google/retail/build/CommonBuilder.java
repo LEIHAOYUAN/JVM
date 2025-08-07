@@ -25,6 +25,9 @@ public class CommonBuilder {
     private static final String DEFAULT_BRANCH = "0";
 
 
+    public static final String TITLE_PREFIX = "test888888";
+
+
     public static String buildBranch() {
         return BranchName.of(CURRENT_PROJECT_ID, "global", "default_catalog", DEFAULT_BRANCH).toString();
     }
