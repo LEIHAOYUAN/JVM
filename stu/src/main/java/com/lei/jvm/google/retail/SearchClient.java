@@ -1,5 +1,6 @@
 package com.lei.jvm.google.retail;
 
+import com.google.api.client.util.Lists;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.SearchRequest;
@@ -27,24 +28,24 @@ public class SearchClient {
      * @param title
      * @return
      */
-    public static Product doSearch(String title) {
+    public static List<Product> doSearch(String title) {
         try {
             SearchServiceClient searchServiceClient = SearchServiceClient.create();
             SearchRequest request = SearchRequest.newBuilder()
                 .setPlacement(CommonBuilder.buildPlacement())
                 .setBranch(CommonBuilder.buildBranch())
                 .setVisitorId("test-a")
-                .setQuery("burger")
-                //.setFilter("availability: ANY(\"IN_STOCK\")")
-                .setFilter(("title: ANY(\"" + title + "\")"))
-                .setPageSize(1)
+                //.setQuery(title)
+                .setFilter("availability: ANY(\"IN_STOCK\")")
+                //.setFilter(("title: ANY(\"" + title + "\")"))
+                .setPageSize(120)
                 .build();
             SearchPagedResponse response = searchServiceClient.searchPagedCallable().call(request);
             List<SearchResponse.SearchResult> resultsList = response.getPage().getResponse().getResultsList();
             if (ListUtil.isEmpty(resultsList)) {
-                return null;
+                return Lists.newArrayList();
             }
-            return resultsList.getFirst().getProduct();
+            return resultsList.stream().map(SearchResponse.SearchResult::getProduct).toList();
         } catch (Exception ex) {
             log.error("doSearchError={}", ex.getMessage(), ex);
         }

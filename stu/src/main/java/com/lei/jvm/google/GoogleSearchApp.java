@@ -7,6 +7,7 @@ import com.lei.jvm.google.retail.SearchClient;
 import com.lei.jvm.google.retail.build.CommonBuilder;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.concurrent.locks.LockSupport;
 
 /**
@@ -62,12 +63,15 @@ public class GoogleSearchApp {
         ProductClient.doImportWithFuture(productId);
         StopWatch stopWatch = StopWatch.create("monitor");
         stopWatch.start();
+        outerLoop:
         while (true) {
-            Product product = SearchClient.doSearch(CommonBuilder.TITLE_PREFIX);
-            if (product != null && product.getTitle().startsWith(CommonBuilder.TITLE_PREFIX)) {
-                break;
+            List<Product> productList = SearchClient.doSearch(CommonBuilder.TITLE_PREFIX);
+            for (Product product : productList) {
+                if (product != null && product.getTitle().startsWith(CommonBuilder.TITLE_PREFIX)) {
+                    break outerLoop;
+                }
             }
-            LockSupport.parkNanos(1_000_000);
+            LockSupport.parkNanos(1_000_000 * 1000);
         }
         stopWatch.stop();
         log.info("search生效总耗时=[{}]秒", stopWatch.getTotalTimeSeconds());
