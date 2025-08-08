@@ -118,6 +118,7 @@ public class ProductBuilder {
             .setType(Type.COLLECTION)
             //.addAllLocalInventories(buildLocalInventories())
             .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList(textValue)).build())
+            .setAvailability(Product.Availability.OUT_OF_STOCK)
             .setDescription("test000000000000")
             .build();
     }

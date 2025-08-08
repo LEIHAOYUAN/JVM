@@ -28,15 +28,15 @@ public class SearchClient {
      * @param title
      * @return
      */
-    public static List<Product> doSearch(String title) {
+    public static List<Product> doSearch(String productId) {
         try {
             SearchServiceClient searchServiceClient = SearchServiceClient.create();
             SearchRequest request = SearchRequest.newBuilder()
                 .setPlacement(CommonBuilder.buildPlacement())
                 .setBranch(CommonBuilder.buildBranch())
                 .setVisitorId("test-a")
-                //.setQuery(title)
-                .setFilter("availability: ANY(\"IN_STOCK\")")
+                .setQuery(productId)
+                .setFilter("availability: ANY(\"OUT_OF_STOCK\")")
                 //.setFilter(("title: ANY(\"" + title + "\")"))
                 .setPageSize(120)
                 .build();

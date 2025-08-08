@@ -65,13 +65,13 @@ public class GoogleSearchApp {
         stopWatch.start();
         outerLoop:
         while (true) {
-            List<Product> productList = SearchClient.doSearch(CommonBuilder.TITLE_PREFIX);
+            List<Product> productList = SearchClient.doSearch(productId);
             for (Product product : productList) {
-                if (product != null && product.getTitle().startsWith(CommonBuilder.TITLE_PREFIX)) {
+                if (product != null && product.getName().contains(productId)) {
                     break outerLoop;
                 }
             }
-            LockSupport.parkNanos(1_000_000 * 1000);
+            LockSupport.parkNanos(1_000_000);
         }
         stopWatch.stop();
         log.info("search生效总耗时=[{}]秒", stopWatch.getTotalTimeSeconds());
