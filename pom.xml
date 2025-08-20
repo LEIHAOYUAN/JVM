@@ -343,6 +343,14 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+        <!-- apache arrow -->
+            <dependency>
+                <groupId>org.apache.arrow</groupId>
+                <artifactId>arrow-bom</artifactId>
+                <version>18.3.0</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
