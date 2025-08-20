@@ -227,6 +227,12 @@
             <version>3.0.8</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.google.jimfs</groupId>
+            <artifactId>jimfs</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+
     </dependencies>
 
     <build>
