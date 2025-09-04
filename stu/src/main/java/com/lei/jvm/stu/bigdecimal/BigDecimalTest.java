@@ -23,7 +23,7 @@ public class BigDecimalTest {
     private static void testCompare() {
         BigDecimal subtotal = BigDecimal.valueOf(39.9);
         BigDecimal tipAmount = BigDecimal.valueOf(43.88);
-        if (tipAmount.multiply(BigDecimal.valueOf(1.1)).compareTo(subtotal) >= 0) {
+        if (subtotal.multiply(BigDecimal.valueOf(1.1)).compareTo(tipAmount) < 0) {
             log.error("tip maximum error");
         }
     }
