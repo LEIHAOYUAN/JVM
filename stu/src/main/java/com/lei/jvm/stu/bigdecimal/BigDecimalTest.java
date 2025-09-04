@@ -17,40 +17,47 @@ import java.util.Map;
 public class BigDecimalTest {
 
     public static void main(String[] args) {
-        log.info("判断是否是整数：{}",isIntegerValue(BigDecimal.valueOf(10.00001)));
+        testCompare();
     }
 
+    private static void testCompare() {
+        BigDecimal subtotal = BigDecimal.valueOf(39.9);
+        BigDecimal tipAmount = BigDecimal.valueOf(43.88);
+        if (tipAmount.multiply(BigDecimal.valueOf(1.1)).compareTo(subtotal) >= 0) {
+            log.error("tip maximum error");
+        }
+    }
 
-    private static void testAdd(){
+    private static void testAdd() {
         BigDecimal aa = BigDecimal.TEN;
         BigDecimal bb = BigDecimal.TEN.negate();
-        log.info("正数累加：{}",aa.add(aa).stripTrailingZeros().toPlainString());
-        log.info("正负数累加：{}",aa.add(bb).stripTrailingZeros().toPlainString());
-        log.info("负数累加：{}",bb.add(bb).stripTrailingZeros().toPlainString());
+        log.info("正数累加：{}", aa.add(aa).stripTrailingZeros().toPlainString());
+        log.info("正负数累加：{}", aa.add(bb).stripTrailingZeros().toPlainString());
+        log.info("负数累加：{}", bb.add(bb).stripTrailingZeros().toPlainString());
 
-        Map<String,String> param = Maps.newHashMap();
-        param.put("AA","AA");
-        param.put("AA","AA");
-        param.put("AA","AA");
+        Map<String, String> param = Maps.newHashMap();
+        param.put("AA", "AA");
+        param.put("AA", "AA");
+        param.put("AA", "AA");
 
-        Map<String,String> param1 = Maps.newHashMap();
-        param1.put("AA","AA1");
-        param1.put("AA","AA1");
-        param1.put("AA","AA1");
+        Map<String, String> param1 = Maps.newHashMap();
+        param1.put("AA", "AA1");
+        param1.put("AA", "AA1");
+        param1.put("AA", "AA1");
 
-        Map<String,String> res = Maps.newHashMap();
+        Map<String, String> res = Maps.newHashMap();
         res.putAll(param);
         res.putAll(param1);
-        log.info("最终结果：{}",JSON.toJSONString(res));
+        log.info("最终结果：{}", JSON.toJSONString(res));
     }
 
-    private static void testScale(){
+    private static void testScale() {
         String param1 = "1.2";
         String param2 = "91.00000";
         String param3 = "966661.0005200";
-        log.info("{}的scale：{}",param1,new BigDecimal(param1).scale());
-        log.info("{}的scale：{}",param2,new BigDecimal(param2).scale());
-        log.info("{}的scale：{}",param3,new BigDecimal(param3).scale());
+        log.info("{}的scale：{}", param1, new BigDecimal(param1).scale());
+        log.info("{}的scale：{}", param2, new BigDecimal(param2).scale());
+        log.info("{}的scale：{}", param3, new BigDecimal(param3).scale());
     }
 
 
