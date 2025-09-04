@@ -27,7 +27,16 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-        buildSQL(99);
+        testToMap();
+    }
+
+    private static void testToMap() {
+        List<Student> students = Lists.newArrayList();
+        students.add(new Student("A", "A"));
+        students.add(new Student("A", null));
+
+        Map<String, String> map = students.stream().collect(Collectors.toMap(Student::getCode, Student::getName));
+        log.info("结果={}", JSON.toJSONString(map));
     }
 
     public static void buildSQL(int type) {
