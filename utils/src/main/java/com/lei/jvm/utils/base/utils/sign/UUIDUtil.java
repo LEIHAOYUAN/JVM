@@ -3,6 +3,7 @@ package com.lei.jvm.utils.base.utils.sign;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
+import java.lang.management.ManagementFactory;
 import java.math.BigInteger;
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ import java.util.UUID;
 public class UUIDUtil {
 
     public static void main(String[] args) {
-        log.info("生成uuid={}", generateUniqueLong_4());
+        log.info("生成uuid={}", generateUniqueInteger());
     }
 
     public static long generateUniqueLong_1() {
@@ -48,6 +49,16 @@ public class UUIDUtil {
         int machineHash = Math.abs(java.lang.management.ManagementFactory.getRuntimeMXBean().getName().hashCode() & 0xFFF);
         long unique = (timestamp << 32) | ((long) machineHash << 20) | (random ^ uuidHash);
         return unique < 0 ? -unique : unique;
+    }
+
+    public static Integer generateUniqueInteger() {
+        long timestamp = System.currentTimeMillis();
+        int random = Math.abs(java.util.concurrent.ThreadLocalRandom.current().nextInt() & 0xFFFFF);
+        int uuidHash = Math.abs(UUID.randomUUID().toString().hashCode() & 0xFFFFF);
+        int machineHash = Math.abs(ManagementFactory.getRuntimeMXBean().getName().hashCode() & 0xFFF);
+        long unique = (timestamp << 20) | ((long) machineHash << 8) | (random ^ uuidHash);
+        int result = (int) (unique & 0xFFFFFFFFL);
+        return result < 0 ? -result : result;
     }
 
 
