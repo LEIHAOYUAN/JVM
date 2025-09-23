@@ -59,7 +59,7 @@ public class SyncGeoHashService {
 
     private static Map<String, Set<String>> buildSimpleGeoHashMap() {
         Map<String, Set<String>> geohashMap = Maps.newHashMap();
-        geohashMap.put("dpdffnm", Set.of("1"));
+        geohashMap.put("dpdffnm", Set.of("0.0009"));
         return geohashMap;
     }
 

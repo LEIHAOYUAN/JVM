@@ -5,6 +5,7 @@ import com.google.cloud.retail.v2.Product;
 import com.lei.jvm.google.retail.ProductClient;
 import com.lei.jvm.google.retail.SearchClient;
 import com.lei.jvm.google.retail.build.CommonBuilder;
+import com.lei.jvm.google.retail.geohash.SyncGeoHashService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -32,7 +33,7 @@ public class GoogleSearchApp {
 //        ProductClient.doImportWithFuture(productId);
 //        ProductClient.doCreate(productId);
 //        ProductClient.doUpdate(productId);
-//        SyncGeoHashService.syncLocalInventory(productId);
+        SyncGeoHashService.syncLocalInventory(productId);
 
 //        SearchClient.doSearchWithPage();
         testSearchDelay();
