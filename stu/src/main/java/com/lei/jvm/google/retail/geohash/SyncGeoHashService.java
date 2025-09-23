@@ -134,7 +134,7 @@ public class SyncGeoHashService {
             for (Map.Entry<String, Set<String>> entry : geohashMap.entrySet()) {
                 LocalInventory localInventory = LocalInventory.newBuilder()
                     .setPlaceId(entry.getKey())
-                    .putAttributes(ProductConstant.PRODUCT_LOCAL_INVENTORY_AVAILABILITY, CustomAttribute.newBuilder().addAllText(entry.getValue()).build()).build();
+                    .putAttributes(ProductConstant.PRODUCT_LOCAL_INVENTORY_DISTANCE, CustomAttribute.newBuilder().addNumbers(0.56897).build()).build();
                 localInventories.add(localInventory);
             }
         }
@@ -155,7 +155,7 @@ public class SyncGeoHashService {
             if (localInventory == null || Strings.isBlank(localInventory.getPlaceId())) {
                 continue;
             }
-            CustomAttribute customAttribute = localInventory.getAttributesMap().get(ProductConstant.PRODUCT_LOCAL_INVENTORY_AVAILABILITY);
+            CustomAttribute customAttribute = localInventory.getAttributesMap().get(ProductConstant.PRODUCT_LOCAL_INVENTORY_DISTANCE);
             if (customAttribute == null || ListUtil.isEmpty(customAttribute.getTextList())) {
                 existedGeohashMap.put(localInventory.getPlaceId(), Sets.newHashSet());
             } else {

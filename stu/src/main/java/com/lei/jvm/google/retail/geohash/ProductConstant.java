@@ -10,7 +10,7 @@ public class ProductConstant {
     public static final Integer CUSTOM_ATTRIBUTE_SIZE_LIMIT = 400;
     public static final Integer DESCRIPTION_MAX_LENGTH = 5000;
 
-    public static final String PRODUCT_LOCAL_INVENTORY_AVAILABILITY = "availability";
+    public static final String PRODUCT_LOCAL_INVENTORY_DISTANCE = "distance";
     public static final String DELIVERY_BY_SELF = "self_delivery";
     public static final String DELIVERY_BY_GRUBHUB = "grubhub_delivery";
     public static final String DELIVERY_BY_COMBINE = "self_grubhub_delivery";

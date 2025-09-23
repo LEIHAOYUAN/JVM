@@ -36,8 +36,9 @@ public class SearchClient {
                 .setBranch(CommonBuilder.buildBranch())
                 .setVisitorId("test-a")
                 .setQuery(productId)
-                .setFilter("availability: ANY(\"OUT_OF_STOCK\")")
+                // .setFilter("availability: ANY(\"OUT_OF_STOCK\")")
                 //.setFilter(("title: ANY(\"" + title + "\")"))
+                .setOrderBy("inventory(place_id,attributes.key)")
                 .setPageSize(120)
                 .build();
             SearchPagedResponse response = searchServiceClient.searchPagedCallable().call(request);

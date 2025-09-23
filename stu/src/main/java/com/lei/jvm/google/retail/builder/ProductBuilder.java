@@ -115,10 +115,10 @@ public class ProductBuilder {
             .addAllCollectionMemberIds(collectionMemberIds)
             .addAllCategories(CommonBuilder.buildCatagoryList())
             .addBrands("custmerBrands")
-            .setType(Type.COLLECTION)
+            .setType(Type.PRIMARY)
             //.addAllLocalInventories(buildLocalInventories())
             .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList(textValue)).build())
-            .setAvailability(Product.Availability.OUT_OF_STOCK)
+            .setAvailability(Product.Availability.IN_STOCK)
             .setDescription("test000000000000")
             .build();
     }
