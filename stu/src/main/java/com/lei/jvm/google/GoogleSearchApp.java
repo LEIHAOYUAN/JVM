@@ -33,9 +33,9 @@ public class GoogleSearchApp {
 //        ProductClient.doImportWithFuture(productId);
 //        ProductClient.doCreate(productId);
 //        ProductClient.doUpdate(productId);
-        SyncGeoHashService.syncLocalInventory(productId);
+//        SyncGeoHashService.syncLocalInventory(productId);
 
-//        SearchClient.doSearchWithPage();
+        SearchClient.doSearchWithPage();
 //        testSearchDelay();
         try {
             Thread.sleep(8000000);

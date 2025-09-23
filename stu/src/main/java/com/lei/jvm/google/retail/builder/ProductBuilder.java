@@ -115,7 +115,7 @@ public class ProductBuilder {
             .addAllCollectionMemberIds(collectionMemberIds)
             .addAllCategories(CommonBuilder.buildCatagoryList())
             .addBrands("custmerBrands")
-            .setType(Type.PRIMARY)
+            .setType(Type.COLLECTION)
             //.addAllLocalInventories(buildLocalInventories())
             .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList(textValue)).build())
             .setAvailability(Product.Availability.IN_STOCK)

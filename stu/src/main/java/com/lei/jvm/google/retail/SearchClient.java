@@ -60,8 +60,9 @@ public class SearchClient {
                 .setPlacement(CommonBuilder.buildPlacement())
                 .setBranch(CommonBuilder.buildBranch())
                 .setVisitorId("test-a")
-                .setQuery("burger")
+                //.setQuery("burger")
                 //.setFilter(("brands: ANY(\"Alanza\")"))
+                //.setOrderBy("inventory(dr5rehe,attributes.distance)")
                 .setPageSize(120);
 
             while (true) {
