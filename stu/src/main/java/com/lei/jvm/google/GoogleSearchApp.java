@@ -50,7 +50,7 @@ public class GoogleSearchApp {
         StopWatch stopWatch = StopWatch.create("monitor");
         stopWatch.start();
         while (true) {
-            Product product = ProductClient.doGet(productId);
+            Product product = ProductClient.doGetById(productId);
             if (product != null && product.getTitle().startsWith(CommonBuilder.TITLE_PREFIX)) {
                 break;
             }

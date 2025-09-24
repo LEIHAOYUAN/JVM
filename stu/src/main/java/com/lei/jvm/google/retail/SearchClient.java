@@ -1,5 +1,6 @@
 package com.lei.jvm.google.retail;
 
+import cn.hutool.core.lang.Pair;
 import com.google.api.client.util.Lists;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.retail.v2.Product;
@@ -9,6 +10,7 @@ import com.google.cloud.retail.v2.SearchResponse;
 import com.google.cloud.retail.v2.SearchServiceClient;
 import com.google.cloud.retail.v2.SearchServiceClient.SearchPagedResponse;
 import com.lei.jvm.google.retail.build.CommonBuilder;
+import com.lei.jvm.google.retail.geohash.SyncGeoHashService;
 import com.lei.jvm.google.retail.utils.ListUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -53,6 +55,11 @@ public class SearchClient {
         return null;
     }
 
+    //.setQuery("burger")
+    //.setFilter(("brands: ANY(\"Alanza\")"))
+    //.setFilter("localInventories.place_id: ANY(\"dr5renw\")")
+    //.setOrderBy("localInventories.attributes.distance asc")
+    //.setCondition("inventories.attributes.distance")
     public static void doSearchWithPage() {
         try {
             SearchServiceClient searchServiceClient = SearchServiceClient.create();
@@ -60,9 +67,12 @@ public class SearchClient {
                 .setPlacement(CommonBuilder.buildPlacement())
                 .setBranch(CommonBuilder.buildBranch())
                 .setVisitorId("test-a")
-                //.setQuery("burger")
-                //.setFilter(("brands: ANY(\"Alanza\")"))
-                //.setOrderBy("inventory(dr5rehe,attributes.distance)")
+                .setBoostSpec(SearchRequest.BoostSpec.newBuilder().addConditionBoostSpecs(
+                    SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
+                        .setCondition("(inventory(dr5renw,attributes.distance) > 0)")
+                        .setBoost(0.8f)
+                        .build()
+                ).build())
                 .setPageSize(120);
 
             while (true) {
@@ -72,7 +82,11 @@ public class SearchClient {
                     break;
                 }
                 pageBuilder.setPageToken(response.getNextPageToken());
-                log.info("分页查询结果={}", response.getNextPageToken());
+                for (SearchResponse.SearchResult result : response.getPage().getResponse().getResultsList()) {
+                    String name = result.getProduct().getName();
+                    Pair<Boolean, Double> matchPair = SyncGeoHashService.checkGeoHash(name, "dr5renw");
+                    System.out.println("name=[" + name + "]isMatch=[" + matchPair.getKey() + "]distance=[" + matchPair.getValue() + "]");
+                }
             }
         } catch (Exception ex) {
             log.error("doSearchWithPage error={}", ex.getMessage(), ex);

@@ -29,7 +29,17 @@ import java.util.concurrent.Executors;
 public class ProductClient {
     private static ExecutorService MONITOR_EXECUTOR = Executors.newFixedThreadPool(10);
 
-    public static Product doGet(String productId) {
+    public static Product doGetByName(String name) {
+        try {
+            ProductServiceClient productServiceClient = ProductServiceClient.create();
+            GetProductRequest request = GetProductRequest.newBuilder().setName(name).build();
+            return productServiceClient.getProduct(request);
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
+    public static Product doGetById(String productId) {
         try {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             GetProductRequest request = ProductBuilder.buildGetRequest(productId);
