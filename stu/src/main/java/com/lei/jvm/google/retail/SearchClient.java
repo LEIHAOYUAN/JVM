@@ -1,6 +1,5 @@
 package com.lei.jvm.google.retail;
 
-import cn.hutool.core.lang.Pair;
 import com.google.api.client.util.Lists;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.retail.v2.Product;
@@ -14,6 +13,7 @@ import com.lei.jvm.google.retail.geohash.SyncGeoHashService;
 import com.lei.jvm.google.retail.utils.ListUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.List;
 
@@ -61,18 +61,35 @@ public class SearchClient {
     //.setOrderBy("localInventories.attributes.distance asc")
     //.setCondition("inventories.attributes.distance")
     public static void doSearchWithPage() {
+        String placeId = "dr5renw";
+        SearchRequest.BoostSpec.ConditionBoostSpec boostSpec0 = SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
+            .setCondition("(attributes.restaurant_brand_category: ANY(\"WONDER_HDR\"))")
+            .setBoost(0.5f)
+            .build();
+        SearchRequest.BoostSpec.ConditionBoostSpec boostSpec1 = SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
+            .setCondition("(inventory(" + placeId + ",attributes.distance) >= 0 AND inventory(" + placeId + ",attributes.distance) <=8)")
+            .setBoost(0.5f)
+            .build();
+        /*SearchRequest.BoostSpec.ConditionBoostSpec boostSpec2 = SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
+            .setCondition("(inventory(" + placeId + ",attributes.distance) > 3 AND inventory(" + placeId + ",attributes.distance) <=8)")
+            .setBoost(0.8f)
+            .build();
+        SearchRequest.BoostSpec.ConditionBoostSpec boostSpec3 = SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
+            .setCondition("(inventory(" + placeId + ",attributes.distance) > 8 AND inventory(" + placeId + ",attributes.distance) <=15)")
+            .setBoost(0.5f)
+            .build();
+        SearchRequest.BoostSpec.ConditionBoostSpec boostSpec4 = SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
+            .setCondition("(inventory(" + placeId + ",attributes.distance) > 15)")
+            .setBoost(0.01f)
+            .build();*/
+        SearchRequest.BoostSpec boostSpec = SearchRequest.BoostSpec.newBuilder().addAllConditionBoostSpecs(List.of(boostSpec0, boostSpec1)).build();
         try {
             SearchServiceClient searchServiceClient = SearchServiceClient.create();
             Builder pageBuilder = SearchRequest.newBuilder()
                 .setPlacement(CommonBuilder.buildPlacement())
                 .setBranch(CommonBuilder.buildBranch())
                 .setVisitorId("test-a")
-                .setBoostSpec(SearchRequest.BoostSpec.newBuilder().addConditionBoostSpecs(
-                    SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
-                        .setCondition("(inventory(dr5renw,attributes.distance) > 0)")
-                        .setBoost(0.8f)
-                        .build()
-                ).build())
+                .setBoostSpec(boostSpec)
                 .setPageSize(120);
 
             while (true) {
@@ -84,8 +101,8 @@ public class SearchClient {
                 pageBuilder.setPageToken(response.getNextPageToken());
                 for (SearchResponse.SearchResult result : response.getPage().getResponse().getResultsList()) {
                     String name = result.getProduct().getName();
-                    Pair<Boolean, Double> matchPair = SyncGeoHashService.checkGeoHash(name, "dr5renw");
-                    System.out.println("name=[" + name + "]isMatch=[" + matchPair.getKey() + "]distance=[" + matchPair.getValue() + "]");
+                    Triple<String, Boolean, Double> matchPair = SyncGeoHashService.checkGeoHash(name, placeId);
+                    System.out.println("brand=[" + matchPair.getLeft() + "]id=[" + name.substring(name.lastIndexOf("/") + 1) + "]isMatch=[" + matchPair.getMiddle() + "]distance=[" + matchPair.getRight() + "]");
                 }
             }
         } catch (Exception ex) {

@@ -1,6 +1,5 @@
 package com.lei.jvm.google.retail.geohash;
 
-import cn.hutool.core.lang.Pair;
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.cloud.retail.v2.AddLocalInventoriesMetadata;
 import com.google.cloud.retail.v2.AddLocalInventoriesRequest;
@@ -19,6 +18,7 @@ import com.lei.jvm.google.retail.ProductClient;
 import com.lei.jvm.google.retail.build.CommonBuilder;
 import com.lei.jvm.google.retail.utils.ListUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.tuple.Triple;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -38,16 +38,25 @@ public class SyncGeoHashService {
     private static final RateLimiter LIMITER = RateLimiter.create(60 / 60);
 
 
-    public static Pair<Boolean, Double> checkGeoHash(String name, String geoHash) {
+    public static Triple<String, Boolean, Double> checkGeoHash(String name, String geoHash) {
         Product product = ProductClient.doGetByName(name);
         if (product == null) {
             throw new IllegalArgumentException("product not exist");
         }
-        Map<String, Double> geoHashMap = ProductGeoHashConvertor.buildExistedLocalInventoryMap(product);
 
-        return Pair.of(geoHashMap.containsKey(geoHash), geoHashMap.get(geoHash));
+        Map<String, Double> geoHashMap = ProductGeoHashConvertor.buildExistedLocalInventoryMap(product);
+        String brandCategory = parseBrandCategory(product);
+        return Triple.of(brandCategory, geoHashMap.containsKey(geoHash), geoHashMap.get(geoHash));
     }
 
+
+    public static String parseBrandCategory(Product product) {
+        CustomAttribute restaurantBrandCategory = product.getAttributesMap().get("restaurant_brand_category");
+        if (restaurantBrandCategory == null || ListUtil.isEmpty(restaurantBrandCategory.getTextList())) {
+            return "";
+        }
+        return restaurantBrandCategory.getTextList().getFirst();
+    }
 
     public static void syncLocalInventory(String productId) {
         try {
