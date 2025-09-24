@@ -12,7 +12,7 @@ import com.lei.jvm.google.retail.build.CommonBuilder;
 import com.lei.jvm.google.retail.geohash.SyncGeoHashService;
 import com.lei.jvm.google.retail.utils.ListUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.List;
@@ -64,10 +64,10 @@ public class SearchClient {
         String placeId = "dr5renw";
         SearchRequest.BoostSpec.ConditionBoostSpec boostSpec0 = SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
             .setCondition("(attributes.restaurant_brand_category: ANY(\"WONDER_HDR\"))")
-            .setBoost(0.5f)
+            .setBoost(0.8f)
             .build();
         SearchRequest.BoostSpec.ConditionBoostSpec boostSpec1 = SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
-            .setCondition("(inventory(" + placeId + ",attributes.distance) >= 0 AND inventory(" + placeId + ",attributes.distance) <=8)")
+            .setCondition("(inventory(" + placeId + ",attributes.distance) >= 0 AND inventory(" + placeId + ",attributes.distance) <=3)")
             .setBoost(0.5f)
             .build();
         /*SearchRequest.BoostSpec.ConditionBoostSpec boostSpec2 = SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
@@ -90,19 +90,25 @@ public class SearchClient {
                 .setBranch(CommonBuilder.buildBranch())
                 .setVisitorId("test-a")
                 .setBoostSpec(boostSpec)
+                .setFilter("id: ANY(\"64a5b668-0189-41bd-bd58-425e193fea0e\",\"b6d7c40c-a2a7-4afd-918f-1f633303fa6a\",\"0b3701b3-f70a-4286-ab6d-c38cc52a4317\",\"2dcc2eef-36aa-45db-abad-24cca7b884fb\",\"27ea83fd-a584-44d7-8f42-9f2d6db053ef\")")
                 .setPageSize(120);
-
             while (true) {
                 ApiFuture<SearchPagedResponse> responseFuture = searchServiceClient.searchPagedCallable().futureCall(pageBuilder.build());
                 SearchPagedResponse response = responseFuture.get();
-                if (StringUtils.isBlank(response.getNextPageToken())) {
+                List<SearchResponse.SearchResult> resultsList = response.getPage().getResponse().getResultsList();
+                if (ListUtil.isEmpty(resultsList)) {
                     break;
                 }
-                pageBuilder.setPageToken(response.getNextPageToken());
-                for (SearchResponse.SearchResult result : response.getPage().getResponse().getResultsList()) {
+                for (SearchResponse.SearchResult result : resultsList) {
                     String name = result.getProduct().getName();
                     Triple<String, Boolean, Double> matchPair = SyncGeoHashService.checkGeoHash(name, placeId);
                     System.out.println("brand=[" + matchPair.getLeft() + "]id=[" + name.substring(name.lastIndexOf("/") + 1) + "]isMatch=[" + matchPair.getMiddle() + "]distance=[" + matchPair.getRight() + "]");
+                }
+                if (StringUtils.isNotBlank(response.getNextPageToken())) {
+                    pageBuilder.setPageToken(response.getNextPageToken());
+                } else {
+                    log.info("没有更多数据.......................");
+                    break;
                 }
             }
         } catch (Exception ex) {
