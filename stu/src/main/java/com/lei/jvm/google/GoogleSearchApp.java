@@ -25,7 +25,7 @@ import java.util.concurrent.locks.LockSupport;
 @Slf4j
 public class GoogleSearchApp {
 
-    public static String productId = "test-20250923-00003";
+    public static String productId = "test-20250924-00001";
 
     public static void main(String[] args) {
 //        ProductClient.doGet(productId);
@@ -33,9 +33,9 @@ public class GoogleSearchApp {
 //        ProductClient.doImportWithFuture(productId);
 //        ProductClient.doCreate(productId);
 //        ProductClient.doUpdate(productId);
-//        SyncGeoHashService.syncLocalInventory(productId);
+        SyncGeoHashService.syncLocalInventory(productId);
 
-        SearchClient.doSearchWithPage();
+//        SearchClient.doSearchWithPage();
 //        testSearchDelay();
         try {
             Thread.sleep(8000000);
