@@ -16,6 +16,7 @@ import com.google.common.collect.Lists;
 import com.google.longrunning.Operation;
 import com.lei.jvm.google.retail.ProductClient;
 import com.lei.jvm.google.retail.build.CommonBuilder;
+import com.lei.jvm.google.retail.builder.GeoHashMapGenerator;
 import com.lei.jvm.google.retail.utils.ListUtil;
 import com.lei.jvm.google.retail.utils.MapUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -50,13 +51,32 @@ public class SyncGeoHashService {
         try {
             Product product = ProductClient.doGetById(productId);
             if (product == null) {
-                ProductClient.doImport(productId);
+                ProductClient.doImportWithMetadata(productId);
             }
             Map<String, Double> existedMap = ProductGeoHashConvertor.buildExistedLocalInventoryMap(product);
             Map<String, Double> newMap = ProductGeoHashConvertor.buildSimpleGeoHashMap();
             ProductGeoHashConvertor.DiffGeoHashRecord diffGeoHashRecord = ProductGeoHashConvertor.calcLocalInventoryMap(existedMap, newMap);
             removeLocalInventoryHandler(productId, diffGeoHashRecord);
             addLocalInventoryHandler(productId, diffGeoHashRecord);
+        } catch (Exception ex) {
+            log.error("异常={}", ex.getMessage(), ex);
+        }
+    }
+
+    public static void doSyncLocalInventoryLimit(String productId) {
+        try {
+            ProductClient.doImportWithMetadata(productId);
+            long total = 0;
+            while (true) {
+                Map<String, Double> geoHashMap = GeoHashMapGenerator.generateUniqueMap();
+                ProductGeoHashConvertor.DiffGeoHashRecord diffGeoHashRecord = new ProductGeoHashConvertor.DiffGeoHashRecord(Lists.newArrayList(), geoHashMap);
+                addLocalInventoryHandler(productId, diffGeoHashRecord);
+                total = total + geoHashMap.size();
+                if (total >= 15_0000) {
+                    log.info("同步完成-总数={}", total);
+                    break;
+                }
+            }
         } catch (Exception ex) {
             log.error("异常={}", ex.getMessage(), ex);
         }
@@ -102,7 +122,6 @@ public class SyncGeoHashService {
             LocalInventory localInventory = LocalInventory.newBuilder().setPlaceId(entry.getKey()).putAttributes(ProductConstant.PRODUCT_LOCAL_INVENTORY_DISTANCE, CustomAttribute.newBuilder().addNumbers(entry.getValue()).build()).build();
             localInventories.add(localInventory);
         }
-
         try {
             AddLocalInventoriesRequest request = AddLocalInventoriesRequest.newBuilder().setProduct(CommonBuilder.buildProduct(productId))
                 .addAllLocalInventories(localInventories).setAddTime(CommonBuilder.buildUTCTimestamp()).setAllowMissing(true).build();
@@ -113,11 +132,8 @@ public class SyncGeoHashService {
                 stopWatch.start();
                 try {
                     Operation operation = productServiceClient.getOperationsClient().getOperation(future.getName());
-                    if (future.isDone()) {
-                        log.info("AddLocalInventory-done");
-                    }
-                    if (future.isCancelled()) {
-                        log.info("AddLocalInventory-canceled");
+                    if (operation.getDone() && Strings.isBlank(operation.getError().getMessage())) {
+                        log.info("AddLocalInventory-success");
                     }
                 } catch (Exception ex) {
                     log.error("doAddLocalInventory_fail={}", ex.getMessage(), ex);

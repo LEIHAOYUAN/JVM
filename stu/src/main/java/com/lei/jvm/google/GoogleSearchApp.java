@@ -25,16 +25,17 @@ import java.util.concurrent.locks.LockSupport;
 @Slf4j
 public class GoogleSearchApp {
 
-    public static String productId = "test-20250928-0001";
+    public static String productId = "test-20250928-0006";
 
     public static void main(String[] args) {
 //        ProductClient.doGet(productId);
 //        ProductClient.doImportWithCall(productId);
-//        ProductClient.doImportWithFuture(productId);
+//        ProductClient.doImportWithOperation(productId);
 //        ProductClient.doCreate(productId);
 //        ProductClient.doUpdate(productId);
 //        ProductClient.doDelete(productId);
-        SyncGeoHashService.doSyncLocalInventory(productId);
+//        SyncGeoHashService.doSyncLocalInventory(productId);
+        SyncGeoHashService.doSyncLocalInventoryLimit(productId);
 
 //        SearchClient.doSearchWithPage();
 //        testSearchDelay();
@@ -47,7 +48,7 @@ public class GoogleSearchApp {
 
 
     public static void testImportDelay() {
-        ProductClient.doImport(productId);
+        ProductClient.doImportWithMetadata(productId);
         StopWatch stopWatch = StopWatch.create("monitor");
         stopWatch.start();
         while (true) {
