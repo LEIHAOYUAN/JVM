@@ -1,7 +1,9 @@
 package com.lei.jvm.google.retail;
 
 import com.alibaba.fastjson.JSON;
+import com.google.api.core.ApiFuture;
 import com.google.api.gax.longrunning.OperationFuture;
+import com.google.api.gax.rpc.NotFoundException;
 import com.google.cloud.retail.v2.CreateProductRequest;
 import com.google.cloud.retail.v2.DeleteProductRequest;
 import com.google.cloud.retail.v2.GetProductRequest;
@@ -12,6 +14,7 @@ import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.ProductServiceClient;
 import com.google.cloud.retail.v2.UpdateProductRequest;
 import com.google.longrunning.Operation;
+import com.google.protobuf.Empty;
 import com.google.rpc.Status;
 import com.lei.jvm.google.retail.builder.ProductBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +23,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @see <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2.ProductServiceClient">...</a>
@@ -73,7 +77,22 @@ public class ProductClient {
         try {
             DeleteProductRequest request = ProductBuilder.buildDeleteRequest(productId);
             ProductServiceClient productServiceClient = ProductServiceClient.create();
-            productServiceClient.deleteProduct(request);
+            ApiFuture<Empty> future = productServiceClient.deleteProductCallable().futureCall(request);
+            future.addListener(() -> {
+                try {
+                    Empty empty = future.get(10, TimeUnit.MINUTES);
+                    if (Empty.getDefaultInstance().equals(empty)) {
+                        log.info("delete success");
+                    } else {
+                        log.error("delete failed----------productId={}", productId);
+                    }
+                } catch (Exception ex) {
+                    if (ex instanceof NotFoundException || ex.getCause() instanceof NotFoundException) {
+                        return;
+                    }
+                    log.error("delete exception：{}", ex.getMessage(), ex);
+                }
+            }, MONITOR_EXECUTOR);
         } catch (Exception ex) {
             log.error("doDelete error={}", ex.getMessage(), ex);
         }

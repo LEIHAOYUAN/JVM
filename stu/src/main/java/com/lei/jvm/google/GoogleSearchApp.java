@@ -5,7 +5,6 @@ import com.google.cloud.retail.v2.Product;
 import com.lei.jvm.google.retail.ProductClient;
 import com.lei.jvm.google.retail.SearchClient;
 import com.lei.jvm.google.retail.build.CommonBuilder;
-import com.lei.jvm.google.retail.geohash.SyncGeoHashService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -25,7 +24,7 @@ import java.util.concurrent.locks.LockSupport;
 @Slf4j
 public class GoogleSearchApp {
 
-    public static String productId = "test-20250924-00001";
+    public static String productId = "id-test-165";
 
     public static void main(String[] args) {
 //        ProductClient.doGet(productId);
@@ -33,7 +32,8 @@ public class GoogleSearchApp {
 //        ProductClient.doImportWithFuture(productId);
 //        ProductClient.doCreate(productId);
 //        ProductClient.doUpdate(productId);
-        SyncGeoHashService.syncLocalInventory(productId);
+        ProductClient.doDelete(productId);
+//        SyncGeoHashService.syncLocalInventory(productId);
 
 //        SearchClient.doSearchWithPage();
 //        testSearchDelay();
