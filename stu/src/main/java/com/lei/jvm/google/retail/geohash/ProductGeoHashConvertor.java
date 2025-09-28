@@ -19,6 +19,12 @@ import java.util.stream.Collectors;
  */
 public final class ProductGeoHashConvertor {
 
+    public static Map<String, Double> buildSimpleGeoHashMap() {
+        Map<String, Double> geohashMap = com.google.common.collect.Maps.newHashMap();
+        geohashMap.put("dpdffnm", 0.0009D);
+        return geohashMap;
+    }
+
     public static Map<String, Double> buildExistedLocalInventoryMap(Product product) {
         if (product == null || ListUtil.isEmpty(product.getLocalInventoriesList())) {
             return Maps.newHashMap();

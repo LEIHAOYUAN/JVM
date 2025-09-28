@@ -13,17 +13,13 @@ import com.google.cloud.retail.v2.ImportProductsResponse;
 import com.google.cloud.retail.v2.Product;
 import com.google.cloud.retail.v2.ProductServiceClient;
 import com.google.cloud.retail.v2.UpdateProductRequest;
-import com.google.longrunning.Operation;
 import com.google.protobuf.Empty;
 import com.google.rpc.Status;
 import com.lei.jvm.google.retail.builder.ProductBuilder;
+import com.lei.jvm.google.retail.geohash.ProductConstant;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @see <a href="https://cloud.google.com/java/docs/reference/google-cloud-retail/latest/com.google.cloud.retail.v2.ProductServiceClient">...</a>
@@ -31,7 +27,6 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 public class ProductClient {
-    private static ExecutorService MONITOR_EXECUTOR = Executors.newFixedThreadPool(10);
 
     public static Product doGetByName(String name) {
         try {
@@ -39,6 +34,7 @@ public class ProductClient {
             GetProductRequest request = GetProductRequest.newBuilder().setName(name).build();
             return productServiceClient.getProduct(request);
         } catch (Exception ex) {
+            log.error("doGetByName_Exception={}", ex.getMessage(), ex);
             return null;
         }
     }
@@ -49,56 +45,12 @@ public class ProductClient {
             GetProductRequest request = ProductBuilder.buildGetRequest(productId);
             return productServiceClient.getProduct(request);
         } catch (Exception ex) {
+            log.error("doGetById_Exception={}", ex.getMessage(), ex);
             return null;
         }
     }
 
-    public static void doCreate(String productId) {
-        try {
-            CreateProductRequest request = ProductBuilder.buildCreateRequest(productId);
-            ProductServiceClient productServiceClient = ProductServiceClient.create();
-            productServiceClient.createProduct(request);
-        } catch (Exception ex) {
-            log.error("doCreate error={}", ex.getMessage(), ex);
-        }
-    }
-
-    public static void doUpdate(String productId) {
-        try {
-            UpdateProductRequest request = ProductBuilder.buildUpdateRequest(productId);
-            ProductServiceClient productServiceClient = ProductServiceClient.create();
-            productServiceClient.updateProduct(request);
-        } catch (Exception ex) {
-            log.error("doUpdate error={}", ex.getMessage(), ex);
-        }
-    }
-
-    public static void doDelete(String productId) {
-        try {
-            DeleteProductRequest request = ProductBuilder.buildDeleteRequest(productId);
-            ProductServiceClient productServiceClient = ProductServiceClient.create();
-            ApiFuture<Empty> future = productServiceClient.deleteProductCallable().futureCall(request);
-            future.addListener(() -> {
-                try {
-                    Empty empty = future.get(10, TimeUnit.MINUTES);
-                    if (Empty.getDefaultInstance().equals(empty)) {
-                        log.info("delete success");
-                    } else {
-                        log.error("delete failed----------productId={}", productId);
-                    }
-                } catch (Exception ex) {
-                    if (ex instanceof NotFoundException || ex.getCause() instanceof NotFoundException) {
-                        return;
-                    }
-                    log.error("delete exception：{}", ex.getMessage(), ex);
-                }
-            }, MONITOR_EXECUTOR);
-        } catch (Exception ex) {
-            log.error("doDelete error={}", ex.getMessage(), ex);
-        }
-    }
-
-    public static void doImportWithFuture(String productId) {
+    public static void doImport(String productId) {
         try {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             ImportProductsRequest request = ProductBuilder.buildImportProductRequest(productId);
@@ -110,37 +62,78 @@ public class ProductClient {
                         ImportProductsResponse importProductsResponse = future.get();
                         List<Status> errorSamplesList = importProductsResponse.getErrorSamplesList();
                         List<String> errorMsgs = errorSamplesList.stream().map(Status::getMessage).distinct().toList();
-                        log.error("错误详情={}", JSON.toJSON(errorMsgs));
+                        log.error("doImport_errorMsg={}", JSON.toJSON(errorMsgs));
                     }
-                    log.info("import end");
+                    log.info("doImport_end_productId={}", productId);
                 } catch (Exception ex) {
-                    log.error("import exception：{}", ex.getMessage(), ex);
+                    log.error("doImport_Exception:{}", ex.getMessage(), ex);
                 }
-            }, MONITOR_EXECUTOR);
+            }, ProductConstant.MONITOR_EXECUTOR);
         } catch (Exception ex) {
-            log.error("导入异常={}", ex.getMessage(), ex);
+            log.error("doImport_error={}", ex.getMessage(), ex);
         }
     }
 
-    public static void doImportWithCall(String productId) {
+    public static void doCreate(String productId) {
         try {
+            CreateProductRequest request = ProductBuilder.buildCreateRequest(productId);
             ProductServiceClient productServiceClient = ProductServiceClient.create();
-            ImportProductsRequest request = ProductBuilder.buildImportProductRequest(productId);
-            Operation call = productServiceClient.importProductsCallable().call(request);
-            try {
-                if (call.hasResponse()) {
-                    ImportProductsResponse unpack = call.getResponse().unpack(ImportProductsResponse.class);
-                    List<Status> errorSamplesList = unpack.getErrorSamplesList();
-                    if (CollectionUtils.isEmpty(errorSamplesList)) {
+            productServiceClient.createProduct(request);
+            ApiFuture<Product> future = productServiceClient.createProductCallable().futureCall(request);
+            future.addListener(() -> {
+                try {
+                    Product product = future.get(ProductConstant.DEFAULT_TIMEOUT_MINUTES, ProductConstant.DEFAULT_TIMEOUT_UNIT);
+                    log.info("doCreate_product_id:{}", product.getId());
+                } catch (Exception ex) {
+                    log.error("doCreate_Exception={}", ex.getMessage(), ex);
+                }
+            }, ProductConstant.MONITOR_EXECUTOR);
+        } catch (Exception ex) {
+            log.error("doCreate_error={}", ex.getMessage(), ex);
+        }
+    }
+
+    public static void doUpdate(String productId) {
+        try {
+            UpdateProductRequest request = ProductBuilder.buildUpdateRequest(productId);
+            ProductServiceClient productServiceClient = ProductServiceClient.create();
+            productServiceClient.updateProduct(request);
+            ApiFuture<Product> future = productServiceClient.updateProductCallable().futureCall(request);
+            future.addListener(() -> {
+                try {
+                    Product product = future.get(ProductConstant.DEFAULT_TIMEOUT_MINUTES, ProductConstant.DEFAULT_TIMEOUT_UNIT);
+                    log.info("doUpdate_product_id:{}", product.getId());
+                } catch (Exception ex) {
+                    log.error("doUpdate_Exception={}", ex.getMessage(), ex);
+                }
+            }, ProductConstant.MONITOR_EXECUTOR);
+        } catch (Exception ex) {
+            log.error("doUpdate_error={}", ex.getMessage(), ex);
+        }
+    }
+
+    public static void doDelete(String productId) {
+        try {
+            DeleteProductRequest request = ProductBuilder.buildDeleteRequest(productId);
+            ProductServiceClient productServiceClient = ProductServiceClient.create();
+            ApiFuture<Empty> future = productServiceClient.deleteProductCallable().futureCall(request);
+            future.addListener(() -> {
+                try {
+                    Empty empty = future.get(ProductConstant.DEFAULT_TIMEOUT_MINUTES, ProductConstant.DEFAULT_TIMEOUT_UNIT);
+                    if (Empty.getDefaultInstance().equals(empty)) {
+                        log.info("doDelete_product_id={}", productId);
+                    } else {
+                        log.error("doDelete_Failed_productId={}", productId);
+                    }
+                } catch (Exception ex) {
+                    if (ex instanceof NotFoundException || ex.getCause() instanceof NotFoundException) {
                         return;
                     }
+                    log.error("doDelete_Exception={}", ex.getMessage(), ex);
                 }
-                log.info("import end");
-            } catch (Exception ex) {
-                log.error("import exception：{}", ex.getMessage(), ex);
-            }
+            }, ProductConstant.MONITOR_EXECUTOR);
         } catch (Exception ex) {
-            log.error("导入异常={}", ex.getMessage(), ex);
+            log.error("doDelete_error={}", ex.getMessage(), ex);
         }
     }
 

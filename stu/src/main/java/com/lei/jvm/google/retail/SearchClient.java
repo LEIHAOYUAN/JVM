@@ -67,19 +67,19 @@ public class SearchClient {
             .setBoost(0.8f)
             .build();
         SearchRequest.BoostSpec.ConditionBoostSpec boostSpec1 = SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
-            .setCondition("(inventory(" + placeId + ",attributes.distance) >= 0 AND inventory(" + placeId + ",attributes.distance) <=3)")
+            .setCondition("(inventory(" + placeId + ",attributes.distance_in_miles) >= 0 AND inventory(" + placeId + ",attributes.distance_in_miles) <=3)")
             .setBoost(0.5f)
             .build();
         /*SearchRequest.BoostSpec.ConditionBoostSpec boostSpec2 = SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
-            .setCondition("(inventory(" + placeId + ",attributes.distance) > 3 AND inventory(" + placeId + ",attributes.distance) <=8)")
+            .setCondition("(inventory(" + placeId + ",attributes.distance_in_miles) > 3 AND inventory(" + placeId + ",attributes.distance_in_miles) <=8)")
             .setBoost(0.8f)
             .build();
         SearchRequest.BoostSpec.ConditionBoostSpec boostSpec3 = SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
-            .setCondition("(inventory(" + placeId + ",attributes.distance) > 8 AND inventory(" + placeId + ",attributes.distance) <=15)")
+            .setCondition("(inventory(" + placeId + ",attributes.distance_in_miles) > 8 AND inventory(" + placeId + ",attributes.distance_in_miles) <=15)")
             .setBoost(0.5f)
             .build();
         SearchRequest.BoostSpec.ConditionBoostSpec boostSpec4 = SearchRequest.BoostSpec.ConditionBoostSpec.newBuilder()
-            .setCondition("(inventory(" + placeId + ",attributes.distance) > 15)")
+            .setCondition("(inventory(" + placeId + ",attributes.distance_in_miles) > 15)")
             .setBoost(0.01f)
             .build();*/
         SearchRequest.BoostSpec boostSpec = SearchRequest.BoostSpec.newBuilder().addAllConditionBoostSpecs(List.of(boostSpec0, boostSpec1)).build();
