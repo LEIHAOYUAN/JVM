@@ -33,7 +33,8 @@ public class ProductClient {
         try {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             GetProductRequest request = GetProductRequest.newBuilder().setName(name).build();
-            return productServiceClient.getProduct(request);
+            Product product = productServiceClient.getProduct(request);
+            return product;
         } catch (Exception ex) {
             return null;
         }
@@ -43,7 +44,8 @@ public class ProductClient {
         try {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             GetProductRequest request = ProductBuilder.buildGetRequest(productId);
-            return productServiceClient.getProduct(request);
+            Product product = productServiceClient.getProduct(request);
+            return product;
         } catch (Exception ex) {
             return null;
         }

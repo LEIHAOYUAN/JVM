@@ -25,10 +25,10 @@ import java.util.concurrent.locks.LockSupport;
 @Slf4j
 public class GoogleSearchApp {
 
-    public static String productId = "test-20250928-0006";
+    public static String productId = "test-20250928-0007";
 
     public static void main(String[] args) {
-//        ProductClient.doGet(productId);
+//        ProductClient.doGetById(productId);
 //        ProductClient.doImportWithCall(productId);
 //        ProductClient.doImportWithOperation(productId);
 //        ProductClient.doCreate(productId);

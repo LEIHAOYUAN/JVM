@@ -72,7 +72,7 @@ public class SyncGeoHashService {
                 ProductGeoHashConvertor.DiffGeoHashRecord diffGeoHashRecord = new ProductGeoHashConvertor.DiffGeoHashRecord(Lists.newArrayList(), geoHashMap);
                 addLocalInventoryHandler(productId, diffGeoHashRecord);
                 total = total + geoHashMap.size();
-                if (total >= 15_0000) {
+                if (total >= 10_0000) {
                     log.info("同步完成-总数={}", total);
                     break;
                 }
