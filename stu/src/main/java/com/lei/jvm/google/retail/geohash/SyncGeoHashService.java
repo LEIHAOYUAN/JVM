@@ -1,6 +1,6 @@
 package com.lei.jvm.google.retail.geohash;
 
-import com.google.api.core.ApiFuture;
+import cn.hutool.core.date.StopWatch;
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.cloud.retail.v2.AddLocalInventoriesMetadata;
 import com.google.cloud.retail.v2.AddLocalInventoriesRequest;
@@ -13,12 +13,14 @@ import com.google.cloud.retail.v2.RemoveLocalInventoriesMetadata;
 import com.google.cloud.retail.v2.RemoveLocalInventoriesRequest;
 import com.google.cloud.retail.v2.RemoveLocalInventoriesResponse;
 import com.google.common.collect.Lists;
+import com.google.longrunning.Operation;
 import com.lei.jvm.google.retail.ProductClient;
 import com.lei.jvm.google.retail.build.CommonBuilder;
 import com.lei.jvm.google.retail.utils.ListUtil;
 import com.lei.jvm.google.retail.utils.MapUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Triple;
+import org.apache.logging.log4j.util.Strings;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -73,14 +75,18 @@ public class SyncGeoHashService {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             OperationFuture<RemoveLocalInventoriesResponse, RemoveLocalInventoriesMetadata> future = productServiceClient.removeLocalInventoriesAsync(request);
             future.addListener(() -> {
+                StopWatch stopWatch = StopWatch.create("RemoveLocalInventory-Monitor");
+                stopWatch.start();
                 try {
-                    String name = future.getName();
-                    RemoveLocalInventoriesMetadata metadata = future.getMetadata().get();
-                    log.info("测试===metadata");
-                    future.get(ProductConstant.DEFAULT_TIMEOUT_MINUTES, ProductConstant.DEFAULT_TIMEOUT_UNIT);
+                    Operation operation = productServiceClient.getOperationsClient().getOperation(future.getName());
+                    if (!operation.getDone() || !Strings.isBlank(operation.getError().getMessage())) {
+                        log.info("RemoveLocalInventory-失败");
+                    }
                 } catch (Exception ex) {
                     log.error("doRemoveLocalInventory_fail={}", ex.getMessage(), ex);
                 }
+                stopWatch.stop();
+                log.info("RemoveLocalInventor-总耗时=[{}]秒", stopWatch.getTotalTimeSeconds());
             }, ProductConstant.MONITOR_EXECUTOR);
         } catch (Exception ex) {
             log.error("doRemoveLocalInventory_error={}", ex.getMessage(), ex);
@@ -96,19 +102,28 @@ public class SyncGeoHashService {
             LocalInventory localInventory = LocalInventory.newBuilder().setPlaceId(entry.getKey()).putAttributes(ProductConstant.PRODUCT_LOCAL_INVENTORY_DISTANCE, CustomAttribute.newBuilder().addNumbers(entry.getValue()).build()).build();
             localInventories.add(localInventory);
         }
+
         try {
             AddLocalInventoriesRequest request = AddLocalInventoriesRequest.newBuilder().setProduct(CommonBuilder.buildProduct(productId))
                 .addAllLocalInventories(localInventories).setAddTime(CommonBuilder.buildUTCTimestamp()).setAllowMissing(true).build();
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             OperationFuture<AddLocalInventoriesResponse, AddLocalInventoriesMetadata> future = productServiceClient.addLocalInventoriesAsync(request);
             future.addListener(() -> {
+                StopWatch stopWatch = StopWatch.create("AddLocalInventory-Monitor");
+                stopWatch.start();
                 try {
-                    String name = future.getName();
-                    ApiFuture<AddLocalInventoriesMetadata> metadata = future.getMetadata();
-                    future.get(ProductConstant.DEFAULT_TIMEOUT_MINUTES, ProductConstant.DEFAULT_TIMEOUT_UNIT);
+                    Operation operation = productServiceClient.getOperationsClient().getOperation(future.getName());
+                    if (future.isDone()) {
+                        log.info("AddLocalInventory-done");
+                    }
+                    if (future.isCancelled()) {
+                        log.info("AddLocalInventory-canceled");
+                    }
                 } catch (Exception ex) {
                     log.error("doAddLocalInventory_fail={}", ex.getMessage(), ex);
                 }
+                stopWatch.stop();
+                log.info("AddLocalInventory-总耗时=[{}]秒", stopWatch.getTotalTimeSeconds());
             }, ProductConstant.MONITOR_EXECUTOR);
         } catch (Exception ex) {
             log.error("doAddLocalInventory_error={}", ex.getMessage(), ex);

@@ -21,10 +21,13 @@ public final class ProductGeoHashConvertor {
 
     public static Map<String, Double> buildSimpleGeoHashMap() {
         Map<String, Double> geohashMap = com.google.common.collect.Maps.newHashMap();
-        geohashMap.put("dpdffnm", 0.0000001D);
-        geohashMap.put("aaaaaaa", 0.0000002D);
-        geohashMap.put("bbbbbbb", 0.0000003D);
-        geohashMap.put("ccccccc", 0.0000004D);
+        geohashMap.put("dpdffnm", 1.0000001D);
+        //geohashMap.put("aaaaaaa", 2.0000002D);
+//        geohashMap.put("bbbbbbb", 3.0000003D);
+//        geohashMap.put("ccccccc", 4.0000004D);
+        geohashMap.put("ddddddd", 5.0000004D);
+        geohashMap.put("eeeeeee", 6.0000004D);
+        geohashMap.put("fffffff", 7.0000004D);
         return geohashMap;
     }
 
