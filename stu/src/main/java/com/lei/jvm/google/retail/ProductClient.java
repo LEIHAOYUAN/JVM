@@ -34,7 +34,6 @@ public class ProductClient {
             GetProductRequest request = GetProductRequest.newBuilder().setName(name).build();
             return productServiceClient.getProduct(request);
         } catch (Exception ex) {
-            log.error("doGetByName_Exception={}", ex.getMessage(), ex);
             return null;
         }
     }
@@ -45,7 +44,6 @@ public class ProductClient {
             GetProductRequest request = ProductBuilder.buildGetRequest(productId);
             return productServiceClient.getProduct(request);
         } catch (Exception ex) {
-            log.error("doGetById_Exception={}", ex.getMessage(), ex);
             return null;
         }
     }

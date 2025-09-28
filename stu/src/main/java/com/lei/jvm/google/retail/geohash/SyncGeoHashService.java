@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import com.lei.jvm.google.retail.ProductClient;
 import com.lei.jvm.google.retail.build.CommonBuilder;
 import com.lei.jvm.google.retail.utils.ListUtil;
+import com.lei.jvm.google.retail.utils.MapUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Triple;
 
@@ -48,56 +49,57 @@ public class SyncGeoHashService {
             if (product == null) {
                 ProductClient.doImport(productId);
             }
-            doSyncLocalInventoryHandler(product, ProductGeoHashConvertor.buildSimpleGeoHashMap());
+            Map<String, Double> existedMap = ProductGeoHashConvertor.buildExistedLocalInventoryMap(product);
+            ProductGeoHashConvertor.DiffGeoHashRecord diffGeoHashRecord = ProductGeoHashConvertor.calcLocalInventoryMap(existedMap, ProductGeoHashConvertor.buildSimpleGeoHashMap());
+            removeLocalInventoryHandler(productId, diffGeoHashRecord);
+            addLocalInventoryHandler(productId, diffGeoHashRecord);
         } catch (Exception ex) {
             log.error("异常={}", ex.getMessage(), ex);
         }
     }
 
-    private static void doSyncLocalInventoryHandler(Product product, Map<String, Double> geohashMap) {
-        if (product == null) {
-            throw new IllegalArgumentException("product is null");
+    private static void removeLocalInventoryHandler(String productId, ProductGeoHashConvertor.DiffGeoHashRecord diffGeoHashRecord) {
+        if (ListUtil.isEmpty(diffGeoHashRecord.removedPlaceIds())) {
+            return;
         }
         try {
+            RemoveLocalInventoriesRequest request = RemoveLocalInventoriesRequest.newBuilder()
+                .setProduct(CommonBuilder.buildProduct(productId))
+                .addAllPlaceIds(diffGeoHashRecord.removedPlaceIds())
+                .setRemoveTime(CommonBuilder.buildUTCTimestamp())
+                .setAllowMissing(true).build();
             ProductServiceClient productServiceClient = ProductServiceClient.create();
-
-            Map<String, Double> existedMap = ProductGeoHashConvertor.buildExistedLocalInventoryMap(product);
-            ProductGeoHashConvertor.DiffGeoHashRecord diffGeoHashRecord = ProductGeoHashConvertor.calcLocalInventoryMap(existedMap, geohashMap);
-            // remove local inventories
-            if (ListUtil.isNotEmpty(diffGeoHashRecord.removedPlaceIds())) {
-                RemoveLocalInventoriesRequest request = buildRemoveLocalInventoriesRequest(product.getId(), diffGeoHashRecord.removedPlaceIds());
-                OperationFuture<RemoveLocalInventoriesResponse, RemoveLocalInventoriesMetadata> future = productServiceClient.removeLocalInventoriesAsync(request);
-                future.addListener(() -> {
-                    try {
-                        future.get();
-                    } catch (Exception ex) {
-                        log.error("异常={}", ex.getMessage(), ex);
-                    }
-                }, ProductConstant.MONITOR_EXECUTOR);
-            }
-            // add local inventories
-            if (cn.hutool.core.map.MapUtil.isNotEmpty(diffGeoHashRecord.addGeoHashDistanceMap())) {
-                AddLocalInventoriesRequest request = buildAddLocalInventoriesRequest(product.getId(), diffGeoHashRecord.addGeoHashDistanceMap());
-                OperationFuture<AddLocalInventoriesResponse, AddLocalInventoriesMetadata> future = productServiceClient.addLocalInventoriesAsync(request);
-                future.addListener(() -> {
-                    try {
-                        future.get();
-                    } catch (Exception ex) {
-                        log.error("异常={}", ex.getMessage(), ex);
-                    }
-                }, ProductConstant.MONITOR_EXECUTOR);
-            }
+            OperationFuture<RemoveLocalInventoriesResponse, RemoveLocalInventoriesMetadata> future = productServiceClient.removeLocalInventoriesAsync(request);
+            future.addListener(() -> {
+                try {
+                    future.get(ProductConstant.DEFAULT_TIMEOUT_MINUTES, ProductConstant.DEFAULT_TIMEOUT_UNIT);
+                } catch (Exception ex) {
+                    log.error("doRemoveLocalInventory_fail={}", ex.getMessage(), ex);
+                }
+            }, ProductConstant.MONITOR_EXECUTOR);
         } catch (Exception ex) {
-            log.error("异常={}", ex.getMessage(), ex);
+            log.error("doRemoveLocalInventory_error={}", ex.getMessage(), ex);
         }
     }
 
-    private static RemoveLocalInventoriesRequest buildRemoveLocalInventoriesRequest(String productId, List<String> placeIds) {
-        return RemoveLocalInventoriesRequest.newBuilder()
-            .setProduct(CommonBuilder.buildProduct(productId))
-            .addAllPlaceIds(placeIds)
-            .setRemoveTime(CommonBuilder.buildUTCTimestamp())
-            .setAllowMissing(true).build();
+    private static void addLocalInventoryHandler(String productId, ProductGeoHashConvertor.DiffGeoHashRecord diffGeoHashRecord) {
+        if (MapUtil.isEmpty(diffGeoHashRecord.addGeoHashDistanceMap())) {
+            return;
+        }
+        try {
+            AddLocalInventoriesRequest request = buildAddLocalInventoriesRequest(productId, diffGeoHashRecord.addGeoHashDistanceMap());
+            ProductServiceClient productServiceClient = ProductServiceClient.create();
+            OperationFuture<AddLocalInventoriesResponse, AddLocalInventoriesMetadata> future = productServiceClient.addLocalInventoriesAsync(request);
+            future.addListener(() -> {
+                try {
+                    future.get(ProductConstant.DEFAULT_TIMEOUT_MINUTES, ProductConstant.DEFAULT_TIMEOUT_UNIT);
+                } catch (Exception ex) {
+                    log.error("doAddLocalInventory_fail={}", ex.getMessage(), ex);
+                }
+            }, ProductConstant.MONITOR_EXECUTOR);
+        } catch (Exception ex) {
+            log.error("doAddLocalInventory_error={}", ex.getMessage(), ex);
+        }
     }
 
     private static AddLocalInventoriesRequest buildAddLocalInventoriesRequest(String productId, Map<String, Double> geohashMap) {
