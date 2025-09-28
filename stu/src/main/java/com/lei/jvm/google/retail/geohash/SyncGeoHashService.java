@@ -1,5 +1,6 @@
 package com.lei.jvm.google.retail.geohash;
 
+import com.google.api.core.ApiFuture;
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.cloud.retail.v2.AddLocalInventoriesMetadata;
 import com.google.cloud.retail.v2.AddLocalInventoriesRequest;
@@ -50,7 +51,8 @@ public class SyncGeoHashService {
                 ProductClient.doImport(productId);
             }
             Map<String, Double> existedMap = ProductGeoHashConvertor.buildExistedLocalInventoryMap(product);
-            ProductGeoHashConvertor.DiffGeoHashRecord diffGeoHashRecord = ProductGeoHashConvertor.calcLocalInventoryMap(existedMap, ProductGeoHashConvertor.buildSimpleGeoHashMap());
+            Map<String, Double> newMap = ProductGeoHashConvertor.buildSimpleGeoHashMap();
+            ProductGeoHashConvertor.DiffGeoHashRecord diffGeoHashRecord = ProductGeoHashConvertor.calcLocalInventoryMap(existedMap, newMap);
             removeLocalInventoryHandler(productId, diffGeoHashRecord);
             addLocalInventoryHandler(productId, diffGeoHashRecord);
         } catch (Exception ex) {
@@ -72,6 +74,9 @@ public class SyncGeoHashService {
             OperationFuture<RemoveLocalInventoriesResponse, RemoveLocalInventoriesMetadata> future = productServiceClient.removeLocalInventoriesAsync(request);
             future.addListener(() -> {
                 try {
+                    String name = future.getName();
+                    RemoveLocalInventoriesMetadata metadata = future.getMetadata().get();
+                    log.info("测试===metadata");
                     future.get(ProductConstant.DEFAULT_TIMEOUT_MINUTES, ProductConstant.DEFAULT_TIMEOUT_UNIT);
                 } catch (Exception ex) {
                     log.error("doRemoveLocalInventory_fail={}", ex.getMessage(), ex);
@@ -86,12 +91,20 @@ public class SyncGeoHashService {
         if (MapUtil.isEmpty(diffGeoHashRecord.addGeoHashDistanceMap())) {
             return;
         }
+        List<LocalInventory> localInventories = Lists.newArrayList();
+        for (Map.Entry<String, Double> entry : diffGeoHashRecord.addGeoHashDistanceMap().entrySet()) {
+            LocalInventory localInventory = LocalInventory.newBuilder().setPlaceId(entry.getKey()).putAttributes(ProductConstant.PRODUCT_LOCAL_INVENTORY_DISTANCE, CustomAttribute.newBuilder().addNumbers(entry.getValue()).build()).build();
+            localInventories.add(localInventory);
+        }
         try {
-            AddLocalInventoriesRequest request = buildAddLocalInventoriesRequest(productId, diffGeoHashRecord.addGeoHashDistanceMap());
+            AddLocalInventoriesRequest request = AddLocalInventoriesRequest.newBuilder().setProduct(CommonBuilder.buildProduct(productId))
+                .addAllLocalInventories(localInventories).setAddTime(CommonBuilder.buildUTCTimestamp()).setAllowMissing(true).build();
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             OperationFuture<AddLocalInventoriesResponse, AddLocalInventoriesMetadata> future = productServiceClient.addLocalInventoriesAsync(request);
             future.addListener(() -> {
                 try {
+                    String name = future.getName();
+                    ApiFuture<AddLocalInventoriesMetadata> metadata = future.getMetadata();
                     future.get(ProductConstant.DEFAULT_TIMEOUT_MINUTES, ProductConstant.DEFAULT_TIMEOUT_UNIT);
                 } catch (Exception ex) {
                     log.error("doAddLocalInventory_fail={}", ex.getMessage(), ex);
@@ -100,22 +113,6 @@ public class SyncGeoHashService {
         } catch (Exception ex) {
             log.error("doAddLocalInventory_error={}", ex.getMessage(), ex);
         }
-    }
-
-    private static AddLocalInventoriesRequest buildAddLocalInventoriesRequest(String productId, Map<String, Double> geohashMap) {
-        List<LocalInventory> localInventories = Lists.newArrayList();
-        if (geohashMap != null && !geohashMap.isEmpty()) {
-            for (Map.Entry<String, Double> entry : geohashMap.entrySet()) {
-                LocalInventory localInventory = LocalInventory.newBuilder()
-                    .setPlaceId(entry.getKey())
-                    .putAttributes(ProductConstant.PRODUCT_LOCAL_INVENTORY_DISTANCE, CustomAttribute.newBuilder().addNumbers(entry.getValue()).build()).build();
-                localInventories.add(localInventory);
-            }
-        }
-        return AddLocalInventoriesRequest.newBuilder().setProduct(CommonBuilder.buildProduct(productId))
-            .addAllLocalInventories(localInventories)
-            .setAddTime(CommonBuilder.buildUTCTimestamp()).setAllowMissing(true)
-            .build();
     }
 
     private static String parseBrandCategory(Product product) {
