@@ -25,7 +25,7 @@ import java.util.concurrent.locks.LockSupport;
 @Slf4j
 public class GoogleSearchApp {
 
-    public static String productId = "test-20250928-0007";
+    public static String productId = "test-20250928-0008";
 
     public static void main(String[] args) {
 //        ProductClient.doGetById(productId);
