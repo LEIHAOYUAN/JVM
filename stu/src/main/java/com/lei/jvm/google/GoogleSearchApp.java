@@ -1,6 +1,8 @@
 package com.lei.jvm.google;
 
 import cn.hutool.core.date.StopWatch;
+import com.google.api.gax.rpc.FailedPreconditionException;
+import com.google.api.gax.rpc.UnknownException;
 import com.google.cloud.retail.v2.Product;
 import com.lei.jvm.google.retail.ProductClient;
 import com.lei.jvm.google.retail.SearchClient;
@@ -9,6 +11,7 @@ import com.lei.jvm.google.retail.geohash.SyncGeoHashService;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.LockSupport;
 
 /**
@@ -44,6 +47,22 @@ public class GoogleSearchApp {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean isNotifyException(Exception ex) {
+        if (ex == null) {
+            return false;
+        }
+        if (ex instanceof UnknownException || ex.getCause() instanceof UnknownException) {
+            return false;
+        }
+        if (ex instanceof TimeoutException || ex.getCause() instanceof TimeoutException) {
+            return false;
+        }
+        if (ex instanceof FailedPreconditionException || ex.getCause() instanceof FailedPreconditionException) {
+            return false;
+        }
+        return true;
     }
 
 
