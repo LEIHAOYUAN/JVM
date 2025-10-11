@@ -31,7 +31,7 @@ public class GoogleSearchApp {
 
     public static void main(String[] args) {
 //        ProductClient.doGetById(productId);
-        ProductClient.doImportWithOperation(productId);
+//        ProductClient.doImportWithOperation(productId);
 //        ProductClient.doCreate(productId);
 //        ProductClient.doUpdate(productId);
 //        ProductClient.doDelete(productId);
@@ -41,6 +41,7 @@ public class GoogleSearchApp {
 //        SearchClient.doSearchWithPage();
 //        testSearchDelay();
 //        PurgeClient.doPurge();
+        ProductClient.doCheckOperation("projects/208513401313/locations/global/catalogs/default_catalog/branches/0/operations/add-local-inventories-6886959645317252593");
         try {
             Thread.sleep(8000000);
         } catch (InterruptedException e) {

@@ -19,6 +19,7 @@ import com.google.rpc.Status;
 import com.lei.jvm.google.retail.builder.ProductBuilder;
 import com.lei.jvm.google.retail.geohash.ProductConstant;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 
 import java.util.List;
 
@@ -98,6 +99,25 @@ public class ProductClient {
             }, ProductConstant.MONITOR_EXECUTOR);
         } catch (Exception ex) {
             log.error("doImport_error={}", ex.getMessage(), ex);
+        }
+    }
+
+    public static void doCheckOperation(String operationName) {
+        try {
+            Operation operation = ProductServiceClient.create().getOperationsClient().getOperation(operationName);
+            if (operation == null) {
+                log.error("operation is null");
+                return;
+            }
+            if (operation.hasError() && !Strings.isBlank(operation.getError().getMessage())) {
+                log.error("operation has error, message={}", operation.getError().getMessage());
+                return;
+            }
+            if (operation.getDone()) {
+                log.info("operation is done");
+            }
+        } catch (Exception ex) {
+            log.error("doCheckOperation_Exception={}", ex.getMessage(), ex);
         }
     }
 
