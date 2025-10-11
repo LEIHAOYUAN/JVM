@@ -5,7 +5,6 @@ import com.google.api.gax.rpc.FailedPreconditionException;
 import com.google.api.gax.rpc.UnknownException;
 import com.google.cloud.retail.v2.Product;
 import com.lei.jvm.google.retail.ProductClient;
-import com.lei.jvm.google.retail.PurgeClient;
 import com.lei.jvm.google.retail.SearchClient;
 import com.lei.jvm.google.retail.build.CommonBuilder;
 import lombok.extern.slf4j.Slf4j;
@@ -28,12 +27,11 @@ import java.util.concurrent.locks.LockSupport;
 @Slf4j
 public class GoogleSearchApp {
 
-    public static String productId = "test-20250928-0008";
+    public static String productId = "test202510110000001";
 
     public static void main(String[] args) {
 //        ProductClient.doGetById(productId);
-//        ProductClient.doImportWithCall(productId);
-//        ProductClient.doImportWithOperation(productId);
+        ProductClient.doImportWithOperation(productId);
 //        ProductClient.doCreate(productId);
 //        ProductClient.doUpdate(productId);
 //        ProductClient.doDelete(productId);
@@ -42,7 +40,7 @@ public class GoogleSearchApp {
 
 //        SearchClient.doSearchWithPage();
 //        testSearchDelay();
-        PurgeClient.doPurge();
+//        PurgeClient.doPurge();
         try {
             Thread.sleep(8000000);
         } catch (InterruptedException e) {
