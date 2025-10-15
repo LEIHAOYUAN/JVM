@@ -12,7 +12,7 @@ import java.util.List;
  * @Description 可变参数传参测试
  */
 @Slf4j
-public class App {
+public class ArgsApp {
 
     public static void main(String[] args) {
         Object param = null;

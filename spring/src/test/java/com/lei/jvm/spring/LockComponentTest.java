@@ -3,14 +3,13 @@ package com.lei.jvm.spring;
 
 import com.lei.jvm.spring.config.LockComponent;
 import com.lei.jvm.spring.utils.ThreadPoolUtil;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import javax.annotation.Resource;
 
 /**
  * 加锁测试

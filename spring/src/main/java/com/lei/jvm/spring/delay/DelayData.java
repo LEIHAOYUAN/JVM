@@ -1,7 +1,7 @@
 package com.lei.jvm.spring.delay;
 
+import groovyjarjarantlr4.v4.runtime.misc.NotNull;
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;

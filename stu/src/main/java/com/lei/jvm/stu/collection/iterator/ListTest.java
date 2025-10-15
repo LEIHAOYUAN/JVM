@@ -23,7 +23,14 @@ public class ListTest {
 
     public static void main(String[] args) {
 //        testSplitJoin();
-        testIN();
+        testGroupV2();
+    }
+
+    public static void testGroupV2() {
+        List<String> param1 = Lists.newArrayList("A");
+        Map<Boolean, List<String>> groupMap = param1.stream().collect(Collectors.partitioningBy(i -> i.equals("A")));
+        log.info("A分组结果={}", groupMap.get(Boolean.TRUE).size());
+        log.info("非A分组结果={}", groupMap.get(Boolean.FALSE).size());
     }
 
     private static void testIN() {

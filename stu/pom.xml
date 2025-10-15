@@ -61,11 +61,11 @@
             <artifactId>javax.el</artifactId>
         </dependency>
 
-        <!-- guava -->
+<!--        &lt;!&ndash; guava &ndash;&gt;
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -194,6 +194,32 @@
             <artifactId>disruptor</artifactId>
         </dependency>
 
+        <!-- JTS+geohash -->
+            <!-- JTS Core -->
+            <dependency>
+                <groupId>org.locationtech.jts</groupId>
+                <artifactId>jts-core</artifactId>
+                <version>1.20.0</version>
+            </dependency>
+            <!-- geohash-java -->
+            <dependency>
+                <groupId>ch.hsr</groupId>
+                <artifactId>geohash</artifactId>
+                <version>1.4.0</version>
+            </dependency>
+        <!-- JTS+geohash -->
+
+        <!-- google-cloud -->
+        <dependency>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-retail</artifactId>
+        </dependency>
+        <!-- twilio -->
+        <dependency>
+            <groupId>com.twilio.sdk</groupId>
+            <artifactId>twilio</artifactId>
+            <version>11.0.0-rc.1</version>
+        </dependency>
 
     </dependencies>
 

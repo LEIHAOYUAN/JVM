@@ -1,5 +1,6 @@
 package com.lei.jvm.stu.string;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -12,52 +13,53 @@ import lombok.extern.slf4j.Slf4j;
 public class StringTest {
 
     public static void main(String[] args) {
-        testConcat();
+        SplitAddressLineHelper splitAddressLineHelper = new SplitAddressLineHelper("2030 Broadway,New York,NY,10023", "Unit1-401");
+        log.info("结果={}", JSON.toJSON(splitAddressLineHelper));
     }
 
-    private static void testConcat(){
+    private static void testConcat() {
         String param = null;
         log.info("-".concat(param));
     }
 
 
-    private static void testContians(){
+    private static void testContians() {
         String param = "2,3,4,6,7,8,10,11,12,13";
-        log.info("测试包含：{}",param.contains("1"));
+        log.info("测试包含：{}", param.contains("1"));
     }
 
     private static void testSplit() {
         String param = "TEST,e  ,erfef,eef,tt,fs  ,,99,,测试  ";
         String[] split = param.split(",");
-        log.info("切分数组长度：{}",split.length);
+        log.info("切分数组长度：{}", split.length);
         for (String s : split) {
             log.info("切割后结果：{}", s.length());
         }
     }
 
-    private static void testSplitLastIndex(){
+    private static void testSplitLastIndex() {
         StringBuilder builder = new StringBuilder("1,3,6,9,");
 
         int index = builder.lastIndexOf(",");
-        if(index == builder.length()-1){
+        if (index == builder.length() - 1) {
             builder.deleteCharAt(index);
         }
-        log.info("处理结果：{}",builder.toString());
+        log.info("处理结果：{}", builder.toString());
 
     }
 
-    private static void testReplace(){
+    private static void testReplace() {
         String param = "TEST,e  ,erfef,eef,tt,fs  ,T,99,,测试  ";
         String replace = param.replace("T", "它");
-        log.info("替换前：{}",param);
-        log.info("替换后：{}",replace);
+        log.info("替换前：{}", param);
+        log.info("替换后：{}", replace);
 
     }
 
-    private static void testSubstring(){
+    private static void testSubstring() {
         String param = "TEC20210506";
-        log.info("字符串截取结果一：{}",param.substring("TEC".length()));
-        log.info("字符串截取结果二：{}",param.substring("TEC".length(),4));
+        log.info("字符串截取结果一：{}", param.substring("TEC".length()));
+        log.info("字符串截取结果二：{}", param.substring("TEC".length(), 4));
     }
 
 

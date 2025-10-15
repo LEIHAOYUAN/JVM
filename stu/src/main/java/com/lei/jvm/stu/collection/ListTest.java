@@ -9,8 +9,18 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @Description
@@ -22,14 +32,38 @@ public class ListTest {
 
     public static void main(String[] args) {
 //        testComplexSort();
-        testRemove();
+//        testRemove();
+//        markElements(Lists.newArrayList("A", "B", "C"), Lists.newArrayList("B", "C", "D"));
+        List<String> strings = limitStrings(Lists.newArrayList("1", "2", "3"), 100);
+        log.info("result={}", JSON.toJSONString(strings));
+    }
+
+    public static Map<String, Integer> markElements(List<String> A, List<String> B) {
+        // 创建两个不可修改的集合视图（避免修改原始数据）
+        final Set<String> setA = Collections.unmodifiableSet(new HashSet<>(A));
+        final Set<String> setB = Collections.unmodifiableSet(new HashSet<>(B));
+
+        // 使用 Stream 处理所有元素
+        Map<String, Integer> markMap = Stream.concat(A.stream(), B.stream())
+            .distinct() // 去重（避免重复处理相同元素）
+            .collect(Collectors.toMap(
+                element -> element,            // 元素作为键
+                element -> {                   // Lambda 计算状态值
+                    boolean inA = setA.contains(element);
+                    boolean inB = setB.contains(element);
+                    return (inA && inB) ? 3 : (inA ? 1 : 2);
+                },
+                (existing, replacement) -> existing // 合并函数（不会执行）
+            ));
+        log.info("标记结果={}", JSON.toJSONString(markMap));
+        return markMap;
     }
 
 
-    private static void testRemove(){
-        List<String> param = Lists.newArrayList("A","A","B","C");
+    private static void testRemove() {
+        List<String> param = Lists.newArrayList("A", "A", "B", "C");
         param.remove("C");
-        log.info("去除后结果={}",JSON.toJSONString(param));
+        log.info("去除后结果={}", JSON.toJSONString(param));
     }
 
     private static void testComplexSort() {
@@ -42,7 +76,7 @@ public class ListTest {
         allPath.add(buildList("A", "C", "E", "F"));
         allPath.add(buildList("A", "C", "E"));
         Collections.sort(allPath, (o1, o2) -> o1.size() > o2.size() ? 1 : -1);
-        log.info("排序结果={}",JSON.toJSONString(allPath));
+        log.info("排序结果={}", JSON.toJSONString(allPath));
     }
 
     private static List<String> buildList(String... args) {
@@ -97,6 +131,9 @@ public class ListTest {
 
     }
 
+    private static List<String> limitStrings(List<String> values, int limit) {
+        return values.stream().filter(StringUtils::isNotBlank).limit(limit).collect(Collectors.toList());
+    }
 
     private static void testSplit() {
         List<Long> param = Lists.newArrayList();
@@ -158,15 +195,15 @@ public class ListTest {
 
     private static void testMultiFieldSort() {
         List<Student> listStu = Lists.newArrayList();
-        listStu.add(new Student(1,"AAA"));
-        listStu.add(new Student(6,"DDD"));
-        listStu.add(new Student(3,"AAA"));
-        listStu.add(new Student(2,"AAA"));
-        listStu.add(new Student(5,"CCC"));
-        listStu.add(new Student(4,"BBB"));
+        listStu.add(new Student(1, "AAA"));
+        listStu.add(new Student(6, "DDD"));
+        listStu.add(new Student(3, "AAA"));
+        listStu.add(new Student(2, "AAA"));
+        listStu.add(new Student(5, "CCC"));
+        listStu.add(new Student(4, "BBB"));
 
         listStu = listStu.stream().sorted(Comparator.comparing(Student::getId).thenComparing(Student::getName)).collect(Collectors.toList());
-        log.info("排序结果={}",JSON.toJSONString(listStu));
+        log.info("排序结果={}", JSON.toJSONString(listStu));
     }
 
     private static void testDistinct() {
@@ -203,7 +240,7 @@ public class ListTest {
         listStu.add(new Student(10));
         listStu.add(new Student(11));
         listStu.add(new Student(12));
-        Map<Integer, String> idMap = listStu.stream().filter(i-> StringUtils.isNotBlank(i.getName())).collect(Collectors.toMap(Student::getId, Student::getName));
+        Map<Integer, String> idMap = listStu.stream().filter(i -> StringUtils.isNotBlank(i.getName())).collect(Collectors.toMap(Student::getId, Student::getName));
         System.out.println(JSON.toJSONString(idMap));
     }
 

@@ -26,13 +26,18 @@ public class Student {
 
     private List<Student> items;
 
-    public Student(String code,int num){
+    public Student(String code, String name) {
+        this.code = code;
+        this.name = name;
+    }
+
+    public Student(String code, int num) {
         this.code = code;
         this.name = code;
         this.num = num;
     }
 
-    public Student(String name,String age,BigDecimal score){
+    public Student(String name, String age, BigDecimal score) {
         this.name = name;
         this.age = age;
         this.score = score;

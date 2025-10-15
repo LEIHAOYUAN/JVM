@@ -1,0 +1,287 @@
+package com.lei.jvm.google.retail.utils;
+
+
+import ch.hsr.geohash.GeoHash;
+import com.alibaba.fastjson.JSON;
+import lombok.extern.slf4j.Slf4j;
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Envelope;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LinearRing;
+import org.locationtech.jts.geom.Polygon;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * 多边形转Geohash列表工具类
+ */
+@Slf4j
+public class PolygonToGeoHashUtil {
+
+    private static final GeometryFactory GEOMETRY_FACTORY = new GeometryFactory();
+    // 默认Geohash精度
+    private static final int DEFAULT_PRECISION = 7;
+
+    public static void main(String[] args) {
+        List<PolygonPoint> polygonPoints = buildData();
+        List<String> result = polygonToGeoHashList(polygonPoints, DEFAULT_PRECISION, true);
+        log.info("转换结果={}", JSON.toJSONString(result));
+    }
+
+    /**
+     * 将多边形的经纬度坐标转换为Geohash字符串列表
+     *
+     * @param points    多边形顶点列表（经纬度）
+     * @param precision Geohash编码长度（通常为7~12）
+     * @param inner     是否只包含内部点（true=内部；false=包括边界）
+     * @return Geohash字符串列表
+     */
+    public static List<String> polygonToGeoHashList(List<PolygonPoint> points, int precision, boolean inner) {
+        if (points == null || points.size() < 3) {
+            throw new IllegalArgumentException("The polygon needs at least three vertices!");
+        }
+        Coordinate[] coords = points.stream()
+                .map(p -> new Coordinate(p.longitude, p.latitude))
+                .toArray(Coordinate[]::new);
+        // 闭合多边形
+        coords[coords.length - 1] = coords[0];
+        LinearRing ring = GEOMETRY_FACTORY.createLinearRing(coords);
+        Polygon polygon = GEOMETRY_FACTORY.createPolygon(ring, null);
+        return polygonToGeoHashes(polygon, precision, inner);
+    }
+
+    private static List<String> polygonToGeoHashes(Polygon polygon, int precision, boolean inner) {
+        Set<String> geoHashSet = new HashSet<>();
+        Envelope envelope = polygon.getEnvelopeInternal();
+        double latMin = envelope.getMinY();
+        double latMax = envelope.getMaxY();
+        double lonMin = envelope.getMinX();
+        double lonMax = envelope.getMaxX();
+
+        double resolution = matchResolutionForPrecision(precision);
+        // 二分法造成计算时间复杂度过长
+        // double latStep = (latMax - latMin) / Math.pow(2, precision * 2);
+        // double lonStep = (lonMax - lonMin) / Math.pow(2, precision * 2);
+
+        for (double lat = latMin; lat <= latMax; lat += resolution) {
+            for (double lon = lonMin; lon <= lonMax; lon += resolution) {
+                Coordinate coordinate = new Coordinate(lon, lat);
+                // polygon contains可以考虑使用STRtree进行优化
+                if (inner || polygon.contains(GEOMETRY_FACTORY.createPoint(coordinate))) {
+                    String geohash = GeoHash.withCharacterPrecision(lat, lon, precision).toBase32();
+                    geoHashSet.add(geohash);
+                }
+            }
+        }
+        return new ArrayList<>(geoHashSet);
+    }
+
+    // 根据Geohash精度返回对应的经纬度步长（经验值）
+    private static double matchResolutionForPrecision(int precision) {
+        switch (precision) {
+            case 1:
+                return 2.0;
+            case 2:
+                return 0.6;
+            case 3:
+                return 0.02;
+            case 4:
+                return 0.005;
+            case 5:
+                return 0.001;
+            case 6:
+                return 0.0003;
+            case 7:
+                return 0.0001;
+            case 8:
+                return 0.00003;
+            case 9:
+                return 0.000006;
+            case 10:
+                return 0.000001;
+            default:
+                return 0.0001; // 默认为 precision=7
+        }
+    }
+
+
+/*    private static List<String> getCoveringGeoHashes(Polygon polygon, int precision) {
+        Set<String> geoHashSet = new HashSet<>();
+        // 由于geohash生成逻辑复杂，具体实现可以参考现有库或根据需要编写
+        List<Coordinate> coordinates = List.of(polygon.getCoordinates());
+        for (Coordinate coordinate : coordinates) {
+            String geohash = GeoHash.withCharacterPrecision(coordinate.y, coordinate.x, precision).toBase32();
+            if (inner || polygon.contains(GEOMETRY_FACTORY.createPoint(coordinate))) {
+                geoHashSet.add(geohash);
+            }
+        }
+        return new ArrayList<>(geoHashSet);
+    }*/
+
+    private static List<PolygonPoint> buildData() {
+        List<PolygonPoint> points = new ArrayList<>();
+        // 添加三个顶点构成一个三角形
+        points.add(new PolygonPoint(40.804595947265625, -73.99360656738281));
+        points.add(new PolygonPoint(40.79498291015625, -73.99223327636719));
+        points.add(new PolygonPoint(40.792236328125, -74.00047302246094));
+        return points;
+    }
+
+    private static List<PolygonPoint> buildAllData() {
+        double[][] coordinates = {
+                {-73.99360656738281, 40.804595947265625},
+                {-73.99223327636719, 40.79498291015625},
+                {-73.99223327636719, 40.792236328125},
+                {-74.00047302246094, 40.78125},
+                {-74.00253295898438, 40.78056335449219},
+                {-74.00321960449219, 40.77850341796875},
+                {-74.00802612304688, 40.77507019042969},
+                {-74.0093994140625, 40.77095031738281},
+                {-74.01626586914062, 40.76271057128906},
+                {-74.01695251464844, 40.757904052734375},
+                {-74.02107238769531, 40.75653076171875},
+                {-74.02107238769531, 40.749664306640625},
+                {-74.02107238769531, 40.7427978515625},
+                {-74.02450561523438, 40.73799133300781},
+                {-74.02519226074219, 40.733184814453125},
+                {-74.02725219726562, 40.73249816894531},
+                {-74.02450561523438, 40.72837829589844},
+                {-74.02999877929688, 40.71739196777344},
+                {-74.03205871582031, 40.711212158203125},
+                {-74.03343200683594, 40.704345703125},
+                {-74.04373168945312, 40.70365905761719},
+                {-74.04579162597656, 40.700225830078125},
+                {-74.05265808105469, 40.69610595703125},
+                {-74.05471801757812, 40.69267272949219},
+                {-74.05540466308594, 40.69061279296875},
+                {-74.06021118164062, 40.69129943847656},
+                {-74.06570434570312, 40.69404602050781},
+                {-74.06845092773438, 40.69404602050781},
+                {-74.07463073730469, 40.69610595703125},
+                {-74.07806396484375, 40.69404602050781},
+                {-74.07875061035156, 40.69061279296875},
+                {-74.08355712890625, 40.68992614746094},
+                {-74.0863037109375, 40.68855285644531},
+                {-74.08561706542969, 40.693359375},
+                {-74.08699035644531, 40.6988525390625},
+                {-74.08287048339844, 40.704345703125},
+                {-74.0863037109375, 40.70503234863281},
+                {-74.08561706542969, 40.70709228515625},
+                {-74.08218383789062, 40.70915222167969},
+                {-74.08493041992188, 40.71327209472656},
+                {-74.08287048339844, 40.71807861328125},
+                {-74.08493041992188, 40.71876525878906},
+                {-74.08424377441406, 40.7208251953125},
+                {-74.091796875, 40.71601867675781},
+                {-74.09042358398438, 40.71327209472656},
+                {-74.09317016601562, 40.71327209472656},
+                {-74.09454345703125, 40.71327209472656},
+                {-74.09523010253906, 40.71533203125},
+                {-74.0972900390625, 40.71601867675781},
+                {-74.09797668457031, 40.7208251953125},
+                {-74.10072326660156, 40.726318359375},
+                {-74.102783203125, 40.72563171386719},
+                {-74.10346984863281, 40.7208251953125},
+                {-74.1082763671875, 40.72288513183594},
+                {-74.11102294921875, 40.72288513183594},
+                {-74.11720275878906, 40.719451904296875},
+                {-74.12063598632812, 40.72151184082031},
+                {-74.11788940429688, 40.72563171386719},
+                {-74.1192626953125, 40.72975158691406},
+                {-74.11857604980469, 40.733184814453125},
+                {-74.11651611328125, 40.73387145996094},
+                {-74.11720275878906, 40.7373046875},
+                {-74.11582946777344, 40.74554443359375},
+                {-74.12200927734375, 40.74760437011719},
+                {-74.12132263183594, 40.752410888671875},
+                {-74.11651611328125, 40.75172424316406},
+                {-74.11376953125, 40.75172424316406},
+                {-74.11102294921875, 40.75309753417969},
+                {-74.12132263183594, 40.760650634765625},
+                {-74.12612915039062, 40.76271057128906},
+                {-74.12681579589844, 40.7647705078125},
+                {-74.12887573242188, 40.76545715332031},
+                {-74.12818908691406, 40.770263671875},
+                {-74.12544250488281, 40.771636962890625},
+                {-74.12406921386719, 40.768890380859375},
+                {-74.11788940429688, 40.76683044433594},
+                {-74.11720275878906, 40.7647705078125},
+                {-74.10346984863281, 40.7537841796875},
+                {-74.09934997558594, 40.755157470703125},
+                {-74.0972900390625, 40.75447082519531},
+                {-74.09591674804688, 40.75035095214844},
+                {-74.09385681152344, 40.746917724609375},
+                {-74.08767700195312, 40.74623107910156},
+                {-74.08493041992188, 40.74485778808594},
+                {-74.07806396484375, 40.74485778808594},
+                {-74.07669067382812, 40.74485778808594},
+                {-74.07600402832031, 40.749664306640625},
+                {-74.07188415527344, 40.75103759765625},
+                {-74.06776428222656, 40.749664306640625},
+                {-74.06776428222656, 40.755157470703125},
+                {-74.07051086425781, 40.76202392578125},
+                {-74.07257080078125, 40.76133728027344},
+                {-74.07325744628906, 40.75927734375},
+                {-74.07463073730469, 40.76202392578125},
+                {-74.078063964843, 40.76133728027344},
+                {-74.07875061035156, 40.75927734375},
+                {-74.08493041992188, 40.76271057128906},
+                {-74.08424377441406, 40.7647705078125},
+                {-74.08218383789062, 40.76408386230469},
+                {-74.08355712890625, 40.76820373535156},
+                {-74.08287048339844, 40.770263671875},
+                {-74.08493041992188, 40.77369689941406},
+                {-74.080810546875, 40.77644348144531},
+                {-74.08355712890625, 40.78193664550781},
+                {-74.080810546875, 40.78193664550781},
+                {-74.0753173828125, 40.78193664550781},
+                {-74.07325744628906, 40.785369873046875},
+                {-74.07188415527344, 40.782623291015625},
+                {-74.06913757324219, 40.78399658203125},
+                {-74.06776428222656, 40.78125},
+                {-74.06570434570312, 40.78193664550781},
+                {-74.06639099121094, 40.785369873046875},
+                {-74.06845092773438, 40.78605651855469},
+                {-74.0643310546875, 40.78605651855469},
+                {-74.05952453613281, 40.78399658203125},
+                {-74.05746459960938, 40.78742980957031},
+                {-74.05815124511719, 40.790863037109375},
+                {-74.04853820800781, 40.7867431640625},
+                {-74.04716491699219, 40.78948974609375},
+                {-74.04373168945312, 40.79017639160156},
+                {-74.04579162597656, 40.785369873046875},
+                {-74.03892517089844, 40.788116455078125},
+                {-74.03755187988281, 40.790863037109375},
+                {-74.03274536132812, 40.79017639160156},
+                {-74.02931213378906, 40.79498291015625},
+                {-74.02450561523438, 40.79841613769531},
+                {-74.02381896972656, 40.80047607421875},
+                {-74.02175903320312, 40.79978942871094},
+                {-74.02587890625, 40.79292297363281},
+                {-74.02519226074219, 40.7867431640625},
+                {-74.02381896972656, 40.78948974609375},
+                {-74.01969909667969, 40.7867431640625},
+                {-74.01626586914062, 40.78605651855469},
+                {-74.01557922363281, 40.78948974609375},
+                {-74.0093994140625, 40.79017639160156},
+                {-74.00665283203125, 40.79017639160156},
+                {-74.00184631347656, 40.796356201171875},
+                {-73.99978637695312, 40.79566955566406},
+                {-73.99909973144531, 40.7977294921875},
+                {-73.99703979492188, 40.79841613769531},
+                {-73.99360656738281, 40.804595947265625}
+        };
+        // Convert to List<PolygonPoint>
+        List<PolygonPoint> polygonPointList = new ArrayList<>();
+        for (double[] coordinate : coordinates) {
+            // latitude, longitude
+            polygonPointList.add(new PolygonPoint(coordinate[1], coordinate[0]));
+        }
+        return polygonPointList;
+    }
+
+
+}
