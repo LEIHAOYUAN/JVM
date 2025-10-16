@@ -32,7 +32,13 @@ public class JSONParseUtil {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        invalidValue();
+        // invalidValue();
+        testTrim();
+    }
+
+    public static void testTrim() {
+        String long_description = " \n\n";
+        System.out.println(long_description.trim());
     }
 
     public static void invalidValue() {
@@ -63,7 +69,7 @@ public class JSONParseUtil {
                     }
                 }
             } else {
-                if (entry.getValue() != null && String.valueOf(entry.getValue()).contains("\u00A0")) {
+                if (entry.getValue() != null && String.valueOf(entry.getValue()).startsWith("\u00A0")) {
                     System.out.println("invalid【key】" + entry.getKey() + "【value】" + entry.getValue());
                     break;
                 }
