@@ -35,6 +35,7 @@ public class JSONParseUtil {
     public static void main(String[] args) {
         // invalidValue();
         testTrim();
+        log.info("test......");
     }
 
     public static void testTrim() {

@@ -59,6 +59,7 @@
         <hessian.version>4.0.66</hessian.version>
 
         <bouncycastle.version>1.70</bouncycastle.version>
+        <logback.version>1.5.19</logback.version>
     </properties>
 
     <dependencyManagement>
@@ -121,6 +122,13 @@
                 <artifactId>validation-api</artifactId>
                 <version>${javax.validation.version}</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <!--logback-->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
             </dependency>
 
             <dependency>
