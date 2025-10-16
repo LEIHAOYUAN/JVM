@@ -31,7 +31,7 @@ public class GoogleSearchApp {
 
     public static void main(String[] args) {
 //        ProductClient.doGetById(productId);
-//        ProductClient.doImportWithOperation(productId);
+        ProductClient.doImportWithOperation(productId);
 //        ProductClient.doCreate(productId);
 //        ProductClient.doUpdate(productId);
 //        ProductClient.doDelete(productId);
