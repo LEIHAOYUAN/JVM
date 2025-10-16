@@ -32,13 +32,14 @@ public class StringTest {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        testReplaceEnd();
+//        testReplaceEnd();
 //        testEscape();
 //        testReplace();
+        System.out.println(("转换u00A0=[" + String.valueOf("\u00A0") + "]"));
     }
 
-    private static void testReplaceEnd(){
-        log.info("测试结果={}",StringUtils.removeEnd("直属下属创建","创建"));
+    private static void testReplaceEnd() {
+        log.info("测试结果={}", StringUtils.removeEnd("直属下属创建", "创建"));
     }
 
     public static void pickupByPath() {
@@ -155,9 +156,9 @@ public class StringTest {
         String oldPath = "A/B/C";
         StringBuilder sqlBuilder = new StringBuilder();
         sqlBuilder.append("UPDATE ").append("t_base_person ")
-                .append("SET ").append("path ").append("=")
-                .append(" concat(?, substring(path, ?)) ")
-                .append("WHERE ").append("path ").append("LIKE ").append(oldPath).append("%");
+            .append("SET ").append("path ").append("=")
+            .append(" concat(?, substring(path, ?)) ")
+            .append("WHERE ").append("path ").append("LIKE ").append(oldPath).append("%");
 
 
         List<Object> args = Lists.newArrayList();
