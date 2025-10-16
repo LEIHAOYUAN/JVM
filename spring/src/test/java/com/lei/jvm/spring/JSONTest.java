@@ -16,8 +16,11 @@ import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,8 +38,32 @@ public class JSONTest {
 
     @Test
     public void testArrayJson() {
-        String jsonString = JSON.toJSONString(Lists.newArrayList());
-        log.info("JSON格式={}", jsonString.getBytes(StandardCharsets.UTF_8));
+        String json = loadJson("import-restaurant.json");
+        traverseMap(JSON.parseObject(json, Map.class));
+    }
+
+    public void traverseMap(Map<String, Object> map) {
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            Object value = entry.getValue();
+            if (value instanceof Map) {
+                traverseMap((Map<String, Object>) value);
+            } else if (value instanceof List) {
+                List<?> list = (List<?>) value;
+                for (Object item : list) {
+                    if (item instanceof Map) {
+                        traverseMap((Map<String, Object>) item);
+                    } else {
+                        // 处理普通 List 元素
+                        System.out.println(entry.getKey() + ": " + item);
+                    }
+                }
+            } else {
+                if (entry.getValue() != null && String.valueOf(entry.getValue()).contains("\u00A0")) {
+                    System.out.println("invalid key={}" + entry.getKey() + ": " + entry.getValue());
+                    break;
+                }
+            }
+        }
     }
 
     @Test
@@ -110,28 +137,28 @@ public class JSONTest {
     @Test
     public void testParseMap() {
         String param = "{\n" +
-                "    \"query\": \"getList\",\n" +
-                "    \"variables\": {\n" +
-                "        \"filters\": [\n" +
-                "            \"filter1\",\n" +
-                "            \"filter2\"\n" +
-                "        ],\n" +
-                "        \"valids\": [\n" +
-                "            {\n" +
-                "                \"userId\": \"XXX\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"orderNo\": \"XXX\",\n" +
-                "                \"orderType\": 1\n" +
-                "            }\n" +
-                "        ],\n" +
-                "        \"page\": 1,\n" +
-                "        \"pageSize\": 10\n" +
-                "    },\n" +
-                "    \"extra\": {\n" +
-                "        \"viewId\": \"63a11d5b73d9d425311bf1d6\"\n" +
-                "    }\n" +
-                "}";
+            "    \"query\": \"getList\",\n" +
+            "    \"variables\": {\n" +
+            "        \"filters\": [\n" +
+            "            \"filter1\",\n" +
+            "            \"filter2\"\n" +
+            "        ],\n" +
+            "        \"valids\": [\n" +
+            "            {\n" +
+            "                \"userId\": \"XXX\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"orderNo\": \"XXX\",\n" +
+            "                \"orderType\": 1\n" +
+            "            }\n" +
+            "        ],\n" +
+            "        \"page\": 1,\n" +
+            "        \"pageSize\": 10\n" +
+            "    },\n" +
+            "    \"extra\": {\n" +
+            "        \"viewId\": \"63a11d5b73d9d425311bf1d6\"\n" +
+            "    }\n" +
+            "}";
         Map map = JSON.parseObject(param, Map.class);
         log.info("转换结果={}", map);
     }
@@ -160,28 +187,28 @@ public class JSONTest {
     @Test
     public void testParseJson() {
         String param = "{\n" +
-                "    \"query\": \"getList\",\n" +
-                "    \"variables\": {\n" +
-                "        \"filters\": [\n" +
-                "            \"filter1\",\n" +
-                "            \"filter2\"\n" +
-                "        ],\n" +
-                "        \"valids\": [\n" +
-                "            {\n" +
-                "                \"userId\": \"XXX\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"orderNo\": \"XXX\",\n" +
-                "                \"orderType\": 1\n" +
-                "            }\n" +
-                "        ],\n" +
-                "        \"page\": 1,\n" +
-                "        \"pageSize\": 10\n" +
-                "    },\n" +
-                "    \"extra\": {\n" +
-                "        \"viewId\": \"63a11d5b73d9d425311bf1d6\"\n" +
-                "    }\n" +
-                "}";
+            "    \"query\": \"getList\",\n" +
+            "    \"variables\": {\n" +
+            "        \"filters\": [\n" +
+            "            \"filter1\",\n" +
+            "            \"filter2\"\n" +
+            "        ],\n" +
+            "        \"valids\": [\n" +
+            "            {\n" +
+            "                \"userId\": \"XXX\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"orderNo\": \"XXX\",\n" +
+            "                \"orderType\": 1\n" +
+            "            }\n" +
+            "        ],\n" +
+            "        \"page\": 1,\n" +
+            "        \"pageSize\": 10\n" +
+            "    },\n" +
+            "    \"extra\": {\n" +
+            "        \"viewId\": \"63a11d5b73d9d425311bf1d6\"\n" +
+            "    }\n" +
+            "}";
 
         String formatTag = "query.viewId";
         JSONObject jsonObject = JSON.parseObject(param);
@@ -229,5 +256,14 @@ public class JSONTest {
         return chain;
     }
 
+    private String loadJson(String fileName) {
+        String file = "C:\\工作文档\\BaiduSyncdisk\\google\\data\\" + fileName;
+        try (InputStream is = Files.newInputStream(Path.of(file))) {
+            return new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (Exception ex) {
+            log.error("load file error={}", ex.getMessage(), ex);
+            return null;
+        }
+    }
 
 }
