@@ -9,14 +9,19 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
- *  职能描述：解析JSON工具包
- *  @author leihaoyuan
- *  @version 2023/1/11 17:38
+ * 职能描述：解析JSON工具包
+ *
+ * @author leihaoyuan
+ * @version 2023/1/11 17:38
  */
 @Slf4j
 @UtilityClass
@@ -27,36 +32,12 @@ public class JSONParseUtil {
     private static final String ESCAPE_POINT = "\\.";
 
     public static void main(String[] args) {
-        String param1 = "{\n" +
-                "  \"args\": {}, \n" +
-                "  \"data\": \"{\\\"data\\\":{\\\"name\\\":\\\"\\u5f20\\u4e09\\\"}}\", \n" +
-                "  \"files\": {}, \n" +
-                "  \"form\": {}, \n" +
-                "  \"headers\": {\n" +
-                "    \"Accept-Encoding\": \"gzip,deflate\", \n" +
-                "    \"Connection\": \"close\", \n" +
-                "    \"Content-Encoding\": \"UTF-8\", \n" +
-                "    \"Content-Length\": \"26\", \n" +
-                "    \"Content-Type\": \"application/json\", \n" +
-                "    \"Host\": \"echo.apifox.com\", \n" +
-                "    \"Remoteip\": \"47.96.90.90\", \n" +
-                "    \"User-Agent\": \"Apache-HttpClient/4.5.14 (Java/1.8.0_152)\"\n" +
-                "  }, \n" +
-                "  \"json\": {\n" +
-                "    \"data\": {\n" +
-                "      \"name\": \"u5f20\4e09\"\n" +
-                "    }\n" +
-                "  }, \n" +
-                "  \"method\": \"POST\", \n" +
-                "  \"origin\": \"117.28.133.31, 47.96.90.90\", \n" +
-                "  \"url\": \"https://echo.apifox.com/anything\"\n" +
-                "}";
+        invalidValue();
+    }
 
-        String param2 = "{\n" +
-                "\"name\": \"张三\"\n" +
-                "}";
-        log.info("校验1={}", validJSON(param1));
-        log.info("校验2={}", validJSON(param2));
+    public static void invalidValue() {
+        String json = loadJson("import-restaurant.json");
+        traverseMap(JSON.parseObject(json, Map.class));
     }
 
     public static boolean validJSON(String json) {
@@ -65,6 +46,39 @@ public class JSONParseUtil {
         }
         JSONValidator validator = JSONValidator.from(json);
         return validator.validate();
+    }
+
+    public static void traverseMap(Map<String, Object> map) {
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            Object value = entry.getValue();
+            if (value instanceof Map) {
+                traverseMap((Map<String, Object>) value);
+            } else if (value instanceof List) {
+                List<?> list = (List<?>) value;
+                for (Object item : list) {
+                    if (item instanceof Map) {
+                        traverseMap((Map<String, Object>) item);
+                    } else {
+                        // 处理普通 List 元素
+                    }
+                }
+            } else {
+                if (entry.getValue() != null && String.valueOf(entry.getValue()).contains("\u00A0")) {
+                    System.out.println("invalid【key】" + entry.getKey() + "【value】" + entry.getValue());
+                    break;
+                }
+            }
+        }
+    }
+
+    private static String loadJson(String fileName) {
+        String file = "C:\\工作文档\\BaiduSyncdisk\\google\\data\\" + fileName;
+        try (InputStream is = Files.newInputStream(Path.of(file))) {
+            return new String(is.readAllBytes(), StandardCharsets.UTF_8);
+        } catch (Exception ex) {
+            log.error("load file error={}", ex.getMessage(), ex);
+            return null;
+        }
     }
 
 
