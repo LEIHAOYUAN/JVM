@@ -1,5 +1,6 @@
 package com.lei.jvm.utils.base.utils.json;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -38,7 +39,9 @@ public class JSONParseUtil {
 
     public static void testTrim() {
         String long_description = " \n\n";
-        System.out.println(long_description.trim());
+        System.out.println(long_description.isBlank());
+        System.out.println(StrUtil.trim(long_description).isBlank());
+        System.out.println(StrUtil.isBlank(long_description));
     }
 
     public static void invalidValue() {
