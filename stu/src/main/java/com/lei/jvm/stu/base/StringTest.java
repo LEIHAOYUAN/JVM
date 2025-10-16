@@ -35,7 +35,10 @@ public class StringTest {
 //        testReplaceEnd();
 //        testEscape();
 //        testReplace();
-        System.out.println(("转换u00A0=[" + String.valueOf("\u00A0") + "]"));
+        String param = String.valueOf("\u00A0");
+
+        System.out.println(("转换-u00A0=[" + param + "]"));
+        System.out.println(("trim-u00A0=[" + param.trim() + "]"));
     }
 
     private static void testReplaceEnd() {
