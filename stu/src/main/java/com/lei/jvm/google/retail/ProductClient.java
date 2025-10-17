@@ -57,7 +57,7 @@ public class ProductClient {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             List<ImportProductsRequest> requests;
             if (hasItem) {
-                requests = ProductBuilder.buildMoreImportProductRequest(productId, 5000);
+                requests = ProductBuilder.buildMoreImportProductRequest(productId, 10000);
             } else {
                 requests = ProductBuilder.buildMoreImportProductRequest(productId, 0);
             }
