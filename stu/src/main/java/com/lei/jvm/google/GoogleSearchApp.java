@@ -27,11 +27,11 @@ import java.util.concurrent.locks.LockSupport;
 @Slf4j
 public class GoogleSearchApp {
 
-    public static String productId = "test202510170000008";
+    public static String productId = "test2025101700000111";
 
     public static void main(String[] args) {
 //        ProductClient.doGetById(productId);
-        ProductClient.doImportWithMetadata(productId, true);
+        ProductClient.doImportWithMetadata(productId, false);
 //        ProductClient.doCreate(productId);
 //        ProductClient.doUpdate(productId);
 //        ProductClient.doDelete(productId);

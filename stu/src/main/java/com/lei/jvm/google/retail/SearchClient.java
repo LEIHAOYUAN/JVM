@@ -90,7 +90,7 @@ public class SearchClient {
                 .setBranch(CommonBuilder.buildBranch())
                 .setVisitorId("test-a")
                 .setBoostSpec(boostSpec)
-                .setFilter("id: ANY(\"64a5b668-0189-41bd-bd58-425e193fea0e\",\"b6d7c40c-a2a7-4afd-918f-1f633303fa6a\",\"0b3701b3-f70a-4286-ab6d-c38cc52a4317\",\"2dcc2eef-36aa-45db-abad-24cca7b884fb\",\"27ea83fd-a584-44d7-8f42-9f2d6db053ef\")")
+                .setFilter("id: ANY(\"08e5beb8-85af-4903-932e-cd909d40725c\",\"b6d7c40c-a2a7-4afd-918f-1f633303fa6a\",\"0b3701b3-f70a-4286-ab6d-c38cc52a4317\",\"2dcc2eef-36aa-45db-abad-24cca7b884fb\",\"27ea83fd-a584-44d7-8f42-9f2d6db053ef\")")
                 .setPageSize(120);
             while (true) {
                 ApiFuture<SearchPagedResponse> responseFuture = searchServiceClient.searchPagedCallable().futureCall(pageBuilder.build());
