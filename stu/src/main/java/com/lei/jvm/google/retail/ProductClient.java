@@ -57,9 +57,9 @@ public class ProductClient {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             List<ImportProductsRequest> requests;
             if (hasItem) {
-                requests = ProductBuilder.buildMoreImportProductRequest(productId, 1);
+                requests = ProductBuilder.buildMoreImportProductRequest(productId, 5000);
             } else {
-                requests = ProductBuilder.buildMoreImportProductRequest(productId, -1);
+                requests = ProductBuilder.buildMoreImportProductRequest(productId, 0);
             }
             for (ImportProductsRequest request : requests) {
                 OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(request);
