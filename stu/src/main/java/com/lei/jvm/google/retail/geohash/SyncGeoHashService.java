@@ -51,7 +51,7 @@ public class SyncGeoHashService {
         try {
             Product product = ProductClient.doGetById(productId);
             if (product == null) {
-                ProductClient.doImportWithMetadata(productId);
+                ProductClient.doImportWithMetadata(productId, false);
             }
             Map<String, Double> existedMap = ProductGeoHashConvertor.buildExistedLocalInventoryMap(product);
             Map<String, Double> newMap = ProductGeoHashConvertor.buildSimpleGeoHashMap();
@@ -65,7 +65,7 @@ public class SyncGeoHashService {
 
     public static void doSyncLocalInventoryLimit(String productId) {
         try {
-            ProductClient.doImportWithMetadata(productId);
+            ProductClient.doImportWithMetadata(productId, false);
             long total = 0;
             while (true) {
                 Map<String, Double> geoHashMap = GeoHashMapGenerator.generateUniqueMap();

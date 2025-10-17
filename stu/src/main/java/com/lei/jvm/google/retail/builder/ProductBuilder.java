@@ -35,7 +35,7 @@ public class ProductBuilder {
         if (StringUtils.isBlank(productId)) {
             productId = PRODUCT_ID;
         }
-        Product product = buildProduct(productId);
+        Product product = buildPrimaryProduct(productId);
         return CreateProductRequest.newBuilder()
             .setParent(CommonBuilder.buildBranch())
             .setProduct(product)
@@ -48,7 +48,7 @@ public class ProductBuilder {
             productId = PRODUCT_ID;
         }
         return UpdateProductRequest.newBuilder()
-            .setProduct(buildProduct(productId))
+            .setProduct(buildPrimaryProduct(productId))
             .setUpdateMask(FieldMask.newBuilder().build())
             .build();
     }
@@ -62,12 +62,17 @@ public class ProductBuilder {
             .build();
     }
 
-    public static ImportProductsRequest buildImportProductRequest(String productId) {
-        if (StringUtils.isBlank(productId)) {
-            productId = PRODUCT_ID;
+    public static List<ImportProductsRequest> buildMoreImportProductRequest(String productId, int itemCount) {
+        List<Product> products = buildMoreProduct(productId, itemCount);
+        List<ImportProductsRequest> requests = Lists.newArrayList();
+        for (List<Product> batch : Lists.partition(products, 100)) {
+            requests.add(doBuildImportRequest(batch));
         }
-        List<Product> products = Lists.newArrayList(buildProduct(productId));
-        ImportProductsRequest request = ImportProductsRequest.newBuilder()
+        return requests;
+    }
+
+    private static ImportProductsRequest doBuildImportRequest(List<Product> products) {
+        return ImportProductsRequest.newBuilder()
             .setParent(CommonBuilder.buildBranch())
             .setInputConfig(ProductInputConfig.newBuilder()
                 .setProductInlineSource(ProductInlineSource.newBuilder().addAllProducts(products).build())
@@ -82,54 +87,44 @@ public class ProductBuilder {
             // .setReconciliationMode(ImportProductsRequest.ReconciliationMode.FULL)
             //.setNotificationPubsubTopic("notificationPubsubTopic-1361224991")
             .build();
-        return request;
     }
 
-    private static List<Product> buildIllegalProduct() {
-        String product1 = "fdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdasfdasfdas001";
-        String product2 = "fdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdafdsafdsafdsafdsafsdafdsafdsafdsafdsafdsafdsafdsafdasfdsafdasfdasfdas002";
-        List<Product> productList = Lists.newArrayList(buildProduct(product1), buildProduct(product2));
-        return productList;
-    }
-
-    private static List<Product> buildMoreProduct() {
+    private static List<Product> buildMoreProduct(String productId, int itemCount) {
         List<Product> productList = Lists.newArrayList();
-        for (int i = 0; i < 1; i++) {
-            productList.add(buildProduct("test-local-import-product-" + i));
+        Product primaryProduct = buildPrimaryProduct(productId);
+        productList.add(primaryProduct);
+        if (itemCount > 0) {
+            for (int i = 0; i < itemCount; i++) {
+                productList.add(buildVariantProduct(productId + "-" + i, productId));
+            }
         }
         return productList;
     }
 
-    private static Product buildProduct(String productId) {
+    private static Product buildPrimaryProduct(String productId) {
+        return doBuildProduct(productId, productId, Type.PRIMARY);
+    }
+
+    private static Product buildVariantProduct(String productId, String primaryProductId) {
+        return doBuildProduct(productId, primaryProductId, Type.VARIANT);
+    }
+
+    private static Product doBuildProduct(String productId, String primaryProductId, Type type) {
         if (StringUtils.isBlank(productId)) {
             productId = PRODUCT_ID;
         }
-
-        String textValue = """
-            66666666
-            """;
-        List<String> collectionMemberIds = Lists.newArrayList("a");
         return Product.newBuilder().setId(productId)
-            .setTitle(CommonBuilder.TITLE_PREFIX + productId)
+            .setPrimaryProductId(primaryProductId)
             .setName(CommonBuilder.buildProduct(productId))
-            .addAllCollectionMemberIds(collectionMemberIds)
+            .setTitle(CommonBuilder.TITLE_PREFIX + productId)
+            //.addAllCollectionMemberIds(collectionMemberIds)
             .addAllCategories(CommonBuilder.buildCatagoryList())
             .addBrands("custmerBrands")
-            .setType(Type.COLLECTION)
+            .setType(type)
             //.addAllLocalInventories(buildLocalInventories())
-            .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList(textValue)).build())
+            .putAttributes("test", CustomAttribute.newBuilder().addAllText(Lists.newArrayList("66666666")).build())
             .setAvailability(Product.Availability.IN_STOCK)
             .setDescription("test000000000000")
-            .build();
-    }
-
-    private static Product buildProductItems() {
-        return Product.newBuilder().setId(PRODUCT_ID + "-1")
-            .setTitle(PRODUCT_ID + "-1")
-            .addAllCategories(CommonBuilder.buildCatagoryList())
-            .addBrands("custmerBrands").setType(Type.PRIMARY)
-            // .addAllLocalInventories(buildLocalInventories())
-            //.setDescription("test12345789")
             .build();
     }
 

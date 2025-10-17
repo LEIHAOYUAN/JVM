@@ -52,51 +52,32 @@ public class ProductClient {
         }
     }
 
-    public static void doImportWithOperation(String productId) {
+    public static void doImportWithMetadata(String productId, boolean hasItem) {
         try {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
-            ImportProductsRequest request = ProductBuilder.buildImportProductRequest(productId);
-            OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(request);
-            future.addListener(() -> {
-                try {
-                    Operation operation = productServiceClient.getOperationsClient().getOperation(future.getName());
-
-                    ImportMetadata metadata = future.getMetadata().get();
-                    if (metadata != null && metadata.getFailureCount() > 0) {
-                        ImportProductsResponse importProductsResponse = future.get();
-                        List<Status> errorSamplesList = importProductsResponse.getErrorSamplesList();
-                        List<String> errorMsgs = errorSamplesList.stream().map(Status::getMessage).distinct().toList();
-                        log.error("doImport_errorMsg={}", JSON.toJSON(errorMsgs));
+            List<ImportProductsRequest> requests;
+            if (hasItem) {
+                requests = ProductBuilder.buildMoreImportProductRequest(productId, 1);
+            } else {
+                requests = ProductBuilder.buildMoreImportProductRequest(productId, -1);
+            }
+            for (ImportProductsRequest request : requests) {
+                OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(request);
+                future.addListener(() -> {
+                    try {
+                        ImportMetadata metadata = future.getMetadata().get();
+                        if (metadata != null && metadata.getFailureCount() > 0) {
+                            ImportProductsResponse importProductsResponse = future.get();
+                            List<Status> errorSamplesList = importProductsResponse.getErrorSamplesList();
+                            List<String> errorMsgs = errorSamplesList.stream().map(Status::getMessage).distinct().toList();
+                            log.error("doImport_errorMsg={}", JSON.toJSON(errorMsgs));
+                        }
+                        log.info("doImport_end_productId={}", productId);
+                    } catch (Exception ex) {
+                        log.error("doImport_Exception:{}", ex.getMessage(), ex);
                     }
-                    log.info("doImport_end_productId={}", productId);
-                } catch (Exception ex) {
-                    log.error("doImport_Exception:{}", ex.getMessage(), ex);
-                }
-            }, ProductConstant.MONITOR_EXECUTOR);
-        } catch (Exception ex) {
-            log.error("doImport_error={}", ex.getMessage(), ex);
-        }
-    }
-
-    public static void doImportWithMetadata(String productId) {
-        try {
-            ProductServiceClient productServiceClient = ProductServiceClient.create();
-            ImportProductsRequest request = ProductBuilder.buildImportProductRequest(productId);
-            OperationFuture<ImportProductsResponse, ImportMetadata> future = productServiceClient.importProductsAsync(request);
-            future.addListener(() -> {
-                try {
-                    ImportMetadata metadata = future.getMetadata().get();
-                    if (metadata != null && metadata.getFailureCount() > 0) {
-                        ImportProductsResponse importProductsResponse = future.get();
-                        List<Status> errorSamplesList = importProductsResponse.getErrorSamplesList();
-                        List<String> errorMsgs = errorSamplesList.stream().map(Status::getMessage).distinct().toList();
-                        log.error("doImport_errorMsg={}", JSON.toJSON(errorMsgs));
-                    }
-                    log.info("doImport_end_productId={}", productId);
-                } catch (Exception ex) {
-                    log.error("doImport_Exception:{}", ex.getMessage(), ex);
-                }
-            }, ProductConstant.MONITOR_EXECUTOR);
+                }, ProductConstant.MONITOR_EXECUTOR);
+            }
         } catch (Exception ex) {
             log.error("doImport_error={}", ex.getMessage(), ex);
         }
