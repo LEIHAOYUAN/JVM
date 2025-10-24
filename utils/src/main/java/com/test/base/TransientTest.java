@@ -1,4 +1,4 @@
-package com.lei.jvm.stu.base;
+package com.test.base;
 
 import com.alibaba.fastjson.JSON;
 import lombok.Data;

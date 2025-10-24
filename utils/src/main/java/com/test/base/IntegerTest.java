@@ -1,8 +1,9 @@
-package com.lei.jvm.stu.base;
+package com.test.base;
 
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * @Author leihaoyuan
@@ -18,10 +19,11 @@ public class IntegerTest {
     }
 
     private static void testRetry() {
-        AtomicInteger failedRetryCount = new AtomicInteger(0);
+        AtomicInteger failedRetryCount = new AtomicInteger(3);
         int retryCount = 0;
         do {
             log.info("执行次数={}", ++retryCount);
+            LockSupport.parkNanos(50000);
         } while (failedRetryCount.getAndDecrement() > 0);
     }
 

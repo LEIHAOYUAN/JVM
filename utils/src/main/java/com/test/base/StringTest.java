@@ -1,4 +1,4 @@
-package com.lei.jvm.stu.base;
+package com.test.base;
 
 import cn.hutool.core.lang.Validator;
 import cn.hutool.core.util.ReUtil;
