@@ -2,6 +2,8 @@ package com.lei.jvm.stu.base;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * @Author leihaoyuan
  * @Date 2021/6/16 10:06
@@ -12,7 +14,15 @@ import lombok.extern.slf4j.Slf4j;
 public class IntegerTest {
 
     public static void main(String[] args) {
+        testRetry();
+    }
 
+    private static void testRetry() {
+        AtomicInteger failedRetryCount = new AtomicInteger(0);
+        int retryCount = 0;
+        do {
+            log.info("执行次数={}", ++retryCount);
+        } while (failedRetryCount.getAndDecrement() > 0);
     }
 
     /**
