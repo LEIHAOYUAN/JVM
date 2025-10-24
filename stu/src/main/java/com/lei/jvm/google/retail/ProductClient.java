@@ -19,7 +19,7 @@ import com.google.rpc.Status;
 import com.lei.jvm.google.retail.builder.ProductBuilder;
 import com.lei.jvm.google.retail.geohash.ProductConstant;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.logging.log4j.util.Strings;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -90,7 +90,7 @@ public class ProductClient {
                 log.error("operation is null");
                 return;
             }
-            if (operation.hasError() && !Strings.isBlank(operation.getError().getMessage())) {
+            if (operation.hasError() && StringUtils.isNotBlank(operation.getError().getMessage())) {
                 log.error("operation has error, message={}", operation.getError().getMessage());
                 return;
             }

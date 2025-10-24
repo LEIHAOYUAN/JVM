@@ -1,5 +1,6 @@
 package com.lei.jvm.utils.base.utils.http;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.google.common.collect.Maps;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -13,7 +14,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.net.URI;
@@ -26,14 +26,14 @@ public class ApacheHttpClientUtil {
     public static void main(String[] args) {
         String url = "http://baidu.com";
         Map<String, String> headerParam = Maps.newHashMap();
-        headerParam.put("Cookie","XXX");
+        headerParam.put("Cookie", "XXX");
 //        headerParam.put("Content-Type","application/x-www-form-urlencoded; charset=UTF-8");
         Map<String, String> param = Maps.newHashMap();
-        param.put("page","1");
-        param.put("rows","1");
-        param.put("createdTimeBegin","2020-04-20");
-        param.put("createdTimeEnd","2020-04-27");
-        String result = doPostWithHeader(url,headerParam,param);
+        param.put("page", "1");
+        param.put("rows", "1");
+        param.put("createdTimeBegin", "2020-04-20");
+        param.put("createdTimeEnd", "2020-04-27");
+        String result = doPostWithHeader(url, headerParam, param);
         System.out.println(result);
 
     }
@@ -48,7 +48,7 @@ public class ApacheHttpClientUtil {
             URIBuilder builder = new URIBuilder(url);
             if (param != null) {
                 for (String key : param.keySet()) {
-                    builder.addParameter(key,param.get(key));
+                    builder.addParameter(key, param.get(key));
                 }
             }
             URI uri = builder.build();
@@ -113,7 +113,7 @@ public class ApacheHttpClientUtil {
         return resultString;
     }
 
-    public static String doPostWithHeader(String url, Map<String,String> headerMap,Map<String, String> param) {
+    public static String doPostWithHeader(String url, Map<String, String> headerMap, Map<String, String> param) {
         // 创建 Httpclient 对象
         CloseableHttpClient httpClient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
@@ -121,9 +121,9 @@ public class ApacheHttpClientUtil {
         try {
             // 创建 Http Post 请求
             HttpPost httpPost = new HttpPost(url);
-            if(!CollectionUtils.isEmpty(headerMap)){
+            if (CollectionUtil.isNotEmpty(headerMap)) {
                 for (Map.Entry<String, String> header : headerMap.entrySet()) {
-                    httpPost.addHeader(header.getKey(),header.getValue());
+                    httpPost.addHeader(header.getKey(), header.getValue());
                 }
             }
             // 创建参数列表

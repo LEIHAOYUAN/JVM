@@ -6,15 +6,21 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 /**
- *  职能描述：JSON解析工具类
- *  @author leihaoyuan
- *  @version 2023/1/11 16:55
- *  https://www.cnblogs.com/ssskkk/p/16168164.html#_label1
+ * 职能描述：JSON解析工具类
+ *
+ * @author leihaoyuan
+ * @version 2023/1/11 16:55
+ * https://www.cnblogs.com/ssskkk/p/16168164.html#_label1
  */
 @Slf4j
 @UtilityClass
@@ -22,28 +28,28 @@ public class JSONUtils {
 
     public static void main(String[] args) {
         String param = "{\n" +
-                "    \"query\": \"getList\",\n" +
-                "    \"variables\": {\n" +
-                "        \"filters\": [\n" +
-                "            \"filter1\",\n" +
-                "            \"filter2\"\n" +
-                "        ],\n" +
-                "        \"valids\": [\n" +
-                "            {\n" +
-                "                \"userId\": \"XXX\"\n" +
-                "            },\n" +
-                "            {\n" +
-                "                \"orderNo\": \"XXX\",\n" +
-                "                \"orderType\": 1\n" +
-                "            }\n" +
-                "        ],\n" +
-                "        \"page\": 1,\n" +
-                "        \"pageSize\": 10\n" +
-                "    },\n" +
-                "    \"extra\": {\n" +
-                "        \"viewId\": \"63a11d5b73d9d425311bf1d6\"\n" +
-                "    }\n" +
-                "}";
+            "    \"query\": \"getList\",\n" +
+            "    \"variables\": {\n" +
+            "        \"filters\": [\n" +
+            "            \"filter1\",\n" +
+            "            \"filter2\"\n" +
+            "        ],\n" +
+            "        \"valids\": [\n" +
+            "            {\n" +
+            "                \"userId\": \"XXX\"\n" +
+            "            },\n" +
+            "            {\n" +
+            "                \"orderNo\": \"XXX\",\n" +
+            "                \"orderType\": 1\n" +
+            "            }\n" +
+            "        ],\n" +
+            "        \"page\": 1,\n" +
+            "        \"pageSize\": 10\n" +
+            "    },\n" +
+            "    \"extra\": {\n" +
+            "        \"viewId\": \"63a11d5b73d9d425311bf1d6\"\n" +
+            "    }\n" +
+            "}";
         JSONObject jsonObject = JSON.parseObject(param);
         Map<String, String> result = Maps.newHashMap();
         Map<String, String> stringStringMap = analysisJson2ALL(jsonObject, result, "");
@@ -52,11 +58,12 @@ public class JSONUtils {
 
     /**
      * 获取指定key对应value值
-     * @param content json对象
+     *
+     * @param content      json对象
      * @param conditionKey 要查找的key
-     * @param result 输出map
+     * @param result       输出map
      */
-    public static void  parsingJson(JSONObject content, List<String> conditionKey , Map<String, Object> result) {
+    public static void parsingJson(JSONObject content, List<String> conditionKey, Map<String, Object> result) {
 
         Set<String> keySet = content.keySet();
 
@@ -69,22 +76,22 @@ public class JSONUtils {
                     JSONObject jsonObject = (JSONObject) contentKey;
                     //判断是否存在key
                     Integer keyValue = jsonObject.getInteger(conkey);
-                    if(Objects.nonNull(keyValue)){
+                    if (Objects.nonNull(keyValue)) {
                         //赋值map
-                        result.put(conkey,keyValue);
+                        result.put(conkey, keyValue);
                         //递归
-                    }else {
-                        parsingJson(jsonObject, Arrays.asList(conkey),result);
+                    } else {
+                        parsingJson(jsonObject, Arrays.asList(conkey), result);
                     }
 
                     //如果是一个值
                 } else if (contentKey instanceof JSONArray) {
                     JSONArray jsonArray = (JSONArray) contentKey;
                     //判断当前是否找到key
-                    if(key.equals(conkey)){
+                    if (key.equals(conkey)) {
                         Integer keyValue = Integer.valueOf(jsonArray.toJSONString());
                         //赋值map
-                        result.put(conkey,keyValue);
+                        result.put(conkey, keyValue);
                     }
 
                 }
@@ -94,12 +101,12 @@ public class JSONUtils {
     }
 
 
-
     /**
      * map包括全量的节点
+     *
      * @param objJson
      * @param map
-     * @param k 递归的时候默认用.  入参的时候传空字符串即可
+     * @param k       递归的时候默认用.  入参的时候传空字符串即可
      * @return
      */
     public static Map<String, String> analysisJson2ALL(Object objJson, Map map, String k) {
@@ -113,7 +120,7 @@ public class JSONUtils {
             JSONObject jsonObject = (JSONObject) objJson;
             Set<String> set = jsonObject.keySet();
             for (String field : set) {
-                if (!StringUtils.hasText(field)) {
+                if (!StringUtils.isNotBlank(field)) {
                     continue;
                 }
                 String key = k + field; //每个属性新key ，递归如何？
@@ -149,6 +156,7 @@ public class JSONUtils {
 
     /**
      * 只会取叶子节点
+     *
      * @param objJson
      * @param map
      * @return

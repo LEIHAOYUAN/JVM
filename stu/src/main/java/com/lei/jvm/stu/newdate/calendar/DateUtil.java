@@ -2,7 +2,6 @@ package com.lei.jvm.stu.newdate.calendar;
 
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.util.Assert;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -187,13 +186,13 @@ public final class DateUtil {
      */
     public static boolean validateSimpleDate(String dateString) {
         String pattern = "^(([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-"
-                + "((((0)?[13578]|1[02])-((0)?[1-9]|[12][0-9]|3[01]))|(((0)?[469]|11)-((0)?[1-9]|[12][0-9]|30))|"
-                + "((0)?2-((0)?[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})((0)?[48]|[2468][048]|[13579][26])|"
-                + "(((0)?[48]|[2468][048]|[3579][26])00))-(0)?2-29)"
-                + "(([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-"
-                + "((((0)?[13578]|1[02])-((0)?[1-9]|[12][0-9]|3[01]))|(((0)?[469]|11)-((0)?[1-9]|[12][0-9]|30))|"
-                + "((0)?2-((0)?[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})((0)?[48]|[2468][048]|[13579][26])|"
-                + "(((0)?[48]|[2468][048]|[3579][26])00))-(0)?2-29)$";
+            + "((((0)?[13578]|1[02])-((0)?[1-9]|[12][0-9]|3[01]))|(((0)?[469]|11)-((0)?[1-9]|[12][0-9]|30))|"
+            + "((0)?2-((0)?[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})((0)?[48]|[2468][048]|[13579][26])|"
+            + "(((0)?[48]|[2468][048]|[3579][26])00))-(0)?2-29)"
+            + "(([0-9]{3}[1-9]|[0-9]{2}[1-9][0-9]{1}|[0-9]{1}[1-9][0-9]{2}|[1-9][0-9]{3})-"
+            + "((((0)?[13578]|1[02])-((0)?[1-9]|[12][0-9]|3[01]))|(((0)?[469]|11)-((0)?[1-9]|[12][0-9]|30))|"
+            + "((0)?2-((0)?[1-9]|[1][0-9]|2[0-8]))))|((([0-9]{2})((0)?[48]|[2468][048]|[13579][26])|"
+            + "(((0)?[48]|[2468][048]|[3579][26])00))-(0)?2-29)$";
         if (StringUtils.isEmpty(dateString)) {
             return false;
         }
@@ -269,9 +268,9 @@ public final class DateUtil {
         startOfMonth.setTime(date);
 
         startOfMonth.set(startOfMonth.get(Calendar.YEAR), startOfMonth.get(Calendar.MONTH),
-                startOfMonth.getActualMinimum(Calendar.DAY_OF_MONTH),
-                startOfMonth.getActualMinimum(Calendar.HOUR_OF_DAY), startOfMonth.getActualMinimum(Calendar.MINUTE),
-                startOfMonth.getActualMinimum(Calendar.SECOND));
+            startOfMonth.getActualMinimum(Calendar.DAY_OF_MONTH),
+            startOfMonth.getActualMinimum(Calendar.HOUR_OF_DAY), startOfMonth.getActualMinimum(Calendar.MINUTE),
+            startOfMonth.getActualMinimum(Calendar.SECOND));
         startOfMonth.set(Calendar.MILLISECOND, startOfMonth.getActualMinimum(Calendar.MILLISECOND));
 
         return startOfMonth;
@@ -297,7 +296,6 @@ public final class DateUtil {
      * @return 指定日期所属月份的天数
      */
     public static int getDaysByYearMonth(Date date) {
-        Assert.notNull(date, "date must be provide,but found null!");
         Calendar originCalendar = Calendar.getInstance();
         originCalendar.setTime(date);
         Calendar calendar4Get = Calendar.getInstance();

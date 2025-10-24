@@ -1,4 +1,4 @@
-package com.lei.jvm.utils.base.utils.copy;
+package com.lei.jvm.spring.utils.copy;
 
 import com.google.common.collect.Maps;
 import org.springframework.beans.BeanUtils;

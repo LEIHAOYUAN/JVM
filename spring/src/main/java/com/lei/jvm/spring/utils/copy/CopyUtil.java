@@ -1,4 +1,4 @@
-package com.lei.jvm.utils.base.utils.copy;
+package com.lei.jvm.spring.utils.copy;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
