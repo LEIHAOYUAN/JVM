@@ -2,11 +2,11 @@ package com.http;
 
 import com.alibaba.fastjson.JSON;
 import com.base.IterableUtil;
-import com.base.ListUtil;
 import com.base.MapUtil;
 import com.base.StringUtil;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,14 +17,15 @@ public class HTTPRequestBuilder {
         Map<String, String> httpRequestParamMap = MapUtil.newHashMap();
         Map<String, Object> paramMap = MapUtil.newHashMap();
         paramMap.put("facet", Set.of("aaa", "bbb", "ccc"));
-        paramMap.put("rating", ListUtil.newArrayList());
+        paramMap.put("rating", List.of(2.8, 3.5));
         paramMap.put("array", new Integer[]{888, 999});
+        paramMap.put("other", Map.of("subKey1", "subValue1", "subKey2", "subValue2"));
         paramMap.put("price", 77.5);
         buildGetMap(httpRequestParamMap, paramMap);
-        log.info("转换结果={}", JSON.toJSONString(httpRequestParamMap));
+        log.info("转换结果:{}", JSON.toJSONString(httpRequestParamMap));
         StringBuilder urlEncoding = new StringBuilder();
         HTTPRequestHelper.urlEncodingWithOutEncode(urlEncoding, httpRequestParamMap);
-        log.info("最终结果={}", urlEncoding.toString());
+        log.info("最终结果:{}", urlEncoding.toString());
     }
 
     /**
