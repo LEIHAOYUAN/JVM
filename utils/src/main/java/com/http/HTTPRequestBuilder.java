@@ -1,7 +1,6 @@
 package com.http;
 
 import com.alibaba.fastjson.JSON;
-import com.base.IterableUtil;
 import com.base.MapUtil;
 import com.base.StringUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,6 @@ public class HTTPRequestBuilder {
         Map<String, Object> paramMap = MapUtil.newHashMap();
         paramMap.put("facet", Set.of("aaa", "bbb", "ccc"));
         paramMap.put("rating", List.of(2.8, 3.5));
-        paramMap.put("array", new Integer[]{888, 999});
         paramMap.put("other", Map.of("subKey1", "subValue1", "subKey2", "subValue2"));
         paramMap.put("price", 77.5);
         buildGetMap(httpRequestParamMap, paramMap);
@@ -46,14 +44,6 @@ public class HTTPRequestBuilder {
             }
             if (entry.getValue() instanceof Map<?, ?> mapValue) {
                 buildGetMap(httpRequestParamMap, (Map<String, Object>) mapValue);
-                continue;
-            }
-            if (entry.getValue().getClass().isArray()) {
-                Object[] array = (Object[]) entry.getValue();
-                if (array.length == 0) {
-                    continue;
-                }
-                httpRequestParamMap.put(entry.getKey(), convertIterableToParamString(entry.getKey(), IterableUtil.iterable(array)));
                 continue;
             }
             if (entry.getValue() instanceof Iterable<?> iterable) {
