@@ -3,9 +3,12 @@ package com.base;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * @author ryan
@@ -36,5 +39,35 @@ public class MapUtil {
             result.add(batchMap);
         }
         return result;
+    }
+
+    public static <T, V> Map<T, V> newHashMap() {
+        return new HashMap<>();
+    }
+
+    public static <T, V> ConcurrentMap<T, V> newConcurrentHashMap() {
+        return new ConcurrentHashMap<>();
+    }
+
+    public static <T, V> Map<T, V> newLinkedHashMap() {
+        return new LinkedHashMap<>();
+    }
+
+    public static <T, V> Map<T, V> newLinkedHashMapWithExpectedSize(int size) {
+        return new LinkedHashMap<>(capacity(size));
+    }
+
+    public static <T, V> Map<T, V> newHashMapWithExpectedSize(int size) {
+        return new HashMap<>(capacity(size));
+    }
+
+    private static int capacity(int size) {
+        int capacity;
+        if (size < 3) {
+            capacity = size + 1;
+        } else {
+            capacity = (int) (size / 0.75f + 1);
+        }
+        return capacity;
     }
 }

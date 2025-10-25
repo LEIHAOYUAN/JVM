@@ -2,6 +2,8 @@ package com.base;
 
 import java.util.function.Predicate;
 
+import static java.nio.charset.StandardCharsets.UTF_8;
+
 /**
  * @author ryan
  */
@@ -24,6 +26,10 @@ public class StringUtil {
 
     public static String trim(CharSequence str) {
         return str == null ? null : trim(str, 0, StringUtil::isBlankChar);
+    }
+
+    public static byte[] bytes(String text) {
+        return text.getBytes(UTF_8);
     }
 
     private static String trim(CharSequence str, int mode, Predicate<Character> predicate) {

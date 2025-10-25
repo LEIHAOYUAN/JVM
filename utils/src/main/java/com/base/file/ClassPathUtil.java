@@ -1,4 +1,4 @@
-package com.file;
+package com.base.file;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -2,11 +2,21 @@ package com.base;
 
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ListUtil {
+    public static <T> List<T> newArrayList() {
+        return new ArrayList<>();
+    }
+
+    public static <T> ArrayList<T> newArrayList(Iterable<? extends T> elements) {
+        return elements == null ? null : (ArrayList)StreamUtil.stream(elements).collect(Collectors.toCollection(ArrayList::new));
+    }
+
     public static <T> List<List<T>> toBatch(List<T> list, int batchSize) {
         if (batchSize <= 0)
             throw new IllegalArgumentException("batchSize must be greater than 0, batchSize=" + batchSize);

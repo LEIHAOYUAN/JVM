@@ -1,4 +1,4 @@
-package com.file;
+package com.base.file;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.jimfs.Configuration;
