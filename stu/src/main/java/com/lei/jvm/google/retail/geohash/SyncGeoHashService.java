@@ -20,8 +20,8 @@ import com.lei.jvm.google.retail.builder.GeoHashMapGenerator;
 import com.lei.jvm.google.retail.utils.ListUtil;
 import com.lei.jvm.google.retail.utils.MapUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
-import org.apache.logging.log4j.util.Strings;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -99,7 +99,7 @@ public class SyncGeoHashService {
                 stopWatch.start();
                 try {
                     Operation operation = productServiceClient.getOperationsClient().getOperation(future.getName());
-                    if (!operation.getDone() || !Strings.isBlank(operation.getError().getMessage())) {
+                    if (!operation.getDone() || StringUtils.isNotBlank(operation.getError().getMessage())) {
                         log.info("RemoveLocalInventory-失败");
                     }
                 } catch (Exception ex) {
@@ -132,7 +132,7 @@ public class SyncGeoHashService {
                 stopWatch.start();
                 try {
                     Operation operation = productServiceClient.getOperationsClient().getOperation(future.getName());
-                    if (operation.getDone() && Strings.isBlank(operation.getError().getMessage())) {
+                    if (operation.getDone() && StringUtils.isBlank(operation.getError().getMessage())) {
                         log.info("AddLocalInventory-success");
                     }
                 } catch (Exception ex) {
