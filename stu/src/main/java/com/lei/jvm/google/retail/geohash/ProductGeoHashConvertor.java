@@ -7,7 +7,7 @@ import com.google.cloud.retail.v2.LocalInventory;
 import com.google.cloud.retail.v2.Product;
 import com.lei.jvm.google.retail.utils.ListUtil;
 import com.lei.jvm.google.retail.utils.MapUtil;
-import org.apache.logging.log4j.util.Strings;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -37,7 +37,7 @@ public final class ProductGeoHashConvertor {
         }
         Map<String, Double> existedGeohashDistanceMap = Maps.newHashMap();
         for (LocalInventory localInventory : product.getLocalInventoriesList()) {
-            if (localInventory == null || Strings.isBlank(localInventory.getPlaceId())) {
+            if (localInventory == null || StringUtils.isBlank(localInventory.getPlaceId())) {
                 continue;
             }
             CustomAttribute customAttribute = localInventory.getAttributesMap().get(ProductConstant.PRODUCT_LOCAL_INVENTORY_DISTANCE);
