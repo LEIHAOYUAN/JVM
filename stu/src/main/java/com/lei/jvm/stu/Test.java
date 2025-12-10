@@ -3,7 +3,7 @@ package com.lei.jvm.stu;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -18,11 +18,8 @@ public class Test {
 
     public static void main(String[] args) {
         BigDecimal bigDecimal = null;
-
         BigDecimal param = BigDecimal.ZERO;
-
-        log.info("校对结果：{}",param.equals(bigDecimal));
-
+        log.info("校对结果：{}", param.equals(bigDecimal));
     }
 
     private static void testList() {
