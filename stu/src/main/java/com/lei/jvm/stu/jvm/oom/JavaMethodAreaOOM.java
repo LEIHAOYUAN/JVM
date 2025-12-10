@@ -1,10 +1,7 @@
 package com.lei.jvm.stu.jvm.oom;
 
-import net.sf.cglib.proxy.Enhancer;
-import net.sf.cglib.proxy.MethodInterceptor;
-import net.sf.cglib.proxy.MethodProxy;
-
-import java.lang.reflect.Method;
+import com.alibaba.excel.support.cglib.proxy.Enhancer;
+import com.alibaba.excel.support.cglib.proxy.MethodInterceptor;
 
 /**
  * @Author leihaoyuan
@@ -32,11 +29,7 @@ public class JavaMethodAreaOOM {
             Enhancer enhancer = new Enhancer();
             enhancer.setSuperclass(OOMObject.class);
             enhancer.setUseCache(false);
-            enhancer.setCallback(new MethodInterceptor() {
-                public Object intercept(Object obj, Method method, Object[] args, MethodProxy proxy) throws Throwable {
-                    return proxy.invokeSuper(obj, args);
-                }
-            });
+            enhancer.setCallback((MethodInterceptor) (obj, method, args, proxy) -> proxy.invokeSuper(obj, args));
             enhancer.create();
         }
     }
