@@ -3,22 +3,23 @@ package com.lei.jvm.utils.base.utils;
 import com.alibaba.fastjson.JSON;
 import com.lei.jvm.utils.base.utils.kryo.KryoXUtil;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @author leihaoyuan
  * @version 2023/12/4 11:28
  */
+@Slf4j
 public class KryoXUtilTest {
 
 
     @Test
     public void testSerialize() {
         byte[] serialize = KryoXUtil.serialize(buildStudent());
-        System.out.println(("序列化结果=" + JSON.toJSON(serialize)));
+        log.info(("序列化结果=" + JSON.toJSON(serialize)));
     }
 
 
@@ -28,7 +29,7 @@ public class KryoXUtilTest {
         // byte[] bytes = new byte[]{};
         // byte[] bytes = new byte[]{};
         // byte[] bytes = new byte[]{};
-         byte[] bytes = new byte[]{1,0,99,111,109,46,108,101,105,46,106,118,109,46,117,116,105,108,115,46,98,97,115,101,46,117,116,105,108,115,46,75,114,121,111,88,85,116,105,108,84,101,115,116,36,83,116,117,100,101,110,-12,1,2,97,103,-27,110,97,109,-27,2,-58,1,3,1,-125,-27,-68,-96,-28,-72,-119};
+        byte[] bytes = new byte[]{1, 0, 99, 111, 109, 46, 108, 101, 105, 46, 106, 118, 109, 46, 117, 116, 105, 108, 115, 46, 98, 97, 115, 101, 46, 117, 116, 105, 108, 115, 46, 75, 114, 121, 111, 88, 85, 116, 105, 108, 84, 101, 115, 116, 36, 83, 116, 117, 100, 101, 110, -12, 1, 2, 97, 103, -27, 110, 97, 109, -27, 2, -58, 1, 3, 1, -125, -27, -68, -96, -28, -72, -119};
         Student deserialize = KryoXUtil.deserialize(bytes, Student.class);
         System.out.println(("反序列化结果=" + JSON.toJSONString(deserialize)));
     }
