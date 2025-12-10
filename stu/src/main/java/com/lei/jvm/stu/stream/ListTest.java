@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,14 @@ public class ListTest {
 //        log.info("集合大小={}",objects.size());
         // testSubList();
         // List<String> sourceList = Lists.newArrayList("a", "b", "c", "d", "e", "f");
-        testRemoveSimple();
+        testToMap();
+    }
+
+    public static void testToMap() {
+        List<Student> list = Lists.newArrayList(new Student("AAA", null), new Student("BBB", 11), new Student("CCC", -1));
+        // Map<String, Integer> map = list.stream().collect(Collectors.toMap(Student::getCode, Student::getNum, (r1, r2) -> r1, HashMap::new));
+        Map<String, Integer> map = list.stream().collect(HashMap::new, (m, v) -> m.put(v.getCode(), v.getNum()), HashMap::putAll);
+        log.info("test={}", JSON.toJSONString(map));
     }
 
     public static String getNextElement(List<String> sourceList, String currentElement) {
@@ -271,7 +279,7 @@ public class ListTest {
     }
 
     private static void testRemoveSimple() {
-        List<String> list = Lists.newArrayList("A", "B", "C","A");
+        List<String> list = Lists.newArrayList("A", "B", "C", "A");
         list.removeAll(Lists.newArrayList("748"));
         log.info("移出后结果：{}", JSON.toJSONString(list));
     }
@@ -378,13 +386,13 @@ public class ListTest {
         System.out.println("===============================================================================");
         List<Student> sumStudentList2 = Lists.newArrayList();
         list.parallelStream().collect(Collectors.groupingBy(Student::getName, Collectors.toList()))
-                .forEach((s, students) ->
-                        students.stream().reduce((student, student2) ->
-                        {
-                            student.setScore(student.getScore().add(student2.getScore()));
-                            return student;
-                        }).ifPresent(sumStudentList2::add)
-                );
+            .forEach((s, students) ->
+                students.stream().reduce((student, student2) ->
+                {
+                    student.setScore(student.getScore().add(student2.getScore()));
+                    return student;
+                }).ifPresent(sumStudentList2::add)
+            );
 
         System.out.println(sumStudentList2);
     }

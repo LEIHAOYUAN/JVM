@@ -20,18 +20,13 @@ public class Student {
     private String code;
     private String name;
     private String age;
-    private int num;
+    private Integer num;
     private BigDecimal score;
     private long createTime;
 
     private List<Student> items;
 
-    public Student(String code, String name) {
-        this.code = code;
-        this.name = name;
-    }
-
-    public Student(String code, int num) {
+    public Student(String code, Integer num) {
         this.code = code;
         this.name = code;
         this.num = num;

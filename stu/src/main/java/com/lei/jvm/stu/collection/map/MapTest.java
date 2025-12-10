@@ -32,8 +32,8 @@ public class MapTest {
 
     private static void testToMap() {
         List<Student> students = Lists.newArrayList();
-        students.add(new Student("A", "A"));
-        students.add(new Student("A", null));
+        students.add(new Student("A", 1));
+        students.add(new Student("A", 2));
 
         Map<String, String> map = students.stream().collect(Collectors.toMap(Student::getCode, Student::getName));
         log.info("结果={}", JSON.toJSONString(map));
