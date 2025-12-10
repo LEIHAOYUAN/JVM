@@ -351,6 +351,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!-- logback -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.5.21</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

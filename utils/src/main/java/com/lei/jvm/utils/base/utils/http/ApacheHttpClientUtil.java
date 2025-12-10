@@ -1,6 +1,8 @@
 package com.lei.jvm.utils.base.utils.http;
 
 import com.google.common.collect.Maps;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,7 +15,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
-import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.net.URI;
@@ -121,7 +122,7 @@ public class ApacheHttpClientUtil {
         try {
             // 创建 Http Post 请求
             HttpPost httpPost = new HttpPost(url);
-            if(!CollectionUtils.isEmpty(headerMap)){
+            if(MapUtils.isNotEmpty(headerMap)){
                 for (Map.Entry<String, String> header : headerMap.entrySet()) {
                     httpPost.addHeader(header.getKey(),header.getValue());
                 }
