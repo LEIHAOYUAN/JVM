@@ -24,11 +24,12 @@ public class SortAPP {
     private static String mockData() {
         return """
             [
-                {"dish_name":"NO_STOCK_idx0","is_popular_item":true,"index_in_popular_category":0,"has_stock":false,"is_global_item":false,"relevance_score":0.0},
-                {"dish_name":"NO_STOCK_idx1","is_popular_item":true,"index_in_popular_category":1,"has_stock":false,"is_global_item":false,"relevance_score":0.0},
-                {"dish_name":"HAS_STOCK_idx2","is_popular_item":true,"index_in_popular_category":2,"has_stock":true,"is_global_item":false,"relevance_score":0.0},
-                {"dish_name":"HAS_STOCK_idx3","is_popular_item":true,"index_in_popular_category":3,"has_stock":true,"is_global_item":false,"relevance_score":0.0},
-                {"dish_name":"NO_STOCK_idx4","is_popular_item":true,"index_in_popular_category":4,"has_stock":false,"is_global_item":false,"relevance_score":0.0}
+                {"dish_name":"POPULAR_NO_STOCK_IDX0","is_popular_item":true,"has_stock":false,"is_global_item":false,"relevance_score":0.0,"index_in_popular_category":0},
+                {"dish_name":"POPULAR_NO_STOCK_IDX1","is_popular_item":true,"has_stock":false,"is_global_item":false,"relevance_score":0.0,"index_in_popular_category":2},
+                {"dish_name":"POPULAR_HAS_STOCK_IDX0","is_popular_item":true,"has_stock":true,"is_global_item":false,"relevance_score":0.0,"index_in_popular_category":3},
+                {"dish_name":"POPULAR_HAS_STOCK_IDX2","is_popular_item":true,"has_stock":true,"is_global_item":false,"relevance_score":0.0,"index_in_popular_category":4},
+                {"dish_name":"NOT_POPULAR_HAS_STOCK_IDX0","is_popular_item":false,"has_stock":true,"is_global_item":false,"relevance_score":0.0,"index_in_popular_category":5}
+                {"dish_name":"NOT_POPULAR_NO_STOCK_IDX0","is_popular_item":false,"has_stock":false,"is_global_item":false,"relevance_score":0.0,"index_in_popular_category":6}
             ]
             """;
     }
