@@ -1,6 +1,5 @@
 package com.lei.jvm.utils.base.utils.birthday;
 
-import com.alibaba.fastjson.JSON;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
