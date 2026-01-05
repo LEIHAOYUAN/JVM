@@ -17,7 +17,7 @@
     </modules>
 
     <properties>
-        <!--<start-class>com.lei.stu.Application</start-class>-->
+        <!--<start-class>com.lei.stus.Application</start-class>-->
         <!--<java.version>1.8</java.version>-->
         <!--<maven.compiler.release>1.8</maven.compiler.release>-->
         <java.version>24</java.version>
@@ -383,7 +383,7 @@
                     </annotationProcessorPaths>
                     <!-- <annotationProcessors>
                          <annotationProcessor>
-                             com.lei.stu.jsr.BuilderProcessor
+                             com.lei.stus.jsr.BuilderProcessor
                          </annotationProcessor>
                      </annotationProcessors>-->
                 </configuration>
