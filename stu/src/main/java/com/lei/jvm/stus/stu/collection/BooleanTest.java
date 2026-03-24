@@ -10,13 +10,17 @@ import lombok.extern.slf4j.Slf4j;
 public class BooleanTest {
 
     public static void main(String[] args) {
-        testEquals();
+        testToString();
     }
 
 
     public static void testEquals(){
         Boolean param = null;
         log.info("测试结果={}",Boolean.TRUE.equals(null));
+    }
+
+    public static void testToString(){
+        log.info("测试结果={}", Boolean.TRUE);
     }
 
 
