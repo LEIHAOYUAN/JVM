@@ -13,6 +13,7 @@ import com.google.cloud.retail.v2.UpdateProductRequest;
 import com.google.common.collect.Lists;
 import com.google.protobuf.FieldMask;
 import com.lei.jvm.stus.google.retail.build.CommonBuilder;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
@@ -20,7 +21,15 @@ import java.util.List;
 /**
  * @author ryan
  */
+@Slf4j
 public class ProductBuilder {
+
+    public static void main(String[] args) {
+        FieldMask DEFAULT_FIELD_MASK = FieldMask.newBuilder().build();
+        FieldMask AVAILABILITY_FIELD_MASK = FieldMask.newBuilder().addPaths("availability").build();
+        log.info("test0==={}",DEFAULT_FIELD_MASK.getPathsCount());
+        log.info("test1==={}",AVAILABILITY_FIELD_MASK.getPathsCount());
+    }
 
     public static final String PRODUCT_ID = "test-local-inventory-001";
 
