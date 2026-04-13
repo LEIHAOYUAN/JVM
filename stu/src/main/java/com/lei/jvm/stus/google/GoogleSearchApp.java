@@ -28,14 +28,14 @@ import java.util.concurrent.locks.LockSupport;
 @Slf4j
 public class GoogleSearchApp {
 
-    public static String productId = "test202604130000008";
+    public static String productId = "0e498c27-55e2-41e4-b370-128ac816be65";
 
     public static void main(String[] args) throws IOException {
 //        ProductClient.doGetById(productId);
 //        ProductClient.doImportWithOperation(productId);
 //        ProductClient.doCreate(productId);
-        ProductClient.doUpdateV2(productId);
-//        ProductClient.doDelete(productId);
+//        ProductClient.doUpdateV2(productId);
+        ProductClient.doDelete(productId);
 //        SyncGeoHashService.doSyncLocalInventory(productId);
 //        SyncGeoHashService.doSyncLocalInventoryLimit(productId);
 

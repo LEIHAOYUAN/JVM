@@ -5,7 +5,6 @@ import com.google.api.core.ApiFuture;
 import com.google.api.core.ApiFutureCallback;
 import com.google.api.core.ApiFutures;
 import com.google.api.gax.longrunning.OperationFuture;
-import com.google.api.gax.rpc.NotFoundException;
 import com.google.cloud.retail.v2.CreateProductRequest;
 import com.google.cloud.retail.v2.DeleteProductRequest;
 import com.google.cloud.retail.v2.GetProductRequest;
@@ -148,34 +147,15 @@ public class ProductClient {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             productServiceClient.updateProduct(request);
             ApiFuture<Product> future = productServiceClient.updateProductCallable().futureCall(request);
-            future.addListener(() -> {
-                try {
-                    Product product = future.get(ProductConstant.DEFAULT_TIMEOUT_MINUTES, ProductConstant.DEFAULT_TIMEOUT_UNIT);
-                    log.info("doUpdate_product_id:{}", product.getId());
-                } catch (Exception ex) {
-                    log.error("doUpdate_Exception={}", ex.getMessage(), ex);
-                }
-            }, ProductConstant.MONITOR_EXECUTOR);
-        } catch (Exception ex) {
-            log.error("doUpdate_error={}", ex.getMessage(), ex);
-        }
-    }
-
-    public static void doUpdateV2(String productId) {
-        try {
-            UpdateProductRequest request = ProductBuilder.buildUpdateRequest(productId);
-            ProductServiceClient productServiceClient = ProductServiceClient.create();
-            productServiceClient.updateProduct(request);
-            ApiFuture<Product> future = productServiceClient.updateProductCallable().futureCall(request);
             ApiFutures.addCallback(future, new ApiFutureCallback<>() {
                 @Override
                 public void onFailure(Throwable t) {
-                    log.error("doUpdate_Exception={}", t.getMessage());
+                    log.error("update-failure={}", t.getMessage());
                 }
 
                 @Override
                 public void onSuccess(Product product) {
-                    log.info("success");
+                    log.info("update-success");
                 }
             }, ProductConstant.MONITOR_EXECUTOR);
         } catch (Exception ex) {
@@ -189,19 +169,15 @@ public class ProductClient {
             DeleteProductRequest request = ProductBuilder.buildDeleteRequest(productId);
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             ApiFuture<Empty> future = productServiceClient.deleteProductCallable().futureCall(request);
-            future.addListener(() -> {
-                try {
-                    Empty empty = future.get(ProductConstant.DEFAULT_TIMEOUT_MINUTES, ProductConstant.DEFAULT_TIMEOUT_UNIT);
-                    if (Empty.getDefaultInstance().equals(empty)) {
-                        log.info("doDelete_product_id={}", productId);
-                    } else {
-                        log.error("doDelete_Failed_productId={}", productId);
-                    }
-                } catch (Exception ex) {
-                    if (ex instanceof NotFoundException || ex.getCause() instanceof NotFoundException) {
-                        return;
-                    }
-                    log.error("doDelete_Exception={}", ex.getMessage(), ex);
+            ApiFutures.addCallback(future, new ApiFutureCallback<>() {
+                @Override
+                public void onFailure(Throwable t) {
+                    log.error("delete-failure={}", t.getMessage());
+                }
+
+                @Override
+                public void onSuccess(Empty empty) {
+                    log.info("delete-success}");
                 }
             }, ProductConstant.MONITOR_EXECUTOR);
         } catch (Exception ex) {
