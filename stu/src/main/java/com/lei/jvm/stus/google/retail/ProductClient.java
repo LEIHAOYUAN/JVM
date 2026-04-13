@@ -2,6 +2,8 @@ package com.lei.jvm.stus.google.retail;
 
 import com.alibaba.fastjson.JSON;
 import com.google.api.core.ApiFuture;
+import com.google.api.core.ApiFutureCallback;
+import com.google.api.core.ApiFutures;
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.api.gax.rpc.NotFoundException;
 import com.google.cloud.retail.v2.CreateProductRequest;
@@ -157,6 +159,29 @@ public class ProductClient {
         } catch (Exception ex) {
             log.error("doUpdate_error={}", ex.getMessage(), ex);
         }
+    }
+
+    public static void doUpdateV2(String productId) {
+        try {
+            UpdateProductRequest request = ProductBuilder.buildUpdateRequest(productId);
+            ProductServiceClient productServiceClient = ProductServiceClient.create();
+            productServiceClient.updateProduct(request);
+            ApiFuture<Product> future = productServiceClient.updateProductCallable().futureCall(request);
+            ApiFutures.addCallback(future, new ApiFutureCallback<>() {
+                @Override
+                public void onFailure(Throwable t) {
+                    log.error("doUpdate_Exception={}", t.getMessage());
+                }
+
+                @Override
+                public void onSuccess(Product product) {
+                    log.info("success");
+                }
+            }, ProductConstant.MONITOR_EXECUTOR);
+        } catch (Exception ex) {
+            log.error("update-with-callback-exception={}", ex.getMessage(), ex);
+        }
+
     }
 
     public static void doDelete(String productId) {

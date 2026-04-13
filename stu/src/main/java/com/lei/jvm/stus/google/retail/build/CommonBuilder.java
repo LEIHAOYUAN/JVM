@@ -19,7 +19,7 @@ public class CommonBuilder {
     private static final String UAT_REC_PROJECT_ID = "wonder-search-restaurant-uat";
     private static final String DANSON_TEST = "danson-test";
 
-    private static final String CURRENT_PROJECT_ID = QA_REC_PROJECT_ID;
+    private static final String CURRENT_PROJECT_ID = QA_SEARCH_PROJECT_ID;
 
 
     private static final String DEFAULT_BRANCH = "0";

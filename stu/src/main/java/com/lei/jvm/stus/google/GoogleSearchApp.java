@@ -9,6 +9,7 @@ import com.lei.jvm.stus.google.retail.SearchClient;
 import com.lei.jvm.stus.google.retail.build.CommonBuilder;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.concurrent.locks.LockSupport;
@@ -27,13 +28,13 @@ import java.util.concurrent.locks.LockSupport;
 @Slf4j
 public class GoogleSearchApp {
 
-    public static String productId = "test202604130000001";
+    public static String productId = "test202604130000008";
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 //        ProductClient.doGetById(productId);
 //        ProductClient.doImportWithOperation(productId);
 //        ProductClient.doCreate(productId);
-        ProductClient.doUpdate(productId);
+        ProductClient.doUpdateV2(productId);
 //        ProductClient.doDelete(productId);
 //        SyncGeoHashService.doSyncLocalInventory(productId);
 //        SyncGeoHashService.doSyncLocalInventoryLimit(productId);
