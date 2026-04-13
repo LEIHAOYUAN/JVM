@@ -58,7 +58,7 @@ public class ProductBuilder {
         }
         return UpdateProductRequest.newBuilder()
             .setProduct(buildProduct(productId))
-            .setUpdateMask(FieldMask.newBuilder().build())
+            .setUpdateMask(FieldMask.newBuilder().addPaths("availability").build())
             .build();
     }
 
