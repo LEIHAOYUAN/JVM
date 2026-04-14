@@ -22,6 +22,7 @@ import com.google.protobuf.Empty;
 import com.google.rpc.Status;
 import com.lei.jvm.stus.google.retail.builder.ProductBuilder;
 import com.lei.jvm.stus.google.retail.geohash.ProductConstant;
+import com.lei.jvm.stus.google.retail.utils.ListUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
@@ -188,6 +189,21 @@ public class ProductClient {
             }, ProductConstant.MONITOR_EXECUTOR);
         } catch (Exception ex) {
             log.error("doDelete_error={}", ex.getMessage(), ex);
+        }
+    }
+
+    public static void doDeleteWithCascade(String productId) {
+        while (true) {
+            Product product = doGetById(productId);
+            if (product == null) {
+                break;
+            }
+            List<Product> variantsList = product.getVariantsList();
+            if (ListUtil.isNotEmpty(variantsList)) {
+                variantsList.stream().map(Product::getId).toList().forEach(ProductClient::doDelete);
+            } else {
+                doDelete(productId);
+            }
         }
     }
 
