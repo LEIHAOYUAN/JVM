@@ -40,7 +40,7 @@ public class ListTest {
 //        log.info("集合大小={}",objects.size());
         // testSubList();
         // List<String> sourceList = Lists.newArrayList("a", "b", "c", "d", "e", "f");
-        testToMap();
+        testAddAll();
     }
 
     public static void testToMap() {
@@ -181,7 +181,7 @@ public class ListTest {
         param.addAll(Lists.newArrayList());
         param.addAll(Lists.newArrayList());
         param.addAll(Lists.newArrayList());
-        param.addAll(null);
+        //param.addAll(null);
         log.info("集合大小：{}", param.size());
     }
 
