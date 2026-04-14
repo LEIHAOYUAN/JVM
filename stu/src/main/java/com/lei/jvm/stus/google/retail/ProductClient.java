@@ -50,6 +50,7 @@ public class ProductClient {
             ProductServiceClient productServiceClient = ProductServiceClient.create();
             GetProductRequest request = ProductBuilder.buildGetRequest(productId);
             Product product = productServiceClient.getProduct(request);
+            List<Product> variantsList = product.getVariantsList();
             return product;
         } catch (Exception ex) {
             return null;
