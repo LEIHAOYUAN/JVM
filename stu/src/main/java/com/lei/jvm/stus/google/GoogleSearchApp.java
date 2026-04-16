@@ -29,7 +29,7 @@ import java.util.concurrent.locks.LockSupport;
 public class GoogleSearchApp {
 
 
-    public static String productId = "95444d70-a59d-431d-ad10-aac9ba8f8a22";
+    public static String productId = "test20260416000001";
 
     public static void main(String[] args) throws IOException {
         ProductClient.doGetById(productId);
