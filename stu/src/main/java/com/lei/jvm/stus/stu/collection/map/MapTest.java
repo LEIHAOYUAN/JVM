@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 public class MapTest {
 
     public static void main(String[] args) {
-        testToMap();
+        testTreeMap("aDmiN");
     }
 
     private static void testToMap() {
@@ -69,7 +69,7 @@ public class MapTest {
         Map<String, Long> sourceTargetMap = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         sourceTargetMap.put("admin", 99L);
         sourceTargetMap.put("Admin", 88L);
-        log.info("查询结果={}", sourceTargetMap.get(key));
+        log.info("查询结果={}", sourceTargetMap.containsKey(key));
     }
 
 
