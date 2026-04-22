@@ -1,10 +1,13 @@
 package com.lei.jvm.stus.stu.newdate.calendar;
 
 import com.google.common.collect.Lists;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +19,12 @@ import java.util.regex.Pattern;
  * @Author: wanghan
  * @Date: 2016/2/18
  */
+@Slf4j
 public final class DateUtil {
+    static void main() {
+        log.info("format={}", ZonedDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+    }
+
     /**
      * 字符串0
      */
