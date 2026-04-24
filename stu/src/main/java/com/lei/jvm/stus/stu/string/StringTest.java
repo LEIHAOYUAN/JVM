@@ -13,6 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 public class StringTest {
 
     public static void main(String[] args) {
+        log.info("test-value-of", String.valueOf(null));
+    }
+
+    private static void test(){
         SplitAddressLineHelper splitAddressLineHelper = new SplitAddressLineHelper("2030 Broadway,New York,NY,10023", "Unit1-401");
         log.info("结果={}", JSON.toJSON(splitAddressLineHelper));
     }
